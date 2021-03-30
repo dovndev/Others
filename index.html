@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+ <style type="text/css" media="all">
+  * {
+  scroll-behavior: smooth;
+  }
+   body{
+     margin: 0px;
+     padding: 0px;
+   }
+   .imgbox1{
+     z-index: 1;
+     position: absolute;
+     top: 0;
+     left: 0;
+     height: 100vh;
+     width: 100%;
+     background-image:url("img1.jpeg");
+     background-repeat: no-repeat;
+     background-size: cover;
+   }
+   .imgbox2{
+     z-index: 1;
+     position: absolute;
+     top: 100vh;
+     left: 0;
+     height: 100vh;
+     width: 100%;
+     background-image:url("img2.jpeg");
+     background-repeat: no-repeat;
+     background-size: cover;
+   }
+   .header{
+     box-sizing: border-box;
+     text-align: center;
+     padding: 0px;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     height: 60px;
+     width: 100%;
+     background-color:rgba(255, 255, 255, 0.8);
+     padding-left: 30px;
+     padding-right: 10px;
+   }  
+   #name{
+     
+     font-size: 35px;
+     font-family: "Lucida Console", "Courier New", monospace;
+     color: black;
+   }
+   .menu{
+     margin-right: 15px;
+     transition: 0.2s;
+   }
+   .bar1{
+     background-color: #636363;
+     width: 25px;
+     height: 4px;
+     margin: 5px;
+     border-radius: 10px;
+   }
+   .bar2{
+     background-color: #636363;
+     width: 28.5px;
+     height: 4px;
+     margin: 5px;
+     border-radius: 10px;
+   }
+   .bar3{
+   background-color: #636363;
+   width: 32px;
+   height: 4px;
+   margin: 5px;
+   border-radius: 10px;
+   }
+   .menuchange{
+    margin-right: 15px;
+   }
+ .menuchange .bar1{
+   width: 25px;
+     -webkit-transform:
+  rotate(-45deg)
+  translate(-5.9px,9.8px);
+  
+  transform:
+  rotate(-45deg)
+  translate(-5.9px,9.8px);
+   }
+ .menuchange .bar2{
+   width: 25px;
+   opacity: 0;
+   }
+ .menuchange .bar3{
+  width: 25px;
+  -webkit-transform:
+  rotate(45deg)
+  translate(-3px, -7px);
+  transform:
+  rotate(45deg)
+  translate(-3px, -7px); 
+   }
+   .scrolldown{
+     font-size: 40px;
+     position: absolute;
+     text-align: center;
+     top: 70%;
+     right: 5%;
+     width:60px;
+     height:60px;
+     color: black;
+     border:2px solid white;
+     border-radius: 50%;
+     background-color: rgba(255, 255, 255, .15);
+     backdrop-filter: blur(20px);
+   }
+   #scrolldown{
+     position: absolute;
+     top: 170%;
+     right: 5%;
+   }
+   .registercover{
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 0;
+   }
+   .box1{
+     z-index: 1;
+     border: 2px solid white;
+     background-color: rgba(255, 255, 255,0.8);
+     font-weight: bold;
+     color: black;
+     font-size: 30px;
+     font-family: monospace;
+     text-align: center;
+     padding-left: 10px;
+     padding-right: 10px;
+   }
+   .register{
+     outline: none;
+     font-size: 23px;
+     border: 2px solid white;
+     border-radius: 15px;
+     width: 80%;
+     height: 70px;
+   background-color: rgba(255, 255, 255,1);
+   font-family: monospace;
+     text-align: center;
+   }
+   .register:hover{
+     background-color: rgba(255, 255, 255,0.8);
+     border: 1px solid #FF2626;
+   }
+   .contentbox{
+   z-index: 1;
+   position: absolute;
+   top: 45%;
+   left: 0;
+   height: 350px;
+   width: 100%;
+   }
+   .dropdownmenu{
+     overflow: hidden;
+     height: 0px;
+     z-index: 2;
+     display: block;
+     width: 100%;
+     background-color: rgba(255, 255, 255, 0.8);
+     transition: 0.2s ease-in-out;
+     }
+  .dropdownmenu2{
+     height: 155px;
+     transition: 0.2s ease-in-out;
+   }
+    .dropdownmenu a{
+     width: 100%;
+     border: 1px solid black;
+     padding: 10px;
+     text-align: center;
+     display: block;
+     font-size: 25px;
+     color: black;
+     text-decoration: none;
+     font-family: monospace;
+   }
+ </style>
+</head>
+
+<body>
+<div id="imgbox1" class="imgbox1">
+<div class="header">
+  <h1 id="name">Matrimony</h1>
+  <div id="menu" onclick="dropmenu()" class="menu">
+    <div class="bar1"></div>
+    <div class="bar2"></div>
+    <div class="bar3"></div>
+  </div>
+</div>
+<div id="dropdownmenu" class="dropdownmenu">
+  <a href="#">Language</a>
+  <a href="#">Login</a>
+  <a href="#">Register</a>
+</div>
+<div class="contentbox">
+<div class="box1">
+<p>Find the perfect Lifepartner for you</p>
+</div>
+<div class="registercover">
+<button class="register" >REGISTER</button>
+</div>
+<div class="scrolldowncontainer">
+<a href="#imgbox2">
+<div class="scrolldown"> &#8595;</div>
+</a>
+</div>
+</div>
+</div>
+<div id="imgbox2" class="imgbox2">
+<a href="#imgbox1">
+<div id="scrolldown2" class="scrolldown"> &#8595;</div>
+</a>
+</div>
+<script type="text/javascript" charset="utf-8">
+function dropmenu() {
+ var navmenu = document.getElementById("dropdownmenu");
+ var menubutton = document.getElementById("menu");
+ 
+   navmenu.classList.toggle("dropdownmenu2");
+   menubutton.classList.toggle("menuchange");
+  }
+</script>
+</body>
+</html>
