@@ -128,7 +128,7 @@
    }
    .register{
      position: absolute;
-     top: 65%;
+     top: 50%;
      outline: none;
      font-size: 23px;
      border: 2px solid white;
@@ -143,26 +143,40 @@
      background-color: rgba(255, 255, 255,0.8);
      border: 1px solid #FF2626;
    }
+   .quote{
+     position: absolute;
+     top: 50px;
+     text-align: center;
+     background-color: rgba(255, 255, 255,0.8);
+     padding: 10px;
+     font-weight: bold;
+     font-size: 30px;
+     font-family: monospace;
+     color: black;
+     border-radius: 20px;
+   }
    .contentbox{
      display: flex;
      justify-content: center;
-     height: 100%;
-     width: 100%;
    }
    .dropdownmenu{
      overflow: hidden;
      height: 0px;
-     z-index: 2;
+     z-index: 20;
      display: block;
+     position: absolute;
+     top: 60px;
      width: 100%;
-     background-color: rgba(255, 255, 255, 0.8);
+     background-color: rgba(255, 255, 255, 1);
      transition: 0.2s ease-in-out;
      }
   .dropdownmenu2{
+      z-index: 20;
      height: 155px;
      transition: 0.2s ease-in-out;
    }
     .dropdownmenu a{
+     z-index: 20;
      width: 100%;
      border: 1px solid black;
      padding: 10px;
@@ -186,6 +200,7 @@
     <div class="bar3"></div>
   </div>
 </div>
+<p class="quote">Find The Perfect Lifepartner For You</p>
 <div id="dropdownmenu" class="dropdownmenu">
   <a href="#">Language</a>
   <a href="#">Login</a>
