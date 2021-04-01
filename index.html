@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
  <style type="text/css" media="all">
+   @font-face{
+   src:url('font-family/sansation_light.ttf');
+   format:('truetype');
+   font-family:"sansation";
+   }
   * {
   scroll-behavior: smooth;
   }
@@ -52,7 +57,7 @@
      padding-right: 10px;
    }  
    #name{
-     
+     font-weight: 800;
      font-size: 35px;
      font-family: "Lucida Console", "Courier New", monospace;
      color: black;
@@ -83,7 +88,7 @@
    border-radius: 10px;
    }
    .menuchange{
-    margin-right: 15px;
+    margin-right: 19px;
    }
  .menuchange .bar1{
    width: 25px;
@@ -134,12 +139,13 @@
      top: 50%;
      outline: none;
      font-size: 23px;
-     border: 2px solid white;
+     border: 2px solid black;
      border-radius: 15px;
      width: 80%;
      height: 70px;
-   background-color: rgba(255, 255, 255,1);
-   font-family: monospace;
+     color: white;
+     background-color: #7D7D7D;
+     font-family: monospace;
      text-align: center;
    }
    .register:hover{
@@ -148,14 +154,15 @@
    }
    .quote{
      z-index: 1;
+     margin-left: 10px;
+     margin-right: 10px;
      position: absolute;
      top: 50px;
      text-align: center;
-     background-color: rgba(255, 255, 255,0.8);
+     background-color: rgba(255, 255, 255,0.9);
      padding: 10px;
-     font-weight: bold;
      font-size: 30px;
-     font-family: monospace;
+     font-family: sansation;
      color: black;
      border-radius: 20px;
    }
@@ -182,6 +189,7 @@
     .dropdownmenu a{
      width: 100%;
      border: 1px solid black;
+     border-bottom: none;
      padding: 10px;
      text-align: center;
      display: block;
@@ -190,8 +198,25 @@
      text-decoration: none;
      font-family: monospace;
    }
+ .dropdownmenu a:hover{
+   color: white;
+   opacity: 0.1;
+   background-color: black;
+ }
+ .selectbox{
+   display: flex;
+ }
+.selectbox select{
+     box-sizing: border-box;
+     text-align: center;
+     outline: none;
+     padding: 0px;
+     font-size: 25px;
+     border: 2px solid black;
+     text-align: center;
+   }
    .logincontainer{
-     display: flex;
+     display: none;
      justify-content: center;
      align-items: center;
      z-index: 3;
@@ -202,17 +227,66 @@
      width: 100%;
      background-color: rgba( 0,  0, 0, 0.5);
    }
+   .container1{
+     padding: 16px;
+   }
    .loginform{
+     font-family: monospace;
+     display: flex;
+     justify-content: center;
      z-index: 4;
      margin: 0px;
-     padding: 0px;
-     height: 85%;
+     padding-top: 20px;
      width: 85%;
+     height: 600px;
      position: relative;
-     background-color: white;
-     border: 2px solid #282828;
-     border-radius: 10px;
+     border-radius: 20px;
+     background-image:url("img3.jpeg");
+     background-repeat: no-repeat;
+     background-size: cover;
    }
+   input[type=text],input[type=password]  {
+  width: 100%;
+  padding-bottom:12px;
+  padding-right:40px;
+  padding-left:20px;
+  padding-top:12px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 2px solid gray;
+  border-radius:5px;
+  box-sizing: border-box;
+  margin-bottom:20px ;
+  font-size:20px;
+  outline:none;
+}
+input[type=text]:focus,input[type=password]:focus{
+  border:#08ABFF solid 2px;
+}  
+.submit {
+  box-sizing: border-box;
+   padding: 10px;
+   padding-left: 20px;
+   padding-right: 20px;
+   font-size: 20px;
+   background-color:#08ABFF;
+   border: none;
+   outline: none;
+}
+.submit:hover{
+  opacity: 0.5;
+  border-top: 2px solid #9A9A9A;
+  border-bottom: 2px solid #9A9A9A;
+}
+.checkbox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+label{
+  font-size:20px;
+}
    #close{
      margin: 10px;
      font-size: 35px;
@@ -221,13 +295,16 @@
      top: 0;
      right: 0;
    }
+   .head{
+     text-align: center;
+   }
  </style>
 </head>
 
 <body>
 <div id="imgbox1" class="imgbox1">
 <div class="header">
-  <h1 id="name">Matrimony</h1>
+  <h1 id="name">MATRIMONY</h1>
   <div id="menu" onclick="dropmenu()" class="menu">
     <div class="bar1"></div>
     <div class="bar2"></div>
@@ -235,13 +312,37 @@
   </div>
 </div>
 <div id="logincontainer" class="logincontainer" >
-  <div class="loginform">
-    <span onclick="document.getElementById('logincontainer').style.display = 'none'" id="close" >&times;</span>
-  </div>
+ <div class="loginform">
+  <span onclick="document.getElementById('logincontainer').style.display = 'none'" id="close" >&times;</span> 
+ 
+  <div class="container1">
+     <p class="head" id="name">MATRIMONY</p>
+  <label for="uname"><b>Username</b></label>
+  <input type="text" placeholder="Enter Username" name="uname" required autocomplete="off">
+   <div class="passwordcontainer">
+   <label for="psw"><b>Password</b></label>
+   <input id="input" class="input" type="password" placeholder="Enter Password" name="psw" class="password" required>
+     </div>
+    <button type="submit" class="submit">Login</button>
+    <div class="checkbox" >
+    <label>
+    <input type="checkbox" checked="checked" name="remember">Remember me
+    </label>
+    </div>
+    </div>
+ </div>
 </div>
 <p class="quote">Find The Perfect Lifepartner For You</p>
 <div onclick="dropmenu()" id="dropdownmenu" class="dropdownmenu">
-  <a href="#">Language</a>
+  <a class="selectbox">
+    Language
+    <select id="Languages" name="Languages">
+      <option value="volvo">English</option>
+      <option value="saab">Malayalam</option>
+      <option value="fiat">Thamil</option>
+      <option value="audi">Thelugu</option>
+    </select>
+  </a>
   <a onclick="document.getElementById('logincontainer').style.display = 'flex'">Login</a>
   <a href="#">Register</a>
 </div>
