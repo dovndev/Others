@@ -50,7 +50,7 @@
      display: flex;
      justify-content: space-between;
      align-items: center;
-     height: 60px;
+     height: 80px;
      width: 100%;
      background-color:rgba(255, 255, 255, 0.8);
      padding-left: 30px;
@@ -114,6 +114,7 @@
   translate(-3px, -7px); 
    }
    .scrolldown{
+     box-shadow: rgba(0, 0, 0,0.5) 10px 10px 3px;
      z-index: 1;
      font-size: 40px;
      position: absolute;
@@ -139,30 +140,34 @@
      top: 50%;
      outline: none;
      font-size: 23px;
-     border: 2px solid black;
+     border: 2px solid #34AF00;
+     box-shadow: rgba(0, 0, 0,0.5) 10px 10px 3px;
      border-radius: 15px;
-     width: 80%;
-     height: 70px;
-     color: white;
-     background-color: #7D7D7D;
+     width: 70%;
+     height: 60px;
+     color: #34AF00;
+     background-color: #FFFFFF;
      font-family: monospace;
      text-align: center;
    }
    .register:hover{
      background-color: rgba(255, 255, 255,0.8);
-     border: 1px solid #FF2626;
+     border: 2px solid skyblue;
    }
    .quote{
+    box-shadow: rgba(0, 0, 0,0.5) 10px 10px 3px;
      z-index: 1;
      margin-left: 10px;
      margin-right: 10px;
      position: absolute;
      top: 50px;
      text-align: center;
-     background-color: rgba(255, 255, 255,0.9);
+     background-color: rgba(255, 255, 255,0.1);
+     backdrop-filter: blur(50px);
      padding: 10px;
      font-size: 30px;
      font-family: sansation;
+     font-weight: bold;
      color: black;
      border-radius: 20px;
    }
@@ -172,6 +177,7 @@
      justify-content: center;
    }
    .dropdownmenu{
+     box-shadow: rgba(0, 0, 0,0.5) 10px 10px 3px;
      overflow: hidden;
      height: 0px;
      z-index: 2;
@@ -183,7 +189,7 @@
      transition: 0.2s ease-in-out;
      }
   .dropdownmenu2{
-     height: 155px;
+     height: 157px;
      transition: 0.2s ease-in-out;
    }
     .dropdownmenu a{
