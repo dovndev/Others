@@ -88,7 +88,7 @@
    border-radius: 10px;
    }
    .menuchange{
-    margin-right: 19px;
+    margin-right: 25px;
    }
  .menuchange .bar1{
    width: 25px;
@@ -152,7 +152,7 @@
    }
    .register:hover{
      background-color: rgba(255, 255, 255,0.8);
-     border: 2px solid skyblue;
+     border: 2px solid #34AF00;
    }
    .quote{
     box-shadow: rgba(0, 0, 0,0.5) 10px 10px 3px;
@@ -160,7 +160,7 @@
      margin-left: 10px;
      margin-right: 10px;
      position: absolute;
-     top: 50px;
+     top: 20px;
      text-align: center;
      background-color: rgba(255, 255, 255,0.1);
      backdrop-filter: blur(50px);
@@ -183,7 +183,7 @@
      z-index: 2;
      display: block;
      position: absolute;
-     top: 60px;
+     top: 70px;
      width: 100%;
      background-color: rgba(255, 255, 255, 1);
      transition: 0.2s ease-in-out;
@@ -244,14 +244,16 @@
      margin: 0px;
      padding-top: 20px;
      width: 85%;
-     height: 600px;
      position: relative;
      border-radius: 20px;
-     background-image:url("img3.jpeg");
-     background-repeat: no-repeat;
-     background-size: cover;
+     background-color: white;
    }
-   input[type=text],input[type=password]  {
+   .hill{
+     height: 150px;
+     width: 100%;
+   }
+   
+ input[type=text],input[type=password]  {
   width: 100%;
   padding-bottom:12px;
   padding-right:40px;
@@ -335,10 +337,10 @@ label{
     <input type="checkbox" checked="checked" name="remember">Remember me
     </label>
     </div>
+     <img class="hill" src="hill.jpeg" alt="Sweet life" />
     </div>
  </div>
 </div>
-<p class="quote">Find The Perfect Lifepartner For You</p>
 <div onclick="dropmenu()" id="dropdownmenu" class="dropdownmenu">
   <a class="selectbox">
     Language
@@ -360,6 +362,7 @@ label{
 </a>
 </div>
 <div id="imgbox2" class="imgbox2">
+  <p class="quote">Find The Perfect Lifepartner For You</p>
 <a href="#imgbox1">
 <div id="scrolldown2" class="scrolldown"> &#8595;</div>
 </a>
