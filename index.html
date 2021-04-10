@@ -29,6 +29,8 @@
      background-repeat: no-repeat;
      background-size: cover;
      background-attachment: fixed;
+     filter: saturate(130%);
+
    }
    .imgbox2{
      z-index: 0;
@@ -41,6 +43,7 @@
      background-repeat: no-repeat;
      background-size: cover;
      background-attachment: fixed;
+     filter: saturate(130%);
    }
    .header{
      z-index: 1;
@@ -64,34 +67,39 @@
    }
    .menu{
      margin-right: 15px;
-     transition: 0.2s;
+     transition: 0.3s;
    }
    .bar1{
-     background-color: #636363;
-     width: 25px;
+     background-color: black;
+     width: 26px;
      height: 4px;
      margin: 5px;
      border-radius: 10px;
+     transition: 0.3s;
    }
    .bar2{
-     background-color: #636363;
-     width: 28.5px;
+     background-color: black;
+     width: 29.5px;
      height: 4px;
      margin: 5px;
      border-radius: 10px;
+     transition: 0.3s;
    }
    .bar3{
-   background-color: #636363;
-   width: 32px;
+   background-color: black;
+   width: 34px;
    height: 4px;
    margin: 5px;
    border-radius: 10px;
+   transition: 0.3s;
    }
    .menuchange{
     margin-right: 25px;
    }
  .menuchange .bar1{
+   height: 3px;
    width: 25px;
+   border-radius: 0px;
      -webkit-transform:
   rotate(-45deg)
   translate(-5.9px,9.8px);
@@ -105,13 +113,15 @@
    opacity: 0;
    }
  .menuchange .bar3{
+  height: 3px;
   width: 25px;
+  border-radius: 0px;
   -webkit-transform:
   rotate(45deg)
-  translate(-3px, -7px);
+  translate( -1.4px, -6px);
   transform:
   rotate(45deg)
-  translate(-3px, -7px); 
+  translate( -1.4px, -6px); 
    }
    .scrolldown{
      box-shadow: rgba(0, 0, 0,0.5) 10px 10px 3px;
@@ -124,7 +134,7 @@
      width:60px;
      height:60px;
      color: black;
-     border:2px solid white;
+     border:3px solid white;
      border-radius: 50%;
      background-color: rgba(255, 255, 255, .15);
      backdrop-filter: blur(20px);
@@ -140,21 +150,22 @@
      top: 50%;
      outline: none;
      font-size: 23px;
-     border: 2px solid #34AF00;
+     border: 3px solid white;
      box-shadow: rgba(0, 0, 0,0.5) 10px 10px 3px;
-     border-radius: 15px;
-     width: 70%;
+     border-radius: 1px;
+     width: 60%;
      height: 60px;
-     color: #34AF00;
-     background-color: #FFFFFF;
+     color: white;
+     background-color: transparent;
+     backdrop-filter: blur(20px);
      font-family: monospace;
      text-align: center;
    }
-   .register:hover{
+   .register:hover,.scrolldown:hover{
      background-color: rgba(255, 255, 255,0.8);
-     border: 2px solid #34AF00;
    }
    .quote{
+     border: 3px solid white;
     box-shadow: rgba(0, 0, 0,0.5) 10px 10px 3px;
      z-index: 1;
      margin-left: 10px;
