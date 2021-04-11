@@ -188,9 +188,10 @@
      justify-content: center;
    }
    .dropdownmenu{
+     font-size: 25px;
      box-shadow: rgba(0, 0, 0,0.5) 10px 10px 3px;
      overflow: hidden;
-     height: 0px;
+     height: 157px;
      z-index: 2;
      display: block;
      position: absolute;
@@ -204,33 +205,42 @@
      transition: 0.2s ease-in-out;
    }
     .dropdownmenu a{
+     font-size: 25px;
      width: 100%;
      border: 1px solid black;
      border-bottom: none;
      padding: 10px;
      text-align: center;
      display: block;
-     font-size: 25px;
      color: black;
      text-decoration: none;
      font-family: monospace;
    }
  .dropdownmenu a:hover{
-   color: white;
-   opacity: 0.1;
-   background-color: black;
+   opacity: 0.2;
  }
- .selectbox{
-   display: flex;
+.dropdownmenu p{
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  margin-top: 0;
+  margin-left: -50px;
+  font-family: monospace;
+}
+.selectbox:first-child {
+   padding: 0px;
  }
 .selectbox select{
-     box-sizing: border-box;
+     display: block;
+     width: 95%;
+     border: none;
      text-align: center;
-     outline: none;
-     padding: 0px;
      font-size: 25px;
-     border: 2px solid black;
-     text-align: center;
+     font-family: monospace;
+     outline: none;
+     padding: 10px;
+     padding-left: 36%;
+     background-color: white;
    }
    .logincontainer{
      display: none;
@@ -242,6 +252,7 @@
      left: 0;
      height: 100%;
      width: 100%;
+     box-sizing: border-box;
      background-color: rgba( 0,  0, 0, 0.5);
    }
    .container1{
@@ -253,50 +264,58 @@
      justify-content: center;
      z-index: 4;
      margin: 0px;
-     padding-top: 20px;
+     padding: 10px;
      width: 85%;
      position: relative;
-     border-radius: 20px;
+     box-sizing: border-box;
+     border-radius: 10px;
      background-color: white;
    }
  input[type=text],input[type=password]  {
+  display: block;
   width: 100%;
   padding-bottom:12px;
   padding-right:40px;
   padding-left:20px;
   padding-top:12px;
-  margin: 8px 0;
-  display: inline-block;
   border: 2px solid gray;
   border-radius:5px;
   box-sizing: border-box;
-  margin-bottom:20px ;
+  margin: 20px;
+  margin-left: 0;
+  margin-right: 0;
   font-size:20px;
   outline:none;
 }
 input[type=text]:focus,input[type=password]:focus{
   border:#08ABFF solid 2px;
 }  
+input[type=text]:hover,input[type=password]:hover{
+  background-color: #F3F3F3;
+}
+input[type=checkbox]{
+  height: 20px;
+  width: 20px;
+}
 .submit {
-  box-sizing: border-box;
+   box-sizing: border-box;
    padding: 10px;
    padding-left: 20px;
    padding-right: 20px;
+   margin-top: 15px;
+   margin-bottom: 15px;
    font-size: 20px;
    background-color:#08ABFF;
    border: none;
-   outline: none;
+   outline: 1px solid black;
 }
 .submit:hover{
-  opacity: 0.5;
-  border-top: 2px solid #9A9A9A;
-  border-bottom: 2px solid #9A9A9A;
+  background-color: #1C9DC3;
 }
 .checkbox{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px;
+  display: block;
+  text-align: right;
+  margin-bottom: 15px;
 }
 label{
   font-size:20px;
@@ -331,16 +350,16 @@ label{
  
   <div class="container1">
      <p class="head" id="name">MATRIMONY</p>
-  <label for="uname"><b>Username</b></label>
+  <label for="uname">Username</label>
   <input type="text" placeholder="Enter Username" name="uname" required autocomplete="off">
    <div class="passwordcontainer">
-   <label for="psw"><b>Password</b></label>
+   <label for="psw">Password</label>
    <input id="input" class="input" type="password" placeholder="Enter Password" name="psw" class="password" required>
      </div>
     <button type="submit" class="submit">Login</button>
     <div class="checkbox" >
-    <label>
-    <input type="checkbox" checked="checked" name="remember">Remember me
+    <label>Remember me
+    <input type="checkbox" checked="checked" name="remember">
     </label>
     </div>
     </div>
@@ -348,8 +367,8 @@ label{
 </div>
 <div onclick="dropmenu()" id="dropdownmenu" class="dropdownmenu">
   <a class="selectbox">
-    Language
     <select id="Languages" name="Languages">
+      <option value="volvo">Language</option>
       <option value="volvo">English</option>
       <option value="saab">Malayalam</option>
       <option value="fiat">Thamil</option>
@@ -357,7 +376,8 @@ label{
     </select>
   </a>
   <a onclick="document.getElementById('logincontainer').style.display = 'flex'">Login</a>
-  <a href="#">Register</a>
+  <a>Register</a>
+ 
 </div>
 <div class="contentbox">
 <button class="register" >REGISTER</button>
