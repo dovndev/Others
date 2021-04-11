@@ -243,7 +243,7 @@
      background-color: white;
    }
    .logincontainer{
-     display: none;
+     display: flex;
      justify-content: center;
      align-items: center;
      z-index: 3;
@@ -254,13 +254,14 @@
      width: 100%;
      box-sizing: border-box;
      background-color: rgba( 0,  0, 0, 0.5);
+     overflow: scroll;
    }
    .container1{
      padding: 16px;
    }
    .loginform{
      font-family: monospace;
-     display: flex;
+     display: none;
      justify-content: center;
      z-index: 4;
      margin: 0px;
@@ -269,7 +270,8 @@
      position: relative;
      box-sizing: border-box;
      border-radius: 10px;
-     background-color: white;
+     overflow: scroll;
+     background-color: #e0e0e0;
    }
  input[type=text],input[type=password]  {
   display: block;
@@ -278,39 +280,52 @@
   padding-right:40px;
   padding-left:20px;
   padding-top:12px;
-  border: 2px solid gray;
-  border-radius:5px;
   box-sizing: border-box;
   margin: 20px;
   margin-left: 0;
   margin-right: 0;
   font-size:20px;
   outline:none;
+  border: none;
+  border-radius: 10px;
+  background: #e0e0e0;
+  box-shadow:
+  7px 7px 13px #bebebe,
+  -7px -7px 13px #ffffff;
 }
 input[type=text]:focus,input[type=password]:focus{
-  border:#08ABFF solid 2px;
+ box-shadow: 
+  inset 7px 7px 13px #bebebe,
+  inset -7px -7px 13px #ffffff;
 }  
 input[type=text]:hover,input[type=password]:hover{
-  background-color: #F3F3F3;
+   box-shadow: 
+  inset 7px 7px 13px #bebebe,
+  inset -7px -7px 13px #ffffff;
 }
 input[type=checkbox]{
   height: 20px;
   width: 20px;
 }
 .submit {
-   box-sizing: border-box;
    padding: 10px;
-   padding-left: 20px;
-   padding-right: 20px;
+   padding-left: 40px;
+   padding-right: 40px;
    margin-top: 15px;
    margin-bottom: 15px;
    font-size: 20px;
-   background-color:#08ABFF;
    border: none;
-   outline: 1px solid black;
+   outline: 0px solid black;
+   border-radius: 10px;
+   background: #e0e0e0;
+   box-shadow: 
+   7px 7px 13px #bebebe,
+   -7px -7px 13px #ffffff;
 }
 .submit:hover{
-  background-color: #1C9DC3;
+  box-shadow: 
+  inset 7px 7px 13px #bebebe,
+  inset -7px -7px 13px #ffffff;
 }
 .checkbox{
   display: block;
