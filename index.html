@@ -243,7 +243,7 @@
      background-color: white;
    }
    .logincontainer{
-     display: flex;
+     display: none;
      justify-content: center;
      align-items: center;
      z-index: 3;
@@ -257,16 +257,29 @@
      overflow: scroll;
    }
    .container1{
+     border-radius: 10px;
+     background: #e0e0e0;
+     box-shadow:
+     7px 7px 13px #bebebe,
+     -7px -7px 13px #ffffff;
      padding: 16px;
    }
+    .container1:hover{
+    border-radius: 10px;
+    background: #e0e0e0;
+    box-shadow:
+    inset 7px 7px 13px #bebebe,
+    inset -7px -7px 13px #ffffff;
+    
+    }
    .loginform{
      font-family: monospace;
-     display: none;
+     display: flex;
      justify-content: center;
      z-index: 4;
      margin: 0px;
-     padding: 10px;
-     width: 85%;
+     padding: 25px;
+     width: 95%;
      position: relative;
      box-sizing: border-box;
      border-radius: 10px;
@@ -336,7 +349,7 @@ label{
   font-size:20px;
 }
    #close{
-     margin: 10px;
+     margin: 40px;
      font-size: 35px;
      color: black;
      position: absolute;
