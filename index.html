@@ -25,7 +25,7 @@
      left: 0;
      height: 100vh;
      width: 100%;
-     background-image:url("img1.jpeg");
+     background-image:url("images/img1.jpeg");
      background-repeat: no-repeat;
      background-size: cover;
      background-attachment: fixed;
@@ -39,7 +39,7 @@
      left: 0;
      height: 100vh;
      width: 100%;
-     background-image:url("img2.jpeg");
+     background-image:url("images/img2.jpeg");
      background-repeat: no-repeat;
      background-size: cover;
      background-attachment: fixed;
@@ -476,14 +476,14 @@ function dropmenu() {
   }
 </script>
 <script type="text/javascript" charset="utf-8">
- function closeopen() {
- let x = document.getElementById("signupform");
-  let y = document.getElementById("loginform");
+  const x = document.getElementById("signupform");
+  const y = document.getElementById("loginform");
   let zero = 0;
   let hundred = 100;
   let neghundred = -100;
-  
- if(y.style.transform == `translateX(${0}%)`) {
+
+ function closeopen() {
+  if(y.style.transform == `translateX(${zero}%)`) {
     y.style.transform = `translateX(${hundred}%)`;
     x.style.transform = `translateX(${zero}%)`;
  } else {
