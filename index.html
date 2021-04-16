@@ -242,61 +242,66 @@
      padding-left: 36%;
      background-color: white;
    }
-   .logincontainer{
-     display: none;
-     justify-content: center;
-     align-items: center;
-     z-index: 3;
+   .loginform{
      position: fixed;
      top: 0;
      left: 0;
+     transform: translateX(100%);
+     transition: 0.5s ease-out;
+     display: flex;
+     align-items: center;
+     justify-content: center;
      height: 100%;
      width: 100%;
+     font-family: sans-serif;
+     z-index: 4;
+     margin: 0px;
      box-sizing: border-box;
-     background-color: rgba( 0,  0, 0, 0.5);
-     overflow: scroll;
+     overflow-y: scroll;
+     background-color: #e0e0e0;
    }
-   .container1{
+   .signupform{
+   position: fixed;
+   top: 0;
+   left: 0;
+   transform: translateX(-100%);
+   transition: 0.5s ease-out;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 100%;
+   width: 100%;
+   font-family: sans-serif;
+   z-index: 4;
+   margin: 0px;
+   box-sizing: border-box;
+   overflow-y: scroll;
+   background-color: #e0e0e0;
+   }
+    .container1{
+     width: 90%;
      border-radius: 10px;
      background: #e0e0e0;
      box-shadow:
      7px 7px 13px #bebebe,
      -7px -7px 13px #ffffff;
-     padding: 16px;
-   }
-    .container1:hover{
-    border-radius: 10px;
-    background: #e0e0e0;
-    box-shadow:
-    inset 7px 7px 13px #bebebe,
-    inset -7px -7px 13px #ffffff;
-    
-    }
-   .loginform{
-     font-family: monospace;
-     display: flex;
-     justify-content: center;
-     z-index: 4;
-     margin: 0px;
-     padding: 25px;
-     width: 95%;
-     position: relative;
+     padding: 20px;
+     overflow-y: scroll;
      box-sizing: border-box;
-     border-radius: 10px;
-     overflow: scroll;
-     background-color: #e0e0e0;
    }
+   .container1:hover{
+     border-radius: 10px;
+     box-shadow:
+     inset 7px 7px 13px #bebebe,
+     inset -7px -7px 13px #ffffff;
+    }
  input[type=text],input[type=password]  {
   display: block;
   width: 100%;
-  padding-bottom:12px;
-  padding-right:40px;
-  padding-left:20px;
-  padding-top:12px;
+  padding: 12px 10px 12px 10px;
   box-sizing: border-box;
-  margin: 20px;
-  margin-left: 0;
-  margin-right: 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
   font-size:20px;
   outline:none;
   border: none;
@@ -305,22 +310,31 @@
   box-shadow:
   7px 7px 13px #bebebe,
   -7px -7px 13px #ffffff;
+  transition: 0.5s ease-out;
+  color:  black;
 }
+input[type=text]::placeholder, input[type=password]::placeholder{
+  color:  black;
+  font-size: 15px;
+  font-family: monospace;
+}  
 input[type=text]:focus,input[type=password]:focus{
  box-shadow: 
   inset 7px 7px 13px #bebebe,
   inset -7px -7px 13px #ffffff;
+  transition: 0.5s ease-out;
 }  
 input[type=text]:hover,input[type=password]:hover{
    box-shadow: 
   inset 7px 7px 13px #bebebe,
   inset -7px -7px 13px #ffffff;
+  transition: 0.5s ease-out;
 }
 input[type=checkbox]{
   height: 20px;
   width: 20px;
 }
-.submit {
+.loginbtn {
    padding: 10px;
    padding-left: 40px;
    padding-right: 40px;
@@ -334,11 +348,24 @@ input[type=checkbox]{
    box-shadow: 
    7px 7px 13px #bebebe,
    -7px -7px 13px #ffffff;
+   transition: 0.5s ease-out;
 }
-.submit:hover{
+.loginbtn:hover{
   box-shadow: 
   inset 7px 7px 13px #bebebe,
   inset -7px -7px 13px #ffffff;
+  transition: 0.5s ease-out;
+}
+.signupbtn{
+  display: flex;
+  justify-content: flex-end;
+  font-size: 20px;
+  padding:5px 10px;
+  font-weight: bolder;
+}
+.signupbtn:hover{
+  color: ;#A4A4A4;
+  opacity: 0.5;
 }
 .checkbox{
   display: block;
@@ -363,6 +390,44 @@ label{
 </head>
 
 <body>
+   <div id="loginform" class="loginform">
+  <span onclick="document.getElementById('loginform').style.transform = 'translateX(100%)'" id="close" >&times;</span> 
+ 
+  <div class="container1">
+     <p class="head" id="name">MATRIMONY</p>
+  <label for="email">Email</label>
+  <input type="text" placeholder="Enter email" name="email" required autocomplete="off">
+   <div class="passwordcontainer">
+   <label for="psw">Password</label>
+   <input id="input" class="input" type="password" placeholder="Enter Password" name="psw" class="password" required>
+     </div>
+    <button type="submit" class="loginbtn">Login</button>
+    <div class="checkbox" >
+    <label>Remember me
+    <input type="checkbox" checked="checked" name="remember">
+    </label>
+    </div>
+    <div onclick="closeopen()" class="signupbtn">&#9930;Sign up</div>
+    </div>
+</div>
+<div id="signupform" class="signupform">
+ <span onclick="document.getElementById('signupform').style.transform = 'translateX(-100%)'" id="close" >&times;</span> 
+ <div class="container1">
+     <p class="head" id="name">MATRIMONY</p>
+  <label for="email">Email</label>
+  <input type="text" placeholder="Enter email" name="email" required autocomplete="off">
+  <div class="passwordcontainer">
+   <label for="psw">Password</label>
+   <input id="input" class="input" type="password" placeholder="Enter Password" name="psw" class="password" required>
+  </div>
+  <div class="passwordcontainer">
+   <label for="psw">Enter Password again</label>
+   <input id="input" class="input" type="password" placeholder="Enter Password" name="psw" class="password" required>
+  </div>
+  <button type="submit" class="loginbtn">Sign up</button>
+  <div onclick="closeopen()" class="signupbtn">&#9930;Login</div>
+ </div>
+</div>
 <div id="imgbox1" class="imgbox1">
 <div class="header">
   <h1 id="name">MATRIMONY</h1>
@@ -371,27 +436,6 @@ label{
     <div class="bar2"></div>
     <div class="bar3"></div>
   </div>
-</div>
-<div id="logincontainer" class="logincontainer" >
- <div class="loginform">
-  <span onclick="document.getElementById('logincontainer').style.display = 'none'" id="close" >&times;</span> 
- 
-  <div class="container1">
-     <p class="head" id="name">MATRIMONY</p>
-  <label for="Email">Email</label>
-  <input type="text" placeholder="Enter Email" name="Email" required autocomplete="off">
-   <div class="passwordcontainer">
-   <label for="psw">Password</label>
-   <input id="input" class="input" type="password" placeholder="Enter Password" name="psw" class="password" required>
-     </div>
-    <button type="submit" class="submit">Login</button>
-    <div class="checkbox" >
-    <label>Remember me
-    <input type="checkbox" checked="checked" name="remember">
-    </label>
-    </div>
-    </div>
- </div>
 </div>
 <div onclick="dropmenu()" id="dropdownmenu" class="dropdownmenu">
   <a class="selectbox">
@@ -403,7 +447,7 @@ label{
       <option value="audi">Thelugu</option>
     </select>
   </a>
-  <a onclick="document.getElementById('logincontainer').style.display = 'flex'">Login</a>
+  <a onclick="document.getElementById('loginform').style.transform = 'translateX(0%)'">Login</a>
   <a>Register</a>
  
 </div>
@@ -429,11 +473,22 @@ function dropmenu() {
    menubutton.classList.toggle("menuchange");
   }
 </script>
-<script>
- var x  = document.getElementById("logincontainer");
-function close() {
-  x.style.display = "none";
-  }
+<script type="text/javascript" charset="utf-8">
+ function closeopen() {
+ let x = document.getElementById("signupform");
+  let y = document.getElementById("loginform");
+  let zero = 0;
+  let hundred = 100;
+  let neghundred = -100;
+  
+ if(y.style.transform == `translateX(${0}%)`) {
+    y.style.transform = `translateX(${hundred}%)`;
+    x.style.transform = `translateX(${zero}%)`;
+ } else {
+   x.style.transform = `translateX(${neghundred}%)`;
+   y.style.transform = `translateX(${zero}%)`;
+ }
+}
 </script> 
 </body>
 </html>
