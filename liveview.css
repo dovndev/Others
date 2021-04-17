@@ -16,8 +16,8 @@
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  height: 50px;
-  background-color: #BBBBBB;
+  height: 45px;
+  background-color: #C8C8C8;
   transition: 0.4s ease-in-out;
 }
 #systeminput {
@@ -25,13 +25,15 @@
   width: 100%;
   height: 100%;
   padding: 10px;
-  background-color: #525252;
+  background-color: #333333;
+  color: #DADADA;
   font-size: 16px;
   resize: none;
   border: 2px solid #9F9FA0;
   font-family: courier;
-  font-weight: 700;
+  font-weight: bold;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 #systeminput::placeholder{
   font-size: 20px;
