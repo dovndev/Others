@@ -1,52 +1,29 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Live code runner</title>
-<style>
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: monospace;
-  font-size: 20px;
-}
-.inputcont{
-  height: 50vh;
-  width: 100%;
-}
-textarea {
-  outline: none;
-  width: 100%;
-  height: 50vh;
-  padding: 10px;
-  background-color: #C2C2C2;
-  font-size: 16px;
-  resize: none;
-  border: 6px solid #9F9FA0;
-}
-textarea::placeholder{
-  font-size: 20px;
-}
-.resultbox{
-  height: 50vh;
-  width: 100%;
-  border: 6px solid #484848;
-} 
-</style>
-</head>
-<body id="body1" class="body1">
-  <div id="inputcont" class="inputcont"><textarea oninput="run()" type="text" id="input" placeholder="write code here"/></div>
-<div id="resultbox" class="resultbox">
-</div>
-<script type="text/javascript" charset="utf-8">
-  var input = document.getElementById("input");
-  var resultbox = document.getElementById("resultbox");
-  function run() {
-    resultbox.innerHTML = input.value;
-  }
-</script>
-</body>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Live code runner</title>
+  <link rel="stylesheet" href="liveview.css" title="stylesheet"/>  
+ </head>
+ <body>
+  <div id="systeminputcont" class="systeminputcont">
+   <textarea placeholder="write code here" id="systeminput" oninput="run()" value="<!DOCTYPE html>
+     <html>
+     <head>
+     <title></title>
+     </head>
+     <body>
+     </body>
+     </html>"/>
+   </textarea>
+  </div>
+  <div id="systemresultbox" class="systemresultbox">
+   <iframe id="systemiframe" class="systemiframe" src="result.html" srcdoc="">
+   </iframe>
+  </div>
+  <script src="liveview.js">
+  </script>
+ </body>
 </html>
