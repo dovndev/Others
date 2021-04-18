@@ -1,23 +1,47 @@
 <!DOCTYPE html>
 <html>
-
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Live code runner</title>
   <link rel="stylesheet" href="liveview.css" title="stylesheet"/>  
+  <script src="https://kit.fontawesome.com/399461c2e9.js" crossorigin="anonymous"></script>
  </head>
  <body>
-  <div id="systeminputcont" class="systeminputcont">
-   <div id="systemheader" class="systemheader">
-    
+  <div class="contbox">
+   <div id="systeminputcont" class="systeminputcont">
+    <div id="systemheader" class="systemheader">
+     <div class="tooltip">
+      <div onclick="copyto()" onmouseout="outFunc()" id="systemcopybtn" class="systembtn">
+       <i class="far fa-clipboard">
+       </i>
+      </div>
+      <span class="tooltiptext" id="myTooltip">Copy to clipboard
+      </span>
+     </div>
+     <div class="tooltip">
+      <div id="systemthemebtn" class="systembtn" onclick="changetheme()">
+       <i class="fas fa-adjust">
+       </i>
+      </div>
+      <span class="tooltiptext">change theme
+      </span>
+     </div>
+     <div class="tooltip">
+       <div id="systemnavbtn" class="systembtn">
+         <i class="fas fa-ellipsis-v"></i>
+       </div>
+       <span class="tooltiptext">navbar
+       </span>
+     </div>
+    </div>
+    <textarea placeholder="write code here" id="systeminput" oninput="run()" autocomplete="off" wrap="logical" spellcheck="false"/>
+    </textarea>
    </div>
-   <textarea placeholder="write code here" id="systeminput" oninput="run()"/>
-   </textarea>
-  </div>
-  <div id="systemresultbox" class="systemresultbox">
-   <iframe id="systemiframe" class="systemiframe" src="result.html" srcdoc="">
-   </iframe>
+   <div id="systemresultbox" class="systemresultbox">
+    <iframe id="systemiframe" class="systemiframe" src="result.html" srcdoc="">
+    </iframe>
+   </div>
   </div>
   <script src="liveview.js">
   </script>
