@@ -17,9 +17,8 @@ function run() {
  systemiframe.srcdoc = systeminput.value;
 }
 function copyto() {
-  var copyText = document.getElementById("systeminput");
-  copyText.select();
-  copyText.setSelectionRange(0, 99999);
+  systeminput.select();
+  systeminput.setSelectionRange(0, 99999);
   document.execCommand("copy");
   systemtooltip.innerHTML = "Copied your code";
 }
