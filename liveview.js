@@ -27,5 +27,6 @@ function outFunc() {
   systemtooltip.innerHTML = "Copy to clipboard";
 }
 function changetheme() {
-  
+ var lighttheme = document.getElementById("lighttheme");
+ lighttheme.classList.toggle("darktheme");
 }

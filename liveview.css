@@ -4,11 +4,33 @@
   box-sizing: border-box;
   font-size: 20px;
 }
-.contbox{
+.lighttheme{
   display: flex;
   height: 100vh;
   width: 100%;
   flex-direction: column;
+  transition: 1s ease-in-out;
+}
+.darktheme #systeminput{
+  background-color: #303030;
+  color: #EFEFEF;
+}
+.darktheme .systemheader{
+  background-color: #666666;
+}
+.darktheme .fa-adjust {
+  color: white;
+  transform: rotateY(180deg);
+  font-size: 26px
+}
+.darktheme .fa-clipboard {
+  color: white;
+}
+.darktheme .fa-ellipsis-v{
+  color: white;
+}
+.darktheme ::-webkit-scrollbar-track {
+  background-color: #171717;
 }
 .systeminputcont{
   height: 50vh;
@@ -24,15 +46,16 @@
   width: 100%;
   height: 45px;
   background-color: #C8C8C8;
-  transition: 0.4s ease-in-out;
+  transition: 1s ease-in-out;
 }
 .systembtn{
-  background-color: #C8C8C8;
+  background-color: none;
   border: none;
   outline: none;
   margin: 15px;
 }
 .fa-clipboard,.fa-adjust{
+  transition: 1s ease-in;
   font-size: 25px;
   color: black;
 }
@@ -41,8 +64,8 @@
   width: 100%;
   height: 100%;
   padding: 10px;
-  background-color: #333333;
-  color: #DADADA;
+  background-color: #FCFCFC;
+  color: #343434;
   font-size: 16px;
   resize: none;
   border: 2px solid #9F9FA0;
@@ -50,6 +73,7 @@
   font-weight: bold;
   overflow-y: scroll;
   overflow-x: hidden;
+  transition: 1s ease-in-out;
 }
 #systeminput::placeholder{
   font-size: 20px;
@@ -57,7 +81,7 @@
 .systemresultbox{
   height: 50vh;
   width: 100%;
-  border: 6px solid #484848;
+  border: 3px solid #484848;
 } 
 .systemiframe{
   width: 100%;
@@ -81,6 +105,17 @@
 .tooltip:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border: 1px solid #888;
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
 }
 @media screen and (min-width:480px) {
 .contbox{
