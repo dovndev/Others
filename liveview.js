@@ -11,7 +11,12 @@ let systemdefaulttxt = `<!DOCTYPE html>
          
  </body>
 </html>`;
-
+const body = document.documentElement;
+function fullscreen() {
+if(body.requestFullscreen){
+  body.requestFullscreen();
+}
+}
 systeminput.innerHTML = systemdefaulttxt;
 function run() {
  systemiframe.srcdoc = systeminput.value;
