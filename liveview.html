@@ -27,8 +27,18 @@
       <span class="tooltiptext">change theme
       </span>
      </div>
+     <div id="fullscreenbtn" class="tooltip">
+       <div onclick="fullscreen()" class="systembtn">
+         <i class="fas fa-expand"></i></div>
+       <span class="tooltiptext">fullscreen</span>
+     </div>
+     <div class="tooltip" id="exitfullscreenbtn">
+       <div onclick="exitfullscreen()" class="systembtn">
+         <i class="fas fa-compress"></i></div>
+       <span class="tooltiptext">fullscreen</span>
+     </div>
      <div class="tooltip">
-       <div onclick="fullscreen()" id="systemnavbtn" class="systembtn">
+       <div onclick="opennav()" id="systemnavbtn" class="systembtn">
          <i class="fas fa-ellipsis-v"></i>
        </div>
        <span class="tooltiptext">navbar
@@ -39,6 +49,7 @@
     </textarea>
    </div>
    <div id="systemresultbox" class="systemresultbox">
+    <div onclick="fillscreen()" class="togglebtn" id="togglebtn"><i id="togglebtni" class="fas fa-expand"></i></div>
     <iframe id="systemiframe" class="systemiframe" src="result.html" srcdoc="">
     </iframe>
    </div>

@@ -8,14 +8,33 @@ let systemdefaulttxt = `<!DOCTYPE html>
   <title>     </title>
  </head>
  <body>  
-         
+    
  </body>
 </html>`;
 const body = document.documentElement;
 function fullscreen() {
+  let fullscreenbtn = document.getElementById('fullscreenbtn');
 if(body.requestFullscreen){
   body.requestFullscreen();
+}else if (body.webkitRequestFullscreen) {
+  body.webkitRequestFullscreen();
+}else if (body.msRequestFullscreen) {
+  body.msRequestFullscreen();
 }
+ fullscreenbtn.style.display = "none";
+ exitfullscreenbtn.style.display = "block";
+}
+function exitfullscreen() {
+  let exitfullscreenbtn = document.getElementById('exitfullscreenbtn');
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  }else if (document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) {
+    document.msExitFullscreen();
+  }
+  fullscreenbtn.style.display = "block";
+  exitfullscreenbtn.style.display = "none";
 }
 systeminput.innerHTML = systemdefaulttxt;
 function run() {
@@ -33,4 +52,20 @@ function outFunc() {
 function changetheme() {
  var lighttheme = document.getElementById("lighttheme");
  lighttheme.classList.toggle("darktheme");
+}
+function fillscreen() {
+ let togglebtn = document.getElementById('togglebtn');
+ let togglebtni = document.getElementById('togglebtni');
+ if (togglebtni.classList[1] == "fa-expand"){
+   togglebtni.classList.add('fa-compress');
+   togglebtni.classList.remove('fa-expand');
+ }else {
+   togglebtni.classList.remove('fa-compress');
+   togglebtni.classList.add('fa-expand');
+ }
+ systemresultbox.classList.toggle('systemresultbox2');
+}
+function opennav() {
+  let systemnavbar = document.getElementById('systemnavbar');
+  systemnavbar.style.display = 'block';
 }

@@ -9,7 +9,8 @@
   height: 100vh;
   width: 100%;
   flex-direction: column;
-  transition: 1s ease-in-out;
+  transition:background-color 1s ease-in-out;
+  transition:color 1s ease-in-out;
 }
 .darktheme #systeminput{
   background-color: #303030;
@@ -21,7 +22,7 @@
 .darktheme .fa-adjust {
   color: white;
   transform: rotateY(180deg);
-  font-size: 26px
+  font-size: 23px
 }
 .darktheme .fa-clipboard {
   color: white;
@@ -29,17 +30,26 @@
 .darktheme .fa-ellipsis-v{
   color: white;
 }
+.darktheme .fa-expand {
+  color: white;
+}
+.darktheme .fa-compress {
+  color: white;
+}
+.darktheme #togglebtni {
+  color: black;
+}
 .darktheme ::-webkit-scrollbar-track {
   background-color: #171717;
 }
 .systemnavbar{
+  display: none;
   position: absolute;
   top: 0;
   right: 0;
   height: 100vh;
   width: 70%;
   background-color: white;
-  display: none;
 }
 .navbaritems{
   color: black;
@@ -68,12 +78,15 @@
   background-color: none;
   border: none;
   outline: none;
-  margin: 15px;
+  width: 45px;
 }
-.fa-clipboard,.fa-adjust{
-  transition: 1s ease-in;
-  font-size: 25px;
+.fa-clipboard,.fa-adjust,.fa-expand,.fa-compress{
+  transition: 1s ease-in-out;
+  font-size: 23px;
   color: black;
+}
+#exitfullscreenbtn{
+  display: none;
 }
 #systeminput {
   outline: none;
@@ -98,7 +111,23 @@
   height: 50vh;
   width: 100%;
   border: 3px solid #484848;
+  position: relative;
+  background-color: white;
 } 
+.systemresultbox2{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  border: 3px solid #484848;
+}
+.togglebtn{
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+}
 .systemiframe{
   width: 100%;
   height: 100%;
@@ -108,7 +137,7 @@
 .tooltip {
   display: block;
   text-align: center;
-  transform: translateY(14px)
+  transform: translateY(14px);
 }
 .tooltiptext {
   opacity: 0;
@@ -134,7 +163,7 @@
   border-radius: 10px;
 }
 @media screen and (min-width:480px) {
-.contbox{
+.lighttheme{
   flex-direction: row;
  }
 .systeminputcont{
