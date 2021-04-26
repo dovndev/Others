@@ -67,5 +67,6 @@ function fillscreen() {
 }
 function opennav() {
   let systemnavbar = document.getElementById('systemnavbar');
-  systemnavbar.style.display = 'block';
+  let displayvalue = (systemnavbar.style.display !== 'block') ? 'block' : 'none';
+  systemnavbar.style.display = displayvalue;
 }
