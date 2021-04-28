@@ -64,6 +64,7 @@
   font-family: courier;
   display: flex;
   flex-direction: column;
+  
 }
 .systemheader {
   display: flex;
