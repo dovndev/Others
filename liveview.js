@@ -22,7 +22,7 @@ if(body.requestFullscreen){
   body.msRequestFullscreen();
 }
  fullscreenbtn.style.display = "none";
- exitfullscreenbtn.style.display = "block";
+ exitfullscreenbtn.style.display = "flex";
 }
 function exitfullscreen() {
   let exitfullscreenbtn = document.getElementById('exitfullscreenbtn');
@@ -33,7 +33,7 @@ function exitfullscreen() {
   } else if (document.msExitFullscreen) {
     document.msExitFullscreen();
   }
-  fullscreenbtn.style.display = "block";
+  fullscreenbtn.style.display = "flex";
   exitfullscreenbtn.style.display = "none";
 }
 systeminput.innerHTML = systemdefaulttxt;
