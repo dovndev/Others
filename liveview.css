@@ -98,8 +98,7 @@
   font-size: 16px;
   resize: none;
   border: 2px solid #9F9FA0;
-  font-family: courier;
-  font-weight: bold;
+  font-family: "Courier New",courier;
   overflow-y: scroll;
   overflow-x: hidden;
   transition: 1s ease-in-out;
