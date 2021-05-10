@@ -11,14 +11,15 @@
     box-sizing: border-box;
     font-family: monospace;
    }
-   body {
+   .body {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     width: 100%;
     height: 100vh;
-    background: #000000;
+    background: #9B9B9B;
+    clip-path: polygon(0 18%, 100% 0, 100% 72%, 0 100%);
    }
    .cont {
     display: flex;
@@ -27,20 +28,23 @@
     width: 100%;
    }
    .time {
+    color: white;
     font-size: 35px;
     width: 25%;
     height: 130px;
     text-align: center;
     margin: 5px;
-    background-color: #FD88FF;
+    background-color: #444444;
     position: relative;
     padding-top: 30px;
     border-radius: 10px;
    }
    .time span {
+    color: black;
     font-size: 17px;
     text-align: center;
     height: 25px;
+    border: 2px solid black;
     background-color: white;
     width: 100%;
     position: absolute;
@@ -49,9 +53,8 @@
     border-radius: 0px 0px 10px 10px;
    }
    .target {
-    color: white;
     text-align: center;
-    background-color: #7B7B7B;
+    border: 2px solid black;
     margin: 50px;
     width: 80%;
     padding: 20px;
@@ -61,6 +64,7 @@
   </style>
  </head>
  <body>
+  <div class="body">
   <div class="cont">
    <div class="time"><span>days</span><div id="days">00</div></div>
    <div class="time"><span>hours</span><div id="hours">00</div></div>
@@ -94,5 +98,6 @@
    countdate();
    setInterval(countdate , 1000);
   </script>
+ </div> 
  </body>
 </html>
