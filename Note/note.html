@@ -6,14 +6,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Notebook</title>
     <style type="text/css" media="all">
-      
+     * {
+       margin: 0;
+       padding: 0;
+       box-sizing: border-box;
+     }
+     body {
+       background-color: #00B889;
+       display: flex;
+       align-items: center;
+       flex-direction: column;
+       font-family: monospace;
+     }
+     .header {
+       text-align: center;
+       font-size: 50px;
+       color: white;
+       margin: 50px;
+     }
+     .input_cont {
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       margin-bottom: 50px;
+       width: 100%;
+       margin: 30px;
+     }
+     input {
+       margin: 0;
+       padding: 10px;
+       border: none;
+       border-radius: 10px 0px 0px 10px;
+       outline: none;
+       font-size: 20px;
+       max-width: 70%;
+     }
+     input::placeholder {
+       font-size: 20px;
+     }
+     .save {
+       font-size: 20px;
+       padding: 10px;
+       margin: 0;
+       border: none;
+       border-radius: 0px 10px 10px 0px;
+     }
+     .cont {
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       height: auto;
+       flex-direction: column;
+       width: 90%;
+     }
+     .notes {
+       background-color: white;
+       margin: 10px;
+       width: 100%;
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       border-radius: 10px;
+     }
+     .notes p {
+       font-size: 22px;
+       padding: 10px;
+     }
+     .delete {
+      padding: 10px;
+      width: 50px;
+      border: none;
+      font-size: 30px;
+      border-radius: 0px 10px 10px 0px;
+     }
     </style>
 </head>
 
 <body>
-
+ <div class="header">Notebook</div>
+ <div class="input_cont">
+ <input type="text" name="input" id="input" value="" placeholder="write a note"/>
+ <button onclick="saveitem()" class="save">Save</button>
+ </div>
+ <div id="cont" class="cont">
+ </div>
 <script type="text/javascript" charset="utf-8">
-  
+ getnotes(JSON.parse(localStorage.getItem('notes')));
+ function saveitem() {
+  let input = document.getElementById('input');
+  let notes;
+  if (input.value == "") {
+    alert('write something');
+  }else {
+  if (localStorage.getItem('notes') === null) {
+    notes = [];
+  }else {
+    notes = JSON.parse(localStorage.getItem('notes'));
+  }
+  notes.push(input.value);
+  getnotes(notes);
+  localStorage.setItem('notes' , JSON.stringify(notes));
+  }
+ }
+ function getnotes(notes) {
+   document.getElementById('cont').innerHTML = "";
+   let note;
+   let text;
+   for (note in notes) {
+   text = `<div class="notes"><p>` + notes[note] + `</p><button onclick="delete(` + notes[note] + `)" class="delete">&times;</button> </div>`;
+   document.getElementById('cont').innerHTML += text;
+   }
+ }
 </script>
 </body>
 
