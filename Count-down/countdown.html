@@ -80,9 +80,10 @@
   </div>
   <script type="text/javascript" charset="utf-8">
    const countdate = () => {
-   const enddate = new Date(2021 , 11 , 24 , 00 ,00 ,00).getTime();
+   const enddate = new Date(2021 , 11 , 24 , 00 ,00 ,00);
+   const enddatetime = new Date(2021 , 11 , 24 , 00 ,00 ,00).getTime();
    const now = new Date().getTime();
-   const gap = enddate - now;
+   const gap = enddatetime - now;
   
    const seconds = 1000;
    const minutes = seconds * 60;
@@ -93,7 +94,7 @@
    const texthours = Math.floor((gap % days) / hours);
    const textminutes = Math.floor((gap % hours) / minutes);
    const textseconds = Math.floor((gap % minutes) / seconds);
-   const textenddate = new Date(2021 , 11 , 24 , 00 ,00 ,00).toDateString();
+   const textenddate = enddate.toDateString();
    document.getElementById('days').innerText = textdays;
    document.getElementById('hours').innerText = (texthours < 10) ? "0" + texthours : texthours;
    document.getElementById('minutes').innerText = (textminutes < 10) ? "0" + textminutes : textminutes;
