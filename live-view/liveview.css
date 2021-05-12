@@ -108,7 +108,7 @@
   margin: 0;
   overflow: visible;
 }
-.tooltip:hover .tooltiptext {
+.tooltip div:hover~.tooltiptext {
   visibility: visible;
   opacity: 1;
 }
