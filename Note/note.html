@@ -68,6 +68,23 @@
        align-items: center;
        border-radius: 10px;
      }
+     .notes_anim {
+       animation: remove 0.7s linear 1;
+     }
+     @keyframes remove {
+       0% {
+         transform: translateX(0px);
+       }
+       50% {
+         transform: translateX(-100%);
+         opacity: 0.5;
+       }
+       100% {
+         transform: translateX(-100%);
+         position: absolute;
+         opacity: 0;
+       }
+     }
      .notes p {
        font-size: 22px;
        padding: 10px;
@@ -106,6 +123,7 @@
   notes.push(input.value);
   getnotes(notes);
   localStorage.setItem('notes' , JSON.stringify(notes));
+  input.value = "";
   }
  }
  function getnotes(notes) {
@@ -113,9 +131,17 @@
    let note;
    let text;
    for (note in notes) {
-   text = `<div class="notes"><p>` + notes[note] + `</p><button onclick="delete(` + notes[note] + `)" class="delete">&times;</button> </div>`;
+   text = "<div class=\"notes\"><p>" + notes[note] + "</p><button onclick=\"edit(\'" + notes[note] + "\' , this.parentNode)\" class=\"delete\">&times;</button></div>";
    document.getElementById('cont').innerHTML += text;
    }
+ }
+ function edit(note , parent) {
+  let notes = JSON.parse(localStorage.getItem('notes'));
+  noteindex = notes.indexOf(note);
+  notes.splice(noteindex , 1);
+  localStorage.setItem("notes" , JSON.stringify(notes));
+  parent.classList.add('notes_anim');
+  setTimeout(function() { getnotes(notes); } , 600);
  }
 </script>
 </body>
