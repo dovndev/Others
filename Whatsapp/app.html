@@ -15,15 +15,17 @@
     }
     body {
       width: 100%;
-      overflow: hidden;
+      height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
     }
     h1 {
       text-align: center;
-      margin: 10px;
-      padding: 30px;
-      margin-bottom: 100px;
       font-size: 34px;
       color: #3D3D3D;
+      margin: 30px;
     }
      input {
        border: none;
@@ -56,19 +58,21 @@
        width: 90%;
      }
      .bod {
-      height: 30vh;
       display: flex;
       justify-content: space-around;
       align-items: center;
       width: 100%;
       flex-direction: column;
+      margin: 30px;
      }
      .cont {
        width: 100%;
-       padding: 20px;
        display: flex;
        justify-content: space-around;
        align-items: center;
+       margin: 30px;
+       padding-left: 20px;
+       padding-right: 20px;
      }
      button {
        border-style: solid;
@@ -92,7 +96,7 @@
 
 <body>
  <h1>Account checking<br />Whatsapp,Telegram</h1>
-<div class="cont">
+ <div class="cont">
    <button id="btn1" onclick="change()">Whatsapp</button>
    <button id="btn2" onclick="changet()">Telegram</button>
  </div>
