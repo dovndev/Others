@@ -12,17 +12,38 @@
   transition:background-color 1s ease-in-out;
   transition:color 1s ease-in-out;
 }
-.darktheme #systeminput{
+.darktheme #htmlinput {
   background-color: #303030;
   color: #EFEFEF;
 }
-.darktheme .systemheader{
-  background-color: #666666;
+.darktheme .inputcontrols>div {
+  color: #EFEFEF;
+  border-left: 1px solid #EFEFEF;
+}
+.darktheme .inputcontrols {
+  border: 1px solid #EFEFEF;
+}
+.darktheme .systemheader {
+  background-color: #7B7B7B;
+}
+.darktheme .systemlogo>i {
+  color: #EFEFEF;
+}
+.darktheme .systemnavbtn>i{
+  color: white;
+}
+.darktheme .systemnavbar {
+  background-color: #0C0C10;
+  color: #EFEFEF;
+  border: 1px solid #EFEFEF;
+}
+.darktheme .tooltip {
+ border-bottom: 1px solid #EFEFEF;
 }
 .darktheme .fa-adjust {
   color: white;
   transform: rotateY(180deg);
-  font-size: 23px
+  font-size: 18px
 }
 .darktheme .fa-clipboard {
   color: white;
@@ -42,85 +63,86 @@
 .darktheme ::-webkit-scrollbar-track {
   background-color: #171717;
 }
-.systemnavbar{
-  display: none;
-  position: absolute;
-  top: 100px;
-  right: 0;
-  height: 50vh;
-  width: 70%;
-  background-color: white;
-}
-.navbaritems{
-  color: black;
-  box-sizing: border-box;
-  background-color: #E7E7E7;
-  width: 100%;
-  padding: 10px;
-}
 .systeminputcont{
   height: 50vh;
   width: 100%;
   font-family: courier;
   display: flex;
   flex-direction: column;
-  
 }
 .systemheader {
   display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: space-between;
+  height: 35px;
+  background-color: #C8C8C8;
+}
+.inputcontrols {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  border: 1px solid black;
+  font-family: sans-serif;
+  width: 80%;
+}
+.inputcontrols>div {
+  text-align: center;
   width: 100%;
-  height: 45px;
+  padding-top: 5px;
+  height: 100%;
+  border-left: 1px solid black;
+  font-size: 18px;
+}
+.systemnavbtn,.systemlogo {
+  text-align: center;
+  min-width: 10%;
+}
+.systemnavbtn>i,.systemlogo>i {
+  font-size: 20px;
+}
+.systemnavbar {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 35px;
+  height: 50%;
+  right: 0;
+  width: 50%;
   background-color: #C8C8C8;
   transition: 1s ease-in-out;
-  overflow: visible;
+  overflow-y: auto;
 }
 .tooltip {
-  align-items: center;
-  justify-content: center;
   display: flex;
-  transform: translateY(8px);
-  flex-direction: column;
-  width: 25vh;
-  overflow: visible;
-  margin: 0;
-  padding: 0;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  display: flex;
+  padding: 8px;
+  border-bottom: 1px solid black;
 }
 .systembtn {
   background-color: none;
   border: none;
   outline: none;
-  margin: 0;
-  padding: 0;
   text-align: center;
-  overflow: visible;
-  width: 70px;
+  min-width: 30px;
 }
 .tooltiptext {
+  margin-left: 10px;
   text-align: center;
-  opacity: 0;
-  background-color: #C8C8C8;
   font-size: 15px;
-  padding: 7px;
   font-family: sans-serif;
-  border-radius: 10px;
-  margin: 0;
-  overflow: visible;
 }
-.tooltip div:hover~.tooltiptext {
-  visibility: visible;
-  opacity: 1;
-}
-.fa-clipboard,.fa-adjust,.fa-expand,.fa-compress{
+.fa-clipboard,.fa-adjust,.fa-expand,.fa-compress,.fa-ellipsis-v{
   transition: 1s ease-in-out;
-  font-size: 23px;
+  font-size: 18px;
   color: black;
 }
 #exitfullscreenbtn{
   display: none;
 }
-#systeminput {
+#htmlinput {
   outline: none;
   width: 100%;
   height: 100%;
@@ -135,7 +157,7 @@
   overflow-x: hidden;
   transition: 1s ease-in-out;
 }
-#systeminput::placeholder{
+#htmlinput::placeholder{
   font-size: 20px;
 }
 .systemresultbox{
@@ -192,5 +214,9 @@
 .systemresultbox2 {
   height: 100vh;
   width: 100%;
+}
+.systemnavbar {
+  width: 25%;
+  right: 50%;
 }
 }
