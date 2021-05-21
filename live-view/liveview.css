@@ -12,7 +12,15 @@
   transition:background-color 1s ease-in-out;
   transition:color 1s ease-in-out;
 }
-.darktheme #htmlinput {
+.darktheme {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  flex-direction: column;
+  transition:background-color 1s ease-in-out;
+  transition:color 1s ease-in-out;
+}
+.darktheme textarea {
   background-color: #303030;
   color: #EFEFEF;
 }
@@ -25,9 +33,6 @@
 }
 .darktheme .systemheader {
   background-color: #7B7B7B;
-}
-.darktheme .systemlogo>i {
-  color: #EFEFEF;
 }
 .darktheme .systemnavbtn>i{
   color: white;
@@ -57,6 +62,9 @@
 .darktheme .fa-compress {
   color: white;
 }
+.darktheme .fa-text-height {
+  color: white;
+}
 .darktheme #togglebtni {
   color: black;
 }
@@ -84,8 +92,9 @@
   border: 1px solid black;
   font-family: sans-serif;
   width: 80%;
+  position: relative;
 }
-.inputcontrols>div {
+.contr {
   text-align: center;
   width: 100%;
   padding-top: 5px;
@@ -93,11 +102,25 @@
   border-left: 1px solid black;
   font-size: 18px;
 }
-.systemnavbtn,.systemlogo {
+.bordcont {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+.bord {
+  height: 3px;
+  width: 33%;
+  background-color: #303030;
+}
+.systemnavbtn {
   text-align: center;
   min-width: 10%;
 }
-.systemnavbtn>i,.systemlogo>i {
+.systemnavbtn>i {
   font-size: 20px;
 }
 .systemnavbar {
@@ -134,7 +157,7 @@
   font-size: 15px;
   font-family: sans-serif;
 }
-.fa-clipboard,.fa-adjust,.fa-expand,.fa-compress,.fa-ellipsis-v{
+.fa-clipboard,.fa-adjust,.fa-expand,.fa-compress,.fa-ellipsis-v,.fa-text-height{
   transition: 1s ease-in-out;
   font-size: 18px;
   color: black;
@@ -142,7 +165,7 @@
 #exitfullscreenbtn{
   display: none;
 }
-#htmlinput {
+textarea {
   outline: none;
   width: 100%;
   height: 100%;
@@ -157,8 +180,30 @@
   overflow-x: hidden;
   transition: 1s ease-in-out;
 }
-#htmlinput::placeholder{
+#styleinput,#scriptinput {
+  display: none;
+}
+textarea::placeholder{
   font-size: 20px;
+}
+.extracont {
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  display: none;
+}
+.extratool {
+  display: none
+}
+#copytool,#font-tool {
+  background-color: white;
+  border: 2px solid black;
+  padding: 50px;
 }
 .systemresultbox{
   height: 50vh;
@@ -201,6 +246,9 @@
 }
 @media screen and (min-width:580px) {
 .lighttheme{
+  flex-direction: row;
+ }
+.darktheme {
   flex-direction: row;
  }
 .systeminputcont{

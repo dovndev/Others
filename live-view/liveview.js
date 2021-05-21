@@ -1,8 +1,12 @@
 const htmlinput = document.getElementById("htmlinput");
+const styleinput = document.getElementById("styleinput");
+const scriptinput = document.getElementById("scriptinput");
 const systemresultbox = document.getElementById("systemresultbox");
+let extracont = document.querySelector(".extracont");
 const systemiframe = document.getElementById("systemiframe");
 const systemtooltip = document.getElementById("myTooltip");
 const systemnavbar = document.getElementById('systemnavbar');
+
 let systemdefaulttxt = `<!DOCTYPE html>
 <html>
  <head>
@@ -14,8 +18,6 @@ let systemdefaulttxt = `<!DOCTYPE html>
 </html>`;
 htmlinput.innerHTML = systemdefaulttxt;
 const body = document.documentElement;
-const styleinput = "style";
-const scriptinput = "script";
 function fullscreen() {
   let fullscreenbtn = document.getElementById('fullscreenbtn');
 if(body.requestFullscreen){
@@ -48,10 +50,10 @@ function run() {
  <html>
  <head>
  <style type="text/css" media="all">
- ` + styleinput + `
+ ` + styleinput.value + `
  </style>
  <script type="text/javascript" charset="utf-8">
- ` + scriptinput + `
+ ` + scriptinput.value + `
  </script>
  </head>
  <body>
@@ -59,17 +61,14 @@ function run() {
  </body>
  </html>`;
  systemiframe.srcdoc = systemcode;
- console.log(systemcode);
 }
-function copyto() {
-  htmlinput.select();
-  htmlinput.setSelectionRange(0, 99999);
+function copyto(input) {
+  swift(input);
+  let inputi = document.getElementById(input);
+  inputi.select();
+  inputi.setSelectionRange(0, 99999);
   document.execCommand("copy");
-  systemtooltip.innerHTML = "Copied your code";
-  systemnavbar.style.display = 'none';
-}
-function outFunc() {
-  systemtooltip.innerHTML = "Copy to clipboard";
+ alert("copied your code\n" + inputi.value);
 }
 function changetheme() {
  var lighttheme = document.getElementById("lighttheme");
@@ -91,4 +90,33 @@ function fillscreen() {
 function opennav() {
   let displayvalue = (systemnavbar.style.display !== 'block') ? 'block' : 'none';
   systemnavbar.style.display = displayvalue;
+}
+function swift(txt) {
+let border = document.querySelector(".bordcont");
+if(txt == 'htmlinput') {
+ htmlinput.style.display = 'block';
+ styleinput.style.display = 'none';
+ scriptinput.style.display = 'none';
+ border.style['justify-content'] = 'flex-start';
+}else if(txt == "styleinput") {
+ htmlinput.style.display = 'none';
+ styleinput.style.display = 'block';
+ scriptinput.style.display = 'none';
+ border.style['justify-content'] = 'center';
+}else {
+ htmlinput.style.display = 'none';
+ styleinput.style.display = 'none';
+scriptinput.style.display = 'block';
+border.style['justify-content'] = 'flex-end';
+ }
+}
+function toolopen(tool) {
+  let item = document.getElementById(tool);
+  extracont.style.display = 'flex';
+  item.style.display = 'block';
+}
+function toolclose() {
+ let extratools = document.querySelectorAll(".extratool");
+ setTimeout(() => {extracont.style.display = 'none';
+   extratools.forEach((item) => { item.style.display = 'none'; });},500)
 }

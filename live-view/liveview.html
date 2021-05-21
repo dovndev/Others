@@ -8,22 +8,26 @@
   <script src="https://kit.fontawesome.com/399461c2e9.js" crossorigin="anonymous"></script>
  </head>
  <body>
-  <div class="lighttheme" id="lighttheme">
+  <div class="darktheme" id="lighttheme">
    <div id="systeminputcont" class="systeminputcont">
     <div class="systemheader">
-     <div class="systemlogo">
-      <i class="fas fa-bars"></i>
-     </div>
      <div class="inputcontrols">
-      <div>index.html</div>
-      <div>index.css</div>
-      <div>index.js</div>
+      <div class="contr" onclick="swift('htmlinput')">index.html</div>
+      <div class="contr" onclick="swift('styleinput')">index.css</div>
+      <div class="contr" onclick="swift('scriptinput')">index.js</div>
+      <div class="bordcont">
+        <div class="bord"></div>
+      </div>
      </div>
      <div onclick="opennav()" class="systemnavbtn">
       <i class="fas fa-bars"></i>
      </div> 
      </div>
     <textarea placeholder="write code here" id="htmlinput" oninput="run()" autocomplete="off"/>
+    </textarea>
+    <textarea placeholder="write code here" id="styleinput" oninput="run()" autocomplete="off" />
+    </textarea>
+    <textarea placeholder="write code here" id="scriptinput" oninput="run()" autocomplete="off" />
     </textarea>
    </div>
    <div id="systemresultbox" class="systemresultbox">
@@ -32,13 +36,11 @@
     </iframe>
    </div>
   <div id="systemnavbar" class="systemnavbar">
-    <div onclick="copyto()" onmouseout="outFunc()" class="tooltip">
-      <div id="systemcopybtn" class="systembtn">
-        <i class="far fa-clipboard">
-        </i>
-      </div>
-      <span class="tooltiptext" id="myTooltip">Copy to clipboard
-      </span>
+    <div onclick="toolopen('copytool')" class="tooltip">
+     <div class="systembtn">
+     <i class="far fa-clipboard"></i>
+     </div>
+     <span class="tooltiptext">Copy your code</span>
     </div>
     <div onclick="changetheme()" class="tooltip">
       <div id="systemthemebtn" class="systembtn">
@@ -58,15 +60,41 @@
         <i class="fas fa-compress"></i></div>
       <span class="tooltiptext">Exit fullscreen</span>
     </div>
-    <div onclick="changetheme()" class="tooltip">
+    <div onclick="toolopen('font-tool')" class="tooltip">
       <div id="systemthemebtn" class="systembtn">
-        <i class="fas fa-">
-        </i>
+       <i class="fas fa-text-height"></i>
       </div>
       <span class="tooltiptext">font-size
       </span>
     </div>
   </div>
+  </div>
+  <div class="extracont" onclick="toolclose()">
+   <div class="extratool" id="copytool">
+    <div onclick="copyto('htmlinput')" class="tooltip">
+     <div id="systemcopybtn" class="systembtn">
+      <i class="far fa-clipboard"></i>
+     </div>
+     <span class="tooltiptext">Copy index.html</span>
+     </div>
+     <div onclick="copyto('styleinput')" class="tooltip">
+      <div id="systemcopybtn" class="systembtn">
+      <i class="far fa-clipboard"></i>
+      </div>
+      <span class="tooltiptext">Copy index.css</span>
+     </div>
+     <div onclick="copyto('scriptinput')" class="tooltip">
+     <div id="systemcopybtn" class="systembtn">
+     <i class="far fa-clipboard"></i>
+     </div>
+     <span class="tooltiptext">Copy index.js</span>
+    </div>
+   </div>
+   <div class="extratool" id="font-tool">
+    <label for="font-size">font-size</label>
+    <input type="range" name="font-size" id="font-size" value="50" max="100" min="1"/>
+   </div>
+   <div class="extratool"></div>
   </div>
   <script src="liveview.js">
   </script>
