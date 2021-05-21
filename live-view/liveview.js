@@ -118,5 +118,5 @@ function toolopen(tool) {
 function toolclose() {
  let extratools = document.querySelectorAll(".extratool");
  setTimeout(() => {extracont.style.display = 'none';
-   extratools.forEach((item) => { item.style.display = 'none'; });},500)
+   extratools.forEach((item) => { item.style.display = 'none'; });},100)
 }
