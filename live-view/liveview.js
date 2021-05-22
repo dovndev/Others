@@ -67,8 +67,8 @@ function copyto(input) {
   let inputi = document.getElementById(input);
   inputi.select();
   inputi.setSelectionRange(0, 99999);
-  document.execCommand("copy");
- alert("copied your code\n" + inputi.value);
+  document.execCommand('copy');
+  alert("copied your code to clipboard\n" + inputi.value);
 }
 function fillscreen() {
  let togglebtn = document.getElementById('togglebtn');
