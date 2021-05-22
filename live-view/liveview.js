@@ -6,7 +6,7 @@ let extracont = document.querySelector(".extracont");
 const systemiframe = document.getElementById("systemiframe");
 const systemtooltip = document.getElementById("myTooltip");
 const systemnavbar = document.getElementById('systemnavbar');
-
+const theme = document.getElementById("theme");
 let systemdefaulttxt = `<!DOCTYPE html>
 <html>
  <head>
@@ -70,11 +70,6 @@ function copyto(input) {
   document.execCommand("copy");
  alert("copied your code\n" + inputi.value);
 }
-function changetheme() {
- var lighttheme = document.getElementById("lighttheme");
- lighttheme.classList.toggle("darktheme");
- systemnavbar.style.display = 'none';
-}
 function fillscreen() {
  let togglebtn = document.getElementById('togglebtn');
  let togglebtni = document.getElementById('togglebtni');
@@ -113,10 +108,79 @@ border.style['justify-content'] = 'flex-end';
 function toolopen(tool) {
   let item = document.getElementById(tool);
   extracont.style.display = 'flex';
-  item.style.display = 'block';
+  item.style.display = 'flex';
 }
 function toolclose() {
  let extratools = document.querySelectorAll(".extratool");
  setTimeout(() => {extracont.style.display = 'none';
    extratools.forEach((item) => { item.style.display = 'none'; });},100)
+}
+getsize();
+function getsize() {
+  let fontsize;
+  if (localStorage.getItem('fontsize') === null) {
+    fontsize = 20 + 'px';
+  }else {
+    fontsize = JSON.parse(localStorage.getItem('fontsize'));
+  }
+  changesize(fontsize);
+}
+function changesize(fontsize) {
+ htmlinput.style['font-size'] = fontsize;
+ styleinput.style['font-size'] = fontsize;
+ scriptinput.style['font-size'] = fontsize;
+ document.getElementById('font-value').innerHTML = fontsize;
+}
+function editsize(fontinput) {
+  let fontsize = fontinput.value + 'px';
+  localStorage.setItem('fontsize' , JSON.stringify(fontsize));
+  changesize(fontsize);
+}
+gettheme();
+function gettheme() {
+let themevalue = localStorage.getItem('themevalue');
+if (themevalue !== null) {
+ if (themevalue !== 'lighttheme') {
+   theme.classList.toggle('darktheme');
+ }
+}
+}
+function changetheme() {
+ theme.classList.toggle("darktheme");
+ if (theme.classList.length == 2) {
+   localStorage.setItem("themevalue" , 'darktheme');
+ }else {
+   localStorage.setItem("themevalue" , 'lighttheme');
+ }
+}
+livecheck();
+function livecheck() {
+ let livevalue = localStorage.getItem('livevalue');
+ let input = document.getElementsByTagName('textarea');
+ let x;
+ if (livevalue !== null) {
+  if (livevalue == 'checked') {
+  for (x = 0; x < input.length; x++) {
+    input[x].oninput = run;
+    document.getElementById('liveprev').checked = true;
+  }
+  }else {
+    for (x = 0; x < input.length; x++) {
+      input[x].oninput = null;
+      document.getElementById('liveprev').checked = false;
+    }
+  }
+ }
+}
+livechange(document.getElementById('liveprev'));
+function livechange(checkbox) {
+  let runbtn = document.querySelector('.runbtn');
+  if (checkbox.checked === true) {
+    localStorage.setItem("livevalue" , 'checked');
+    runbtn.style.display = 'none';
+  }else {
+    localStorage.setItem("livevalue" , 'unchecked');
+    runbtn.style.display = 'block';
+  }
+  livecheck();
 }

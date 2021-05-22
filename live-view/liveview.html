@@ -8,7 +8,7 @@
   <script src="https://kit.fontawesome.com/399461c2e9.js" crossorigin="anonymous"></script>
  </head>
  <body>
-  <div class="darktheme" id="lighttheme">
+  <div class="lighttheme" id="theme">
    <div id="systeminputcont" class="systeminputcont">
     <div class="systemheader">
      <div class="inputcontrols">
@@ -23,9 +23,10 @@
       <i class="fas fa-bars"></i>
      </div> 
      </div>
-    <textarea placeholder="write html here" id="htmlinput" oninput="run()" autocomplete="off"/></textarea>
-    <textarea placeholder="write style here" id="styleinput" oninput="run()" autocomplete="off" /></textarea>
-    <textarea placeholder="write script here" id="scriptinput" oninput="run()" autocomplete="off" /></textarea>
+    <textarea placeholder="write html here" id="htmlinput" autocomplete="off"/></textarea>
+    <textarea placeholder="write style here" id="styleinput" autocomplete="off" /></textarea>
+    <textarea placeholder="write script here" id="scriptinput" autocomplete="off" /></textarea>
+    <div class="runbtn" onclick="run()">Run</div>
    </div>
    <div id="systemresultbox" class="systemresultbox">
     <div onclick="fillscreen()" class="togglebtn" id="togglebtn"><i id="togglebtni" class="fas fa-expand"></i></div>
@@ -39,14 +40,6 @@
      </div>
      <span class="tooltiptext">Copy your code</span>
     </div>
-    <div onclick="changetheme()" class="tooltip">
-      <div id="systemthemebtn" class="systembtn">
-        <i class="fas fa-adjust">
-        </i>
-      </div>
-      <span class="tooltiptext">Change theme
-      </span>
-    </div>
     <div onclick="fullscreen()" id="fullscreenbtn" class="tooltip">
       <div class="systembtn">
         <i class="fas fa-expand"></i></div>
@@ -57,6 +50,9 @@
         <i class="fas fa-compress"></i></div>
       <span class="tooltiptext">Exit fullscreen</span>
     </div>
+     <div id="settings" class="tooltip">
+       <span class="tooltiptext">Settings</span>
+     </div>
     <div onclick="toolopen('font-tool')" class="tooltip">
       <div id="systemthemebtn" class="systembtn">
        <i class="fas fa-text-height"></i>
@@ -64,6 +60,21 @@
       <span class="tooltiptext">font-size
       </span>
     </div>
+     <div onclick="changetheme()" class="tooltip">
+       <div id="systemthemebtn" class="systembtn">
+         <i class="fas fa-adjust">
+         </i>
+       </div>
+       <span class="tooltiptext">Change theme
+       </span>
+     </div>
+     <label id="livecont" for="liveprev" class="tooltip">
+      <div id="systemlivebtn" class="systembtn">
+       <input onchange="livechange(this)" type="checkbox" name="liveprev" id="liveprev" />
+       <span class="theball"></span>
+      </div>
+      <span class="tooltiptext">live preview</span>
+     </label>
   </div>
   </div>
   <div class="extracont" onclick="toolclose()">
@@ -88,8 +99,11 @@
     </div>
    </div>
    <div class="extratool" id="font-tool">
-    <label for="font-size">font-size</label>
-    <input type="range" name="font-size" id="font-size" value="50" max="100" min="1"/>
+    <label for="font-input">font-size</label>
+    <div class="rangecont">
+     <input oninput="editsize(this)" type="range" name="font-input" id="font-input" value="20" max="40" min="10"/>
+    </div>
+    <span id="font-value">20px</span>
    </div>
    <div class="extratool"></div>
   </div>
