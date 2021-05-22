@@ -13,9 +13,9 @@ let systemdefaulttxt = `<!DOCTYPE html>
   <title></title>
  </head>
  <body>  
- 
+  
  </body>
-</html>`;
+</html>`; 
 htmlinput.innerHTML = systemdefaulttxt;
 const body = document.documentElement;
 function fullscreen() {
