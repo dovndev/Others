@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fresh Meat</title>
+    <link rel="stylesheet"
+    href="freshMeat.css"></link>
+<style type="text/css" media="all">
+  @font-face{
+  src:url('sansation_light.ttf');
+  format:('truetype');
+  font-family:"sansation";
+  }
+</style>
+</head>
+<body id="body"> 
+<div class="headercontainer">
+   <div onclick="openNav()" class="container">
+  <div class="topbars">
+    <div class="bar1"></div>
+    <div class="bar2"></div>
+    <div class="bar3"></div>
+  </div></div>
+<div class="home">
+<a href="#"><img src="logo.jpg" alt="FreshMeat" /></a>
+</div>
+<div>
+<img class="location" src="location.png" alt="select region" />
+</div>
+</div>
+<div class="serchbarcontainer" id="serchbarcontainer">
+  <input type="text" name="serch" id="serchbar" placeholder="Serch for FreshMeat"  onchange="search()" >
+<div class="searchcontainer">
+<img class="search"src="search.png" alt="Search" />
+</div>
+</div>
+<div class="navbarcontainer" id="navbarcontainer"  onclick="closenav()">
+  <span onclick="closenav()" class="close" title="Close Modal">&times;</span>
+</div>
+<div class="navbar" id="navbar">
+  <div class="logindetail" >
+   <p id="greeting">Good Evening,<p id="username"></p>
+   </p>
+  </div>
+   <a href="#">home</a>
+   <a href="#">todays deals</a>
+   <a href="#">login</a>
+   <a href="#">account</a>
+   <a href="#">details</a>
+   <a href="#">Help</a>
+   <a href="#">home</a>
+   <a href="#">todays deals</a>
+   <a href="#">login</a>
+   <a href="#">account</a>
+   <a href="#">details</a>
+   <a href="#">Help</a>
+   <a href="#">home</a>
+   <a href="#">todays deals</a>
+   <a href="#">login</a>
+   <a href="#">account</a>
+   <a href="#">details</a>
+   <a href="#">Help</a>
+</div>
+<div class="content">
+<p></p>
+</div>
+<script type="text/javascript" charset="utf-8">
+var c =document.getElementById("navbarcontainer");
+var d =document.getElementById("navbar");
+var e =document.getElementById("body");
+  function openNav() {
+    d.style.width = "75%";
+    c.style.display="block";
+    e.classList.add("body")
+  }
+</script>
+<script type="text/javascript" charset="utf-8">
+var x =document.getElementById("username");
+var input =document.getElementById("serchbar");
+
+ function search() { 
+   x.innerHTML = " " + input.value;
+ }
+</script>
+<script type="text/javascript" charset="utf-8">
+var f =document.getElementById("greeting");
+var g = new Date().getHours();
+if(g < 10){
+  f.innerHTML ="Good Morning,";
+}
+else if(g < 18){
+  f.innerHTML ="Hello,";
+}
+</script>
+<script type="text/javascript" charset="utf-8"> 
+var a =document.getElementById("navbar");
+var b =document.getElementById("navbarcontainer");
+var e =document.getElementById("body");
+ function closenav() {
+   a.style.width="0%";
+   b.style.display="none"
+   e.classList.remove("body")
+ }
+</script>
+</body>
+</html>
