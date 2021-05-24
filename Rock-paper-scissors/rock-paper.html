@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="./rock-paper.css" />
+    <title>Rock paper and scissors</title>
+  </head>
+  <body>
+    <div onclick="load()" class="loading"><img src="assets/loading.png" alt="" /></div>
+    <section class="game">
+      <div class="score">
+        <div class="player-score">
+          <h2>Player</h2>
+          <p>0</p>
+        </div>
+        <div class="tie-score">
+          <h2>Ties</h2>
+          <p>0</p>
+        </div>
+        <div class="computer-score">
+          <h2>Computer</h2>
+          <p>0</p>
+        </div>
+      </div>
+
+      <div class="intro">
+        <h1>Rock Paper and Scissors</h1>
+        <button class="play" >Let's Play</button>
+      </div>
+
+      <div class="match fadeOut">
+        <h2 class="winner">Choose an option</h2>
+        <div class="hands">
+          <p>Player</p>
+          <img class="player-hand" src="./assets/rock.png" alt="" />
+          <img class="computer-hand" src="./assets/rock.png" alt="" />
+          <p>Computer</p>
+        </div>
+        <div class="options">
+          <button class="rock">rock</button>
+          <button class="paper">paper</button>
+          <button class="scissors">scissors</button>
+        </div>
+        <div class="reload-container">
+        <button onclick="location.reload();" class="reload">Reload</button>
+        </div>
+      </div>
+      <p id="sampletxt" class="sampletxt">Play with AI</p>
+    </section>
+    <script src="rock-paper.js">
+    </script>
+  </body>
+</html>
