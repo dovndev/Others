@@ -1,0 +1,198 @@
+
+input[type=text],input[type=password]  {
+  width: 100%;
+  padding-bottom:12px;
+  padding-right:40px;
+  padding-left:20px;
+  padding-top:12px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 2px solid gray;
+  border-radius:5px;
+  box-sizing: border-box;
+  margin-bottom:20px ;
+  font-size:20px;
+  outline:none;
+}
+input[type=text]:focus,input[type=password]:focus{
+  border:orange solid 2px;
+}  
+.note{
+  font-weight: normal;
+  font-size:15px;
+}
+.Email{
+  display: inline-grid;
+}
+.cancelbtn {
+  width: auto;
+  background-color:#ccc;
+  border: none;
+  font-weight:bold;
+  padding:5px 15px;
+  margin-top:25px;
+  margin-bottom:0px;
+  border-radius:5px;
+  font-size: 20px;
+  outline:none ;
+}
+.cancelbtnsignup{
+  width: auto;
+  background-color:#ccc;
+  border: none;
+  font-weight:bold;
+  padding:5px 15px;
+  margin-top:5px;
+  margin-bottom:0px;
+  border-radius:5px;
+  font-size: 20px;
+  outline:none;
+}
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  padding-top:10px;
+  position: relative;
+}
+img.yay {
+  width: 40%;
+  border-radius: 50%;
+}
+img.yay:hover{
+    animation: logomove 0.7s ease-in-out infinite forwards;
+}
+img.SIGNUPLOGO {
+  width: 20%;
+  border-radius: 50%;
+}
+img.SIGNUPLOGO:hover{
+    animation: logomove 0.7s ease-in-out infinite forwards;
+}
+.container{
+  padding-top:10px;
+  padding-left:20px;
+  padding-right:0px;
+  padding-bottom:20px;
+  margin:0px;
+  
+} 
+.container1  {
+  padding: 16px;
+}
+.psw{
+  float:right;
+  padding:0px;
+  padding-right:8px;
+  margin:0px;
+}
+.signup{
+  float:right;
+  padding:0px;
+  padding-right:15px;
+  margin:0;
+}
+.Login{
+  text-align:center;
+}
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%;
+  overflow: auto; 
+  background-color:
+  rgba(0,0,0,0.4);
+  padding-top: 0px;
+}
+.modal-content {
+  background-color: #fefefe;
+  margin:5% auto 15% auto;
+  border-radius:5px;
+  width: 90%; 
+  font-size:20px;
+  font-weight:bold;
+  
+}
+.close {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  color: #000;
+  font-size: 45px;
+  font-weight: bold;
+}
+.close:hover,
+.close:focus {
+  color: red;
+  cursor: pointer;
+}
+.animate {
+  animation:
+  animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+ 
+@keyframes animatezoom {
+  from {-webkit-transform: scale(0)} 
+  to {-webkit-transform: scale(1)
+  }
+}
+.submit{
+  background-color:red;
+  border: none;
+  font-weight:bold;
+  padding:5px 15px;
+  margin-left:0px;
+  margin-right:0px;
+  margin-top:10px;
+  border-radius:5px;
+  font-size: 30px;
+  outline:none ;
+  transition:0.5s;
+}
+
+.submit:hover{
+  opacity:0.6;
+}
+input::placeholder {
+  font-size:20px;
+}
+@media screen and (min-width:600px) {
+ .signup{
+   padding-right:15px;
+ }
+ .psw{
+  padding-right:8px;
+ }
+ .submit{
+  margin-right:0px;
+ }
+ .Login{
+   position: absolute;
+   right: 6%;
+ }
+}
+.checkbox
+{
+  float:right;
+  margin-right:1px;
+}
+.hidepsw{
+  height:18.5px;
+  width:25px;
+}
+.hidepassword{
+  position:absolute;
+  right:10px;
+  top:24px;
+}
+.psw a, .signup a, .Login a{
+  color: red;
+  opacity:0.5;
+}
+.buttonin{
+  position:relative;
+}
