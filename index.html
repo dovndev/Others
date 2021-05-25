@@ -49,6 +49,7 @@
    5px 5px 14px #d7ddff;
   }
   .links {
+   margin: 10px; 
    text-decoration: none;
    font-family: monospace;
    font-size: 25px;
@@ -67,6 +68,19 @@
    box-shadow: 
    inset -5px -5px 14px #a3a7db,
    inset 5px 5px 14px #d7ddff;
+  }
+  @media screen and (min-width:600px)
+  {
+   body {
+    flex-direction: row;
+   }
+   h1 {
+    width: 20%;
+   }
+   .cont {
+     width: 70%;
+     height: 90vh;
+   }
   }
  </style>
 </head>
