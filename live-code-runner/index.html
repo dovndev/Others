@@ -12,12 +12,10 @@
    <div id="systeminputcont" class="systeminputcont">
     <div class="systemheader">
      <div class="inputcontrols">
-      <div class="contr" onclick="swift('htmlinput')">index.html</div>
-      <div class="contr" onclick="swift('styleinput')">index.css</div>
-      <div class="contr" onclick="swift('scriptinput')">index.js</div>
-      <div class="bordcont">
-        <div class="bord"></div>
-      </div>
+      <div id="htmlswift" class="swiftbtn swiftbtn2" onclick="swift('htmlinput')">HTML</div>
+      <div id="cssswift" class="swiftbtn" onclick="swift('styleinput')">CSS</div>
+      <div id="jsswift" class="swiftbtn" onclick="swift('scriptinput')">JS</div>
+      <div id="resultswift" class="swiftbtn" onclick="swift('scriptinput')">Result</div>
      </div>
      <div onclick="opennav()" class="systemnavbtn">
       <i class="fas fa-bars"></i>
@@ -50,9 +48,7 @@
         <i class="fas fa-compress"></i></div>
       <span class="tooltiptext">Exit fullscreen</span>
     </div>
-     <div id="settings" class="tooltip">
-       <span class="tooltiptext">Settings</span>
-     </div>
+     <div id="settings">Settings</div>
     <div onclick="toolopen('font-tool')" class="tooltip">
       <div id="systemthemebtn" class="systembtn">
        <i class="fas fa-text-height"></i>

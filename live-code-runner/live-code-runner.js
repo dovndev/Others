@@ -100,7 +100,7 @@ function opennav() {
 }
 const hidetext = (bordvalue,inputtype) => {
   let border = document.querySelector(".bordcont");
-  border.style['justify-content'] = bordvalue;
+  border.style['border-bottom'] = '3 px solid black';
   Object.values(textareas).forEach((item) => item.style.display = 'none');
   inputtype.style.display = 'block';
 };
