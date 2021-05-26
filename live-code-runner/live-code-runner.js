@@ -7,14 +7,15 @@ const systemiframe = document.getElementById("systemiframe");
 const systemtooltip = document.getElementById("myTooltip");
 const systemnavbar = document.getElementById('systemnavbar');
 const theme = document.getElementById("theme");
+const textareas = document.getElementsByTagName('textarea');
 let systemdefaulttxt = `<!DOCTYPE html>
 <html>
- <head>
-  <title></title>
- </head>
- <body>  
-  
- </body>
+<head>
+ <title> </title>
+</head>
+<body>
+
+</body>
 </html>`; 
 htmlinput.innerHTML = systemdefaulttxt;
 const body = document.documentElement;
@@ -62,6 +63,16 @@ function run() {
  </html>`;
  systemiframe.srcdoc = systemcode;
 }
+function copywhole() {
+ var pos = htmlinput.value.indexOf('head');
+ const wholecode = htmlinput.value.slice(0 , pos + 5) + `\n<style type="text/css" media="all">\n`
+  + styleinput.value + 
+ `\n</style>\n<script type="text/javascript" charset="utf-8">\n`
+  + scriptinput.value + 
+ `\n</script>` + htmlinput.value.slice(pos + 5);
+ navigator.clipboard.writeText(wholecode);
+ alert("copied your code to clipboard\n" + wholecode);
+}
 function copyto(input) {
   swift(input);
   let inputi = document.getElementById(input);
@@ -74,11 +85,9 @@ function fillscreen() {
  let togglebtn = document.getElementById('togglebtn');
  let togglebtni = document.getElementById('togglebtni');
  if (togglebtni.classList[1] == "fa-expand"){
-   togglebtni.classList.add('fa-compress');
-   togglebtni.classList.remove('fa-expand');
+   togglebtni.classList.replace('fa-expand' , 'fa-compress');
  }else {
-   togglebtni.classList.remove('fa-compress');
-   togglebtni.classList.add('fa-expand');
+   togglebtni.classList.replace('fa-compress' , 'fa-expand');
  }
  systemresultbox.classList.toggle('systemresultbox2');
 }
@@ -86,23 +95,19 @@ function opennav() {
   let displayvalue = (systemnavbar.style.display !== 'block') ? 'block' : 'none';
   systemnavbar.style.display = displayvalue;
 }
+const hidetext = (bordvalue,inputtype) => {
+  let border = document.querySelector(".bordcont");
+  border.style['justify-content'] = bordvalue;
+  Object.values(textareas).forEach((item) => item.style.display = 'none');
+  inputtype.style.display = 'block';
+};
 function swift(txt) {
-let border = document.querySelector(".bordcont");
 if(txt == 'htmlinput') {
- htmlinput.style.display = 'block';
- styleinput.style.display = 'none';
- scriptinput.style.display = 'none';
- border.style['justify-content'] = 'flex-start';
+ hidetext('flex-start' , htmlinput);
 }else if(txt == "styleinput") {
- htmlinput.style.display = 'none';
- styleinput.style.display = 'block';
- scriptinput.style.display = 'none';
- border.style['justify-content'] = 'center';
+ hidetext('center' , styleinput);
 }else {
- htmlinput.style.display = 'none';
- styleinput.style.display = 'none';
-scriptinput.style.display = 'block';
-border.style['justify-content'] = 'flex-end';
+hidetext('flex-end' , scriptinput);
  }
 }
 function toolopen(tool) {
@@ -119,7 +124,7 @@ getsize();
 function getsize() {
   let fontsize;
   if (localStorage.getItem('fontsize') === null) {
-    fontsize = 20 + 'px';
+    fontsize = 15 + 'px';
   }else {
     fontsize = JSON.parse(localStorage.getItem('fontsize'));
   }

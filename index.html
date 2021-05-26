@@ -50,12 +50,10 @@
   }
   .links {
    margin: 10px; 
-   text-decoration: none;
    font-family: monospace;
    font-size: 25px;
    width: 90%;
    text-align: center;
-   color: black;
    background-color: #bdc2ff;
    padding: 5px;
    border-radius: 10px;
@@ -96,7 +94,7 @@
  let text = "";
  for (i = 0; i < filelist.length; i++)
  {
-  text += `<a target="_blank" href="${filelist[i]}" class="links">${filelist[i]}</a>`;
+  text += `<div onclick="window.open('${filelist[i]}' , '_blank')" class="links">${filelist[i]}</div>`;
  }
  container.innerHTML = text;
 </script>
