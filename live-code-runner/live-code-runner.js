@@ -63,23 +63,25 @@ function run() {
  </html>`;
  systemiframe.srcdoc = systemcode;
 }
-function copywhole() {
- var pos = htmlinput.value.indexOf('head');
- const wholecode = htmlinput.value.slice(0 , pos + 5) + `\n<style type="text/css" media="all">\n`
-  + styleinput.value + 
- `\n</style>\n<script type="text/javascript" charset="utf-8">\n`
-  + scriptinput.value + 
- `\n</script>` + htmlinput.value.slice(pos + 5);
- navigator.clipboard.writeText(wholecode);
- alert("copied your code to clipboard\n" + wholecode);
-}
+async function writeToClipboard(code) {
+   try {
+     await navigator.clipboard.writeText(code);
+     alert('copied your code:\n \n' + code);
+   } catch (error) {
+     console.error(error);
+   }
+ }
+
 function copyto(input) {
-  swift(input);
-  let inputi = document.getElementById(input);
-  inputi.select();
-  inputi.setSelectionRange(0, 99999);
-  document.execCommand('copy');
-  alert("copied your code to clipboard\n" + inputi.value);
+  if (input === "wholecode") {
+  var pos = htmlinput.value.indexOf('head');
+  const wholecode = htmlinput.value.slice(0, pos + 5) + `\n<style type="text/css" media="all">\n` + styleinput.value + `\n</style>\n<script type="text/javascript" charset="utf-8">\n` + scriptinput.value + `\n</script>` + htmlinput.value.slice(pos + 5);
+   writeToClipboard(wholecode);
+  }else {
+   swift(input);
+   let inputvalue = document.getElementById(input).value;
+   writeToClipboard(inputvalue);
+  }
 }
 function fillscreen() {
  let togglebtn = document.getElementById('togglebtn');
@@ -94,6 +96,7 @@ function fillscreen() {
 function opennav() {
   let displayvalue = (systemnavbar.style.display !== 'block') ? 'block' : 'none';
   systemnavbar.style.display = displayvalue;
+  navigator.c
 }
 const hidetext = (bordvalue,inputtype) => {
   let border = document.querySelector(".bordcont");
