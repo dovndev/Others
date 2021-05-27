@@ -73,8 +73,15 @@
       </div>
       <span class="tooltiptext">live preview</span>
      </label>
+     <div onclick="toolopen('layout-tool')" class="tooltip">
+       <div id="systemthemebtn" class="systembtn">
+        <i class="fa fa-table icon"></i>
+       </div>
+       <span class="tooltiptext">Editor Layout
+       </span>
+     </div>
   </div>
-  <div class="extracont" onclick="toolclose()">
+  <div class="extracont">
     <div class="extratool" id="copytool">
       <div onclick="copyto('htmlinput')" class="tooltip">
         <div class="systembtn">
@@ -108,7 +115,43 @@
       </div>
       <span id="font-value">20px</span>
     </div>
-    <div class="extratool"></div>
+    <div id="layout-tool" class="extratool">
+      <div class="layout_btns">
+       <label class="layout_cont">
+       <input checked type="radio" id="layout_1" name="layout"/>
+       <span id="rad1" class="layout_radio">
+       <div></div><div></div>
+       </span>
+       <div class="back"></div>
+       <span class="labeltxt">Full page result</span>
+       </label>
+       <label class="layout_cont">
+       <input type="radio" id="layout_2" name="layout"/>
+       <span id="rad1" class="layout_radio">
+       <div></div><div></div>
+       </span>
+       <div class="back"></div>
+       <span class="labeltxt">Full page result</span>
+       </label>
+       <label class="layout_cont">
+       <input type="radio" id="layout_3" name="layout"/>
+       <span id="rad1" class="layout_radio">
+         <div></div><div></div>
+       </span>
+       <div class="back"></div>
+       <span class="labeltxt">Full page result</span>
+       </label>
+       <label class="layout_cont">
+       <input type="radio" id="layout_4" name="layout"/>
+       <span id="rad1" class="layout_radio">
+         <div></div><div></div>
+       </span>
+       <div class="back"></div>
+       <span class="labeltxt">Full page result</span>
+       </label>
+      </div>
+     </div>
+    </div>
   </div>
   </div>
   <script src="live-code-runner.js">
