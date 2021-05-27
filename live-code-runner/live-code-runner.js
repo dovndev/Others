@@ -1,13 +1,14 @@
 const htmlinput = document.getElementById("htmlinput");
 const styleinput = document.getElementById("styleinput");
 const scriptinput = document.getElementById("scriptinput");
+const resultoutput = document.getElementById("resultoutput");
 const systemresultbox = document.getElementById("systemresultbox");
 let extracont = document.querySelector(".extracont");
 const systemiframe = document.getElementById("systemiframe");
 const systemtooltip = document.getElementById("myTooltip");
 const systemnavbar = document.getElementById('systemnavbar');
 const theme = document.getElementById("theme");
-const textareas = document.getElementsByTagName('textarea');
+const pages = document.querySelectorAll('.pages');
 let systemdefaulttxt = `<!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +31,7 @@ if(body.requestFullscreen){
 }
  fullscreenbtn.style.display = "none";
  exitfullscreenbtn.style.display = "flex";
- systemnavbar.style.display = 'none';
+ closenav();
 }
 function exitfullscreen() {
   let exitfullscreenbtn = document.getElementById('exitfullscreenbtn');
@@ -43,10 +44,11 @@ function exitfullscreen() {
   }
   fullscreenbtn.style.display = "flex";
   exitfullscreenbtn.style.display = "none";
-  systemnavbar.style.display = 'none';
+  closenav();
 }
 run();
 function run() {
+  closenav();
  const systemcode = `<!DOCTYPE html>
  <html>
  <head>
@@ -78,12 +80,12 @@ function copyto(input) {
   const wholecode = htmlinput.value.slice(0, pos + 5) + `\n<style type="text/css" media="all">\n` + styleinput.value + `\n</style>\n<script type="text/javascript" charset="utf-8">\n` + scriptinput.value + `\n</script>` + htmlinput.value.slice(pos + 5);
    writeToClipboard(wholecode);
   }else {
-   swift(input);
    let inputvalue = document.getElementById(input).value;
    writeToClipboard(inputvalue);
   }
 }
 function fillscreen() {
+  closenav();
  let togglebtn = document.getElementById('togglebtn');
  let togglebtni = document.getElementById('togglebtni');
  if (togglebtni.classList[1] == "fa-expand"){
@@ -96,21 +98,26 @@ function fillscreen() {
 function opennav() {
   let displayvalue = (systemnavbar.style.display !== 'block') ? 'block' : 'none';
   systemnavbar.style.display = displayvalue;
-  navigator.c
 }
-const hidetext = (bordvalue,inputtype) => {
-  let border = document.querySelector(".bordcont");
-  border.style['border-bottom'] = '3 px solid black';
-  Object.values(textareas).forEach((item) => item.style.display = 'none');
+function closenav() {
+  systemnavbar.style.display = 'none';
+}
+const hidetext = (btn ,inputtype) => {
+  document.querySelectorAll('.swiftbtn').forEach((btns) => btns.classList.remove('swiftbtn2'));
+  btn.classList.add('swiftbtn2');
+  pages.forEach((page) => page.style.display = 'none');
   inputtype.style.display = 'block';
 };
-function swift(txt) {
+function swift(id , txt) {
+closenav();
 if(txt == 'htmlinput') {
- hidetext('flex-start' , htmlinput);
+ hidetext(id , htmlinput);
 }else if(txt == "styleinput") {
- hidetext('center' , styleinput);
+ hidetext(id , styleinput);
+}else if (txt == "scriptinput") {
+ hidetext(id , scriptinput);
 }else {
-hidetext('flex-end' , scriptinput);
+ hidetext(id , resultoutput);
  }
 }
 function toolopen(tool) {
@@ -120,8 +127,9 @@ function toolopen(tool) {
 }
 function toolclose() {
  let extratools = document.querySelectorAll(".extratool");
- setTimeout(() => {extracont.style.display = 'none';
-   extratools.forEach((item) => { item.style.display = 'none'; });},100)
+   closenav();
+   extracont.style.display = 'none';
+   extratools.forEach((item) => { item.style.display = 'none'; });
 }
 getsize();
 function getsize() {
@@ -182,7 +190,7 @@ function livecheck() {
 }
 livechange(document.getElementById('liveprev'));
 function livechange(checkbox) {
-  let runbtn = document.querySelector('.runbtn');
+  let runbtn = document.getElementById('runbtn');
   if (checkbox.checked === true) {
     localStorage.setItem("livevalue" , 'checked');
     runbtn.style.display = 'none';
