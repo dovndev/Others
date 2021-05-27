@@ -8,7 +8,7 @@ const systemiframe = document.getElementById("systemiframe");
 const systemtooltip = document.getElementById("myTooltip");
 const systemnavbar = document.getElementById('systemnavbar');
 const theme = document.getElementById("theme");
-const pages = document.querySelectorAll('.pages');
+const pages = document.querySelectorAll('.pages'); 
 let systemdefaulttxt = `<!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +31,7 @@ if(body.requestFullscreen){
 }
  fullscreenbtn.style.display = "none";
  exitfullscreenbtn.style.display = "flex";
- closenav();
+ 
 }
 function exitfullscreen() {
   let exitfullscreenbtn = document.getElementById('exitfullscreenbtn');

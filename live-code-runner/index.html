@@ -82,6 +82,7 @@
      </div>
   </div>
   <div class="extracont">
+    <div onclick="toolclose()" class="extracont_closer"></div>
     <div class="extratool" id="copytool">
       <div onclick="copyto('htmlinput')" class="tooltip">
         <div class="systembtn">
@@ -118,36 +119,34 @@
     <div id="layout-tool" class="extratool">
       <div class="layout_btns">
        <label class="layout_cont">
-       <input checked type="radio" id="layout_1" name="layout"/>
-       <span id="rad1" class="layout_radio">
-       <div></div><div></div>
-       </span>
+       <input checked value="full-page" type="radio" id="layout_1" name="layout"/>
+       <img src="images/layout_1.png" class="layout_radio"/>
        <div class="back"></div>
        <span class="labeltxt">Full page result</span>
        </label>
        <label class="layout_cont">
-       <input type="radio" id="layout_2" name="layout"/>
-       <span id="rad1" class="layout_radio">
-       <div></div><div></div>
-       </span>
+       <input type="radio" value="column" id="layout_2" name="layout"/>
+        <img src="images/layout_2.png" class="layout_radio"/>
        <div class="back"></div>
-       <span class="labeltxt">Full page result</span>
+       <span class="labeltxt">Columns</span>
        </label>
        <label class="layout_cont">
-       <input type="radio" id="layout_3" name="layout"/>
-       <span id="rad1" class="layout_radio">
-         <div></div><div></div>
-       </span>
+       <input type="radio" value="row" id="layout_3" name="layout"/>
+        <img src="images/layout_3.png" class="layout_radio"/>
        <div class="back"></div>
-       <span class="labeltxt">Full page result</span>
+       <span class="labeltxt">Rows</span>
        </label>
        <label class="layout_cont">
-       <input type="radio" id="layout_4" name="layout"/>
-       <span id="rad1" class="layout_radio">
-         <div></div><div></div>
-       </span>
+       <input type="radio" value="column-reverse" id="layout_4" name="layout"/>
+        <img src="images/layout_4.png" class="layout_radio"/>
        <div class="back"></div>
-       <span class="labeltxt">Full page result</span>
+       <span class="labeltxt">Column reverse</span>
+       </label>
+       <label class="layout_cont">
+         <input type="radio" value="row-reverse" id="layout_5" name="layout" />
+         <img src="images/layout_5.png" class="layout_radio" />
+         <div class="back"></div>
+         <span class="labeltxt">Row reverse</span>
        </label>
       </div>
      </div>
