@@ -19,16 +19,15 @@ let systemdefaulttxt = `<!DOCTYPE html>
  <title> </title>
 </head>
 <body>
-
+ 
 </body>
-</html>`; 
+</html>`;
 htmlinput.innerHTML = systemdefaulttxt;
 prepare();
 function prepare() {
  getlayout();
  getsize();
  gettheme();
- run();
  setTimeout(() => document.getElementById('loading-page').style.display = 'none' , 1000)
 }
 function getlayout() {
@@ -131,23 +130,51 @@ function livecheck(status) {
   runbtn.style.display = 'block';
  }
 }
-function run() {
+function codecreate() {
+ let stylecode;
+ if (styleinput.value == "" || styleinput.value == " ") {
+  stylecode = "";
+ }else {
+  stylecode = `\n<style type="text/css" media="all">\n` + styleinput.value + `\n</style>`;
+ }
+ let scriptcode;
+ if (scriptinput.value == "" || scriptinput.value == " ") {
+  scriptcode = "";
+ }else {
+  scriptcode = `<script type="text/javascript" charset="utf-8">\n` + scriptinput.value + `\n</script>\n`;
+ }
+ let html = htmlinput.value;
+ let headstart = html.indexOf('<head>') + 6;
+ let bodystart = html.indexOf('<body>') + 6;
+ let bodyend = html.lastIndexOf('</body>');
+ let systemcode = html.slice(0 , headstart) + stylecode + html.slice(headstart , bodystart) + html.slice(bodystart , bodyend) + scriptcode + html.slice(bodyend);
+ return systemcode;
+}
+function run(some) {
+ let systemcode = codecreate();
+ if (some === undefined) {
+  systemiframe.srcdoc = systemcode;
+ }else {
+  resultoutput.srcdoc = systemcode;
+ }
  closenav();
- const systemcode = `<!DOCTYPE html>
- <html>
- <head>
- <style type="text/css" media="all">
- ` + styleinput.value + `
- </style>
- <script type="text/javascript" charset="utf-8">
- ` + scriptinput.value + `
- </script>
- </head>
- <body>
- ` + htmlinput.value + `
- </body>
- </html>`;
- systemiframe.srcdoc = systemcode;
+}
+function copyto(input) {
+  if (input === "wholecode") {
+    let systemcode = codecreate();
+    writeToClipboard(systemcode);
+  } else {
+    let inputvalue = document.getElementById(input).value;
+    writeToClipboard(inputvalue);
+  }
+}
+async function writeToClipboard(code) {
+  try {
+    await navigator.clipboard.writeText(code);
+    alert('copied your code:\n \n' + code);
+  } catch (error) {
+    alert(error);
+  }
 }
 function fullscreen() {
  let fullscreenbtn = document.getElementById('fullscreenbtn');
@@ -174,24 +201,6 @@ function exitfullscreen() {
  fullscreenbtn.style.display = "flex";
  exitfullscreenbtn.style.display = "none";
  closenav();
-}
-function copyto(input) {
- if (input === "wholecode") {
-  var pos = htmlinput.value.indexOf('head');
-  const wholecode = htmlinput.value.slice(0, pos + 5) + `\n<style type="text/css" media="all">\n` + styleinput.value + `\n</style>\n<script type="text/javascript" charset="utf-8">\n` + scriptinput.value + `\n</script>` + htmlinput.value.slice(pos + 5);
-   writeToClipboard(wholecode);
- }else {
-  let inputvalue = document.getElementById(input).value;
-   writeToClipboard(inputvalue);
- }
-}
-async function writeToClipboard(code) {
- try {
-  await navigator.clipboard.writeText(code);
-  alert('copied your code:\n \n' + code);
- }catch (error) {
- console.error(error);
- }
 }
 function fillscreen() {
  closenav();
@@ -225,7 +234,7 @@ function swift(id , txt) {
  }else if (txt == "scriptinput") {
   hideinput(id , scriptinput);
  }else {
-  run();
+  run('some');
   hideinput(id , resultoutput);
  }
 }
