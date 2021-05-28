@@ -29,6 +29,7 @@ function prepare() {
  getsize();
  gettheme();
  run();
+ setTimeout(() => document.getElementById('loading-page').style.display = 'none' , 1000)
 }
 function getlayout() {
  let resultbtn = document.getElementById('resultswift');
@@ -42,9 +43,12 @@ function getlayout() {
   toolbar.style.display = 'flex';
   livecheck();
  }
+ const getlayout2 = (id) => {
+  document.getElementById(id).checked = true;
+ }
  let layoutvalue = JSON.parse(localStorage.getItem('layout'));
  if (layoutvalue === null) {
-  return;
+  return
  }else if (layoutvalue == 'full-page') {
   systemresultbox.style.display = 'none';
   resultbtn.style.display = 'block';
@@ -76,6 +80,7 @@ function getlayout() {
    theme.style['flex-direction'] = layoutvalue;
    toolbar.classList.remove('toolbar2');
  }
+ getlayout2(layoutvalue);
 }
 function getsize() {
  let fontsize;
@@ -110,7 +115,7 @@ function livecheck(status) {
   if (livevalue == 'checked') {
    for (x = 0; x < input.length; x++) {
     input[x].oninput = run;
-        livecheckbox.checked = true;
+    livecheckbox.checked = true;
    }
    runbtn.style.display = 'none';
   } else {
@@ -120,6 +125,8 @@ function livecheck(status) {
    }
    runbtn.style.display = 'block';
   }
+ }else {
+  runbtn.style.display = 'block';
  }
 }
 function run() {
