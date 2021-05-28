@@ -28,13 +28,20 @@
     <iframe onclick="closenav()" id="resultoutput" class="systemiframe pages" srcdoc=" ">
     </iframe>
    </div>
+   <div class="toolbar" id="toolbar">
+     <span id="ditool1" class="ditool">
+      <i class="fa fa-arrow-up"></i>
+     </span>
+     <span id="ditool2" class="ditool">
+      <i class="fa fa-arrow-up"></i>
+     </span>
+   </div>
    <div id="systemresultbox" class="systemresultbox">
-    <div onclick="fillscreen()" class="togglebtn" id="togglebtn"><i id="togglebtni" class="fas fa-expand icon"></i></div>
     <iframe id="systemiframe" class="systemiframe" srcdoc=" ">
     </iframe>
    </div>
   <div id="systemnavbar" class="systemnavbar">
-    <div onclick="toolopen('copytool')" class="tooltip">
+    <div onclick="toolopen('copy-tool')" class="tooltip">
      <div class="systembtn">
      <i class="far fa-clipboard icon"></i>
      </div>
@@ -58,7 +65,7 @@
       <span class="tooltiptext">font-size
       </span>
     </div>
-     <div onclick="changetheme()" class="tooltip">
+     <div onclick="edittheme()" class="tooltip">
        <div id="systemthemebtn" class="systembtn">
          <i class="fas fa-adjust icon">
          </i>
@@ -68,7 +75,7 @@
      </div>
      <label id="livecont" for="liveprev" class="tooltip">
       <div id="systemlivebtn" class="systembtn">
-       <input onchange="livechange(this)" type="checkbox" name="liveprev" id="liveprev" />
+       <input onchange="editlive(this)" type="checkbox" name="liveprev" id="liveprev"/>
        <span class="theball"></span>
       </div>
       <span class="tooltiptext">live preview</span>
@@ -83,7 +90,7 @@
   </div>
   <div class="extracont">
     <div onclick="toolclose()" class="extracont_closer"></div>
-    <div class="extratool" id="copytool">
+    <div class="extratool" id="copy-tool">
       <div onclick="copyto('htmlinput')" class="tooltip">
         <div class="systembtn">
           <i class="far fa-clipboard icon"></i>
@@ -110,40 +117,40 @@
       </div>
     </div>
     <div class="extratool" id="font-tool">
-      <label for="font-input">font-size</label>
-      <div class="rangecont">
-        <input oninput="editsize(this)" type="range" name="font-input" id="font-input" value="15" max="40" min="10" />
+     <label for="font-input">font-size</label>
+     <div class="rangecont">
+      <input oninput="editsize(this)" type="range" name="font-input" id="font-input" value="15" max="40" min="10" />
       </div>
-      <span id="font-value">20px</span>
+     <span id="font-value">20px</span>
     </div>
     <div id="layout-tool" class="extratool">
       <div class="layout_btns">
        <label class="layout_cont">
-       <input checked value="full-page" type="radio" id="layout_1" name="layout"/>
+       <input oninput="editlayout(this)" checked value="full-page" type="radio" id="layout_1" name="layout"/>
        <img src="images/layout_1.png" class="layout_radio"/>
        <div class="back"></div>
-       <span class="labeltxt">Full page result</span>
+       <span class="labeltxt">Full page</span>
        </label>
        <label class="layout_cont">
-       <input type="radio" value="column" id="layout_2" name="layout"/>
+       <input oninput="editlayout(this)" type="radio" value="column" id="layout_2" name="layout"/>
        <img src="images/layout_2.png" class="layout_radio"/>
        <div class="back"></div>
        <span class="labeltxt">Columns</span>
        </label>
        <label class="layout_cont">
-       <input type="radio" value="row" id="layout_3" name="layout"/>
+       <input oninput="editlayout(this)" type="radio" value="row" id="layout_3" name="layout"/>
        <img src="images/layout_3.png" class="layout_radio"/>
        <div class="back"></div>
        <span class="labeltxt">Rows</span>
        </label>
        <label class="layout_cont">
-       <input type="radio" value="column-reverse" id="layout_4" name="layout"/>
+       <input oninput="editlayout(this)" type="radio" value="column-reverse" id="layout_4" name="layout"/>
        <img src="images/layout_4.png" class="layout_radio"/>
        <div class="back"></div>
        <span class="labeltxt">Column reverse</span>
        </label>
        <label class="layout_cont">
-         <input type="radio" value="row-reverse" id="layout_5" name="layout" />
+         <input oninput="editlayout(this)" type="radio" value="row-reverse" id="layout_5" name="layout" />
          <img src="images/layout_5.png" class="layout_radio" />
          <div class="back"></div>
          <span class="labeltxt">Row reverse</span>
