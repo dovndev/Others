@@ -100,6 +100,8 @@ function gettheme() {
   if (themevalue !== 'lighttheme') {
       theme.classList.toggle('darktheme');
   }
+ }else {
+   theme.classList.toggle('darktheme');
  }
 }
 function livecheck(status) {
@@ -223,6 +225,7 @@ function swift(id , txt) {
  }else if (txt == "scriptinput") {
   hideinput(id , scriptinput);
  }else {
+  run();
   hideinput(id , resultoutput);
  }
 }
