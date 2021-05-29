@@ -9,31 +9,37 @@
      * {
        margin: 0;
        padding: 0;
-       box-sizing: border-box;
      }
      body {
        background-color: #00B889;
        display: flex;
-       align-items: center;
+       align-items: flex-start;
+       justify-content: center;
        flex-direction: column;
        font-family: monospace;
+       width: 100%;
+       height: 100%;
+       position: fixed;
+       top: 0;
+       left: 0;
      }
      .header {
-       text-align: center;
+       display: flex;
+       justify-content: center;
+       align-items: center;
        font-size: 50px;
        color: white;
-       margin: 50px;
+       height: 10%;
+       width: 100%;
      }
      .input_cont {
        display: flex;
        justify-content: center;
        align-items: center;
-       margin-bottom: 50px;
        width: 100%;
-       margin: 30px;
+       height: 10%;
      }
      input {
-       margin: 0;
        padding: 10px;
        border: none;
        border-radius: 10px 0px 0px 10px;
@@ -47,29 +53,31 @@
      .save {
        font-size: 20px;
        padding: 10px;
-       margin: 0;
        border: none;
        border-radius: 0px 10px 10px 0px;
+     }
+     .con-cont {
+      overflow-y: scroll;
+      height: 70%;
+      width: 100%;
      }
      .cont {
        display: flex;
        justify-content: center;
        align-items: center;
-       height: auto;
        flex-direction: column;
-       width: 90%;
+       width: 100%;
      }
      .notes {
        background-color: white;
        margin: 10px;
-       width: 100%;
+       width: 80%;
        display: flex;
        justify-content: space-between;
-       align-items: center;
        border-radius: 10px;
      }
      .notes_anim {
-       animation: remove 0.7s linear 1;
+       animation: remove 0.5s linear 1;
      }
      @keyframes remove {
        0% {
@@ -77,7 +85,7 @@
        }
        50% {
          transform: translateX(-100%);
-         opacity: 0.5;
+         opacity: 0;
        }
        100% {
          transform: translateX(-100%);
@@ -89,24 +97,41 @@
        user-select: all;
        font-size: 22px;
        padding: 10px;
+       width: 100%;
      }
      .delete {
-      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       width: 50px;
-      border: none;
-      font-size: 30px;
+      height: auto;
       border-radius: 0px 10px 10px 0px;
+      background-color: #DEDEDE;
+     }
+     .delete p {
+      font-size: 30px;
+     }
+     .remove {
+      font-size: 17px;
+      padding: 10px;
+      background-color: #DEDEDE;
+      border-radius: 10px;
      }
     </style>
 </head>
 
 <body>
- <div class="header">Notebook</div>
+ <div class="header"><p>Notebook</p></div>
  <div class="input_cont">
  <input type="text" name="input" id="input" value="" placeholder="write a note"/>
  <button onclick="saveitem()" class="save">Save</button>
  </div>
+ <div class="con-cont">
  <div id="cont" class="cont">
+ </div>
+ </div>
+ <div class="input_cont">
+  <div class="remove" onclick="removeall()">Remove All</div>
  </div>
 <script type="text/javascript" charset="utf-8">
  getnotes(JSON.parse(localStorage.getItem('notes')));
@@ -128,13 +153,16 @@
   }
  }
  function getnotes(notes) {
+   if (notes == null) {
+     return
+   }else {
    document.getElementById('cont').innerHTML = "";
    let note;
    let text;
    for (note in notes) {
-   text = `<div class="notes"><p>` + notes[note] + `</p><button onclick="edit('` + notes[note] + `' , this.parentNode)" class="delete">&times;</button></div>`;
+   text = `<div class="notes"><p>` + notes[note] + `</p><div onclick="edit('` + notes[note] + `' , this.parentNode)" class="delete"><p>&times;</p></div></div>`;
    document.getElementById('cont').innerHTML += text;
-   console.log(text);
+   }
    }
  }
  function edit(note , parent) {
@@ -142,8 +170,13 @@
   noteindex = notes.indexOf(note);
   notes.splice(noteindex , 1);
   localStorage.setItem("notes" , JSON.stringify(notes));
-  parent.parentNode.classList.add('notes_anim');
-  setTimeout(function() { getnotes(notes); } , 700);
+  parent.classList.add('notes_anim');
+  setTimeout(function() { getnotes(notes); } , 400);
+ }
+ function removeall() {
+  localStorage.setItem("notes" , JSON.stringify([]));
+  document.querySelectorAll('.notes').forEach((note) => note.classList.add('notes_anim'));
+  setTimeout(function() { getnotes(JSON.parse(localStorage.getItem('notes'))); } , 400);
  }
 </script>
 </body>
