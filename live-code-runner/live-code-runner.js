@@ -9,10 +9,10 @@ const systemtooltip = document.getElementById("myTooltip");
 const systemnavbar = document.getElementById('systemnavbar');
 const theme = document.getElementById("theme");
 const pages = document.querySelectorAll('.pages'); 
-const livecheckbox = document.getElementById('liveprev');
-const body = document.documentElement;
-const runbtn = document.getElementById('runbtn');
-const livecont = document.getElementById('livecont');
+const livecheckbox = document.getElementById('liveprev'); 
+const body = document.documentElement; 
+const runbtn = document.getElementById('runbtn'); 
+const livecont = document.getElementById('livecont'); 
 let systemdefaulttxt = `<!DOCTYPE html>
 <html>
 <head>
