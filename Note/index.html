@@ -132,8 +132,9 @@
    let note;
    let text;
    for (note in notes) {
-   text = "<div class=\"notes\"><p>" + notes[note] + "</p><button onclick=\"edit(\'" + notes[note] + "\' , this.parentNode)\" class=\"delete\">&times;</button></div>";
+   text = `<div class="notes"><p>` + notes[note] + `</p><button onclick="edit('` + notes[note] + `' , this.parentNode)" class="delete">&times;</button></div>`;
    document.getElementById('cont').innerHTML += text;
+   console.log(text);
    }
  }
  function edit(note , parent) {
@@ -141,8 +142,8 @@
   noteindex = notes.indexOf(note);
   notes.splice(noteindex , 1);
   localStorage.setItem("notes" , JSON.stringify(notes));
-  parent.classList.add('notes_anim');
-  setTimeout(function() { getnotes(notes); } , 600);
+  parent.parentNode.classList.add('notes_anim');
+  setTimeout(function() { getnotes(notes); } , 700);
  }
 </script>
 </body>
