@@ -37,7 +37,7 @@ function getlayout() {
  let toolbar = document.getElementById('toolbar');
  const getlayout1 = () => {
   systemresultbox.style.display = 'block';
-  resultbtn.style.display = 'none';
+  resultbtn.style.display = 'block';
   livecont.style.display = 'flex';
   toolbar.style.display = 'flex';
   livecheck();
