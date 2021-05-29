@@ -35,6 +35,7 @@ function prepare() {
  runbtn.addEventListener('click' , () => {run()})
 }
 function getlayout() {
+ let layoutvalue = JSON.parse(localStorage.getItem('layout'));
  let resultbtn = document.getElementById('resultswift');
  const getlayout1 = () => {
   swift(document.getElementById('htmlswift') , 'htmlinput');
@@ -51,8 +52,9 @@ function getlayout() {
  }
  const getlayout2 = (id) => {
   document.getElementById(id).checked = true;
+  run();
+  run('some');
  }
- let layoutvalue = JSON.parse(localStorage.getItem('layout'));
  if (layoutvalue === null) {
   return
  }else if (layoutvalue == 'full-page') {
@@ -129,21 +131,38 @@ function livecheck(status) {
   livevalue = JSON.parse(localStorage.getItem('livevalue'));
  }
  let input = document.getElementsByTagName('textarea');
- let x;
  if (livevalue !== null) {
+ if (JSON.parse(localStorage.getItem('layout')) == 'four-column') {
+  let y;
   if (livevalue == 'checked') {
-   for (x = 0; x < input.length; x++) {
-    input[x].oninput = () => {run()};
-   }
-   livecheckbox.checked = true;
-   runbtn.style.display = 'none';
-  }else {
-   for (x = 0; x < input.length; x++) {
-    input[x].oninput = null;
-   }
-   livecheckbox.checked = false;
-   runbtn.style.display = 'block';
+    for (y = 0; y < input.length; y++) {
+      input[y].oninput = () => { run('some') };
+    }
+    livecheckbox.checked = true;
+    runbtn.style.display = 'none';
+  } else {
+    for (y = 0; y < input.length; y++) {
+      input[y].oninput = null;
+    }
+    livecheckbox.checked = false;
+    runbtn.style.display = 'block';
   }
+ }else {
+  let x;
+  if (livevalue == 'checked') {
+    for (x = 0; x < input.length; x++) {
+      input[x].oninput = () => { run() };
+    }
+    livecheckbox.checked = true;
+    runbtn.style.display = 'none';
+  } else {
+    for (x = 0; x < input.length; x++) {
+      input[x].oninput = null;
+    }
+    livecheckbox.checked = false;
+    runbtn.style.display = 'block';
+  }
+ }
  }else {
   runbtn.style.display = 'block';
  }
