@@ -72,12 +72,10 @@ function getlayout() {
    getlayout1();
    theme.style['flex-direction'] = layoutvalue;
    toolbar.classList.add('toolbar2');
- }
- else if (layoutvalue == 'column-reverse')
- {
-   getlayout1();
-   theme.style['flex-direction'] = layoutvalue;
-   toolbar.classList.remove('toolbar2');
+ }else if (layoutvalue == 'column-reverse'){
+  getlayout1();
+  theme.style['flex-direction'] = layoutvalue;
+  toolbar.classList.remove('toolbar2');
  }
  getlayout2(layoutvalue);
 }
@@ -115,15 +113,15 @@ function livecheck(status) {
  if (livevalue !== null) {
   if (livevalue == 'checked') {
    for (x = 0; x < input.length; x++) {
-    input[x].oninput = run;
-    livecheckbox.checked = true;
+    input[x].oninput = () => {run()};
    }
+   livecheckbox.checked = true;
    runbtn.style.display = 'none';
-  } else {
+  }else {
    for (x = 0; x < input.length; x++) {
     input[x].oninput = null;
-    livecheckbox.checked = false;
    }
+   livecheckbox.checked = false;
    runbtn.style.display = 'block';
   }
  }else {
