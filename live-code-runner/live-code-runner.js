@@ -13,6 +13,9 @@ const livecheckbox = document.getElementById('liveprev');
 const body = document.documentElement; 
 const runbtn = document.getElementById('runbtn'); 
 const livecont = document.getElementById('livecont'); 
+const swiftbtn = document.querySelectorAll('.swiftbtn');
+const systemheader = document.querySelector('.systemheader');
+const systeminputcont = document.getElementById('systeminputcont');
 let systemdefaulttxt = `<!DOCTYPE html>
 <html>
 <head>
@@ -29,17 +32,21 @@ function prepare() {
  getsize();
  gettheme();
  setTimeout(() => document.getElementById('loading-page').style.display = 'none' , 1000)
+ runbtn.addEventListener('click' , () => {run()})
 }
 function getlayout() {
  let resultbtn = document.getElementById('resultswift');
- let ditool1 = document.getElementById('ditool1');
- let ditool2 = document.getElementById('ditool2');
- let toolbar = document.getElementById('toolbar');
  const getlayout1 = () => {
+  swift(document.getElementById('htmlswift') , 'htmlinput');
+  swiftbtn.forEach((item) => item.style.display = 'block');
+  systemheader.classList.remove('header2');
+  systeminputcont.classList.remove('systeminputcont2');
+  htmlinput.style['padding-top'] = "0px";
   systemresultbox.style.display = 'block';
   resultbtn.style.display = 'block';
   livecont.style.display = 'flex';
-  toolbar.style.display = 'flex';
+  runbtn.addEventListener('click', () => {run()})
+  runbtn.removeEventListener('click', () => {run('some')})
   livecheck();
  }
  const getlayout2 = (id) => {
@@ -49,33 +56,46 @@ function getlayout() {
  if (layoutvalue === null) {
   return
  }else if (layoutvalue == 'full-page') {
+  getlayout1();
   systemresultbox.style.display = 'none';
   resultbtn.style.display = 'block';
   livecheckbox.checked = false;
   livecheck('unchecked');
   livecont.style.display = 'none';
   runbtn.style.display = 'none';
-  toolbar.style.display = 'none';
+ }else if (layoutvalue == 'four-column')
+ {
+  getlayout1();
+  theme.style['flex-direction'] = layoutvalue;
+  systemresultbox.style.display = 'none';
+  swiftbtn.forEach((item) => item.style.display = 'none');
+  systemheader.classList.add('header2');
+  systeminputcont.classList.add('systeminputcont2');
+  htmlinput.style['padding-top'] = "50px";
+  pages.forEach((page) => page.style.display = 'block');
+  runbtn.removeEventListener('click', () => {run()})
+  runbtn.addEventListener('click' , () => {run('some')})
+  livecheck();
  }else if (layoutvalue == 'column')
  {
   getlayout1();
+  resultbtn.style.display = 'none';
   theme.style['flex-direction'] = layoutvalue;
-  toolbar.classList.remove('toolbar2');
  }else if (layoutvalue == 'row-reverse')
  {
   getlayout1();
+  resultbtn.style.display = 'none';
   theme.style['flex-direction'] = layoutvalue;
-  toolbar.classList.add('toolbar2');
  }
  else if (layoutvalue == 'row')
  {
    getlayout1();
+   resultbtn.style.display = 'none';
    theme.style['flex-direction'] = layoutvalue;
-   toolbar.classList.add('toolbar2');
  }else if (layoutvalue == 'column-reverse'){
   getlayout1();
+  resultbtn.style.display = 'none';
   theme.style['flex-direction'] = layoutvalue;
-  toolbar.classList.remove('toolbar2');
  }
  getlayout2(layoutvalue);
 }
@@ -217,12 +237,12 @@ function opennav() {
 function closenav() {
  systemnavbar.style.display = 'none';
 }
-const hideinput = (btn ,inputtype) => {
- document.querySelectorAll('.swiftbtn').forEach((btns) => btns.classList.remove('swiftbtn2'));
+function hideinput(btn ,inputtype) {
+ swiftbtn.forEach((btns) => btns.classList.remove('swiftbtn2'));
  btn.classList.add('swiftbtn2');
  pages.forEach((page) => page.style.display = 'none');
  inputtype.style.display = 'block';
-};
+} 
 function swift(id , txt) {
  closenav();
  if(txt == 'htmlinput') {

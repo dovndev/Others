@@ -19,13 +19,12 @@
      .cont {
        height: 60%;
        width: 80%;
-       display: flex;
-       align-items: center;
-       flex-direction: row-reverse;
-       justify-content: center;
+       display: grid;
+       grid-template-columns: auto auto;
        border: 20px solid black;
        font-size: 25px;
        border-radius: 30px;
+       overflow: hidden;
      }
      .gig div {
        width: 100%;
@@ -46,11 +45,9 @@
 
 <body>
 <div class="cont">
-  <div class="gig">
-  <div></div>
-  <div></div>
-  <div></div>
-  </div>
+  <div class="gig"></div>
+  <div class="gig"></div>
+  <div class="gig"></div>
   <div class="gig"></div>
 </div>
 

@@ -22,7 +22,7 @@
       <div id="cssswift" class="swiftbtn" onclick="swift(this , 'styleinput')">CSS</div>
       <div id="jsswift" class="swiftbtn" onclick="swift(this , 'scriptinput')">JS</div>
       <div id="resultswift" class="swiftbtn" onclick="swift(this , 'resultoutput')">Result</div>
-      <div id="runbtn" class="swiftbtn" onclick="run()">Run</div>
+      <div id="runbtn" class="swiftbtn">Run</div>
      </div>
      <div onclick="opennav()" class="systemnavbtn">
       <i class="fas fa-bars icon"></i>
@@ -33,14 +33,6 @@
     <textarea onclick="closenav()" class="pages" placeholder="write script here" id="scriptinput" autocomplete="off" /></textarea>
     <iframe id="resultoutput" class="systemiframe pages" srcdoc=" ">
     </iframe>
-   </div>
-   <div class="toolbar" id="toolbar">
-     <span id="ditool1" class="ditool">
-      <i class="fa fa-arrow-up"></i>
-     </span>
-     <span id="ditool2" class="ditool">
-      <i class="fa fa-arrow-up"></i>
-     </span>
    </div>
    <div id="systemresultbox" class="systemresultbox">
     <iframe id="systemiframe" class="systemiframe" srcdoc=" ">
@@ -136,6 +128,12 @@
        <img src="images/layout_1.png" class="layout_radio"/>
        <div class="back"></div>
        <span class="labeltxt">Full page</span>
+       </label>
+       <label class="layout_cont">
+         <input oninput="editlayout(this)" value="four-column" type="radio" id="four-column" name="layout" />
+         <img src="images/layout_6.png" class="layout_radio" />
+         <div class="back"></div>
+         <span class="labeltxt">Four Column</span>
        </label>
        <label class="layout_cont">
        <input oninput="editlayout(this)" type="radio" value="column" id="column" name="layout"/>

@@ -124,12 +124,23 @@
   flex-direction: column;
   position: relative;
 }
+.systeminputcont2 {
+  display: grid;
+  grid-template-columns: auto auto;
+}
 .systemheader {
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 50px;
   background-color: #B5B5B5;
+  width: 100%;
+}
+.header2 {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 50%;
 }
 .inputcontrols {
   width: 80%;
@@ -172,7 +183,7 @@
 #scriptswift {
   margin-right: 10px;
 }
-#runbtn {
+#runbtn , #runbtn1 {
   display: none;
   user-select: none;
 }
@@ -203,7 +214,7 @@ textarea {
   overflow-x: hidden;
   transition: color 0.4s ease-in-out;
   transition: background-color 0.4s ease-in-out;
-  border: none;
+  border: 3px solid #484848;
   caret-color: black;
 }
 #styleinput,#scriptinput,#resultoutput {
@@ -225,72 +236,6 @@ textarea::-webkit-scrollbar-track {
 textarea::-webkit-scrollbar-thumb {
   background: black;
   border-radius: 5px;
-}
-.ditool:hover {
-  background-color: rgba(0, 0, 0, 0.40);
-}
-#toolbar {
-  display: none;
-}
-.toolbar {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-  height: auto;
-  border: 2px solid black;
-  background-color: #B5B5B5;
-  flex-direction: row;
-}
-.toolbar2 {
-  border: 2px solid black;
-  background-color: #B5B5B5;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-direction: column;
-  height: 100%;
-  width: auto;
-}
-.ditool {
-  background-color: rgba(0, 0, 0, 0.20);
-  padding: 2px;
-  width: 40%;
-  height: 80%;
-  border-radius: 4px;
-  user-select: none;
-  display: flex;
-  justify-content: center;
-}
-.ditool:hover {
-  background-color: rgba(0, 0, 0, 0.40);
-}
-.toolbar2 .ditool {
-  background-color: rgba(0, 0, 0, 0.20);
-  padding: 2px;
-  width: 80%;
-  height: 40%;
-  border-radius: 4px;
-  user-select: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.fa-arrow-up {
-  color: black;
-  font-size: 15px;
-}
-#ditool1 i {
-  transform: rotate(0deg);
-}
-#ditool2 i {
-  transform: rotate(180deg);
-}
-.toolbar2 #ditool1 i {
-  transform: rotate(90deg);
-}
-.toolbar2 #ditool2 i {
-  transform: rotate(-90deg);
 }
 .systemresultbox{
   height: 100%;
