@@ -192,9 +192,13 @@
   setTimeout(function() { getnotes(notes); } , 400);
  }
  function removeall() {
+  if (confirm('delete all notes from storage')) {
   localStorage.setItem("notes" , JSON.stringify([]));
   document.querySelectorAll('.notes').forEach((note) => note.classList.add('notes_anim'));
   setTimeout(function() { getnotes(JSON.parse(localStorage.getItem('notes'))); } , 400);
+  }else {
+    return;
+  }
  }
 </script>
 </body>
