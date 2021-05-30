@@ -179,7 +179,7 @@
    let note;
    let text;
    for (note in notes) {
-   text = `<div class="notes"><span class="num">${note}</span><p>` + notes[note] + `</p><div onclick="edit('` + notes[note] + `' , this.parentNode)" class="delete"><p>&times;</p></div></div>`;
+   text = `<div class="notes"><span class="num">${Number(note) + 1}</span><p>` + notes[note] + `</p><div onclick="edit('` + notes[note] + `' , this.parentNode)" class="delete"><p>&times;</p></div></div>`;
    document.getElementById('cont').innerHTML += text;
    }
    }
