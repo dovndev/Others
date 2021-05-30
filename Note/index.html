@@ -179,15 +179,14 @@
    let note;
    let text;
    for (note in notes) {
-   text = `<div class="notes"><span class="num">${Number(note) + 1}</span><p>` + notes[note] + `</p><div onclick="edit('` + notes[note] + `' , this.parentNode)" class="delete"><p>&times;</p></div></div>`;
+   text = `<div class="notes"><span class="num">${Number(note) + 1}</span><p>` + notes[note] + `</p><div onclick="edit(` + note + ` , this.parentNode)" class="delete"><p>&times;</p></div></div>`;
    document.getElementById('cont').innerHTML += text;
    }
    }
  }
  function edit(note , parent) {
   let notes = JSON.parse(localStorage.getItem('notes'));
-  noteindex = notes.indexOf(note);
-  notes.splice(noteindex , 1);
+  notes.splice(note , 1);
   localStorage.setItem("notes" , JSON.stringify(notes));
   parent.classList.add('notes_anim');
   setTimeout(function() { getnotes(notes); } , 400);
