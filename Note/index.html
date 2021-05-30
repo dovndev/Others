@@ -67,6 +67,7 @@
        align-items: center;
        flex-direction: column;
        width: 100%;
+       transition: 0.3s;
      }
      .notes {
        background-color: white;
@@ -75,6 +76,7 @@
        display: flex;
        justify-content: space-between;
        border-radius: 10px;
+       transition: 0.3s;
      }
      .notes_anim {
        animation: remove 0.5s linear 1;
@@ -95,9 +97,20 @@
      }
      .notes p {
        user-select: all;
-       font-size: 22px;
+       font-size: 18px;
        padding: 10px;
        width: 100%;
+     }
+     .num {
+      padding: 0;
+      all: initial;
+      user-select: none;
+      font-size: 18px;
+      border-right: 1px solid;
+      text-align: center;
+      padding: 5px;
+      padding-top: 10px;
+      border-radius: 10px 0px 0px 10px;
      }
      .delete {
       display: flex;
@@ -105,11 +118,17 @@
       align-items: center;
       width: 50px;
       height: auto;
+      padding: 1px;
       border-radius: 0px 10px 10px 0px;
       background-color: #DEDEDE;
      }
      .delete p {
+      all: initial;
+      padding: 0;
+      margin: 0;
+      width: auto;
       font-size: 30px;
+      font-weight: bold;
      }
      .remove {
       font-size: 17px;
@@ -160,7 +179,7 @@
    let note;
    let text;
    for (note in notes) {
-   text = `<div class="notes"><p>` + notes[note] + `</p><div onclick="edit('` + notes[note] + `' , this.parentNode)" class="delete"><p>&times;</p></div></div>`;
+   text = `<div class="notes"><span class="num">${note}</span><p>` + notes[note] + `</p><div onclick="edit('` + notes[note] + `' , this.parentNode)" class="delete"><p>&times;</p></div></div>`;
    document.getElementById('cont').innerHTML += text;
    }
    }
