@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>Gallery</title>
+ <style type="text/css" media="all">
+  * {
+      margin: 0;
+       padding: 0;
+     }
+     body {
+       background-color: #FFC4C4;
+       display: flex;
+       align-items: flex-start;
+       justify-content: center;
+       flex-direction: column;
+       font-family: monospace;
+       width: 100%;
+       height: 100%;
+       position: fixed;
+       top: 0;
+       left: 0;
+     }
+     .header {
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       font-size: 50px;
+       color: white;
+       height: 10%;
+       width: 100%;
+     }
+     .input_cont {
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       width: 100%;
+       height: 10%;
+     }
+     input {
+       padding: 10px;
+       border: none;
+       border-radius: 10px 0px 0px 10px;
+       outline: none;
+       font-size: 20px;
+       max-width: 70%;
+     }
+     input::placeholder {
+       font-size: 20px;
+     }
+     .save {
+       font-size: 20px;
+       padding: 10px;
+       border: none;
+       border-radius: 0px 10px 10px 0px;
+     }
+     .con-cont {
+      overflow-y: scroll;
+      height: 70%;
+      width: 100%;
+     }
+     .cont {
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       flex-direction: column;
+       width: 100%;
+       transition: 0.3s;
+     }
+     .notes {
+       background-color: white;
+       margin: 10px;
+       width: 80%;
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
+       align-items: center;
+       border-radius: 10px;
+       transition: 0.3s;
+     }
+     .notes_anim {
+       animation: remove 0.5s linear 1;
+     }
+     @keyframes remove {
+       0% {
+         transform: translateX(0px);
+       }
+       50% {
+         transform: translateX(-100%);
+         opacity: 0;
+       }
+       100% {
+         transform: translateX(-100%);
+         position: absolute;
+         opacity: 0;
+       }
+     }
+     .notes img {
+       max-width: 100%;
+       height: auto;
+       padding-bottom: 10px;
+     }
+     .num {
+      all: initial;
+      padding-bottom: 10px;
+      user-select: none;
+      font-size: 18px;
+      text-align: center;
+      border-radius: 10px 10px 0px 0px;
+      width: 100%;
+      background-color: white;
+     }
+     .delete {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: auto;
+      border-radius: 0px 0px 10px 10px;
+      background-color: #DEDEDE;
+     }
+     .p {
+      all: initial;
+      padding: 0;
+      margin: 0;
+      width: auto;
+      font-size: 20px;
+      padding-bottom: 10px;
+      font-family: mono;
+      
+     }
+     .remove {
+      font-size: 17px;
+      padding: 10px;
+      background-color: #DEDEDE;
+      border-radius: 10px;
+     }
+    </style>
+</head>
+<body>
+ <div class="header"><p>Gallery</p></div>
+ <div class="input_cont">
+ <input type="text" name="input" id="input" value="" placeholder="put image link"/>
+ <button onclick="saveitem()" class="save">Save</button>
+ </div>
+ <div class="con-cont">
+ <div id="cont" class="cont">
+ </div>
+ </div>
+ <div class="input_cont">
+  <div class="remove" onclick="removeall()">Remove All</div>
+ </div>
+<script type="text/javascript" charset="utf-8">
+ getnotes(JSON.parse(localStorage.getItem('images')));
+ function saveitem() {
+  let input = document.getElementById('input');
+  let images;
+  if (input.value == "") {
+    alert('write something');
+  }else {
+  if (localStorage.getItem('images') === null) {
+    images = [];
+  }else {
+    images = JSON.parse(localStorage.getItem('images'));
+  }
+  images.push(input.value);
+  getnotes(images);
+  localStorage.setItem('images' , JSON.stringify(images));
+  input.value = "";
+  }
+ }
+ function getnotes(images) {
+   if (images == null) {
+     return
+   }else {
+   document.getElementById('cont').innerHTML = "";
+   let image;
+   let text;
+   for (image in images) {
+   text = `<div class="notes"><span class="num">${Number(image) + 1}</span><img src="${images[image]}" onerror="removebtn(this.parentNode)" alt="image not fount" /><a class="p" href="${images[image]}">open image</a><div onclick="edit(` + image + ` , this.parentNode)" class="delete"><p class="p">remove</p></div></div>`;
+   document.getElementById('cont').innerHTML += text;
+   }
+   }
+ }
+ function edit(image , parent) {
+  if (confirm('remove this image from storage')) {
+  let images = JSON.parse(localStorage.getItem('images'));
+  images.splice(image , 1);
+  localStorage.setItem("images" , JSON.stringify(images));
+  parent.classList.add('notes_anim');
+  setTimeout(function() { getnotes(images); } , 400);
+  }else {
+    return;
+  }
+ }
+ function removeall() {
+  if (confirm('delete all images from storage')) {
+  localStorage.setItem("images" , JSON.stringify([]));
+  document.querySelectorAll('.notes').forEach((image) => image.classList.add('notes_anim'));
+  setTimeout(function() { getnotes(JSON.parse(localStorage.getItem('images'))); } , 400);
+  }else {
+    return;
+  }
+ }
+ function removebtn(parent) {
+ let childs = parent.childNodes;
+ childs[2].style.display = 'none';
+ }
+</script>
+</body>
+</html>
