@@ -7,8 +7,14 @@
     <title></title>
     
 <style type="text/css" media="all">
+ 
+  @font-face{
+  src:url('/Sansation_Light.ttf');
+  format:('truetype');
+  font-family: "sansationlight";
+ }
   *{
-  margin: 0;
+  margin: 70;
   padding: 0;
   box-sizing: border-box;
   font-family: sansationlight;
@@ -18,36 +24,77 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: #FF7800; }
+    background: linear-gradient(to bottom right, #41FF00, #2E00FF);
+  }
   h2{
     position: relative;
     display: block;
-    color: #4C453F;
+    color: #1C499C;
+    text-transform: uppercase;
+    font-weight: lighter;
+  }
+  #time{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #hours, #minutes, #seconds{
+    font-size: 4.5vh;
     
+    color: lightblue;
+  }
+  #hours{
+    margin-top: 30px;
+    margin-left: 30px;
+    }
+  #minutes{
+    
+  }
+  #seconds{
+    margin-left: -35px;
+  }
+  #h_indic, #m_indic, #s_indic{
+    opacity: 0;
+    transition: 0.5s ease-in-out;
+    color: #41FF63;
+  }
+  #ampm{
+    margin-top: 30px;
+    color: wheat;
+    border: 1px solid black;
+    padding: 3px;
+  }
+  #hours:hover + span{
+    opacity: 1;
+  }
+  #minutes:hover + span{
+    opacity: 1;
+  }
+  #seconds:hover + span{
+    opacity: 1;
   }
 </style>
     
 </head>
 
 <body>
-<section>
+<section id="cont">
   <h2>your time is good !</h2>
   <div id="time">
-    <div><span id="hours"></span><span>Hours</span></div>
-    <div><span id="minutes"></span><span>Minutes</span></div>
-    <div><span id="seconds"></span><span>Seconds</span>
+    <div><span id="hours"></span><span id="h_indic">Hours</span></div>
+    <div><span id="minutes" ></span><span id="m_indic">Minutes</span></div>
+    <div><span id="seconds"></span><span id="s_indic">Seconds</span>
     </div>
+    <div><span id="ampm"></span></div>
   </div>
-  <div><span id="ampm"></span></div>
 </section>
-
 
 <script type="text/javascript" charset="utf-8">
 function clock(){
   var hours = document.getElementById('hours');
   var minutes = document.getElementById('minutes');
   var seconds = document.getElementById('seconds');
-  var ampm = document.getElementById('ampm');
+  var am = document.getElementById('ampm');
   var d = new Date();
   
   var h = d.getHours();
@@ -67,7 +114,7 @@ function clock(){
   hours.innerHTML = h;
   minutes.innerHTML = m;
   seconds.innerHTML = s;
-  ampm.innerHTML = ampm;
+  am.innerHTML = ampm;
   }
   setInterval(clock,10);
 </script>
