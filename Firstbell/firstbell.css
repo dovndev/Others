@@ -10,7 +10,7 @@ body {
   padding: 0;
 }
 .logo :hover{
-  animation: movelogo 1s
+  animation: movelogo 1s;
   
 }
 h1 {
