@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+ <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<head>
+  <title>GOOGLE SEARCH by Noel</title>
+  <style type="text/css" media="all">
+  @font-face{
+  src:url('/Sansation_Light.ttf');
+  format:('truetype');
+  font-family: "sansationlight";
+  }
+ *{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sansationlight;
+  }
+ body{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+ }
+ #header{
+   position: relative;
+   width: 100%;
+   height: 9vh;
+ }
+ #share{
+   float: left;
+   margin-top: 18px;
+   margin-left: 12px;
+   height: 20px;
+   background: black;
+ }
+ #avatar{
+  float: right;
+  margin-top: 10px;
+  margin-right: 10px;
+  height: 35px;
+  background: black;
+  border-radius: 50%;
+  }
+ #user{
+  position: absolute;
+  top: 35px;
+  right: 35px;
+  font-size: 13px;
+  background: #4C4E4E;
+  color: white;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+  }
+ #avatar:hover ~ #user {
+ opacity: 1;
+ }
+ #Googletextcont{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+ }
+ #Googletext{
+  width: 170px;
+  height: 60px;
+  margin-bottom: 12px;
+  }
+ #inputcont{
+  position: relative;
+  border: 0px solid red;
+ }
+ #searchtext{
+  height: 43px;
+  width: 95%;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: .6px 1px 6px 1px #E3E3E3;
+  padding-left: 40px;
+  padding-right: 80px;
+  margin-left: 10px;
+ }
+ #search{
+  position: absolute;
+  top: 11px;
+  left: 20px;
+  height: 20px;
+ }
+ #voice{
+  position: absolute;
+  top: 9px;
+  right: 65px;
+  height: 27px;
+ }
+ #lens{
+  position: absolute;
+  top: 9px;
+  right: 27px;
+  height: 27px;
+ }
+ #btncont{
+   position: relative;
+   display: flex;
+   justify-content: center;
+   align-content: center;
+ }
+ #searchbtn{
+   display: block;
+   position: absolute;
+   top: 30px;
+   height: 30px;
+   width: 40px;
+   font-weight: bolder;
+   color: red;
+   outline-color: lime;
+   border: 1px solid orange;
+   border-radius: 20px;
+   background: #0092FF;
+ }
+ #searchbtn:hover{
+   background: transparent;
+ }
+ #timecont{
+   position: relative;
+   display: flex;
+   justify-content: center;
+   align-content: center;
+ }
+ #datetime{
+   flex-wrap: nowrap;
+   position: absolute;
+   top: 80px;
+   left: 10%;
+   height: 70px;
+   width: 80%;
+   border-radius: 20px;
+   box-shadow: 1px 1px 7px 0px #E3E3E3;
+   padding-top: 8px;
+   padding-left: 60px;
+   overflow: scroll;
+ }
+ #dateimg{
+   position: absolute;
+   top: 90px;
+   left: 40px;
+   height: 50px;
+ }
+  </style>
+</head>
+<body>
+<div id="Googlecont">
+ <div id="header">
+  <a href="whatsapp://send?text=New Google is Here!
+  
+  https://noelpaul.github.io/Others/Google/" data-action="share/whatsapp/share">
+    <img src="/Google/share.png" alt="share" onclick="share()" id="share"/>
+  </a>
+  <img id="avatar" src="/Google/Avatar.png" alt="user" onclick="document.location='/Google/largeAvatar.png'"/>
+  <div id="user">user</div>
+ </div>
+ <div id="Googletextcont">
+  <img id="Googletext" src="/Google/Googletext.png" alt="Google" onclick="document.location='https://noelpaul.github.io/Others/Google/'"/>
+ </div>
+ <div id="inputcont">
+  <input type="text" name="text" id="searchtext" placeholder="Search..."/>
+  <img src="/Google/Search.png" alt="search" id="search" onclick="notallowed()"/>
+  <img src="/Google/Voicesearch.png" alt="Voice Search" id="voice" onclick="notallowed()"/>
+  <img src="/Google/Google_lens.png" alt="Google lens" id="lens" onclick="notallowed()"/>
+ </div>
+ <div id="btncont">
+  <button onclick="Googlesearch()" id="searchbtn">GO</button>
+ </div>
+ <div id="timecont">
+  <div id="datetime"></div>
+  <img src="/Google/datetime.png" alt="Date and Time" id="dateimg"/>
+ </div>
+</div>
+<script type="text/javascript" charset="utf-8">
+
+function Googlesearch(){
+  function share(){
+    navigator.share();
+  }
+  var content = document.getElementById('searchtext').value;
+  let url = 'https://www.google.com/search?q='+content;
+  window.open(url,'_self')
+}
+function btndisplay(){
+  var content = document.getElementById('searchtext').value;
+  const btn = document.getElementById("searchbtn");
+  if(content == ""){
+  btn.style.display='none';
+  }
+  else{
+  btn.style.display='block';
+  }
+}
+setInterval(btndisplay,);
+
+function notallowed(){
+  alert("not allowed")
+}
+function datetime(){
+  document.getElementById("datetime").innerHTML= new Date();
+}
+setInterval(datetime,);
+</script>
+ </body>
+
+</html>
