@@ -32,7 +32,6 @@
     color: #1C499C;
     text-transform: uppercase;
     font-weight: lighter;
-    -webkit-box-reflect: above -10px linear-gradient(transparent,#0002);
   }
   #time{
     display: flex;
@@ -41,17 +40,18 @@
   }
   #hours, #minutes, #seconds{
     font-size: 4.5vh;
+    
     color: lightblue;
   }
   #hours{
     margin-top: 30px;
-    margin-left: 100px;
+    margin-left: 30px;
     }
   #minutes{
-    margin-left: 50px;
+    
   }
   #seconds{
-    margin-left: -20px;
+    margin-left: -35px;
   }
   #h_indic, #m_indic, #s_indic{
     opacity: 0;
@@ -63,7 +63,6 @@
     color: wheat;
     border: 1px solid black;
     padding: 3px;
-    -webkit-box-reflect: below 1px linear-gradient(transparent,#0004);
   }
   #hours:hover + span{
     opacity: 1;
