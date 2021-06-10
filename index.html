@@ -1,101 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
 
+ <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1">
- <title>Others</title>
- <style type="text/css" media="all">
-  * {
-   margin: 0;
-   padding: 0;
-  }
-  body {
-   height: 100vh;
-   width: 100%;
-   display: flex;
-   justify-content: space-around;
-   align-items: center;
-   flex-direction: column;
-   background-color: #CDD1FF;
-  }
-  h1 {
-   width: 80%;
-   padding: 10px;
-   padding-top: 20px; 
-   padding-bottom: 20px; 
-   font-family: monospace;
-   text-align: center;
-   color: black;
-   background-color: #bdc2ff;
-   border-radius: 10px;
-   box-shadow:
-   -5px -5px 14px #a3a7db,
-   5px 5px 14px #d7ddff;
-  }
-  .cont {
-   padding: 10px;
-   width: 80%;
-   height: 80%;
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   flex-direction: column;
-   background-color: #bdc2ff;
-   border-radius: 10px;
-   overflow-y: scroll;
-   box-shadow:
-   -5px -5px 14px #a3a7db,
-   5px 5px 14px #d7ddff;
-  }
-  .links {
-   margin: 10px; 
-   font-family: monospace;
-   font-size: 25px;
-   width: 90%;
-   text-align: center;
-   background-color: #bdc2ff;
-   padding: 5px;
-   border-radius: 10px;
-   background: #bdc2ff;
-   box-shadow: 
-   -5px -5px 14px #a3a7db,
-   5px 5px 14px #d7ddff;
-  }
-  .links:hover {
-   box-shadow: 
-   inset -5px -5px 14px #a3a7db,
-   inset 5px 5px 14px #d7ddff;
-  }
-  @media screen and (min-width:600px)
-  {
-   body {
-    flex-direction: row;
-   }
-   h1 {
-    width: 20%;
-   }
-   .cont {
-     width: 70%;
-     height: 90vh;
-   }
-  }
- </style>
+  
 </head>
 <body>
- <h1>Navigation</h1>
- <div class="cont" id="cont">
- </div>
-</body>
+  <h2>GOOGLE SEARCH</h2>
+  <input type="text" name="text" id="text" value="" />
+  <button onclick="Googlesearch()">go</button>
 <script type="text/javascript" charset="utf-8">
- const container = document.getElementById('cont');
- const filelist = ["Chennamkulath","Clock","Count-down","Firstbell","Freahmeat","Get-Free-Sub","Kite-victers","live-code-runner","Matrimonial","Music","Note","Rock-paper-scissors","Whatsapp","Gallery"]
- let i;
- let text = "";
- for (i = 0; i < filelist.length; i++)
- {
-  text += `<div onclick="window.open('${filelist[i]}' , '_blank')" class="links">${filelist[i]}</div>`;
- }
- container.innerHTML = text;
+function Googlesearch(){
+  let search = document.getElementById('text').value;
+  
+  let url = 'https://www.google.com/search?q='+search;
+  window.open(url,'_self')
+}
 </script>
+ </body>
+
 </html>
