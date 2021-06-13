@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Get random Joke</title>
+    <style type="text/css" media="all">
+      * {
+        margin: 0px;
+        padding: 0px;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 80vh;
+      }
+      h1 {
+        margin-bottom: 80px;
+      }
+      p {
+        margin: 20px;
+        text-align: center;
+        margin-bottom: 80px;
+        font-size: 20px;
+      }
+      button {
+       background-color: black;
+       padding: 10px;
+       border-radius: 10px;
+       color: white;
+       font-size: 20px;
+       font-weight: bold;
+      }
+    </style>
+</head>
+
+<body>
+ <h1>Get Random Joke</h1>
+ <p id="jokep"></p>
+ <button onclick="getjoke()">Another one</button>
+ <script type="text/javascript" charset="utf-8">
+   const container = document.getElementById('jokep');
+   const apilink = "https://official-joke-api.appspot.com/jokes/random";
+   getjoke();
+   async function getjoke() {
+     response = await fetch(apilink);
+     data = await response.json();
+     container.innerText = await data.setup + '\n' + await data.punchline;
+   }
+ </script>
+</body>
+
+</html>
