@@ -15,21 +15,13 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        max-height: 100vh;
+        height: 100vh;
       }
       img {
-        max-width: 100%;
-        max-height: 100%;
+        max-width: 90%;
+        max-height: 80vh;
         font-size: 20px;
         border-radius: 10px;
-      }
-      .img_cont {
-        height: 80vh;
-        width: 90%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
       }
       button {
        margin: 10px;
@@ -55,9 +47,7 @@
 
 <body>
  <h1>Get Random Image</h1>
- <div class="img_cont">
  <img id="img" src="" alt="" />
- </div>
  <button id="btn" onclick="getjoke()">Another one</button>
  <script type="text/javascript" charset="utf-8">
    const collection = [778914,304856,2020111,1599413,47133108,1041983,220381,9454911,1971015,9248817,9042799,1758353,219941,1353633,404339,1708734,1227291,1103088,894,175083]
@@ -67,7 +57,7 @@
    async function getjoke() {
      btn.disabled = true;
      let randomnum = Math.floor(Math.random() * collection.length);
-     const apilink = `https://source.unsplash.com/collection/${collection[randomnum]}/random/`;
+     const apilink = `https://source.unsplash.com/collection/${collection[randomnum]}/random`;
      response = await fetch(apilink);
      data = await response.blob();
      img_url = await URL.createObjectURL(data);
