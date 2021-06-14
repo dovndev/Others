@@ -58,7 +58,7 @@
    let text = '';
    text += `<p>` + folders.length + '  projects' + `</p>`;
    folders.forEach((folder) => {
-    text += `<a href="./` + folder + `">` + folder + `</a>`;
+    text += `<a target="_blank" href="./` + folder + `">` + folder + `</a>`;
    })
    container.innerHTML = text;
  </script>
