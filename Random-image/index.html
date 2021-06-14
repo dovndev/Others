@@ -15,33 +15,45 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        height: 100%;
-        max-height: 100%;
+        max-height: 100vh;
       }
       img {
-        margin: 20px;
-        max-height: 80%;
-        max-width: 90%;
+        max-width: 100%;
+        max-height: 100%;
         font-size: 20px;
         border-radius: 10px;
       }
+      .img_cont {
+        height: 80vh;
+        width: 90%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
       button {
+       margin: 10px;
        background-color: black;
        padding: 10px;
        border-radius: 10px;
        color: white;
        font-size: 20px;
        font-weight: bold;
-      }
-      button {
        display: none;
+       max-height: 10vh;
+      }
+      h1 {
+       margin: 20px;
+       max-height: 10vh;
       }
     </style>
 </head>
 
 <body>
  <h1>Get Random Image</h1>
+ <div class="img_cont">
  <img id="img" src="" alt="" />
+ </div>
  <button id="btn" onclick="getjoke()">Another one</button>
  <script type="text/javascript" charset="utf-8">
    const collection = [778914,304856,2020111,1599413,47133108,1041983,220381,9454911,1971015,9248817,9042799,1758353,219941]
