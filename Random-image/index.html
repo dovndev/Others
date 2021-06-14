@@ -15,7 +15,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        height: 100vh;
+        min-height: 100vh;
       }
       img {
         margin: 20px;
@@ -44,6 +44,8 @@
  <button id="btn" onclick="getjoke()">Another one</button>
  <script type="text/javascript" charset="utf-8">
    const container = document.getElementById('img');
+   const btn = document.getElementById('btn');
+   btn.disabled = true;
    const apilink = "https://source.unsplash.com/random";
    getjoke();
    async function getjoke() {
@@ -51,7 +53,8 @@
      data = await response.blob();
      img_url = await URL.createObjectURL(data);
      container.src = await img_url;
-     document.getElementById('btn').style.display = 'block';
+     btn.style.display = 'block';
+     btn.disabled = false;
    }
  </script>
 </body>
