@@ -56,12 +56,13 @@
  </div>
  <button id="btn" onclick="getjoke()">Another one</button>
  <script type="text/javascript" charset="utf-8">
-   const collection = [778914,304856,2020111,1599413,47133108,1041983,220381,9454911,1971015,9248817,9042799,1758353,219941]
+   const collection = [778914,304856,2020111,1599413,47133108,1041983,220381,9454911,1971015,9248817,9042799,1758353,219941,1353633,404339,1708734,1227291,1103088,894,175083]
+   
    const container = document.getElementById('img');
    const btn = document.getElementById('btn');
    async function getjoke() {
      btn.disabled = true;
-     let randomnum = Math.floor(Math.random() * 13);
+     let randomnum = Math.floor(Math.random() * collection.length);
      const apilink = `https://source.unsplash.com/collection/${collection[randomnum]}/random/`;
      response = await fetch(apilink);
      data = await response.blob();
