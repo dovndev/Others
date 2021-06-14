@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Others</title>
+    <style type="text/css" media="all">
+      * {
+        margin: 0px;
+        padding: 0px;
+      }
+      body {
+        max-height: 80%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      div {
+        box-sizing: border-box;
+        height: 80%;
+        width: 90%;
+        display: block;
+        background-color: black;
+        border-radius: 10px;
+        font-family: Tahoma;
+        overflow-y: auto;
+        padding: 20px;
+      }
+      div a {
+        box-sizing: border-box;
+        display: block;
+        text-decoration: none;
+        text-align: center;
+        width: 100%;
+        padding: 10px;
+        color: black;
+        background-color: white;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+    </style>
+</head>
+
+<body>
+ <div id="cont">
+   <a href="./Joke">Joke</a>
+ </div>
+ <script type="text/javascript" charset="utf-8">
+   const folders = ['Chennamkulath','Clock','Count-down','Firstbell','Freahmeat','Gallery','Get-Free-Sub','Google','Joke','Kite-victers','live-code-runner','Matrimonial','Music','Note','Rock-paper-scissors','Whatsapp'];
+   const container = document.getElementById('cont');
+   let text = '';
+   folders.forEach((folder) => {
+    text += `<a href="./` + folder + `">` + folder + `</a>`;
+   })
+   container.innerHTML = text;
+ </script>
+</body>
+
+</html>
