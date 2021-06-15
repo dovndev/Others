@@ -13,7 +13,7 @@
       body {
         font-family: Tahoma;
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
         align-items: center;
         flex-direction: column;
         height: 80vh;
@@ -29,12 +29,16 @@
         font-weight: bolder;
       }
       button {
-       background-color: black;
-       padding: 10px;
-       border-radius: 10px;
-       color: white;
-       font-size: 20px;
-       font-weight: bold;
+        display: none;
+        background-color: black;
+        padding: 10px;
+        border-radius: 10px;
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      button:disabled {
+        opacity: 0.2;
       }
     </style>
 </head>
@@ -42,16 +46,20 @@
 <body>
  <h1>Get Random Joke</h1>
  <p id="jokep"></p>
- <button onclick="getjoke()">Another one</button>
+ <button id="btn" onclick="getjoke()">Another one</button>
  <script type="text/javascript" charset="utf-8">
    const container = document.getElementById('jokep');
    const apilink = "https://official-joke-api.appspot.com/jokes/random";
-   getjoke();
+   const btn = document.getElementById('btn');
+   btn.style.display = 'block';
    async function getjoke() {
+     btn.disabled = true;
      response = await fetch(apilink);
      data = await response.json();
      container.innerText = await data.setup + '\n' + await data.punchline;
+     btn.disabled = false;
    }
+   getjoke();
  </script>
 </body>
 
