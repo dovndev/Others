@@ -28,9 +28,25 @@
      </div>
    </div>
    <div id="systeminputcont" class="systeminputcont">
-    <div onclick="closenav()" class="pages" id="htmlinputcont"><textarea placeholder="write html here" id="htmlinput" autocomplete="off" spellcheck="false"/></textarea></div>
-    <div onclick="closenav()" class="pages"><textarea placeholder="write style here" id="styleinput" autocomplete="off" spellcheck="false"/></textarea></div>
-    <div onclick="closenav()" class="pages"><textarea placeholder="write script here" id="scriptinput" autocomplete="off" spellcheck="false"/></textarea></div>
+    <div onclick="closenav()" class="pages" id="htmlinputcont">
+      <iframe class="systemiframe"></iframe>
+      <textarea placeholder="write html here" id="htmlinput" autocomplete="off" spellcheck="false"/></textarea>
+      <pre>
+        <code class="codebox" id="htmlcodebox"></code>
+      </pre>
+    </div>
+    <div onclick="closenav()" class="pages">
+      <textarea placeholder="write style here" id="styleinput" autocomplete="off" spellcheck="false"/></textarea>
+      <pre>
+        <code class="codebox" id="htmlcodebox"></code>
+      </pre>
+    </div>
+    <div onclick="closenav()" class="pages">
+      <textarea placeholder="write script here" id="scriptinput" autocomplete="off" spellcheck="false"/></textarea>
+      <pre>
+        <code class="codebox" id="htmlcodebox"></code>
+      </pre>
+    </div>
     <div onclick="closenav()" class="pages"><iframe id="resultoutput" class="systemiframe" srcdoc=" "></iframe></div>
    </div>
   <div id="systemnavbar" class="systemnavbar">
