@@ -15,28 +15,23 @@
     </div>
     <p>Preparing....</p>
    </div>
-   <div id="systeminputcont" class="systeminputcont">
-    <div class="systemheader">
+   <div class="systemheader">
      <div class="inputcontrols">
-      <div id="htmlswift" class="swiftbtn swiftbtn2" onclick="swift(this , 'htmlinput')">HTML</div>
-      <div id="cssswift" class="swiftbtn" onclick="swift(this , 'styleinput')">CSS</div>
-      <div id="jsswift" class="swiftbtn" onclick="swift(this , 'scriptinput')">JS</div>
-      <div id="resultswift" class="swiftbtn" onclick="swift(this , 'resultoutput')">Result</div>
-      <div id="runbtn" class="swiftbtn">Run</div>
+       <div id="htmlswift" class="swiftbtn swiftbtn2" onclick="swift(this , 'htmlinput', true)">HTML</div>
+       <div id="cssswift" class="swiftbtn" onclick="swift(this , 'styleinput' , true)">CSS</div>
+       <div id="jsswift" class="swiftbtn" onclick="swift(this , 'scriptinput' , true)">JS</div>
+       <div id="resultswift" class="swiftbtn" onclick="swift(this , 'resultoutput')">Result</div>
+       <div id="runbtn" class="swiftbtn" onclick="run()">Run</div>
      </div>
      <div onclick="opennav()" class="systemnavbtn">
-      <i class="fas fa-bars icon"></i>
-     </div> 
+       <i class="fas fa-bars icon"></i>
      </div>
-    <textarea onclick="closenav()" class="pages" placeholder="write html here" id="htmlinput" autocomplete="off"/></textarea>
-    <textarea onclick="closenav()" class="pages" placeholder="write style here" id="styleinput" autocomplete="off" /></textarea>
-    <textarea onclick="closenav()" class="pages" placeholder="write script here" id="scriptinput" autocomplete="off" /></textarea>
-    <iframe id="resultoutput" class="systemiframe pages" srcdoc=" ">
-    </iframe>
    </div>
-   <div id="systemresultbox" class="systemresultbox">
-    <iframe id="systemiframe" class="systemiframe" srcdoc=" ">
-    </iframe>
+   <div id="systeminputcont" class="systeminputcont">
+    <div onclick="closenav()" class="pages" id="htmlinputcont"><textarea placeholder="write html here" id="htmlinput" autocomplete="off" spellcheck="false"/></textarea></div>
+    <div onclick="closenav()" class="pages"><textarea placeholder="write style here" id="styleinput" autocomplete="off" spellcheck="false"/></textarea></div>
+    <div onclick="closenav()" class="pages"><textarea placeholder="write script here" id="scriptinput" autocomplete="off" spellcheck="false"/></textarea></div>
+    <div onclick="closenav()" class="pages"><iframe id="resultoutput" class="systemiframe" srcdoc=" "></iframe></div>
    </div>
   <div id="systemnavbar" class="systemnavbar">
     <div onclick="toolopen('copy-tool')" class="tooltip">

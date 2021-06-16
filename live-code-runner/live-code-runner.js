@@ -2,7 +2,6 @@ const htmlinput = document.getElementById("htmlinput");
 const styleinput = document.getElementById("styleinput");
 const scriptinput = document.getElementById("scriptinput");
 const resultoutput = document.getElementById("resultoutput");
-const systemresultbox = document.getElementById("systemresultbox");
 let extracont = document.querySelector(".extracont");
 const systemiframe = document.getElementById("systemiframe");
 const systemtooltip = document.getElementById("myTooltip");
@@ -31,73 +30,56 @@ function prepare() {
  getlayout();
  getsize();
  gettheme();
- setTimeout(() => document.getElementById('loading-page').style.display = 'none' , 1000)
- runbtn.addEventListener('click' , () => {run()})
+ document.getElementById('loading-page').style.display = 'none';
 }
 function getlayout() {
  let layoutvalue = JSON.parse(localStorage.getItem('layout'));
  let resultbtn = document.getElementById('resultswift');
  const getlayout1 = () => {
-  swift(document.getElementById('htmlswift') , 'htmlinput');
+  swift(document.getElementById('htmlswift') , 'htmlinput' , true);
   swiftbtn.forEach((item) => item.style.display = 'block');
-  systemheader.classList.remove('header2');
   systeminputcont.classList.remove('systeminputcont2');
-  htmlinput.style['padding-top'] = "0px";
-  systemresultbox.style.display = 'block';
   resultbtn.style.display = 'block';
   livecont.style.display = 'flex';
-  runbtn.addEventListener('click', () => {run()})
-  runbtn.removeEventListener('click', () => {run('some')})
   livecheck();
  }
  const getlayout2 = (id) => {
   document.getElementById(id).checked = true;
   run();
-  run('some');
  }
  if (layoutvalue === null) {
   return
  }else if (layoutvalue == 'full-page') {
   getlayout1();
-  systemresultbox.style.display = 'none';
+  resultoutput.parentNode.style.display = 'none';
   resultbtn.style.display = 'block';
   livecheckbox.checked = false;
   livecheck('unchecked');
   livecont.style.display = 'none';
   runbtn.style.display = 'none';
- }else if (layoutvalue == 'four-column')
- {
+ }else if (layoutvalue == 'four-column') {
   getlayout1();
-  theme.style['flex-direction'] = layoutvalue;
-  systemresultbox.style.display = 'none';
   swiftbtn.forEach((item) => item.style.display = 'none');
-  systemheader.classList.add('header2');
   systeminputcont.classList.add('systeminputcont2');
-  htmlinput.style['padding-top'] = "50px";
   pages.forEach((page) => page.style.display = 'block');
-  runbtn.removeEventListener('click', () => {run()})
-  runbtn.addEventListener('click' , () => {run('some')})
   livecheck();
- }else if (layoutvalue == 'column')
- {
+ }else if (layoutvalue == 'column') {
   getlayout1();
   resultbtn.style.display = 'none';
-  theme.style['flex-direction'] = layoutvalue;
- }else if (layoutvalue == 'row-reverse')
- {
+  systeminputcont.style['flex-direction'] = layoutvalue;
+ }else if (layoutvalue == 'row-reverse') {
   getlayout1();
   resultbtn.style.display = 'none';
-  theme.style['flex-direction'] = layoutvalue;
+  systeminputcont.style['flex-direction'] = layoutvalue;
  }
- else if (layoutvalue == 'row')
- {
-   getlayout1();
-   resultbtn.style.display = 'none';
-   theme.style['flex-direction'] = layoutvalue;
- }else if (layoutvalue == 'column-reverse'){
+ else if (layoutvalue == 'row') {
   getlayout1();
   resultbtn.style.display = 'none';
-  theme.style['flex-direction'] = layoutvalue;
+  systeminputcont.style['flex-direction'] = layoutvalue;
+ }else if (layoutvalue == 'column-reverse') {
+  getlayout1();
+  resultbtn.style.display = 'none';
+  systeminputcont.style['flex-direction'] = layoutvalue;
  }
  getlayout2(layoutvalue);
 }
@@ -187,13 +169,9 @@ function codecreate() {
  let systemcode = html.slice(0 , headstart) + stylecode + html.slice(headstart , bodystart) + html.slice(bodystart , bodyend) + scriptcode + html.slice(bodyend);
  return systemcode;
 }
-function run(some) {
+function run() {
  let systemcode = codecreate();
- if (some === undefined) {
-  systemiframe.srcdoc = systemcode;
- }else {
   resultoutput.srcdoc = systemcode;
- }
  closenav();
 }
 function copyto(input) {
@@ -247,7 +225,6 @@ function fillscreen() {
  }else {
   togglebtni.classList.replace('fa-compress' , 'fa-expand');
  }
- systemresultbox.classList.toggle('systemresultbox2');
 }
 function opennav() {
  let displayvalue = (systemnavbar.style.display !== 'block') ? 'block' : 'none';
@@ -256,23 +233,26 @@ function opennav() {
 function closenav() {
  systemnavbar.style.display = 'none';
 }
-function hideinput(btn ,inputtype) {
+function hideinput(btn , inputtype , inputtype2) {
  swiftbtn.forEach((btns) => btns.classList.remove('swiftbtn2'));
  btn.classList.add('swiftbtn2');
  pages.forEach((page) => page.style.display = 'none');
  inputtype.style.display = 'block';
+ if (inputtype2 == true & JSON.parse(localStorage.getItem('layout')) !== 'full-page') {
+  resultoutput.parentNode.style.display = 'block';
+ }
 } 
-function swift(id , txt) {
+function swift(id , txt , inputtype2) {
  closenav();
  if(txt == 'htmlinput') {
-  hideinput(id , htmlinput);
+  hideinput(id , htmlinput.parentNode , inputtype2);
  }else if(txt == "styleinput") {
-  hideinput(id , styleinput);
+  hideinput(id , styleinput.parentNode , inputtype2);
  }else if (txt == "scriptinput") {
-  hideinput(id , scriptinput);
+  hideinput(id , scriptinput.parentNode , inputtype2);
  }else {
-  run('some');
-  hideinput(id , resultoutput);
+  run();
+  hideinput(id , resultoutput.parentNode);
  }
 }
 function toolopen(tool) {
