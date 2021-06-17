@@ -4,7 +4,6 @@ const scriptinput = document.getElementById("scriptinput");
 const resultoutput = document.getElementById("resultoutput");
 let extracont = document.querySelector(".extracont");
 const systemiframe = document.getElementById("systemiframe");
-const systemtooltip = document.getElementById("myTooltip");
 const systemnavbar = document.getElementById('systemnavbar');
 const theme = document.getElementById("theme");
 const pages = document.querySelectorAll('.pages'); 
@@ -28,8 +27,10 @@ htmlinput.innerHTML = systemdefaulttxt;
 prepare();
 function prepare() {
  getlayout();
- getsize();
  gettheme();
+ getfamily();
+ getfontsize();
+ livecheck();
  document.getElementById('loading-page').style.display = 'none';
 }
 function getlayout() {
@@ -83,17 +84,31 @@ function getlayout() {
  }
  getlayout2(layoutvalue);
 }
-function getsize() {
- let fontsize;
- if (localStorage.getItem('fontsize') === null) {
-  fontsize = 15 + 'px';
+function getfontsize() {
+  let fontsize;
+  let savedvalue = JSON.parse(localStorage.getItem('fontsize'));
+  if (savedvalue !== null) {
+    fontsize = Number(savedvalue);
+  }else {
+    fontsize = 17;
+  }
+   htmlinput.style['font-size'] = fontsize + 'px';
+   styleinput.style['font-size'] = fontsize + 'px';
+   scriptinput.style['font-size'] = fontsize + 'px';
+   document.getElementById('font-value').innerText = fontsize + 'px';
+   document.getElementById('font-input').value = fontsize;
+}
+function getfamily() {
+ let fontfamily;
+ if (localStorage.getItem('fontfamily') === null) {
+  fontfamily = 'monospace';
  }else {
-  fontsize = JSON.parse(localStorage.getItem('fontsize'));
+  fontfamily = JSON.parse(localStorage.getItem('fontfamily'));
  }
- htmlinput.style['font-size'] = fontsize;
- styleinput.style['font-size'] = fontsize;
- scriptinput.style['font-size'] = fontsize;
- document.getElementById('font-value').innerHTML = fontsize;
+ htmlinput.style['font-family'] = fontfamily;
+ styleinput.style['font-family'] = fontfamily;
+ scriptinput.style['font-family'] = fontfamily;
+ document.getElementById(fontfamily).checked = true;
 }
 function gettheme() {
  let themevalue = localStorage.getItem('themevalue');
@@ -105,49 +120,29 @@ function gettheme() {
    theme.classList.toggle('darktheme');
  }
 }
-function livecheck(status) {
+function livecheck() {
  let livevalue;
- if (status !== undefined) {
-  livevalue = status;
+ let localvalue = JSON.parse(localStorage.getItem('livevalue'));
+ if (localvalue !== null) {
+  livevalue = localvalue;
  }else {
-  livevalue = JSON.parse(localStorage.getItem('livevalue'));
- }
- let input = document.getElementsByTagName('textarea');
- if (livevalue !== null) {
- if (JSON.parse(localStorage.getItem('layout')) == 'four-column') {
-  let y;
-  if (livevalue == 'checked') {
-    for (y = 0; y < input.length; y++) {
-      input[y].oninput = () => { run('some') };
-    }
-    livecheckbox.checked = true;
-    runbtn.style.display = 'none';
-  } else {
-    for (y = 0; y < input.length; y++) {
-      input[y].oninput = null;
-    }
-    livecheckbox.checked = false;
-    runbtn.style.display = 'block';
-  }
- }else {
-  let x;
-  if (livevalue == 'checked') {
-    for (x = 0; x < input.length; x++) {
-      input[x].oninput = () => { run() };
-    }
-    livecheckbox.checked = true;
-    runbtn.style.display = 'none';
-  } else {
-    for (x = 0; x < input.length; x++) {
-      input[x].oninput = null;
-    }
-    livecheckbox.checked = false;
-    runbtn.style.display = 'block';
-  }
- }
- }else {
+  livevalue = 'unchecked';
   runbtn.style.display = 'block';
  }
+  if (livevalue == 'checked') {
+    setlive(run , true , 'none');
+  }else {
+    setlive(null , false , 'block');
+  }
+  function setlive(funcv , checkv , displayv) {
+    let x;
+    let input = document.getElementsByTagName('textarea');
+    for (x = 0; x < input.length; x++) {
+      input[x].oninput = funcv;
+    }
+    livecheckbox.checked = checkv;
+    runbtn.style.display = displayv;
+  }
 }
 function codecreate() {
  let stylecode;
@@ -170,9 +165,9 @@ function codecreate() {
  return systemcode;
 }
 function run() {
- let systemcode = codecreate();
-  resultoutput.srcdoc = systemcode;
- closenav();
+   let systemcode = codecreate();
+   resultoutput.srcdoc = systemcode;
+   closenav();
 }
 function copyto(input) {
   if (input === "wholecode") {
@@ -217,31 +212,12 @@ function exitfullscreen() {
  exitfullscreenbtn.style.display = "none";
  closenav();
 }
-function fillscreen() {
- closenav();
- let togglebtni = document.getElementById('togglebtni');
- if (togglebtni.classList[1] == "fa-expand"){
-  togglebtni.classList.replace('fa-expand' , 'fa-compress');
- }else {
-  togglebtni.classList.replace('fa-compress' , 'fa-expand');
- }
-}
 function opennav() {
- let displayvalue = (systemnavbar.style.display !== 'block') ? 'block' : 'none';
- systemnavbar.style.display = displayvalue;
+ systemnavbar.style.display = (systemnavbar.style.display !== 'block') ? 'block' : 'none';
 }
 function closenav() {
  systemnavbar.style.display = 'none';
 }
-function hideinput(btn , inputtype , inputtype2) {
- swiftbtn.forEach((btns) => btns.classList.remove('swiftbtn2'));
- btn.classList.add('swiftbtn2');
- pages.forEach((page) => page.style.display = 'none');
- inputtype.style.display = 'block';
- if (inputtype2 == true & JSON.parse(localStorage.getItem('layout')) !== 'full-page') {
-  resultoutput.parentNode.style.display = 'block';
- }
-} 
 function swift(id , txt , inputtype2) {
  closenav();
  if(txt == 'htmlinput') {
@@ -255,6 +231,15 @@ function swift(id , txt , inputtype2) {
   hideinput(id , resultoutput.parentNode);
  }
 }
+function hideinput(btn, inputtype, inputtype2) {
+  swiftbtn.forEach((btns) => btns.classList.remove('swiftbtn2'));
+  btn.classList.add('swiftbtn2');
+  pages.forEach((page) => page.style.display = 'none');
+  inputtype.style.display = 'block';
+  if (inputtype2 == true & JSON.parse(localStorage.getItem('layout')) !== 'full-page') {
+    resultoutput.parentNode.style.display = 'block';
+  }
+}
 function toolopen(tool) {
  let item = document.getElementById(tool);
  extracont.style.display = 'flex';
@@ -266,10 +251,10 @@ function toolclose() {
  extracont.style.display = 'none';
  extratools.forEach((item) => { item.style.display = 'none'; });
 }
-function editsize(fontinput) {
- let fontsize = fontinput.value + 'px';
- localStorage.setItem('fontsize' , JSON.stringify(fontsize));
- getsize();
+function editfamily(fontinput) {
+ let fontfamily = fontinput.value;
+ localStorage.setItem('fontfamily' , JSON.stringify(fontfamily));
+ getfamily();
 }
 function edittheme() {
  theme.classList.toggle("darktheme");
@@ -291,4 +276,9 @@ function editlayout(radioinput) {
  let layoutvalue = JSON.stringify(radioinput.value);
  localStorage.setItem('layout', layoutvalue);
  getlayout();
+}
+function editfontsize(rangeinput) {
+  let fontsizev = JSON.stringify(rangeinput.value);
+  localStorage.setItem('fontsize', fontsizev);
+  getfontsize();
 }

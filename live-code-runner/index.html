@@ -21,7 +21,7 @@
        <div id="cssswift" class="swiftbtn" onclick="swift(this , 'styleinput' , true)">CSS</div>
        <div id="jsswift" class="swiftbtn" onclick="swift(this , 'scriptinput' , true)">JS</div>
        <div id="resultswift" class="swiftbtn" onclick="swift(this , 'resultoutput')">Result</div>
-       <div id="runbtn" class="swiftbtn" onclick="run()">Run</div>
+       <div id="runbtn" class="swiftbtn" onclick="run('check')">Run</div>
      </div>
      <div onclick="opennav()" class="systemnavbtn">
        <i class="fas fa-bars icon"></i>
@@ -31,21 +31,12 @@
     <div onclick="closenav()" class="pages" id="htmlinputcont">
       <iframe class="systemiframe"></iframe>
       <textarea placeholder="write html here" id="htmlinput" autocomplete="off" spellcheck="false"/></textarea>
-      <pre>
-        <code class="codebox" id="htmlcodebox"></code>
-      </pre>
     </div>
     <div onclick="closenav()" class="pages">
       <textarea placeholder="write style here" id="styleinput" autocomplete="off" spellcheck="false"/></textarea>
-      <pre>
-        <code class="codebox" id="htmlcodebox"></code>
-      </pre>
     </div>
     <div onclick="closenav()" class="pages">
       <textarea placeholder="write script here" id="scriptinput" autocomplete="off" spellcheck="false"/></textarea>
-      <pre>
-        <code class="codebox" id="htmlcodebox"></code>
-      </pre>
     </div>
     <div onclick="closenav()" class="pages"><iframe id="resultoutput" class="systemiframe" srcdoc=" "></iframe></div>
    </div>
@@ -66,12 +57,19 @@
         <i class="fas fa-compress icon"></i></div>
       <span class="tooltiptext">Exit fullscreen</span>
     </div>
-     <div id="settings">Settings</div>
-    <div onclick="toolopen('font-tool')" class="tooltip">
+    <div id="settings">Settings</div>
+    <div onclick="toolopen('fontsize-tool')" class="tooltip">
       <div id="systemthemebtn" class="systembtn">
-       <i class="fas fa-text-height icon"></i>
+        <i class="fas fa-text-height icon"></i>
       </div>
       <span class="tooltiptext">font-size
+      </span>
+    </div>
+    <div onclick="toolopen('fontfam-tool')" class="tooltip">
+      <div id="systemthemebtn" class="systembtn">
+       <i class="fas fa-font"></i>
+      </div>
+      <span class="tooltiptext">font-family
       </span>
     </div>
      <div onclick="edittheme()" class="tooltip">
@@ -125,12 +123,42 @@
         <span class="tooltiptext">Copy the whole code as html file</span>
       </div>
     </div>
-    <div class="extratool" id="font-tool">
-     <label for="font-input">font-size</label>
-     <div class="rangecont">
-      <input oninput="editsize(this)" type="range" name="font-input" id="font-input" value="15" max="40" min="10" />
+    <div class="extratool" id="fontsize-tool">
+      <label for="font-input">font-size</label>
+      <div class="rangecont">
+        <input oninput="editfontsize(this)" type="range" name="font-input" id="font-input" value="15" max="40" min="10" />
       </div>
-     <span id="font-value">20px</span>
+      <span id="font-value">17px</span>
+    </div>
+    <div class="extratool" id="fontfam-tool">
+       <label class="tooltip">
+         <input oninput="editfamily(this)" type="radio" name="font-family" id="sans-serif" value="sans-serif" />
+         <span class="tooltiptext">sans-serif</span>
+       </label>
+       <label class="tooltip">
+         <input checked oninput="editfamily(this)" type="radio" name="font-family" id="monospace" value="monospace" />
+         <span class="tooltiptext">monospace</span>
+       </label>
+       <label class="tooltip">
+         <input oninput="editfamily(this)" type="radio" name="font-family" id="Times" value="Times" />
+         <span class="tooltiptext">Times</span>
+       </label>
+       <label class="tooltip">
+         <input oninput="editfamily(this)" type="radio" name="font-family" id="Arial" value="Arial" />
+         <span class="tooltiptext">Arial</span>
+       </label>
+       <label class="tooltip">
+         <input oninput="editfamily(this)" type="radio" name="font-family" id="Helvetica" value="Helvetica" />
+         <span class="tooltiptext">Helvetica</span>
+       </label>
+       <label class="tooltip">
+         <input oninput="editfamily(this)" type="radio" name="font-family" id="serif" value="serif" />
+         <span class="tooltiptext">serif</span>
+       </label>
+       <label class="tooltip">
+         <input oninput="editfamily(this)" type="radio" name="font-family" id="Verdana" value="Verdana" />
+         <span class="tooltiptext">Verdana</span>
+       </label>
     </div>
     <div id="layout-tool" class="extratool">
       <div class="layout_btns">
