@@ -9,7 +9,7 @@
        font-family: verdana;
  }
  .lightmode{
-   display: none;
+   display: block;
    background-color:white;
    height:100%;
    width: 100%;
@@ -368,7 +368,7 @@ h2{
   color: white;
 }
 .loadingpage {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   flex-direction: column;
