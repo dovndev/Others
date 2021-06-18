@@ -4,8 +4,6 @@ const nav = document.getElementById('contain');
 const container = document.getElementById('id01');
 let playlists = ['https://youtube.com/embed/playlist?list=PLFMb-2_G0bMau68HbXU4ypYz-o59vpoaG','https://youtube.com/embed/playlist?list=PLFMb-2_G0bMZuZvntGy8DrGKkAti1Di4u','https://www.youtube.com/embed/playlist?list=PLFMb-2_G0bMZaBEYbyJqAzFJQzrMP-rvk','https://www.youtube.com/embed/playlist?list=PLFMb-2_G0bMYQ8Op027UCqz8JIUE4rMUQ','https://www.youtube.com/embed/playlist?list=PLFMb-2_G0bMbOjs8KWhc0JK8zsml0yI80','https://www.youtube.com/embed/playlist?list=PLFMb-2_G0bMbO0oEufakkx3M7z8J0O0H7','https://www.youtube.com/embed/playlist?list=PLFMb-2_G0bMYw1qyRJPLVrvjcvu-TeCGA','https://www.youtube.com/embed/playlist?list=PLFMb-2_G0bMZABEoPbXhJhaUxkHoz90lP','https://www.youtube.com/embed/playlist?list=PLFMb-2_G0bMZWraocvgXUy6WiccGjMEiO','https://youtube.com/embed/playlist?list=PLFMb-2_G0bMYcln_EAAqYNW4yx2cvAQI8','https://www.youtube.com/embed/playlist?list=PLFMb-2_G0bMY97I0VnAIwmOqfCh9eM0bW','https://youtube.com/embed/playlist?list=PLFMb-2_G0bMZ8CtVtNkxRT5wbsI-JZVR4'];
   prepare();
-  loadingpage.style.display = 'none';
-  lightmode.style.display = 'block';
   let counter = 0;
 function loader() {
   counter++
