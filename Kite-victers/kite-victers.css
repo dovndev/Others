@@ -367,42 +367,33 @@ h2{
   box-shadow: 5px 10px 8px #121212;
   color: white;
 }
-.loadingpage{
-  display: block;
+.loadingpage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   z-index: 21;
   position: fixed;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
-  background-color:white;
-}
-.loadingpage2 {
-  z-index: 21;
-  position: fixed;
-  top: 30%;
-  left: 0;
-  height: 20%;
-  width: 100%;
   background-color: white;
 }
 .logojump{
-  margin:0px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  z-index: 21;
+  overflow: hidden;
+  border-radius: 20px;
+  height: 15px;
+  width: 70%;
+  background-color: #D6D6D6;
 }
 .loading {
+  z-index: 21;
   display: block;
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  border: 4px solid #D0D0D0;
-  border-top: 4px solid red;
-  border-left: 4px solid #FF5660;
-  border-bottom: 4px solid #FAA9AD;
-  animation: rotatediv 1s linear infinite forwards;
-  z-index: 3;
+  height: 100%;
+  width: 0%;
+  background-color: #FF2F2F;
 }
 .scrollbutton{
   border-radius: 50px;
