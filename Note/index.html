@@ -136,6 +136,10 @@
       background-color: #DEDEDE;
       border-radius: 10px;
      }
+     #nonotes {
+       padding-top: 50px;
+       font-size: 20px;
+     }
     </style>
 </head>
 
@@ -153,7 +157,7 @@
   <div class="remove" onclick="removeall()">Remove All</div>
  </div>
 <script type="text/javascript" charset="utf-8">
- getnotes(JSON.parse(localStorage.getItem('notes')));
+ getnotes();
  function saveitem() {
   let input = document.getElementById('input');
   let notes;
@@ -166,16 +170,18 @@
     notes = JSON.parse(localStorage.getItem('notes'));
   }
   notes.push(input.value);
-  getnotes(notes);
   localStorage.setItem('notes' , JSON.stringify(notes));
+  getnotes();
   input.value = "";
   }
  }
- function getnotes(notes) {
+ function getnotes() {
+   let container = document.getElementById('cont');
+   let notes = JSON.parse(localStorage.getItem("notes"));
    if (notes == null) {
-     return
+   container.innerHTML = "<p id=\"nonotes\">no saved notes</p>";
    }else {
-   document.getElementById('cont').innerHTML = "";
+   container.innerHTML = "";
    let note;
    let text;
    for (note in notes) {
@@ -189,13 +195,16 @@
   notes.splice(note , 1);
   localStorage.setItem("notes" , JSON.stringify(notes));
   parent.classList.add('notes_anim');
-  setTimeout(function() { getnotes(notes); } , 400);
+  if (notes.length == 0) {
+    localStorage.removeItem("notes");
+  }
+  setTimeout(getnotes , 400);
  }
  function removeall() {
   if (confirm('delete all notes from storage')) {
-  localStorage.setItem("notes" , JSON.stringify([]));
   document.querySelectorAll('.notes').forEach((note) => note.classList.add('notes_anim'));
-  setTimeout(function() { getnotes(JSON.parse(localStorage.getItem('notes'))); } , 400);
+  localStorage.removeItem("notes");
+  setTimeout(getnotes , 400);
   }else {
     return;
   }
