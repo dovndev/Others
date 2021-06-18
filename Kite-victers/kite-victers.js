@@ -7,6 +7,7 @@ let playlists = ['https://youtube.com/embed/playlist?list=PLFMb-2_G0bMau68HbXU4y
   let counter = 0;
 function loader() {
   counter++
+  document.getElementById('loadnum').innerText = 12 - counter;
   if (counter >= 12) {
     loadingpage.style.display = 'none';
     lightmode.style.display = 'block';
