@@ -60,7 +60,8 @@
    <button class="btns" id="btn3" onclick="next()">&rarr;</button>
  </div>
  <script type="text/javascript" charset="utf-8">
-   const collection = [778914,304856,2020111,1599413,47133108,1041983,220381,9454911,1971015,9248817,9042799,1758353,219941,1353633,404339,1708734,1227291,1103088,894,175083]
+   const collection = [778914,304856,2020111,1599413,47133108,1041983,220381,9454911,1971015,9248817,9042799,1758353,219941,1353633,404339,1708734,1227291,1103088,894,175083,1118894,8336486,762960,8052237,172974,3323575,4773283,962362,151521,17098,1988224,1368747,2203755,145698,1254524,1262111,181581,1127828,225,573009,2737036,1454032,409539,540518]
+  
    const container = document.getElementById('img');
    const btn1 = document.getElementById('btn1');
    const btn2 = document.getElementById('btn2');
@@ -104,6 +105,16 @@
      btn1.disabled = false;
      }
    }
+   function checkdupli() {
+   let duplicates = collection.filter((item , index) => collection.indexOf(item) != index);
+   if (duplicates.length == 0) {
+   return;
+   }else {
+     let txt = (duplicates.length > 1) ? ' duplicates found' : ' duplicate found';
+     console.log(duplicates.length + txt);
+   }
+   }
+   checkdupli();
    getimage();
  </script>
 </body>
