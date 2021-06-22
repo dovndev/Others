@@ -151,10 +151,6 @@
    left: 40px;
    height: 50px;
  }
- .devsite-landing-row-item-media{
-   overflow: visible !important;
-  
- }
   </style>
 </head>
 <body>
@@ -179,6 +175,9 @@
  <div id="btncont">
   <button onclick="Googlesearch()" id="searchbtn">GO</button>
  </div>
+ <br />
+ <p id="load"></p>
+ <br />
  <div id="timecont">
   <div id="datetime"></div>
   <img src="././datetime.png" alt="Date & Time" id="dateimg"/>
@@ -194,7 +193,11 @@ function Googlesearch(){
   }
   var content = document.getElementById('searchtext').value;
   let url = 'https://www.google.com/search?q='+content;
+  /* duckduckgo. =  https://www.duckduckgo.com/?q=*/
+  /* YouTube search - https://m.youtube.com/results?sp=mAEA&search_query= */
   window.open(url,'_self')
+  const load = document.getElementById('load');
+  load.innerHTML= "Loading...";
 }
 function btndisplay(){
   var content = document.getElementById('searchtext').value;

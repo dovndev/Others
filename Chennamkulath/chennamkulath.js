@@ -7,7 +7,6 @@ function myFunction() {
 }
 
 function clock(){
-  
   var hours = document.getElementById("hours");
   var Minutes = document.getElementById("Minutes");
   var Seconds = document.getElementById("Seconds");
