@@ -65,3 +65,26 @@
 </body>
 
 </html>
+<script type="text/javascript" charset="utf-8">
+ 
+ 
+ function edit(note , parent) {
+  let notes = JSON.parse(localStorage.getItem('notes'));
+  notes.splice(note , 1);
+  localStorage.setItem("notes" , JSON.stringify(notes));
+  parent.classList.add('notes_anim');
+  if (notes.length == 0) {
+    localStorage.removeItem("notes");
+  }
+  setTimeout(getnotes , 400);
+ }
+ function removeall() {
+  if (confirm('delete all notes from storage')) {
+  document.querySelectorAll('.notes').forEach((note) => note.classList.add('notes_anim'));
+  localStorage.removeItem("notes");
+  setTimeout(getnotes , 400);
+  }else {
+    return;
+  }
+ }
+</script>
