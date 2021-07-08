@@ -74,6 +74,7 @@
        flex-direction: column;
        width: 100%;
        transition: 0.3s;
+       min-height: 100px;
      }
      .notes {
        background-color: white;
@@ -82,7 +83,17 @@
        display: flex;
        justify-content: space-between;
        border-radius: 10px;
-       transition: 0.3s;
+     }
+     .notes-anim {
+       animation: remove 0.2s linear;
+     }
+     @keyframes remove {
+       0% {
+         transform: translateX(0%);
+       }
+       100% {
+         transform: translateX(-100%);
+       }
      }
      .notes p {
        user-select: all;
@@ -102,22 +113,17 @@
       border-radius: 10px 0px 0px 10px;
      }
      .delete {
-      display: flex;
-      justify-content: center;
-      align-items: center;
       width: 50px;
       height: auto;
-      padding: 1px;
       border-radius: 0px 10px 10px 0px;
       background-color: #DEDEDE;
-     }
-     .delete p {
-      all: initial;
       padding: 0;
       margin: 0;
-      width: auto;
       font-size: 30px;
       font-weight: bold;
+      text-align: center;
+      border: none;
+      border-left: 2px solid;
      }
      #nonotes {
        color: white;
@@ -143,20 +149,19 @@
  <div id="root" class="root"></div>
  
  <script type="text/babel">
-  const Note = ({ note, index, editnote }) => {
+  const Note = ({ note, index, editnote, isworking }) => {
     return(
       <div className="notes">
         <span className="num">{ index + 1 }</span>
         <p>{ note }</p>
-        <div onClick={(e) => {editnote(index)}} className="delete">
-          <p>&times;</p>
-        </div>
+        <button disabled={isworking} onClick={(e) => {editnote(e, index)}} className="delete">&times;</button>
       </div>
     );
   }
   const App = () => {
     const [ notes, setnotes ] = React.useState([]);
     const [ newnote, setnewnote ] = React.useState('');
+    const [ isworking, setisworking ] = React.useState(false);
     const savenote = (e) => {
       e.preventDefault();
       const pattern = /^\s*$/g;
@@ -167,8 +172,13 @@
         setnewnote('');
       }
     }
-    const editnote = (index) => {
-      setnotes(notes.filter((note) => notes.indexOf(note) !== index));
+    const editnote = (e, index) => {
+      setisworking(true);
+      e.target.parentNode.className = 'notes notes-anim';
+      setTimeout(() => {
+        setnotes(notes.filter((note) => notes.indexOf(note) !== index))
+        setisworking(false);
+      }, 200);
     }
     const removeall = () => {
       if (confirm('delete all notes from storage')) {
@@ -200,7 +210,7 @@
           <div className="cont">
             {
               notes.map((note, index) => (
-                <Note note={ note } index={ index } editnote={ editnote } key={ index }/>
+                <Note note={ note } index={ index } editnote={ editnote } isworking={isworking} key={ index }/>
               ))
             }
           </div>
