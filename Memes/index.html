@@ -27,7 +27,7 @@
         max-height: 80vh;
         font-size: 20px;
         border-radius: 10px;
-        box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
+        box-shadow: 10px 10px 8px rgba(0,0,0,0.5);
       }
       .btncont {
         display: flex;
@@ -58,7 +58,7 @@
  <h3 id='h1'></h3>
  <div class="btncont">
    <button class="btns" id="btn1" onclick="previous()">&larr;</button>
-   <button class="btns" id="btn2" onclick="getimage()">Another one</button>
+   <button class="btns" id="btn2" onclick="update()">Another one</button>
    <button class="btns" id="btn3" onclick="next()">&rarr;</button>
  </div>
  <script type="text/javascript" charset="utf-8">
@@ -68,15 +68,19 @@
    const btn3 = document.getElementById('btn3');
    const btns = document.querySelector('.btncont');
    const h1 = document.querySelector('#h1');
+   let data;
    let url_history = [];
    let liveindex = url_history.length - 1;
    let index = 0;
    async function getimage() {
-     btn2.disabled = true;
      const apilink = `https://api.imgflip.com/get_memes`;
-     response = await fetch(apilink);
+     let response = await fetch(apilink);
      data = await response.json();
-     img_url = await data.data.memes[index].url;
+     update();
+   }
+   const update = () => {
+     btn2.disabled = true;
+     let img_url = data.data.memes[index].url;
      url_history.push({url:img_url, name:data.data.memes[index].name });
      liveindex = url_history.length - 1;
      container.src = img_url;
@@ -84,7 +88,6 @@
      btn2.disabled = false;
      able();
      h1.innerText = data.data.memes[index].name;
-     console.log(await data.data.memes[index]);
      index++;
    }
    function previous() {
