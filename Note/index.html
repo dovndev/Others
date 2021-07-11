@@ -9,6 +9,9 @@
        margin: 0;
        padding: 0;
      }
+     html {
+       height: 100%;
+     }
      body {
        background-color: #00B889;
        display: flex;
@@ -21,6 +24,10 @@
        position: fixed;
        top: 0;
        left: 0;
+     }
+     .root {
+       height: 100%;
+       width: 100%;
      }
      .header {
        display: flex;
@@ -67,6 +74,7 @@
        flex-direction: column;
        width: 100%;
        transition: 0.3s;
+       min-height: 100px;
      }
      .notes {
        background-color: white;
@@ -75,23 +83,16 @@
        display: flex;
        justify-content: space-between;
        border-radius: 10px;
-       transition: 0.3s;
      }
-     .notes_anim {
-       animation: remove 0.5s linear 1;
+     .notes-anim {
+       animation: remove 0.2s linear;
      }
      @keyframes remove {
        0% {
-         transform: translateX(0px);
-       }
-       50% {
-         transform: translateX(-100%);
-         opacity: 0;
+         transform: translateX(0%);
        }
        100% {
          transform: translateX(-100%);
-         position: absolute;
-         opacity: 0;
        }
      }
      .notes p {
@@ -112,22 +113,17 @@
       border-radius: 10px 0px 0px 10px;
      }
      .delete {
-      display: flex;
-      justify-content: center;
-      align-items: center;
       width: 50px;
       height: auto;
-      padding: 1px;
       border-radius: 0px 10px 10px 0px;
       background-color: #DEDEDE;
-     }
-     .delete p {
-      all: initial;
       padding: 0;
       margin: 0;
-      width: auto;
       font-size: 30px;
       font-weight: bold;
+      text-align: center;
+      border: none;
+      border-left: 2px solid;
      }
      #nonotes {
        color: white;
@@ -143,75 +139,94 @@
        font-size: 20px;
      }
     </style>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
 </head>
 
 <body>
- <div class="header"><p>Notebook</p></div>
- <div class="input_cont">
- <input type="text" name="input" id="input" value="" placeholder="write a note"/>
- <button onclick="saveitem()" class="save">Save</button>
- </div>
- <div class="con-cont">
- <div id="cont" class="cont">
- </div>
- </div>
- <div class="input_cont">
-  <div class="remove" onclick="removeall()">Remove All</div>
- </div>
-<script type="text/javascript" charset="utf-8">
- getnotes();
- function saveitem() {
-  let input = document.getElementById('input');
-  let notes;
-  if (input.value == "") {
-    alert('write something');
-  }else {
-  if (localStorage.getItem('notes') === null) {
-    notes = [];
-  }else {
-    notes = JSON.parse(localStorage.getItem('notes'));
+ 
+ <div id="root" class="root"></div>
+ 
+ <script type="text/babel">
+  const Note = ({ note, index, editnote, isworking }) => {
+    return(
+      <div className="notes">
+        <span className="num">{ index + 1 }</span>
+        <p>{ note }</p>
+        <button disabled={isworking} onClick={(e) => {editnote(e, index)}} className="delete">&times;</button>
+      </div>
+    );
   }
-  notes.push(input.value);
-  localStorage.setItem('notes' , JSON.stringify(notes));
-  getnotes();
-  input.value = "";
+  const App = () => {
+    const [ notes, setnotes ] = React.useState([]);
+    const [ newnote, setnewnote ] = React.useState('');
+    const [ isworking, setisworking ] = React.useState(false);
+    const savenote = (e) => {
+      e.preventDefault();
+      const pattern = /^\s*$/g;
+      if (pattern.test(newnote)) {
+        alert('please write something');
+      }else {
+        setnotes([...notes, newnote]);
+        setnewnote('');
+      }
+    }
+    const editnote = (e, index) => {
+      setisworking(true);
+      e.target.parentNode.className = 'notes notes-anim';
+      setTimeout(() => {
+        setnotes(notes.filter((note) => notes.indexOf(note) !== index))
+        setisworking(false);
+      }, 200);
+    }
+    const removeall = () => {
+      if (confirm('delete all notes from storage')) {
+      setnotes([]);
+      }else {
+        return;
+      }
+    }
+    React.useEffect(() => {
+      if (localStorage.getItem('notes')) {
+        setnotes(JSON.parse(localStorage.getItem('notes')));
+      }else {
+        setnotes([]);
+      }
+    }, []);
+    React.useEffect(() => {
+      localStorage.setItem('notes', JSON.stringify(notes));
+    }, [notes]);
+    return(
+      <div className="root">
+        <div className="header">
+          <p>Notebook</p>
+        </div>
+        <form onSubmit={savenote} className="input_cont">
+          <input onChange={(e) => setnewnote(e.target.value)} type="text" value={newnote} placeholder="write a note"/>
+          <input type="submit" className="save" value="save"/>
+        </form>
+        <div className="con-cont">
+          <div className="cont">
+            {
+              notes.map((note, index) => (
+                <Note note={ note } index={ index } editnote={ editnote } isworking={isworking} key={ index }/>
+              ))
+            }
+          </div>
+        </div>
+        <div className="input_cont">
+          <div onClick={removeall} className="remove">Remove All</div>
+        </div>
+      </div>
+    );
   }
- }
- function getnotes() {
-   let container = document.getElementById('cont');
-   let notes = JSON.parse(localStorage.getItem("notes"));
-   if (notes == null) {
-   container.innerHTML = "<p id=\"nonotes\">no saved notes</p>";
-   }else {
-   container.innerHTML = "";
-   let note;
-   let text;
-   for (note in notes) {
-   text = `<div class="notes"><span class="num">${Number(note) + 1}</span><p>` + notes[note] + `</p><div onclick="edit(` + note + ` , this.parentNode)" class="delete"><p>&times;</p></div></div>`;
-   document.getElementById('cont').innerHTML += text;
-   }
-   }
- }
- function edit(note , parent) {
-  let notes = JSON.parse(localStorage.getItem('notes'));
-  notes.splice(note , 1);
-  localStorage.setItem("notes" , JSON.stringify(notes));
-  parent.classList.add('notes_anim');
-  if (notes.length == 0) {
-    localStorage.removeItem("notes");
-  }
-  setTimeout(getnotes , 400);
- }
- function removeall() {
-  if (confirm('delete all notes from storage')) {
-  document.querySelectorAll('.notes').forEach((note) => note.classList.add('notes_anim'));
-  localStorage.removeItem("notes");
-  setTimeout(getnotes , 400);
-  }else {
-    return;
-  }
- }
-</script>
+   
+   
+  ReactDOM.render(<App />, document.getElementById('root'));
+ </script>
+ 
+ 
 </body>
 
 </html>
