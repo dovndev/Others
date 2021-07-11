@@ -27,7 +27,7 @@
         max-height: 80vh;
         font-size: 20px;
         border-radius: 10px;
-        box-shadow: 10px 10px 8px rgba(0,0,0,0.5);
+        box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
       }
       .btncont {
         display: flex;
@@ -53,45 +53,50 @@
 </head>
 
 <body>
- <h1>Get Random Image</h1>
+ <h1>Get Some Memes</h1>
  <img id="img" src="" alt="" />
+ <h3 id='h1'></h3>
  <div class="btncont">
    <button class="btns" id="btn1" onclick="previous()">&larr;</button>
    <button class="btns" id="btn2" onclick="getimage()">Another one</button>
    <button class="btns" id="btn3" onclick="next()">&rarr;</button>
  </div>
  <script type="text/javascript" charset="utf-8">
-   const collection = [778914,304856,2020111,1599413,47133108,1041983,220381,9454911,1971015,9248817,9042799,1758353,219941,1353633,404339,1708734,1227291,1103088,894,175083,1118894,8336486,762960,8052237,172974,3323575,4773283,962362,151521,17098,1988224,1368747,2203755,145698,1254524,1262111,181581,1127828,225,573009,2737036,1454032,409539,540518]
-  
    const container = document.getElementById('img');
    const btn1 = document.getElementById('btn1');
    const btn2 = document.getElementById('btn2');
    const btn3 = document.getElementById('btn3');
    const btns = document.querySelector('.btncont');
+   const h1 = document.querySelector('#h1');
    let url_history = [];
    let liveindex = url_history.length - 1;
+   let index = 0;
    async function getimage() {
      btn2.disabled = true;
-     let randomnum = Math.floor(Math.random() * collection.length);
-     const apilink = `https://source.unsplash.com/collection/${collection[randomnum]}/random`;
+     const apilink = `https://api.imgflip.com/get_memes`;
      response = await fetch(apilink);
-     data = await response.blob();
-     img_url = await URL.createObjectURL(data);
-     url_history.push({url:img_url});
+     data = await response.json();
+     img_url = await data.data.memes[index].url;
+     url_history.push({url:img_url, name:data.data.memes[index].name });
      liveindex = url_history.length - 1;
-     container.src = await img_url;
+     container.src = img_url;
      btns.style.display = 'block';
      btn2.disabled = false;
      able();
+     h1.innerText = data.data.memes[index].name;
+     console.log(await data.data.memes[index]);
+     index++;
    }
    function previous() {
      liveindex--
      container.src = url_history[liveindex].url;
+     h1.innerText = url_history[liveindex].name;
      able();
    }
    function next() {
      liveindex++
      container.src = url_history[liveindex].url;
+     h1.innerText = url_history[liveindex].name;
      able();
    }
    function able() {
@@ -106,16 +111,6 @@
      btn1.disabled = false;
      }
    }
-   function checkdupli() {
-   let duplicates = collection.filter((item , index) => collection.indexOf(item) != index);
-   if (duplicates.length == 0) {
-   return;
-   }else {
-     let txt = (duplicates.length > 1) ? ' duplicates found' : ' duplicate found';
-     console.log(duplicates.length + txt);
-   }
-   }
-   checkdupli();
    getimage();
  </script>
 </body>
