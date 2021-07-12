@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Random-image</title>
+    <style type="text/css" media="all">
+      * {
+        margin: 0px;
+        padding: 0px;
+      }
+      body {
+        height: 100vh;
+        width: 100%;
+        background-color: #019EFF;
+      }
+      .root, h2 {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        color: white;
+      }
+      .children {
+        width: 100%;
+        max-width: 700px;
+        min-height: 100px;
+        background: rgba(255,255,255,0.2);
+        box-shadow: 10px 10px 8px rgba(0,0,0,0.5);
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: 20px;
+        font-size: 20px;
+        font-family: sans-serif;
+        text-align: center;
+        padding: 10px 0px;
+        color: white;
+      }
+      .img {
+        width: 50%;
+        display: flex;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      div:nth-child(5) div, h2 {
+        display: block;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      div:nth-child(5) div {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+      }
+      div:nth-child(5) div img {
+        height: 30px;
+      }
+    </style>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+</head>
+
+<body id="root">
+  
+</body>
+<script type="text/babel">
+  const App = () => {
+    const [countrys, setcountrys] = React.useState(null);
+    const [time, settime] = React.useState(new Date().toString().slice(15, -30));
+    const [data, setdata] = React.useState(null);
+    
+    const updatetime = () => {
+      settime(new Date().toString().slice(15, -30));
+    }
+    
+    React.useEffect(async () => {
+      const apilink = `http://ipwhois.app/json/137.97.67.41`;
+      const apilink2 = 'countrys.json';
+      let response = await fetch(apilink);
+      let newdata = await response.json();
+      setdata(await newdata);
+      let response2 = await fetch(apilink2);
+      let newdata2 = await response2.json();
+      setcountrys(await newdata2.result);
+      setInterval(updatetime, 1000);
+    }, []);
+   
+    
+    return(
+      <div>
+       {data && 
+        <div className="root">
+          <div className="children">Your IP address is : {data.ip} <br /><br /> type : {data.type}
+          </div>
+          <div className="children">Your continent is : {data.continent}
+          <br />
+          <br />
+          code : {data.continent_code}
+          </div>
+          <div className="children">Your Country is : {data.country}
+          <br /><br />
+          country-capital : {data.country_capital}
+            <img className="img" src={data.country_flag} alt={data.country} />
+            <span>code : {data.country_code}</span>
+          </div>
+          <div className="children">Your region is : {data.region}
+          </div>
+           {countrys &&
+            <div className="children">Naighbouring country's 
+             {data.country_neighbours.split(',').map((code) => (
+              <div>
+                <p>{countrys.find((country) => {
+                return country.code == code;
+                }).name + ':  ' + code}
+                </p>
+                <img src={`https://cdn.ipwhois.io/flags/${code.toLowerCase()}.svg`} alt="" />
+              </div>
+             ))}
+            </div>
+           }
+          <div className="children">Country phone : {data.country_phone}
+          </div>
+          <div className="children">Your Service provider is : {data.isp}
+          </div>
+          <div className="children">Your currency is : {data.currency}
+          <br /><br />
+          currency-plural : {data.currency_plural}
+          <br /><br />
+           currency-code : {data.currency_code}
+           <br /><br />
+           currency-symbol : {data.currency_symbol}
+           <br /><br />
+           currency-rate : {data.currency_rates}
+          </div>
+          <div className="children">Your time is : <strong>{time}</strong>
+          <br /><br />
+          Time-Zone-name : {data.timezone_name}
+          <br /><br />
+          Time-Zone-GMT : {data.timezone_gmt}
+          <br /><br />
+          Time-Zone {data.timezone}
+          </div>
+        </div>
+       }
+       {!data && 
+        <h2>Loading</h2>
+       }
+      </div>
+    );
+  }
+   
+   
+  ReactDOM.render(<App />, document.getElementById('root'));
+ </script>
+</html>
