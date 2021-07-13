@@ -19,6 +19,7 @@
         height: 100%;
         width: 100%;
         display: flex;
+        justify-content: center;
         flex-direction: column;
         text-align: center;
         color: white;
@@ -40,6 +41,11 @@
         text-align: center;
         padding: 10px 0px;
         color: white;
+      }
+      button {
+        width: 80%;
+        margin: 10%;
+        height: 50px;
       }
       .img {
         width: 50%;
@@ -73,26 +79,32 @@
 <script type="text/babel">
   const App = () => {
     const [countrys, setcountrys] = React.useState(null);
+    const [IP, setIP] = React.useState(null);
     const [time, settime] = React.useState(new Date().toString().slice(15, -30));
     const [data, setdata] = React.useState(null);
     
     const updatetime = () => {
       settime(new Date().toString().slice(15, -30));
     }
-    
-    React.useEffect(async () => {
-      const apilink = `http://ipwhois.app/json/137.97.67.41`;
+    async function getdetails() {
+      const apilink1 = `http://ipwhois.app/json/${IP}`;
+      let response1 = await fetch(apilink1);
+      let newdata1 = await response1.json();
+      setdata(await newdata1);
       const apilink2 = 'countrys.json';
-      let response = await fetch(apilink);
-      let newdata = await response.json();
-      setdata(await newdata);
       let response2 = await fetch(apilink2);
       let newdata2 = await response2.json();
       setcountrys(await newdata2.result);
       setInterval(updatetime, 1000);
+    }
+    React.useEffect(async () => {
+      const apilink = "https://api.ipify.org?format=json";
+      let response = await fetch(apilink);
+      let newdata = await response.json();
+      setIP(await newdata.ip);
+      console.log(await newdata.ip);
     }, []);
    
-    
     return(
       <div>
        {data && 
@@ -149,7 +161,10 @@
           </div>
         </div>
        }
-       {!data && 
+       {!data && IP && 
+         <button onClick={getdetails}>Get Some Details</button>
+       }
+       {!IP && 
         <h2>Loading</h2>
        }
       </div>
