@@ -104,23 +104,13 @@
         seterror(err.message);
         }
       }
-      try {
       const apilink2 = 'countrys.json';
       let response2 = await fetch(apilink2);
       let newdata2 = await response2.json();
       setcountrys(await newdata2.result);
-      }
-      catch (err) {
-        setloading(false);
-        if (err.message == 'Failed to fetch') {
-        seterror('Failed to fetch from database');
-        }else {
-        seterror(err.message);
-        }
-      }
       setInterval(updatetime, 1000);
       setloading(false);
-    }
+      }
     React.useEffect(() => {
       const apilink = "https://api.ipify.org?format=json";
       fetch(apilink).then(response => {
