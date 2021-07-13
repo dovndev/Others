@@ -11,7 +11,7 @@
         padding: 0px;
       }
       body {
-        height: 100vh;
+        height: 100%;
         width: 100%;
         background-color: #019EFF;
       }
@@ -82,32 +82,66 @@
     const [IP, setIP] = React.useState(null);
     const [time, settime] = React.useState(new Date().toString().slice(15, -30));
     const [data, setdata] = React.useState(null);
+    const [error, seterror] = React.useState(false);
+    const [loading, setloading] = React.useState(true);
     
     const updatetime = () => {
       settime(new Date().toString().slice(15, -30));
     }
     async function getdetails() {
+      setloading(true);
+      try {
       const apilink1 = `http://ipwhois.app/json/${IP}`;
       let response1 = await fetch(apilink1);
       let newdata1 = await response1.json();
       setdata(await newdata1);
+      }
+      catch (err) {
+        setloading(false);
+        if (err.message == 'Failed to fetch') {
+        seterror('Failed to fetch details');
+        }else {
+        seterror(err.message);
+        }
+      }
+      try {
       const apilink2 = 'countrys.json';
       let response2 = await fetch(apilink2);
       let newdata2 = await response2.json();
       setcountrys(await newdata2.result);
+      }
+      catch (err) {
+        setloading(false);
+        if (err.message == 'Failed to fetch') {
+        seterror('Failed to fetch from database');
+        }else {
+        seterror(err.message);
+        }
+      }
       setInterval(updatetime, 1000);
+      setloading(false);
     }
-    React.useEffect(async () => {
+    React.useEffect(() => {
       const apilink = "https://api.ipify.org?format=json";
-      let response = await fetch(apilink);
-      let newdata = await response.json();
-      setIP(await newdata.ip);
-      console.log(await newdata.ip);
+      fetch(apilink).then(response => {
+        return response.json();
+      }).then(newdata => {
+        setIP(newdata.ip);
+        setloading(false);
+        console.log(newdata.ip);
+      }).catch(err => {
+        setloading(false);
+        if (err.message == 'Failed to fetch') {
+          seterror('Failed to fetch ip address');
+        }else {
+          seterror(err.message);
+        }
+      })
     }, []);
    
     return(
       <div>
-       {data && 
+       {data && countrys &&
         <div className="root">
           <div className="children">Your IP address is : {data.ip} <br /><br /> type : {data.type}
           </div>
@@ -161,11 +195,14 @@
           </div>
         </div>
        }
-       {!data && IP && 
+       {!data && !loading && IP &&
          <button onClick={getdetails}>Get Some Details</button>
        }
-       {!IP && 
+       {loading && 
         <h2>Loading</h2>
+       }
+       {error && 
+         <h2>{error}</h2>
        }
       </div>
     );
