@@ -52,20 +52,26 @@
        outline: none;
        font-size: 20px;
        max-width: 70%;
+       box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.3);
      }
      input::placeholder {
-       font-size: 20px;
+       font-size: 18px;
+       color: black;
+       opacity: 0.3;
+       padding-left: 10px;
      }
      .save {
        font-size: 20px;
        padding: 10px;
        border: none;
        border-radius: 0px 10px 10px 0px;
+       background-color: white;
+       border-left: 1px solid #CCCCCC;
      }
      .con-cont {
-      overflow-y: scroll;
-      height: 70%;
-      width: 100%;
+       overflow-y: scroll;
+       height: 70%;
+       width: 100%;
      }
      .cont {
        display: flex;
@@ -83,6 +89,7 @@
        display: flex;
        justify-content: space-between;
        border-radius: 10px;
+       box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.3);
      }
      .notes-anim {
        animation: remove 0.2s linear;
@@ -106,7 +113,7 @@
       all: initial;
       user-select: none;
       font-size: 18px;
-      border-right: 1px solid;
+      border-right: 1px solid #CCCCCC;
       text-align: center;
       padding: 5px;
       padding-top: 10px;
@@ -116,27 +123,31 @@
       width: 50px;
       height: auto;
       border-radius: 0px 10px 10px 0px;
-      background-color: #DEDEDE;
+      background-color: white;
       padding: 0;
       margin: 0;
       font-size: 30px;
       font-weight: bold;
       text-align: center;
       border: none;
-      border-left: 2px solid;
-     }
-     #nonotes {
-       color: white;
+      border-left: 1px solid #CCCCCC;
      }
      .remove {
+      text-align: center;
       font-size: 17px;
-      padding: 10px;
-      background-color: #DEDEDE;
+      padding: 10px 0px;
+      width: 80%;
+      background-color: white;
       border-radius: 10px;
+      box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.3);
      }
-     #nonotes {
-       padding-top: 50px;
+     .nonotes {
+       margin-top: 50px;
        font-size: 20px;
+       color: white;
+       border: 2px solid #FFFFFF;
+       border-radius: 10px;
+       padding: 10px 50px;
      }
     </style>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -208,10 +219,15 @@
         </form>
         <div className="con-cont">
           <div className="cont">
-            {
+            {notes.length !== 0 &&
               notes.map((note, index) => (
                 <Note note={ note } index={ index } editnote={ editnote } isworking={isworking} key={ index }/>
               ))
+            }
+            {notes.length == 0 &&
+              <div className="nonotes">
+                <p>No Saved Notes</p>
+              </div>
             }
           </div>
         </div>
