@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Random-image</title>
+    <title>IP-tracker</title>
     <style type="text/css" media="all">
       * {
         margin: 0px;
@@ -117,7 +117,7 @@
     })
   }
   const start = async () => {
-    const apilink = "https://api.ipify.org?format=json";
+    const apilink = "https://ipapi.co/json/";
     fetch(apilink).then(response => {
       return response.json();
     }).then(newdata => {
