@@ -14,13 +14,14 @@
         height: 100%;
         width: 100%;
         background-color: #019EFF;
-      }
-      .root, h2 {
-        height: 100%;
-        width: 100%;
         display: flex;
         justify-content: center;
         flex-direction: column;
+        text-align: center;
+        color: white;
+      }
+      h2 {
+        margin-top: 50%;
         text-align: center;
         color: white;
       }
@@ -28,8 +29,6 @@
         width: 100%;
         max-width: 700px;
         min-height: 100px;
-        background: rgba(255,255,255,0.2);
-        box-shadow: 10px 10px 8px rgba(0,0,0,0.5);
         border-radius: 10px;
         display: flex;
         justify-content: center;
@@ -41,6 +40,8 @@
         text-align: center;
         padding: 10px 0px;
         color: white;
+        border-top: 1px solid #DADADA;
+        border-bottom: 1px solid #DADADA;
       }
       button {
         width: 80%;
@@ -53,7 +54,7 @@
         margin-top: 10px;
         margin-bottom: 10px;
       }
-      div:nth-child(5) div, h2 {
+      div:nth-child(5) div {
         display: block;
         margin-top: 10px;
         margin-bottom: 10px;
@@ -68,137 +69,120 @@
         height: 30px;
       }
     </style>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
 </head>
 
 <body id="root">
   
 </body>
-<script type="text/babel">
-  const App = () => {
-    const [countrys, setcountrys] = React.useState(null);
-    const [IP, setIP] = React.useState(null);
-    const [time, settime] = React.useState(new Date().toString().slice(15, -30));
-    const [data, setdata] = React.useState(null);
-    const [error, seterror] = React.useState(false);
-    const [loading, setloading] = React.useState(true);
-    
-    const updatetime = () => {
-      settime(new Date().toString().slice(15, -30));
-    }
-    async function getdetails() {
-      setloading(true);
-      try {
+<script>
+  let container = document.getElementById('root');
+  let countrys;
+  let IP;
+  let time = new Date().toString().slice(15, -30);
+  let data;
+  let error = '';
+  let html = '';
+  let timedisplay;
+  const updatetime = () => {
+    time = new Date().toString().slice(15, -30);
+    timedisplay.innerText = time;
+  }
+  async function getdetails() {
+    try {
       const apilink1 = `http://ipwhois.app/json/${IP}`;
       let response1 = await fetch(apilink1);
       let newdata1 = await response1.json();
-      setdata(await newdata1);
-      }
-      catch (err) {
-        setloading(false);
-        if (err.message == 'Failed to fetch') {
-        seterror('Failed to fetch details');
-        }else {
-        seterror(err.message);
-        }
-      }
-      const apilink2 = 'countrys.json';
-      let response2 = await fetch(apilink2);
-      let newdata2 = await response2.json();
-      setcountrys(await newdata2.result);
+      data = await newdata1;
+    }catch(err) {
+      error = err.message;
+      updatehtml('error');
+    }
+    const apilink2 = 'countrys.json';
+    fetch(apilink2).then(response2 => {
+      return response2.json();
+    }).then(newdata2 => {
+      return newdata2.result;
+    }).then(countrysdata => {
+      countrys = countrysdata;
+      return 'ok';
+    }).then(ok => {
+      updatehtml('success');
+      return ok;
+    }).then(ok => {
+      timedisplay = document.getElementById('timedisplay');
       setInterval(updatetime, 1000);
-      setloading(false);
-      }
-    React.useEffect(() => {
-      const apilink = "https://api.ipify.org?format=json";
-      fetch(apilink).then(response => {
-        return response.json();
-      }).then(newdata => {
-        setIP(newdata.ip);
-        setloading(false);
-        console.log(newdata.ip);
-      }).catch(err => {
-        setloading(false);
-        if (err.message == 'Failed to fetch') {
-          seterror('Failed to fetch ip address');
-        }else {
-          seterror(err.message);
-        }
-      })
-    }, []);
-   
-    return(
-      <div>
-       {data && countrys &&
-        <div className="root">
-          <div className="children">Your IP address is : {data.ip} <br /><br /> type : {data.type}
-          </div>
-          <div className="children">Your continent is : {data.continent}
-          <br />
-          <br />
-          code : {data.continent_code}
-          </div>
-          <div className="children">Your Country is : {data.country}
-          <br /><br />
-          country-capital : {data.country_capital}
-            <img className="img" src={data.country_flag} alt={data.country} />
-            <span>code : {data.country_code}</span>
-          </div>
-          <div className="children">Your region is : {data.region}
-          </div>
-           {countrys &&
-            <div className="children">Naighbouring country's 
-             {data.country_neighbours.split(',').map((code) => (
-              <div>
-                <p>{countrys.find((country) => {
-                return country.code == code;
-                }).name + ':  ' + code}
-                </p>
-                <img src={`https://cdn.ipwhois.io/flags/${code.toLowerCase()}.svg`} alt="" />
-              </div>
-             ))}
-            </div>
-           }
-          <div className="children">Country phone : {data.country_phone}
-          </div>
-          <div className="children">Your Service provider is : {data.isp}
-          </div>
-          <div className="children">Your currency is : {data.currency}
-          <br /><br />
-          currency-plural : {data.currency_plural}
-          <br /><br />
-           currency-code : {data.currency_code}
-           <br /><br />
-           currency-symbol : {data.currency_symbol}
-           <br /><br />
-           currency-rate : {data.currency_rates}
-          </div>
-          <div className="children">Your time is : <strong>{time}</strong>
-          <br /><br />
-          Time-Zone-name : {data.timezone_name}
-          <br /><br />
-          Time-Zone-GMT : {data.timezone_gmt}
-          <br /><br />
-          Time-Zone {data.timezone}
-          </div>
-        </div>
-       }
-       {!data && !loading && IP &&
-         <button onClick={getdetails}>Get Some Details</button>
-       }
-       {loading && 
-        <h2>Loading</h2>
-       }
-       {error && 
-         <h2>{error}</h2>
-       }
-      </div>
-    );
+    }).catch(err => {
+      error = err.message;
+      updatehtml('error');
+    })
   }
-   
-   
-  ReactDOM.render(<App />, document.getElementById('root'));
+  const start = async () => {
+    const apilink = "https://api.ipify.org?format=json";
+    fetch(apilink).then(response => {
+      return response.json();
+    }).then(newdata => {
+      IP = newdata.ip;
+      getdetails();
+    }).catch(err => {
+      error = err.message;
+      updatehtml('error');
+    })
+  }
+  const updatehtml = (status) => {
+    if (status == 'loading') {
+      console.log(status);
+      html = '<h2>Loading...</h2>';
+      container.innerHTML = html;
+    }else if (status == 'error') {
+      console.log(status);
+      if (error == 'Failed to fetch') {
+        error = 'Unable to access your data';
+      }else {
+        return;
+      }
+      html = '<h2>' + error + '</h2>';
+      container.innerHTML = html;
+    }else {
+      console.log(status);
+      html = `
+        <div class="children">Your IP address is : ${data.ip}<br /><br />type : ${data.type}
+        </div>
+        <div class="children">Your continent is : ${data.continent}<br /><br />code : ${data.continent_code}
+        </div>
+        <div class="children">Your Country is : ${data.country}<br /><br />country-capital : ${data.country_capital}
+          <img class="img" src="${data.country_flag}" alt="${data.country}" />
+          <span>code : ${data.country_code}</span>
+        </div>
+        <div class="children">Your region is : ${data.region}
+        </div>
+        <div class="children">Naighbouring country's
+          ${
+            data.country_neighbours.split(',').map((code) => {
+            return `
+            <div>
+              <p>${countrys.find((country) => {
+                return country.code == code;
+                }).name + ': ' + code}
+              </p>
+              <img src="https://cdn.ipwhois.io/flags/${code.toLowerCase()}.svg" alt="" />
+            </div>
+            `;
+            })
+          }
+        </div>
+        <div class="children">Country phone : ${data.country_phone}
+        </div>
+        <div class="children">Your Service provider is : ${data.isp}
+        </div>
+        <div class="children">Your currency is : ${data.currency}<br /><br />currency-plural : ${data.currency_plural}<br /><br />currency-code : ${data.currency_code}<br /><br />currency-symbol : ${data.currency_symbol}<br /><br />currency-rate : ${data.currency_rates}
+        </div>
+        <div class="children">Your time is : <strong id="timedisplay">${time}</strong><br /><br />Time-Zone-name : ${data.timezone_name}<br /><br />Time-Zone-GMT : ${data.timezone_gmt}<br /><br />Time-Zone ${data.timezone}
+        </div>
+      `;
+      container.innerHTML = html;
+    }
+  }
+  start();
+  updatehtml('loading');
  </script>
 </html>
