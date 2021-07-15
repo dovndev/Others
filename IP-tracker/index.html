@@ -97,11 +97,11 @@
       error = err.message;
       updatehtml('error');
     }
-    const apilink2 = 'countrys.json';
+    const apilink2 = 'https://restcountries.eu/rest/v2/all?fields=name;alpha2Code';
     fetch(apilink2).then(response2 => {
       return response2.json();
     }).then(newdata2 => {
-      return newdata2.result;
+      return newdata2;
     }).then(countrysdata => {
       countrys = countrysdata;
       return 'ok';
@@ -161,13 +161,13 @@
             return `
             <div>
               <p>${countrys.find((country) => {
-                return country.code == code;
+                return country.alpha2Code == code;
                 }).name + ': ' + code}
               </p>
-              <img src="https://cdn.ipwhois.io/flags/${code.toLowerCase()}.svg" alt="" />
+              <img src="https://cdn.ipwhois.io/flags/${code.toLowerCase()}.svg" alt="${code}" />
             </div>
-            `;
-            })
+            `
+            }).join('')
           }
         </div>
         <div class="children">Country phone : ${data.country_phone}
