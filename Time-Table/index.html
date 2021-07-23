@@ -18,13 +18,25 @@
       justify-content: center;
       flex-direction: column;
     }
-    h1 {
+    .header {
+      height: 50px;
       width: 100%;
+      border-bottom: 1px solid #0A99FF;
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .header h1 {
       text-align: center;
       display: block;
-      padding: 20px 0px;
       color: #8C8D8E;
       font-weight: 400;
+    }
+    .header img {
+      
     }
     .container {
       display: flex;
@@ -64,11 +76,16 @@
       letter-spacing: 1px;
       word-spacing: 2px;
     }
-    
+    .trashimg {
+      height: 50px;
+    }
   </style>
 </head>
 <body>
-  <h1>Time-Table</h1>
+  <div class="header">
+    <h1>Time-Table</h1>
+    <img class="trashimg" src="plusimg.png" alt="" />
+  </div>
   <div class="cont"></div>
 </body>
 <script src="main.js"></script>
