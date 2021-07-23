@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Time-Table</title>
+  <style type="text/css" media="all">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Gill Sans';
+    }
+    body, .cont {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    h1 {
+      width: 100%;
+      text-align: center;
+      display: block;
+      padding: 20px 0px;
+      color: #8C8D8E;
+      font-weight: 400;
+    }
+    .container {
+      display: flex;
+      align-items: center;
+      width: 90%;
+      height: 100px;
+      border-radius: 10px;
+      margin: 5px 0px;
+    }
+    .time, .event {
+      text-align: center;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .time {
+      width: 150px;
+      background: #0A99FF;
+      border: 1px solid #0A99FF;
+      border-radius: 10px 0px 0px 10px;
+    }
+    .time span {
+      color: white;
+      font-size: 20px;
+    }
+    .event {
+      width: 100%;
+      border: 1px solid #B6B7B7;
+      border-left: none;
+      border-radius: 0px 10px 10px 0px;
+    }
+    .event span {
+      font-size: 25px;
+      font-weight: 300;
+      max-width: 80%;
+      letter-spacing: 1px;
+      word-spacing: 2px;
+    }
+    
+  </style>
+</head>
+<body>
+  <h1>Time-Table</h1>
+  <div class="cont"></div>
+</body>
+<script src="main.js"></script>
+</html>
