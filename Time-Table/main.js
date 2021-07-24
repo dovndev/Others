@@ -14,18 +14,6 @@ let navopen = false;
 let table = JSON.parse(localStorage.getItem('table'));
 
 
-
-document.onclick = (e) => {
-  if (e.target.getAttribute('item') != 'nav') {
-    navopen = false;
-    let icon = navopen ? '×' : '+';
-    let height = navopen ? '200px' : '0px';
-    navbtn.innerText = icon;
-    nav.style.height = height;
-  }else return;
-}
-
-
 const addhtmlelmnt = ({time,txt,id}, pos) => {
   let h = Number(time.split(':')[0]);
   let m = time.split(':')[1];
@@ -56,6 +44,13 @@ const addhtmlelmnt = ({time,txt,id}, pos) => {
 }
 
 
+const settheme = () => {
+  let theme = isdarktheme ? 'dark-theme' : 'light-theme';
+  let themeicon = isdarktheme ? 'fa fa-sun' : 'fa fa-moon';
+  body.className = theme;
+  themebtn.className = themeicon;
+}
+
 
 const start = () => {
   if (table) {
@@ -72,10 +67,7 @@ const start = () => {
     })
   }
   isdarktheme = JSON.parse(localStorage.getItem('table-dtheme'));
-  let theme = isdarktheme ? 'dark-theme' : 'light-theme';
-  let themeicon = isdarktheme ? 'fa fa-sun' : 'fa fa-moon';
-  body.className = theme;
-  themebtn.className = themeicon;
+  settheme();
 }
 
 
@@ -91,13 +83,24 @@ const handlenav = () => {
 }
 
 
+const closenav = (e) => {
+  if (e.target.getAttribute('item') != 'nav') {
+    navopen = false;
+    let icon = navopen ? '×' : '+';
+    let height = navopen ? '200px' : '0px';
+    navbtn.innerText = icon;
+    nav.style.height = height;
+  } else return;
+}
+
+
+document.onclick = e => closenav(e);
+
+
 const handletheme = () => {
   isdarktheme = !isdarktheme;
   localStorage.setItem('table-dtheme', JSON.stringify(isdarktheme));
-  let theme = isdarktheme ? 'dark-theme' : 'light-theme';
-  let themeicon = isdarktheme ? 'fa fa-sun' : 'fa fa-moon';
-  body.className = theme;
-  themebtn.className = themeicon;
+  settheme();
 }
 
 
@@ -141,7 +144,6 @@ const additem = (newitem) => {
   }
   addhtmlelmnt(newitem, positem)
 }
-
 
 
 const handleform = (event) => {
