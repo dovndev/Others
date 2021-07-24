@@ -6,9 +6,13 @@ const timeinput = document.getElementById('timeinput');
 const txtinput = document.getElementById('txtinput');
 let htmltable = document.querySelectorAll('.container');
 
+
+
 let isdarktheme = false;
 let navopen = false;
 let table = JSON.parse(localStorage.getItem('table'));
+
+
 
 document.onclick = (e) => {
   if (e.target.getAttribute('item') != 'nav') {
@@ -19,6 +23,8 @@ document.onclick = (e) => {
     nav.style.height = height;
   }else return;
 }
+
+
 const addhtmlelmnt = ({time,txt,id}, pos) => {
   let h = Number(time.split(':')[0]);
   let m = time.split(':')[1];
@@ -47,6 +53,9 @@ const addhtmlelmnt = ({time,txt,id}, pos) => {
     elmnt.insertAdjacentHTML(pos.place, newelmnt);
   }
 }
+
+
+
 const start = () => {
   if (table) {
     table.map((item, index) => {
@@ -63,6 +72,10 @@ const start = () => {
   }
 }
 
+
+start();
+
+
 const handlenav = () => {
   navopen = !navopen;
   let icon = navopen ? '×' : '+';
@@ -70,6 +83,8 @@ const handlenav = () => {
   navbtn.innerText = icon;
   nav.style.height = height;
 }
+
+
 const handletheme = (btn) => {
   isdarktheme = !isdarktheme;
   let theme = isdarktheme ? 'dark-theme' : 'light-theme';
@@ -78,6 +93,7 @@ const handletheme = (btn) => {
   btn.childNodes[1].className = themeicon;
 }
 
+
 const sort = (a , b) => {
   ah = a.time.split(':');
   am = ah[0] * 60 + ah[1]
@@ -85,6 +101,8 @@ const sort = (a , b) => {
   bm = bh[0] * 60 + bh[1]
   return am - bm;
 }
+
+
 const validate = (time, txt) => {
   if (time) {
     if (txt) {
@@ -97,6 +115,8 @@ const validate = (time, txt) => {
     return 'Enter Time'
   }
 }
+
+
 const additem = (newitem) => {
   table.push(newitem);
   table.sort(sort);
@@ -114,6 +134,9 @@ const additem = (newitem) => {
   }
   addhtmlelmnt(newitem, positem)
 }
+
+
+
 const handleform = (event) => {
   event.preventDefault();
   htmltable = document.querySelectorAll('.container');
@@ -138,4 +161,5 @@ const handleform = (event) => {
   txtinput.value = '';
   }
 }
-start();
+
+
