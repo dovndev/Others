@@ -10,6 +10,15 @@ let isdarktheme = false;
 let navopen = false;
 let table = JSON.parse(localStorage.getItem('table'));
 
+document.onclick = (e) => {
+  if (e.target.getAttribute('item') != 'nav') {
+    navopen = false;
+    let icon = navopen ? '×' : '+';
+    let height = navopen ? '200px' : '0px';
+    navbtn.innerText = icon;
+    nav.style.height = height;
+  }else return;
+}
 const addhtmlelmnt = ({time,txt,id}, pos) => {
   let h = Number(time.split(':')[0]);
   let m = time.split(':')[1];
