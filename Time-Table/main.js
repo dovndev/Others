@@ -4,6 +4,7 @@ const nav = document.getElementById('nav');
 const body = document.body
 const timeinput = document.getElementById('timeinput');
 const txtinput = document.getElementById('txtinput');
+const themebtn = document.getElementById('themebtn');
 let htmltable = document.querySelectorAll('.container');
 
 
@@ -70,6 +71,11 @@ const start = () => {
       }
     })
   }
+  isdarktheme = JSON.parse(localStorage.getItem('table-dtheme'));
+  let theme = isdarktheme ? 'dark-theme' : 'light-theme';
+  let themeicon = isdarktheme ? 'fa fa-sun' : 'fa fa-moon';
+  body.className = theme;
+  themebtn.className = themeicon;
 }
 
 
@@ -85,12 +91,13 @@ const handlenav = () => {
 }
 
 
-const handletheme = (btn) => {
+const handletheme = () => {
   isdarktheme = !isdarktheme;
+  localStorage.setItem('table-dtheme', JSON.stringify(isdarktheme));
   let theme = isdarktheme ? 'dark-theme' : 'light-theme';
   let themeicon = isdarktheme ? 'fa fa-sun' : 'fa fa-moon';
   body.className = theme;
-  btn.childNodes[1].className = themeicon;
+  themebtn.className = themeicon;
 }
 
 
