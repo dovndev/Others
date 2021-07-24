@@ -11,8 +11,9 @@ let htmltable = document.querySelectorAll('.container');
 let isdarktheme = false;
 let navopen = false;
 let table = JSON.parse(localStorage.getItem('table'));
-let ielemnt;
+let i_elmnt;
 let isfirst = true;
+let lastadded;
 
 
 const updatehtml = 
@@ -32,10 +33,11 @@ const updatehtml =
     case 'ADD_ELMNT': {
       let [ _h, m ] = time.split(':');
       let h = Number(_h > 12 ? _h - 12 : _h);
+      h = h || 12;
       h = h < 10 ? '0' + h : h;
       let formattedtime = _h < 12 ? h + `:${m} AM`: h + `:${m} PM`
       let newelmnt =
-        `<div class="container container2">
+        `<div id="${id}" class="container container2">
           <div>${formattedtime}</div>
           <p>${txt}</p>
           <i onclick="handledelete(this, ${id})"  class="fa fa-trash"></i>
@@ -46,6 +48,7 @@ const updatehtml =
       }else {
         elmnt.insertAdjacentHTML(place, newelmnt);
       }
+      lastadded = document.getElementById(id);
       set1elmnt();
     }
     break;
@@ -80,12 +83,12 @@ const scrollelmnt = () => {
     let closest = array.reduce(function(prev, curr) {
       return (Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev);
     });
-    ielemnt = htmltable[array.indexOf(closest)];
+    i_elmnt = htmltable[array.indexOf(closest)];
     isfirst = false;
   }else {
-    ielemnt = htmltable[htmltable.length - 1];
+    i_elmnt = lastadded;
   }
-  ielemnt.scrollIntoView();
+  i_elmnt.scrollIntoView();
   }
 }
 
@@ -184,6 +187,7 @@ const handlenav = () => {
   let height = navopen ? '200px' : '0px';
   navbtn.innerText = icon;
   nav.style.height = height;
+  document.body.scrollIntoView();
 }
 
 
