@@ -8,38 +8,84 @@ const themebtn = document.getElementById('themebtn');
 let htmltable = document.querySelectorAll('.container');
 
 
-
 let isdarktheme = false;
 let navopen = false;
 let table = JSON.parse(localStorage.getItem('table'));
+let ielemnt;
+let isfirst = true;
 
 
-const addhtmlelmnt = ({time,txt,id}, pos) => {
-  let h = Number(time.split(':')[0]);
-  let m = time.split(':')[1];
-  let h1 = h > 12 ? h - 12 + `:${m} PM`: h + `:${m} AM`;
-  let formattedtime = Number(h1.slice(0, -6)) < 10 ? '0' + h1: h1;
-  let newelmnt = 
-  `<div class="container">
-    <div>${formattedtime}</div>
-    <p>${txt}</p>
-    <i class="fa fa-pencil"></i>
-    <i class="fa fa-trash"></i>
-  </div>
-  `;
-  let elmnt;
-  let place;
-  if (pos != null) {
-    elmnt = pos.elmnt;
-    place = pos.place;
+const updatehtml = 
+({
+  type, 
+  item: {
+    time = null, 
+    txt = null, 
+    id = null
+  }, 
+  pos: {
+    elmnt = null, 
+    place = null
   }
-  if (pos == null) {
-    cont.innerHTML = newelmnt;
-  }else if (pos.place == 'afterend') {
-    elmnt.insertAdjacentHTML(pos.place, newelmnt);
-    elmnt.insertAdjacentHTML(pos.place, '<h1>&darr;</h1>');
+}) => {
+  switch (type) {
+    case 'ADD_ELMNT': {
+      let [ _h, m ] = time.split(':');
+      let h = Number(_h > 12 ? _h - 12 : _h);
+      h = h < 10 ? '0' + h : h;
+      let formattedtime = _h < 12 ? h + `:${m} AM`: h + `:${m} PM`
+      let newelmnt =
+        `<div class="container container2">
+          <div>${formattedtime}</div>
+          <p>${txt}</p>
+          <i onclick="handledelete(this, ${id})"  class="fa fa-trash"></i>
+        </div>
+        `;
+      if (place == null) {
+        cont.innerHTML = newelmnt;
+      }else {
+        elmnt.insertAdjacentHTML(place, newelmnt);
+      }
+      set1elmnt();
+    }
+    break;
+    case 'DELETE_ELMNT': {
+      elmnt.classList.add('remove');
+      setTimeout(() => elmnt.remove(), 1000);
+    }
+  }
+  set1elmnt();
+}
+
+
+const set1elmnt = () => {
+  htmltable = document.querySelectorAll('.container');
+  if (htmltable.length) htmltable[0].classList.remove('container2');
+}
+
+
+const scrollelmnt = () => {
+  htmltable = document.querySelectorAll('.container');
+  if (htmltable.length) {
+  if (isfirst) {
+    let array = [];
+    table.forEach(item => {
+      ah = item.time.split(':');
+      am = Number(ah[0]) * 60 + Number(ah[1]);
+      bh = new Date();
+      bm = bh.getHours() * 60 + bh.getMinutes();
+      array.push(bm - am);
+    });
+    let goal = 0;
+    let closest = array.reduce(function(prev, curr) {
+      return (Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev);
+    });
+    ielemnt = htmltable[array.indexOf(closest)];
+    isfirst = false;
   }else {
-    elmnt.insertAdjacentHTML(pos.place, newelmnt);
+    ielemnt = htmltable[htmltable.length - 1];
+  }
+  ielemnt.scrollIntoView();
   }
 }
 
@@ -55,13 +101,21 @@ const settheme = () => {
 const start = () => {
   if (table) {
     table.map((item, index) => {
-      htmltable = document.querySelectorAll('.container');
+      set1elmnt();
       if (htmltable.length == 0) {
-        addhtmlelmnt(item, null);
+        updatehtml({
+          type: 'ADD_ELMNT',
+          item: item,
+          pos: {}
+        });
       }else {
-        addhtmlelmnt(item, {
-          elmnt: htmltable[index - 1],
-          place: 'afterend'
+        updatehtml({
+          type: 'ADD_ELMNT',
+          item: item,
+          pos: {
+            elmnt: htmltable[index - 1],
+            place: 'afterend'
+          }
         })
       }
     })
@@ -69,9 +123,59 @@ const start = () => {
   isdarktheme = JSON.parse(localStorage.getItem('table-dtheme'));
   settheme();
 }
-
-
+ 
+ 
 start();
+setTimeout(scrollelmnt, 1000);
+
+const sort = (a, b) => {
+  ah = a.time.split(':');
+  am = ah[0] * 60 + ah[1]
+  bh = b.time.split(':');
+  bm = bh[0] * 60 + bh[1]
+  return am - bm;
+}
+
+
+const updatedb = ({method, newitem = null, id = null}) => {
+  const fix = () => localStorage.setItem('table', JSON.stringify(table));
+  switch (method) {
+    case 'ADD': {
+      table.push(newitem);
+      table.sort(sort);
+      fix();
+    }
+    break;
+    case 'DELETE' : {
+      table = table.filter(item => {
+        return item.id != id;
+      })
+      fix();
+    }
+  }
+}
+
+
+const handleinput = () => {
+  let time = timeinput.value;
+  let txt = txtinput.value;
+  if (time) {
+    if (txt) {
+      timeinput.value = '';
+      txtinput.value = '';
+      handlenav();
+      return {time,txt};
+    } else {
+      return { status: 'Enter an Event' }
+    }
+    timeinput.value = '';
+    txtinput.value = '';
+    handlenav();
+    return {time,txt};
+  } else {
+    return { status: 'Enter Time' }
+  }
+}
 
 
 const handlenav = () => {
@@ -104,71 +208,51 @@ const handletheme = () => {
 }
 
 
-const sort = (a , b) => {
-  ah = a.time.split(':');
-  am = ah[0] * 60 + ah[1]
-  bh = b.time.split(':');
-  bm = bh[0] * 60 + bh[1]
-  return am - bm;
-}
-
-
-const validate = (time, txt) => {
-  if (time) {
-    if (txt) {
-      return null;
-    }else {
-      return 'Enter an Event'
-    }
-    return null;
-  }else {
-    return 'Enter Time'
+const handledelete = (elmnt, id) => {
+  if (confirm('delete this event')) {
+    updatehtml({
+      type: 'DELETE_ELMNT',
+      item: {},
+      pos: {
+        elmnt: elmnt.parentNode
+      }
+    });
+    updatedb({
+      method: 'DELETE',
+      id
+    });
   }
-}
-
-
-const additem = (newitem) => {
-  table.push(newitem);
-  table.sort(sort);
-  localStorage.setItem('table', JSON.stringify(table));
-  let position = table.indexOf(newitem);
-  let positem = (position == 0) ? {
-    elmnt: htmltable[position],
-    place: 'beforebegin'
-  } : {
-    elmnt: htmltable[position - 1],
-    place: 'afterend'
-  };
-  if (table.length == 1) {
-    positem = null;
-  }
-  addhtmlelmnt(newitem, positem)
 }
 
 
 const handleform = (event) => {
   event.preventDefault();
-  htmltable = document.querySelectorAll('.container');
-  let time = timeinput.value;
-  let txt = txtinput.value;
-  const status = validate(time, txt);
+  const { time = null, txt = null, status = null } = handleinput();
   if (status) {
     alert(status);
   }else {
-  let id = new Date().getTime();
-  if (table == null) {
-    localStorage.setItem('table', JSON.stringify([]));
-    table = JSON.parse(localStorage.getItem('table'));
-  }
-  let newitem = {
-    time,
-    txt,
-    id
-  }
-  additem(newitem);
-  timeinput.value = '';
-  txtinput.value = '';
+    let id = new Date().getTime();
+    if (table == null) {
+      localStorage.setItem('table', JSON.stringify([]));
+      table = JSON.parse(localStorage.getItem('table'));
+    }
+    let newitem = { time,txt,id }
+    updatedb({ method: 'ADD',newitem })
+    set1elmnt();
+    let position = table.indexOf(newitem);
+    let positem = (position == 0) ? {
+      elmnt: htmltable[position],
+      place: 'beforebegin'
+    } : {
+      elmnt: htmltable[position - 1],
+      place: 'afterend'
+    };
+    if (htmltable.length == 0) positem = {};
+    updatehtml({
+      type: 'ADD_ELMNT',
+      item: newitem,
+      pos: positem
+    })
+    setTimeout(scrollelmnt, 1000);
   }
 }
-
-
