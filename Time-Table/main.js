@@ -29,7 +29,7 @@ document.onclick = (e) => {
 const addhtmlelmnt = ({time,txt,id}, pos) => {
   let h = Number(time.split(':')[0]);
   let m = time.split(':')[1];
-  let h1 = h > 12 ? h - 12 + `:${m} PM`: h + `:${m}AM`;
+  let h1 = h > 12 ? h - 12 + `:${m} PM`: h + `:${m} AM`;
   let formattedtime = Number(h1.slice(0, -6)) < 10 ? '0' + h1: h1;
   let newelmnt = 
   `<div class="container">
