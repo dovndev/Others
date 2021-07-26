@@ -54,10 +54,12 @@ const updatehtml =
     break;
     case 'DELETE_ELMNT': {
       elmnt.classList.add('remove');
-      setTimeout(() => elmnt.remove(), 1000);
+      setTimeout(() => {
+        elmnt.remove();
+        set1elmnt();
+      }, 1000);
     }
   }
-  set1elmnt();
 }
 
 
@@ -104,7 +106,6 @@ const settheme = () => {
 const start = () => {
   if (table) {
     table.map((item, index) => {
-      set1elmnt();
       if (htmltable.length == 0) {
         updatehtml({
           type: 'ADD_ELMNT',
