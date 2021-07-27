@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+ <section>
+   <h2>Shot Starts</h2>
+   <div class="icon_cont">
+     <img src="./img/icon.png" />
+   </div>
+   <audio src="./shot.wav"></audio>
+</section>
+ 
+ <script type="text/javascript" charset="utf-8">
+ 
+    //bullet add
+   document.addEventListener('click', function(e){
+     let section = document.querySelector('section');
+     let bullet = document.createElement('span');
+     let x = e.offsetX;
+     let y = e.offsetY;
+     bullet.classList.add('bullet');
+     bullet.style.left = x+'px';
+     bullet.style.top = y+'px';
+     section.appendChild(bullet);
+     
+     //bullet sound
+     let sound = document.querySelector('audio');
+     sound.play();
+
+     // show blood
+     let blood = document.createElement('span');
+     blood.classList.add('blood');
+     let random_num = Math.floor(Math.random() * 4);
+     let raktham = `url(./img/blood${random_num}.png)`;
+     blood.style.backgroundImage = raktham;
+     console.log(x+','+y);
+     x += Math.random() * 600;
+     y += Math.random() * 10;
+     
+     let position = Math.floor(Math.random() * 20);
+     console.log( 'hi' + position);
+     if(position < 5){
+       blood.style.right = x + "px";
+       blood.style.top = y + "px";
+     }
+     if(position < 10&& position > 7){
+       blood.style.left = x + "px";
+       blood.style.top = y + "px";
+     }
+     if(position < 15 && position > 12){
+       blood.style.right = x + "px";
+       blood.style.bottom = y + "px";
+     }
+     if(position < 20 && position > 17){
+       blood.style.left = x + "px";
+       blood.style.bottom = y + "px";
+     }
+     section.appendChild(blood);
+     console.log(x+','+y);
+     
+     
+
+     
+     //bullet and blood delete
+     setTimeout(function(){
+     bullet.remove();
+     blood.remove()
+     }, 4000);
+     
+     
+     }
+   )
+   
+ </script>
+</body>
+
+</html>

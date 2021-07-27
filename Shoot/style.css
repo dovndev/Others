@@ -1,0 +1,74 @@
+@font-face {
+  src: url('/Sansation_Light.ttf');
+  format: ('truetype');
+  font-family: "sansationlight";
+ }
+*{
+  font-family: sansationlight;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  overflow: hidden;
+}
+section{
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background: url('./img/bg1.jpeg');
+  background-size: cover;
+  cursor: url('./img/pointer.png'), pointer;
+}
+h2{
+  position: absolute;
+  top: 8px;
+  left: 6px;
+  color: #B5096A;
+  font-weight: bolder;
+}
+.icon_cont{
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.icon_cont img {
+  position: absolute;
+  top: 10px;
+  right: 8px;
+  height: 45px;
+  border: 3px solid black;
+  border-radius: 40%;
+}
+.bullet{
+  background: url(./img/shot2.png);
+  background-size: 100%;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+  transform: translate(-10px,-10px);
+}
+section :active {
+  cursor: url('./img/customPointer.png'), pointer;
+}
+.blood{
+  position: absolute;
+  background-size: 100%;
+  width: 70px;
+  height: 70px;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.8;
+  transform: translate(-20px, 10px);
+  animation: bloodFade 4s ease infinite;
+}
+@keyframes bloodFade{
+  0%, 50%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
