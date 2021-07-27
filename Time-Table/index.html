@@ -4,89 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Time-Table</title>
-  <style type="text/css" media="all">
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Gill Sans';
-    }
-    body, .cont {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-    }
-    .header {
-      height: 50px;
-      width: 100%;
-      border-bottom: 1px solid #0A99FF;
-      position: fixed;
-      top: 0;
-      left: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .header h1 {
-      text-align: center;
-      display: block;
-      color: #8C8D8E;
-      font-weight: 400;
-    }
-    .header img {
-      
-    }
-    .container {
-      display: flex;
-      align-items: center;
-      width: 90%;
-      height: 100px;
-      border-radius: 10px;
-      margin: 5px 0px;
-    }
-    .time, .event {
-      text-align: center;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .time {
-      width: 150px;
-      background: #0A99FF;
-      border: 1px solid #0A99FF;
-      border-radius: 10px 0px 0px 10px;
-    }
-    .time span {
-      color: white;
-      font-size: 20px;
-    }
-    .event {
-      width: 100%;
-      border: 1px solid #B6B7B7;
-      border-left: none;
-      border-radius: 0px 10px 10px 0px;
-    }
-    .event span {
-      font-size: 25px;
-      font-weight: 300;
-      max-width: 80%;
-      letter-spacing: 1px;
-      word-spacing: 2px;
-    }
-    .trashimg {
-      height: 50px;
-    }
-  </style>
+  <link rel="stylesheet" href="main.css"/>
 </head>
-<body>
+<body class="light-theme">
   <div class="header">
-    <h1>Time-Table</h1>
-    <img class="trashimg" src="plusimg.png" alt="" />
+    <h3>Time-Table</h3>
+    <i onclick="handletheme()" id="themebtn" class="fa fa-moon"></i>
+    <i onclick="handlenav()" class="fa fa-plus" item="nav" id="navbtn"></i>
   </div>
+  <form item="nav" id="nav" onsubmit="handleform(event)">
+    <label item="nav">Time
+      <input item="nav" type="time"id="timeinput"/>
+    </label>
+    <label item="nav"> Activity
+     <input item="nav" type="text" id="txtinput"/>
+    </label>
+  </form>
   <div class="cont"></div>
 </body>
+<script type="text/javascript" charset="utf-8" src="https://kit.fontawesome.com/399461c2e9.js" crossorigin="anonymous">
+</script>
 <script src="main.js"></script>
 </html>
