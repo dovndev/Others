@@ -184,9 +184,9 @@ const handleinput = () => {
 
 const handlenav = () => {
   navopen = !navopen;
-  let icon = navopen ? '×' : '+';
+  let icon = navopen ? 'fa fa-close' : 'fa fa-plus';
   let height = navopen ? '200px' : '0px';
-  navbtn.innerText = icon;
+  navbtn.className = icon;
   nav.style.height = height;
   document.body.scrollIntoView();
 }
@@ -195,9 +195,9 @@ const handlenav = () => {
 const closenav = (e) => {
   if (e.target.getAttribute('item') != 'nav') {
     navopen = false;
-    let icon = navopen ? '×' : '+';
+    let icon = navopen ? 'fa fa-xmark' : 'fa fa-plus';
     let height = navopen ? '200px' : '0px';
-    navbtn.innerText = icon;
+    navbtn.className = icon;
     nav.style.height = height;
   } else return;
 }

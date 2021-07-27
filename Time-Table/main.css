@@ -67,22 +67,16 @@ form input[type=time] {
   font-size: 22px;
   margin-right: auto;
   margin-left: 10px;
-  }
-.imgcont {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-left: 1px solid #B6B7B7;
   height: 50px;
-  width: 50px;
-  }
-.header span {
-  font-size: 30px;
-  padding: 0px 20px;
+  line-height: 50px;
   }
 .header i {
-  font-size: 18px;
-  transform: translateY(2px);
+  font-size: 20px;
+  width: 50px;
+  height: 100%;
+  line-height: 50px;
+  text-align: center;
+  border-left: 1px solid #B6B7B7;
   }
 .container {
   display: flex;
