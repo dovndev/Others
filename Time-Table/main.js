@@ -53,11 +53,8 @@ const updatehtml =
     }
     break;
     case 'DELETE_ELMNT': {
-      elmnt.classList.add('remove');
-      setTimeout(() => {
-        elmnt.remove();
-        set1elmnt();
-      }, 1000);
+      elmnt.remove();
+      set1elmnt();
     }
   }
 }
@@ -69,10 +66,9 @@ const set1elmnt = () => {
 }
 
 
-const scrollelmnt = () => {
+const scrollcurrentelmnt = () => {
   htmltable = document.querySelectorAll('.container');
   if (htmltable.length) {
-  if (isfirst) {
     let array = [];
     table.forEach(item => {
       ah = item.time.split(':');
@@ -86,11 +82,11 @@ const scrollelmnt = () => {
       return (Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev);
     });
     i_elmnt = htmltable[array.indexOf(closest)];
-    isfirst = false;
-  }else {
-    i_elmnt = lastadded;
-  }
-  i_elmnt.scrollIntoView();
+    i_elmnt.scrollIntoView();
+    i_elmnt.classList.add('active');
+    setTimeout(() => {
+      i_elmnt.classList.remove('active');
+    }, 2000);
   }
 }
 
@@ -127,10 +123,19 @@ const start = () => {
   isdarktheme = JSON.parse(localStorage.getItem('table-dtheme'));
   settheme();
 }
- 
- 
+
+
 start();
-setTimeout(scrollelmnt, 1000);
+
+
+const scrolllastelmnt = () => {
+  lastadded.scrollIntoView();
+  lastadded.classList.add('active');
+  setTimeout(() => {
+    lastadded.classList.remove('active');
+  }, 2000);
+}
+
 
 const sort = (a, b) => {
   ah = a.time.split(':');
@@ -214,7 +219,8 @@ const handletheme = () => {
 
 
 const handledelete = (elmnt, id) => {
-  if (confirm('delete this event')) {
+  elmnt.parentNode.classList.add('remove');
+  setTimeout(() => {
     updatehtml({
       type: 'DELETE_ELMNT',
       item: {},
@@ -226,8 +232,8 @@ const handledelete = (elmnt, id) => {
       method: 'DELETE',
       id
     });
-  }
-  
+  },1000);
+
 }
 
 
@@ -258,7 +264,7 @@ const handleform = (event) => {
       type: 'ADD_ELMNT',
       item: newitem,
       pos: positem
-    })
-    setTimeout(scrollelmnt, 1000);
+    });
+    scrolllastelmnt();
   }
 }
