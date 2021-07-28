@@ -227,6 +227,7 @@ const handledelete = (elmnt, id) => {
       id
     });
   }
+  
 }
 
 
