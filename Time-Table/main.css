@@ -89,7 +89,11 @@ form input[type=time] {
   position: relative;
   z-index: 1;
   transition: all linear 0.5s;
+  border: 0px solid #0A99FF;
   }
+.active {
+  border: 5px solid #0A99FF;
+}
 .container2::before {
   content: "∆";
   display: block;
