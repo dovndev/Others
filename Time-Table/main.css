@@ -92,7 +92,7 @@ form input[type=time] {
   border: 0px solid #0A99FF;
   }
 .active {
-  border: 5px solid #0A99FF;
+  border: 2px solid #0A99FF;
 }
 .container2::before {
   content: "∆";

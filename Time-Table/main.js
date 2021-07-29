@@ -82,7 +82,7 @@ const scrollcurrentelmnt = () => {
       return (Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev);
     });
     i_elmnt = htmltable[array.indexOf(closest)];
-    i_elmnt.scrollIntoView();
+    i_elmnt.scrollIntoView({block: "center", inline: "center"});
     i_elmnt.classList.add('active');
     setTimeout(() => {
       i_elmnt.classList.remove('active');
@@ -129,7 +129,7 @@ start();
 
 
 const scrolllastelmnt = () => {
-  lastadded.scrollIntoView();
+  lastadded.scrollIntoView({block: "center", inline: "center"});
   lastadded.classList.add('active');
   setTimeout(() => {
     lastadded.classList.remove('active');
