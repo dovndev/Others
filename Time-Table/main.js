@@ -268,3 +268,4 @@ const handleform = (event) => {
     scrolllastelmnt();
   }
 }
+document.onload = scrollcurrentelmnt;
