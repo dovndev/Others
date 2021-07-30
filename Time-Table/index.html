@@ -8,14 +8,15 @@
 </head>
 <body class="light-theme">
   <div class="header">
-    <h3>Time-Table</h3>
+    <p>Time-Table</p>
     <i onclick="scrollcurrentelmnt()" class="fa fa-play"></i>
+    <a href="/Note"><i class="fa fa-sticky-note"></i></a>
     <i onclick="handletheme()" id="themebtn" class="fa fa-moon"></i>
     <i onclick="handlenav()" class="fa fa-plus" item="nav" id="navbtn"></i>
   </div>
   <form item="nav" id="nav" onsubmit="handleform(event)">
     <label item="nav">Time
-      <input item="nav" type="time"id="timeinput"/>
+      
     </label>
     <label item="nav"> Activity
      <input item="nav" type="text" id="txtinput"/>
