@@ -57,7 +57,6 @@ const updatehtml =
       set1elmnt();
     }
   }
-}
 
 
 const set1elmnt = () => {

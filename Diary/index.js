@@ -26,14 +26,16 @@ const Mapper = ({ diaryPage, data, handledelete }) => {
       </div>
     ))
     }else {
-      return data.map((item, index) => (
+      return data.map((item, index) => {
+        let time = item.time.split(':');
+        return (
         <div key={item.id} className={
         index === data.length - 1 ? 'tables': 'tables last'}>
-          <div>{item.time}</div>
+          <div><span>{time[0]}:{time[1]}</span><span>{time[2]}</span></div>
           <p>{item.body}</p>
           <i onClick={e => handledelete(e, item.id)}  className="fa fa-trash"></i>
-        </div>
-      ))
+        </div>);
+      })
     }
   }else {
     return <div className="nonotes">No Saved {diaryPage ? 'notes': 'events'}</div>;
@@ -81,11 +83,22 @@ const App = () => {
       }else if (newTime === '') {
         alert('please enter time');
       }else {
-        setdiaryTable([...diaryTable, {
+        let arr = newTime.split(':');
+        let hours = Number(arr[0]);
+        let totalmin = hours * 60 + Number(arr[1]);
+        let ampm = hours > 11 ? 'PM': 'AM';
+        if (hours === 0) hours = 12;
+        hours = hours > 12 ? hours - 12: hours;
+        hours = '0' + hours;
+        let time = `${hours.slice(-2)}:${arr[1]}:${ampm}:${totalmin}`;
+        let newdiaryTable = [...diaryTable, {
           id: new Date().getTime(),
           body: newTable,
-          time: newTime
-        }])
+          time
+        }].sort((a, b) => {
+            return a.time.split(':')[3] - b.time.split(':')[3];
+          });
+        setdiaryTable(newdiaryTable);
       }
       setnewTime('');
       setnewTable('');
@@ -100,7 +113,8 @@ const App = () => {
       if (diaryPage) {
         setdiaryNotes(diaryNotes.filter(note => note.id !== id));
       }else {
-        setdiaryTable(diaryTable.filter(table => table.id !== id))
+        setdiaryTable(diaryTable.filter(table => table.id !== id).sort((a, b) => {return a.time.split(':')[3] - b.time.split(':')[3];}
+        ));
       }
     }, 300);
   }

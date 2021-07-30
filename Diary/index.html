@@ -189,15 +189,26 @@
        transform: rotate(180deg);
      }
      .tables div {
-       text-align: center;
-       padding: 45px 0px;
-       line-height: 10px;
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
+       height: 100%;
        width: 150px;
        background: #0A99FF;
        border-radius: 10px 0px 0px 10px;
        color: white;
        font-size: 20px;
        border-top: 1px solid #0A99FF;
+     }
+     .tables span {
+       display: block;
+       width: 100%;
+       text-align: center;
+       color: inherit;
+       font-size: 20px;
+     }
+     .tables span:last-child {
+       font-size: 25px;
      }
      .tables p {
        width: 100%;
