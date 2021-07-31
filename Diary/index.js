@@ -1,5 +1,6 @@
 const useEffect = React.useEffect;
 const useState = React.useState;
+const useCallback = React.useCallback;
 
 const useLocalStorage = (key, initialvalue) => {
   const [value, setvalue] = useState(initialvalue);
@@ -15,7 +16,7 @@ const useLocalStorage = (key, initialvalue) => {
 }
 
 
-const Mapper = ({ diaryPage, data, handledelete }) => {
+const Mapper = ({ impid, setref, diaryPage, data, handledelete }) => {
   if (data.length !== 0) {
     if (diaryPage) {
     return data.map((item, index) => (
@@ -29,7 +30,7 @@ const Mapper = ({ diaryPage, data, handledelete }) => {
       return data.map((item, index) => {
         let time = item.time.split(':');
         return (
-        <div key={item.id} className={
+        <div ref={item.id === impid ? setref: null} key={item.id} className={
         index === data.length - 1 ? 'tables': 'tables last'}>
           <div><span>{time[0]}:{time[1]}</span><span>{time[2]}</span></div>
           <p>{item.body}</p>
@@ -47,8 +48,6 @@ const Header = ({ diaryTheme, handletheme, diaryPage, handlepage }) => {
   return (
     <div className="header">
       <p>{diaryPage ? 'Notebook': 'Time-Table'}</p>
-      {!diaryPage && <i onClick={handletheme} className="fa fa-play"></i>
-      }
       <i onClick={handletheme} className={diaryTheme ? 'fa fa-moon': 'fa fa-sun'}></i>
       <i onClick={handlepage} className={diaryPage ? 'fa fa-th-list': 'fa fa-sticky-note'}></i>
     </div>
@@ -64,6 +63,38 @@ const App = () => {
   const [newTable, setnewTable] = useState('');
   const [newTime, setnewTime] = useState('');
   
+  function getcurrent() {
+    let data = diaryTable.length === 0 ? JSON.parse(localStorage.getItem('diaryTable')): diaryTable;
+    if (data.length === 0) {
+      return 'noid';
+    }else {
+    let array = [];
+    let goal = 0;
+    let closest;
+    data.forEach((item, index) => {
+      let itemmin = Number(item.time.split(':')[3])
+      let now = new Date();
+      let nowmin = now.getHours() * 60 + now.getMinutes();
+      let diff = nowmin - itemmin;
+      array.push(diff);
+      closest = array.reduce(function(prev, curr) {
+        return (Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev);
+      });
+    });
+    let elmnt = data[array.indexOf(closest)];
+    return elmnt.id;
+    }
+  }
+  
+  const [impid, setimpid] = useState(getcurrent());
+  const setref = useCallback(node => {
+    if (node) {
+      node.scrollIntoView({block: "center", inline: "center"});
+      node.classList.add('imp');
+      setTimeout(() => node.classList.remove('imp'), 2000)
+    }
+  }, []);
+ 
   const saveitem = (e) => {
     e.preventDefault();
     const pattern = /^\s*$/g;
@@ -78,10 +109,8 @@ const App = () => {
         setnewNote('');
       }
     }else {
-      if (pattern.test(newTable)) {
-        alert('please write something');
-      }else if (newTime === '') {
-        alert('please enter time');
+      if (pattern.test(newTable) || newTime === '') {
+        alert('please enter all details');
       }else {
         let arr = newTime.split(':');
         let hours = Number(arr[0]);
@@ -91,19 +120,20 @@ const App = () => {
         hours = hours > 12 ? hours - 12: hours;
         hours = '0' + hours;
         let time = `${hours.slice(-2)}:${arr[1]}:${ampm}:${totalmin}`;
+        let id = new Date().getTime();
         let newdiaryTable = [...diaryTable, {
-          id: new Date().getTime(),
+          id,
           body: newTable,
           time
         }].sort((a, b) => {
             return a.time.split(':')[3] - b.time.split(':')[3];
           });
         setdiaryTable(newdiaryTable);
+        setimpid(id);
+        setnewTime('');
+        setnewTable('');
       }
-      setnewTime('');
-      setnewTable('');
     }
-    
   }
 
   const handledelete = (e, id) => {
@@ -139,23 +169,24 @@ const App = () => {
     setdiaryTheme(!diaryTheme);
   }
   
-  
   return (
-    <div className={diaryTheme ? 'notes-html' : 'notes-html dark'}>
+    <div className={diaryTheme ? 'html' : 'html dark'}>
       <Header diaryTheme={diaryTheme} handletheme={handletheme} diaryPage={diaryPage} handlepage={handlepage}/>
-      <form className="form" onSubmit={saveitem}>
+      <form className="form">
         {diaryPage &&
-        <input type="text" placeholder="write a note" onChange={(e) => setnewNote(e.target.value)} value={newNote}/> ||
+        <input type="text" placeholder="write a note" onChange={(e) => setnewNote(e.target.value.trim())} value={newNote}/> ||
         <>
         <input type="time" placeholder="ok" onChange={(e) => setnewTime(e.target.value)} value={newTime}/>
-        <input type="text" placeholder="write an event" onChange={(e) => setnewTable(e.target.value)} value={newTable}/>
+        <input type="text" placeholder="write an event" onChange={(e) => setnewTable(e.target.value.trim())} value={newTable}/>
         </>
         }
         
-        <input type="submit" className="save" value="save"/>
+        <input onClick={saveitem} type="submit" className="save" value="save"/>
       </form>
       <div className="container">
-        <Mapper diaryPage={diaryPage} data={diaryPage ? diaryNotes: diaryTable} handledelete={handledelete}/>
+       {impid &&
+        <Mapper impid={impid} setref={setref} diaryPage={diaryPage} data={diaryPage ? diaryNotes: diaryTable} handledelete={handledelete}/>
+       }
       </div>
       <div className="form">
         <div onClick={removeall} className="remove">Remove All</div>
