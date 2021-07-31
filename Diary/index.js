@@ -132,7 +132,7 @@ const App = () => {
           });
         setdiaryTable(newdiaryTable);
         setimpid(id);
-        setnewTime('');
+        setnewTime('00:00');
         setnewTable('');
       }
     }
