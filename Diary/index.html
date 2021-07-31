@@ -271,11 +271,13 @@
   </div>
   <script>
     let theme = JSON.parse(localStorage.getItem('diaryTheme'));
-    let background = theme ? 'white' : 'black';
-    let color = theme == false ? 'white' : 'black'
-    const elmnt = document.querySelector('.root');
-    elmnt.style.background = background;
-    elmnt.style.color = color;
+    if (theme !== null) {
+     let background = theme ? 'white' : 'black';
+     let color = theme == false ? 'white' : 'black'
+     const elmnt = document.querySelector('.root');
+     elmnt.style.background = background;
+     elmnt.style.color = color;
+    }
   </script>
   <script>
    let isdarktheme = localStorage.getItem('diary-theme');

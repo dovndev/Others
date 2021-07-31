@@ -65,7 +65,8 @@ const App = () => {
   const [newTime, setnewTime] = useState('');
   
   function getcurrent() {
-    let data = diaryTable.length === 0 ? JSON.parse(localStorage.getItem('diaryTable')): diaryTable;
+    let data = JSON.parse(localStorage.getItem('diaryTable'));
+    if (data === null) return;
     if (data.length === 0) {
       return 'noid';
     }else {
