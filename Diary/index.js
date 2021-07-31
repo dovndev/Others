@@ -172,7 +172,7 @@ const App = () => {
   return (
     <div className={diaryTheme ? 'html' : 'html dark'}>
       <Header diaryTheme={diaryTheme} handletheme={handletheme} diaryPage={diaryPage} handlepage={handlepage}/>
-      <form className="form">
+      <form className="form" onSubmit={saveitem}>
         {diaryPage &&
         <input type="text" placeholder="write a note" onChange={(e) => setnewNote(e.target.value.trim())} value={newNote}/> ||
         <>
@@ -181,7 +181,7 @@ const App = () => {
         </>
         }
         
-        <input onClick={saveitem} type="submit" className="save" value="save"/>
+        <input type="submit" className="save" value="save"/>
       </form>
       <div className="container">
        {impid &&
