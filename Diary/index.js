@@ -62,28 +62,26 @@ const App = () => {
   const [diaryTheme, setdiaryTheme] = useLocalStorage('diaryTheme', true);
   const [newNote, setnewNote] = useState('');
   const [newTable, setnewTable] = useState('');
-  const [newTime, setnewTime] = useState('00:00');
+  const [newTime, setnewTime] = useState('');
   
   function getcurrent() {
     const data = (diaryTable.length !== 0) ? diaryTable: JSON.parse(localStorage.getItem('diaryTable'));
     if (data === null) return;
     if (data.length === 0) return;
     if (data) {
-    let array = [];
-    let goal = 0;
-    let closest;
-    data.forEach((item, index) => {
-      let itemmin = Number(item.time.split(':')[3])
-      let now = new Date();
-      let nowmin = now.getHours() * 60 + now.getMinutes();
-      let diff = nowmin - itemmin;
-      array.push(diff);
-      closest = array.reduce(function(prev, curr) {
-        return (Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev);
+      let array = [];
+      let array2 =[];
+      let closest;
+      data.forEach(item => {
+        let itemmin = Number(item.time.split(':')[3])
+        let now = new Date();
+        let nowmin = now.getHours() * 60 + now.getMinutes();
+        if (itemmin <= nowmin) array.push(itemmin);
+        array2.push(itemmin);
       });
-    });
-    let elmnt = data[array.indexOf(closest)];
-    return elmnt.id;
+      closest = Math.max(...array);
+      let elmnt = data[array2.indexOf(closest)];
+      return elmnt.id;
     }
   }
   
@@ -131,7 +129,6 @@ const App = () => {
           });
         setdiaryTable(newdiaryTable);
         setimpid(id);
-        setnewTime('00:00');
         setnewTable('');
       }
     }
