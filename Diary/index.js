@@ -29,12 +29,12 @@ const Mapper = ({ impid, setref, diaryPage, data, handledelete }) => {
     }else {
       return data.map((item, index) => {
         let time = item.time.split(':');
-        let body = item.body.slice(1, 50);
+        let body = item.body.length >= 50 ? item.body.slice(0, 50) + '...': item.body;
         return (
         <div ref={item.id === impid ? setref: null} key={item.id} className={
         index === data.length - 1 ? 'tables': 'tables last'}>
           <div><span>{time[0]}:{time[1]}</span><span>{time[2]}</span></div>
-          <p>{body}...</p>
+          <p>{body}</p>
           <i onClick={e => handledelete(e, item.id)}  className="fa fa-trash"></i>
         </div>);
       })
@@ -62,7 +62,7 @@ const App = () => {
   const [diaryTheme, setdiaryTheme] = useLocalStorage('diaryTheme', true);
   const [newNote, setnewNote] = useState('');
   const [newTable, setnewTable] = useState('');
-  const [newTime, setnewTime] = useState('');
+  const [newTime, setnewTime] = useState('00:00');
   
   function getcurrent() {
     let data = JSON.parse(localStorage.getItem('diaryTable'));
