@@ -106,7 +106,7 @@ const App = () => {
       }else {
         setdiaryNotes([...diaryNotes, {
           id: new Date().getTime(),
-          body: newNote
+          body: newNote.trim()
         }]);
         setnewNote('');
       }
@@ -125,7 +125,7 @@ const App = () => {
         let id = new Date().getTime();
         let newdiaryTable = [...diaryTable, {
           id,
-          body: newTable,
+          body: newTable.trim(),
           time
         }].sort((a, b) => {
             return a.time.split(':')[3] - b.time.split(':')[3];
@@ -176,10 +176,10 @@ const App = () => {
       <Header diaryTheme={diaryTheme} handletheme={handletheme} diaryPage={diaryPage} handlepage={handlepage}/>
       <form className="form" onSubmit={saveitem}>
         {diaryPage &&
-        <input type="text" placeholder="write a note" onChange={(e) => setnewNote(e.target.value.trim())} value={newNote}/> ||
+        <input type="text" placeholder="write a note" onChange={(e) => setnewNote(e.target.value)} value={newNote}/> ||
         <>
         <input type="time" placeholder="ok" onChange={(e) => setnewTime(e.target.value)} value={newTime}/>
-        <input type="text" placeholder="write an event" onChange={(e) => setnewTable(e.target.value.trim())} value={newTable}/>
+        <input type="text" placeholder="write an event" onChange={(e) => setnewTable(e.target.value)} value={newTable}/>
         </>
         }
         
