@@ -29,11 +29,12 @@ const Mapper = ({ impid, setref, diaryPage, data, handledelete }) => {
     }else {
       return data.map((item, index) => {
         let time = item.time.split(':');
+        let body = item.body.slice(1, 50);
         return (
         <div ref={item.id === impid ? setref: null} key={item.id} className={
         index === data.length - 1 ? 'tables': 'tables last'}>
           <div><span>{time[0]}:{time[1]}</span><span>{time[2]}</span></div>
-          <p>{item.body}</p>
+          <p>{body}...</p>
           <i onClick={e => handledelete(e, item.id)}  className="fa fa-trash"></i>
         </div>);
       })
