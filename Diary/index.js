@@ -65,11 +65,10 @@ const App = () => {
   const [newTime, setnewTime] = useState('00:00');
   
   function getcurrent() {
-    let data = JSON.parse(localStorage.getItem('diaryTable'));
+    const data = (diaryTable.length !== 0) ? diaryTable: JSON.parse(localStorage.getItem('diaryTable'));
     if (data === null) return;
-    if (data.length === 0) {
-      return 'noid';
-    }else {
+    if (data.length === 0) return;
+    if (data) {
     let array = [];
     let goal = 0;
     let closest;
@@ -164,6 +163,9 @@ const App = () => {
   }
 
   const handlepage = () => {
+    if (diaryPage) {
+      setimpid(getcurrent());
+    }
     setdiaryPage(!diaryPage);
   }
   
