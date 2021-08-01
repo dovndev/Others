@@ -69,11 +69,9 @@ input[type=text], input[type=time] {
   border: 1px solid #B6B7B7;
   border-radius: 10px;
   outline: none;
-  font-size: 20px;
   color: inherit;
   background-color: inherit;
   margin-right: 5px;
-  max-width: 80px;
   font-size: 15px;
   height: 100%;
 }
