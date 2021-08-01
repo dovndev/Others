@@ -1,6 +1,7 @@
 const useEffect = React.useEffect;
 const useState = React.useState;
 const useCallback = React.useCallback;
+const useMemo = React.useMemo;
 
 const useLocalStorage = (key, initialvalue) => {
   const [value, setvalue] = useState(initialvalue);
@@ -64,26 +65,26 @@ const App = () => {
   const [newTable, setnewTable] = useState('');
   const [newTime, setnewTime] = useState('');
   
-  function getcurrent() {
+  const getcurrent = useCallback(() => {
     const data = (diaryTable.length !== 0) ? diaryTable: JSON.parse(localStorage.getItem('diaryTable'));
     if (data === null) return;
     if (data.length === 0) return;
     if (data) {
       let array = [];
-      let array2 =[];
       let closest;
+      let nowmin;
       data.forEach(item => {
         let itemmin = Number(item.time.split(':')[3])
         let now = new Date();
-        let nowmin = now.getHours() * 60 + now.getMinutes();
-        if (itemmin <= nowmin) array.push(itemmin);
-        array2.push(itemmin);
+        nowmin = now.getHours() * 60 + now.getMinutes();
+        array.push(itemmin);
       });
-      closest = Math.max(...array);
-      let elmnt = data[array2.indexOf(closest)];
+      closest = array.filter(x => x <= nowmin);
+      closest = Math.max(...closest);
+      let elmnt = data[array.indexOf(closest)];
       return elmnt.id;
     }
-  }
+  }, [impid]);
   
   const [impid, setimpid] = useState(getcurrent());
   const setref = useCallback(node => {
@@ -94,44 +95,57 @@ const App = () => {
     }
   }, []);
  
-  const saveitem = (e) => {
-    e.preventDefault();
+  const validate = (page) => {
     const pattern = /^\s*$/g;
-    if (diaryPage) {
-      if (pattern.test(newNote)) {
-        alert('please write something');
-      }else {
-        setdiaryNotes([...diaryNotes, {
-          id: new Date().getTime(),
-          body: newNote.trim()
-        }]);
-        setnewNote('');
-      }
-    }else {
-      if (pattern.test(newTable) || newTime === '') {
-        alert('please enter all details');
-      }else {
-        let arr = newTime.split(':');
-        let hours = Number(arr[0]);
-        let totalmin = hours * 60 + Number(arr[1]);
-        let ampm = hours > 11 ? 'PM': 'AM';
-        if (hours === 0) hours = 12;
-        hours = hours > 12 ? hours - 12: hours;
-        hours = '0' + hours;
-        let time = `${hours.slice(-2)}:${arr[1]}:${ampm}:${totalmin}`;
-        let id = new Date().getTime();
-        let newdiaryTable = [...diaryTable, {
-          id,
-          body: newTable.trim(),
-          time
-        }].sort((a, b) => {
-            return a.time.split(':')[3] - b.time.split(':')[3];
-          });
-        setdiaryTable(newdiaryTable);
-        setimpid(id);
-        setnewTable('');
-      }
+    const alrt = (txt) => {
+      alert(`please enter ${txt}`);
+      return false;
     }
+    if (page) {
+      if (pattern.test(newNote)) alrt('a note');
+      else return true;
+    }else {
+      if (pattern.test(newTable)) alrt('an event');
+      else if (pattern.test(newTime)) alrt('time');
+      else return true;
+    }
+  }
+  
+  const saveNote = (e) => {
+    e.preventDefault();
+    if (validate(true)) {
+      setdiaryNotes([...diaryNotes, {
+        id: new Date().getTime(),
+        body: newNote.trim()
+      }]);
+      setnewNote('');
+    }else return;
+  }
+  
+  const saveTable = (e) => {
+    e.preventDefault();
+    if (validate(false)) {
+      let arr = newTime.split(':');
+      let h = Number(arr[0]);
+      let totalmin = h * 60 + Number(arr[1]);
+      let ampm = h > 11 ? 'PM' : 'AM';
+      if (h === 0) h = 12;
+      h = h > 12 ? h - 12 : h;
+      h = '0' + h;
+      let time = `${h.slice(-2)}:${arr[1]}:${ampm}:${totalmin}`;
+      let id = new Date().getTime();
+      let newdiaryTable = [...diaryTable, {
+        id,
+        body: newTable.trim(),
+        time
+      }].sort((a, b) => {
+        return a.time.split(':')[3] - b.time.split(':')[3];
+      });
+      setdiaryTable(newdiaryTable);
+      setimpid(id);
+      setnewTable('');
+      setnewTime('');
+    }else return;
   }
 
   const handledelete = (e, id) => {
@@ -173,7 +187,7 @@ const App = () => {
   return (
     <div className={diaryTheme ? 'html' : 'html dark'}>
       <Header diaryTheme={diaryTheme} handletheme={handletheme} diaryPage={diaryPage} handlepage={handlepage}/>
-      <form className="form" onSubmit={saveitem}>
+      <form className="form" onSubmit={diaryPage ? saveNote: saveTable}>
         {diaryPage &&
         <input type="text" placeholder="write a note" onChange={(e) => setnewNote(e.target.value)} value={newNote}/> ||
         <>
