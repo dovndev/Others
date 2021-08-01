@@ -46,10 +46,11 @@ const Mapper = ({ impid, setref, diaryPage, data, handledelete }) => {
 }
 
 
-const Header = ({ diaryTheme, handletheme, diaryPage, handlepage }) => {
+const Header = ({ scroller, diaryTheme, handletheme, diaryPage, handlepage }) => {
   return (
     <div className="header">
       <p>{diaryPage ? 'Notebook': 'Time-Table'}</p>
+      {!diaryPage && <i onClick={scroller} className="fa fa-play"></i>}
       <i onClick={handletheme} className={diaryTheme ? 'fa fa-moon': 'fa fa-sun'}></i>
       <i onClick={handlepage} className={diaryPage ? 'fa fa-th-list': 'fa fa-sticky-note'}></i>
     </div>
@@ -64,6 +65,7 @@ const App = () => {
   const [newNote, setnewNote] = useState('');
   const [newTable, setnewTable] = useState('');
   const [newTime, setnewTime] = useState('');
+  const [scroll, setscroll] = useState(true);
   
   const getcurrent = useCallback(() => {
     const data = (diaryTable.length !== 0) ? diaryTable: JSON.parse(localStorage.getItem('diaryTable'));
@@ -92,8 +94,9 @@ const App = () => {
       node.scrollIntoView({block: "center", inline: "center"});
       node.classList.add('imp');
       setTimeout(() => node.classList.remove('imp'), 2000)
+      console.log('ran');
     }
-  }, []);
+  }, [impid, scroll]);
  
   const validate = (page) => {
     const pattern = /^\s*$/g;
@@ -184,9 +187,13 @@ const App = () => {
     setdiaryTheme(!diaryTheme);
   }
   
+  const scroller = () => {
+    setscroll(!scroll);
+  }
+  
   return (
     <div className={diaryTheme ? 'html' : 'html dark'}>
-      <Header diaryTheme={diaryTheme} handletheme={handletheme} diaryPage={diaryPage} handlepage={handlepage}/>
+      <Header scroller={scroller} diaryTheme={diaryTheme} handletheme={handletheme} diaryPage={diaryPage} handlepage={handlepage}/>
       <form className="form" onSubmit={diaryPage ? saveNote: saveTable}>
         {diaryPage &&
         <input type="text" placeholder="write a note" onChange={(e) => setnewNote(e.target.value)} value={newNote}/> ||
