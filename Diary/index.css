@@ -54,6 +54,7 @@ html, body, .root, .html {
   text-align: center;
   background-color: #0A99FF;
   border-left: 1px solid #B6B7B7;
+  cursor: pointer;
 }
 .form {
   display: flex;
@@ -96,6 +97,7 @@ input::placeholder {
   border: none;
   border-radius: 0px 10px 10px 0px;
   background-color: #0A99FF;
+  cursor: pointer;
 }
 .container {
   color: inherit;
@@ -158,6 +160,7 @@ input::placeholder {
   font-size: 30px;
   font-weight: bold;
   text-align: center;
+  cursor: pointer;
 }
 .tables {
   display: flex;
