@@ -242,6 +242,7 @@ input::placeholder {
   border: 1px solid #B6B7B7;
   background-color: inherit;
   color: inherit;
+  cursor: pointer;
 }
 .remove {
   text-align: center;
@@ -251,6 +252,7 @@ input::placeholder {
   background-color: #0A99FF;
   border-radius: 10px;
   color: white;
+  cursor: pointer;
 }
 .nonotes {
   font-size: 20px;
