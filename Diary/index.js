@@ -1,6 +1,4 @@
-
-
-      const useEffect = React.useEffect;
+const useEffect = React.useEffect;
 const useState = React.useState;
 const useCallback = React.useCallback;
 const useMemo = React.useMemo;
@@ -69,7 +67,7 @@ const App = () => {
   const [newTime, setnewTime] = useState('');
   const [scroll, setscroll] = useState(true);
   
-  const getcurrent = useCallback(() => {
+  const getcurrent = () => {
     const data = (diaryTable.length !== 0) ? diaryTable: JSON.parse(localStorage.getItem('diaryTable'));
     if (data === null) return;
     if (data.length === 0) return;
@@ -86,9 +84,9 @@ const App = () => {
       closest = array.filter(x => x <= nowmin);
       closest = Math.max(...closest);
       let elmnt = data[array.indexOf(closest)];
-      return elmnt.id ? elmnt.id : 5;
+      return elmnt ? elmnt.id : 10;
     }
-  }, [impid]);
+  }
   
   const [impid, setimpid] = useState(getcurrent());
   const setref = useCallback(node => {
@@ -160,8 +158,7 @@ const App = () => {
       if (diaryPage) {
         setdiaryNotes(diaryNotes.filter(note => note.id !== id));
       }else {
-        setdiaryTable(diaryTable.filter(table => table.id !== id).sort((a, b) => {return a.time.split(':')[3] - b.time.split(':')[3];}
-        ));
+        setdiaryTable(diaryTable.filter(table => table.id !== id));
       }
     }, 300);
   }
