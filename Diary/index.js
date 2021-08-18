@@ -1,4 +1,6 @@
-const useEffect = React.useEffect;
+
+
+      const useEffect = React.useEffect;
 const useState = React.useState;
 const useCallback = React.useCallback;
 const useMemo = React.useMemo;
@@ -84,7 +86,7 @@ const App = () => {
       closest = array.filter(x => x <= nowmin);
       closest = Math.max(...closest);
       let elmnt = data[array.indexOf(closest)];
-      return elmnt.id ? elmnt.id : 0;
+      return elmnt.id ? elmnt.id : 5;
     }
   }, [impid]);
   
