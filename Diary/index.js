@@ -84,7 +84,7 @@ const App = () => {
       closest = array.filter(x => x <= nowmin);
       closest = Math.max(...closest);
       let elmnt = data[array.indexOf(closest)];
-      return elmnt.id;
+      return elmnt.id ? elmnt.id : 0;
     }
   }, [impid]);
   
