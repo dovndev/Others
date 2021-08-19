@@ -65,7 +65,7 @@ html, body, .root, .html {
   margin: 20px 0px;
   color: inherit;
 }
-input[type=text], input[type=time] {
+textarea, input[type=time] {
   padding: 9px 0px;
   border: 1px solid #B6B7B7;
   border-radius: 10px;
@@ -76,7 +76,7 @@ input[type=text], input[type=time] {
   font-size: 15px;
   height: 100%;
 }
-input[type=text] {
+textarea {
   margin: 0;
   width: 100%;
   border-right: none;
@@ -85,7 +85,7 @@ input[type=text] {
   max-width: 100%;
   font-size: 20px;
 }
-input::placeholder {
+textarea::placeholder {
   color: inherit;
   font-size: 18px;
   opacity: 0.5;

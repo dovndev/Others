@@ -195,7 +195,7 @@ const App = () => {
       <Header scroller={scroller} diaryTheme={diaryTheme} handletheme={handletheme} diaryPage={diaryPage} handlepage={handlepage}/>
       <form className="form" onSubmit={diaryPage ? saveNote: saveTable}>
         {diaryPage &&
-        <input type="text" placeholder="write a note" onChange={(e) => setnewNote(e.target.value)} value={newNote}/> ||
+        <textarea type="text" placeholder="write a note" onChange={(e) => setnewNote(e.target.value)} value={newNote}></textarea> ||
         <>
         <input type="time" placeholder="ok" onChange={(e) => setnewTime(e.target.value)} value={newTime}/>
         <input type="text" placeholder="write an event" onChange={(e) => setnewTable(e.target.value)} value={newTable}/>
