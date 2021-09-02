@@ -61,11 +61,11 @@ html, body, .root, .html {
   justify-content: center;
   align-items: center;
   width: 85%;
-  height: 50px;
+  height: auto;
   margin: 20px 0px;
   color: inherit;
 }
-textarea, input[type=time] {
+textarea, input {
   padding: 9px 0px;
   border: 1px solid #B6B7B7;
   border-radius: 10px;
@@ -75,17 +75,21 @@ textarea, input[type=time] {
   margin-right: 5px;
   font-size: 15px;
   height: 100%;
+  resize: none;
 }
-textarea {
+textarea, input[type = "text"] {
   margin: 0;
   width: 100%;
   border-right: none;
   border-radius: 10px 0px 0px 10px;
-  padding: 10px 20px;
+  padding: 12px 20px;
   max-width: 100%;
   font-size: 20px;
+  height: 50px;
+  max-height: 200px;
+  transition: 0s;
 }
-textarea::placeholder {
+textarea::placeholder, input[type = "text"]::placeholder {
   color: inherit;
   font-size: 18px;
   opacity: 0.5;
@@ -114,6 +118,7 @@ textarea::placeholder {
   color: inherit;
   margin: 10px 0px;
   width: 85%;
+  max-width: 85%;
   display: flex;
   justify-content: space-between;
   border-radius: 10px;
@@ -137,6 +142,12 @@ textarea::placeholder {
   width: 100%;
   border-top: 1px solid #B6B7B7;
   border-bottom: 1px solid #B6B7B7;
+  width: 100%;
+  word-break: break-all;
+}
+.line {
+  word-break: break-all;
+  width: 100%;
 }
 .num {
   user-select: none;
