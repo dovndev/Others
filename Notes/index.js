@@ -122,9 +122,10 @@ const App = () => {
         <i onClick={handleNav} className="fa fa-bars"></i>
       </div>
       <div className="form" onSubmit={saveNote}>
-        <textarea rows={1} ref={textarea} placeholder="Type a note" value={newNote} onChange={(e) => setnewNote(e.target.value)}></textarea>
-        <button style={{width: isNote ? 'auto' : '0px'}} onClick={saveNote}><span>save</span></button>
+        <textarea className={isNote ? "textarea" : "notextarea"} rows={1} ref={textarea} placeholder="Type a note" value={newNote} onChange={(e) => setnewNote(e.target.value)}></textarea>
+        <button onClick={saveNote} className={isNote ? "save": "nosave"}><span>save</span></button>
       </div>
+
       <div className="container">
        {notes &&
         <Mapper notes={notes} handledelete={handledelete}/>
