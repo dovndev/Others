@@ -111,7 +111,8 @@ textarea {
   font-size: 20px;
 }
 textarea ::-webkit-scrollbar {
-  width: 0px;
+  width: 1px;
+  background-color: transparent;
 }
 .textarea {
   border-radius: 10px 0px 0px 10px;
@@ -161,8 +162,14 @@ textarea::placeholder {
   scroll-behavior: smooth;
 }
 .container::-webkit-scrollbar {
-  width: 5px;
-  background-color: transparent;
+  width: 10px;
+}
+.container::-webkit-scrollbar-track {
+  background-color: #6e6e6e;
+  border-radius: 20px;
+}
+.container::-webkit-scrollbar-thumb {
+  background-color: #0A99FF;
 }
 .notes {
   color: inherit;
