@@ -72,8 +72,10 @@ const App = () => {
   }
   
   const updateInputSize = () => {
-    textarea.current.style.height = '25px';
-    textarea.current.style.height = textarea.current.scrollHeight + 'px';
+    const el = textarea.current;
+    el.style.height = '25px';
+    el.style.height = el.scrollHeight + 'px';
+    el.style.overflowY = (el.scrollHeight < 130) ? 'hidden' : 'auto';
   }
   
   const saveNote = () => {
