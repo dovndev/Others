@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Diary</title>
+  <title>Notes</title>
   <script type="text/javascript" charset="utf-8" src="https://kit.fontawesome.com/399461c2e9.js" crossorigin="anonymous">
   </script>
   <link rel="stylesheet" href="index.css"/>
@@ -13,7 +13,7 @@
     <span class="preloader">Loading...</span>
   </div>
   <script>
-    let theme = JSON.parse(localStorage.getItem('diaryTheme'));
+    let theme = JSON.parse(localStorage.getItem('theme'));
     if (theme !== null) {
      let background = theme ? 'white' : 'black';
      let color = theme == false ? 'white' : 'black'
@@ -21,12 +21,6 @@
      elmnt.style.background = background;
      elmnt.style.color = color;
     }
-  </script>
-  <script>
-   let isdarktheme = localStorage.getItem('diary-theme');
-   if (isdarktheme == true) {
-    document.querySelector('.root').classList.add('dark');
-   }
   </script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
