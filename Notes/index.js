@@ -45,7 +45,7 @@ const App = () => {
   
   useEffect(() => {
     textarea.current.focus();
-  });
+  }, []);
   
   useEffect(() => {
     const array = ['diaryTable', 'diaryNotes', 'diaryTheme', 'diaryPage']
@@ -123,7 +123,7 @@ const App = () => {
       </div>
       <div className="form" onSubmit={saveNote}>
         <textarea rows={1} ref={textarea} placeholder="Type a note" value={newNote} onChange={(e) => setnewNote(e.target.value)}></textarea>
-        <button onClick={saveNote}><span>save</span></button>
+        <button style={{width: isNote ? 'auto' : '0px'}} onClick={saveNote}><span>save</span></button>
       </div>
       <div className="container">
        {notes &&
