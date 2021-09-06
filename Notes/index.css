@@ -106,11 +106,16 @@ textarea {
   height: 25px;
   padding: 10px;
   resize: none;
-  border-right: none;
-  border-radius: 10px 0px 0px 10px;
   width: 100%;
   max-height: 150px;
   font-size: 20px;
+}
+.textarea {
+  border-radius: 10px 0px 0px 10px;
+  border-right: none;
+}
+.notextarea {
+  border-radius: 10px;
 }
 textarea::placeholder {
   color: inherit;
@@ -127,6 +132,13 @@ textarea::placeholder {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+}
+.save {
+  width: auto;
+}
+.nosave {
+  width: 0px:
 }
 .form button span {
   color: white;
