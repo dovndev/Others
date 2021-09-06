@@ -188,6 +188,9 @@ textarea::placeholder {
   border-radius: 10px;
   transition: all 0.3s;
 }
+.show {
+  background-color: rgba(255, 255, 255, 0.3);
+}
 .delete-anim {
   animation: remove 0.3s linear;
 }

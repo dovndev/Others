@@ -17,10 +17,10 @@ const useLocalStorage = (key, initialvalue) => {
 }
 
 
-const Mapper = ({ notes, handledelete }) => {
+const Mapper = ({ notes, Addednote, handledelete }) => {
   if (notes.length !== 0) {
     return notes.map((item, index) => {
-      return (<div className="notes" key={item.id}>
+      return (<div ref={(notes.length - 1 === index) ? Addednote : null } className="notes" key={item.id}>
         <span className="num">{ index + 1 }</span>
         <p>{item.body.map((line) => (
           <div class="line">{line}</div>
@@ -42,6 +42,15 @@ const App = () => {
   const [isNote, setisNote] = useState(true);
   const [nav, setnav] = useState(false);
   const textarea = useRef();
+  const Addednote = useCallback((node) => {
+    if (node) {
+      node.scrollIntoView();
+      node.classList.add('show');
+      setTimeout(() => {
+        node.classList.remove('show');
+      }, 800);
+    }
+  },[])
   
   useEffect(() => {
     textarea.current.focus();
@@ -130,7 +139,7 @@ const App = () => {
 
       <div className="container">
        {notes &&
-        <Mapper notes={notes} handledelete={handledelete}/>
+        <Mapper notes={notes} Addednote={Addednote} handledelete={handledelete} />
        }
       </div>
       {nav && 
