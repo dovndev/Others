@@ -65,14 +65,17 @@ const App = () => {
   
   const checkEnter = (e) => {
     if (e.key === 'Enter') {
+      e.preventDefault();
       saveNote();
-      setnewNote('');
     }else return;
   }
   
   useEffect(() => {
     CheckIsNote();
     updateInputSize();
+    if (newNote.endsWith('\n') && EnterSend) {
+      saveNote();
+    }
   }, [newNote]);
   
   function CheckIsNote() {
