@@ -63,11 +63,11 @@ const App = () => {
     })
   }, [])
   
-  const checkEnter = useCallback(() => {
-    if (newNote.includes('\n')) {
+  const checkEnter = useCallback((e) => {
+    if (newNote.endsWith('\n')) {
       saveNote();
     }else return;
-  },[newNote])
+  }, [newNote])
   
   useEffect(() => {
     CheckIsNote();
@@ -80,12 +80,12 @@ const App = () => {
     setisNote(!check);
   }
   
-  const updateInputSize = () => {
+  const updateInputSize = useCallback(() => {
     const el = textarea.current;
     el.style.height = '25px';
     el.style.height = el.scrollHeight + 'px';
     el.style.overflowY = (el.scrollHeight < 130) ? 'hidden' : 'auto';
-  }
+  },[newNote])
   
   const saveNote = () => {
     if (isNote) {
