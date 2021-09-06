@@ -24,6 +24,24 @@ html, body, .root, .html {
   font-size: 20px;
   color: inherit;     
 }
+.preloader::after {
+  content: "";
+  animation: load 2s infinite normal;
+}
+@keyframes load {
+  0% {
+    content: "";
+  }
+  25% {
+    content: ".";
+  }
+  50% {
+    content: "..";
+  }
+  100% {
+    content: "...";
+  }
+}
 .html {
   justify-content: flex-start;
 }
