@@ -66,6 +66,7 @@ const App = () => {
   const checkEnter = (e) => {
     if (e.key === 'Enter') {
       saveNote();
+      setnewNote('');
     }else return;
   }
   
