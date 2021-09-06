@@ -110,6 +110,9 @@ textarea {
   max-height: 150px;
   font-size: 20px;
 }
+textarea ::-webkit-scrollbar {
+  width: 0px;
+}
 .textarea {
   border-radius: 10px 0px 0px 10px;
   border-right: none;
@@ -133,12 +136,13 @@ textarea::placeholder {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  transition: width 0.1s linear;
 }
 .save {
   width: auto;
 }
 .nosave {
-  width: 0px:
+  width: 0px;
 }
 .form button span {
   color: white;
@@ -155,6 +159,10 @@ textarea::placeholder {
   height: 100%;
   overflow-y: scroll;
   scroll-behavior: smooth;
+}
+.container::-webkit-scrollbar {
+  width: 5px;
+  background-color: transparent;
 }
 .notes {
   color: inherit;
