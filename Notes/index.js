@@ -63,16 +63,15 @@ const App = () => {
     })
   }, [])
   
-  const checkEnter = useCallback((e) => {
-    if (newNote.endsWith('\n')) {
+  const checkEnter = (e) => {
+    if (e.key === 'Enter') {
       saveNote();
     }else return;
-  }, [newNote])
+  }
   
   useEffect(() => {
     CheckIsNote();
     updateInputSize();
-    if (EnterSend) checkEnter();
   }, [newNote]);
   
   function CheckIsNote() {
@@ -133,7 +132,9 @@ const App = () => {
         <i onClick={handleNav} className="fa fa-bars"></i>
       </div>
       <div className="form" onSubmit={saveNote}>
-        <textarea className={isNote ? "textarea" : "notextarea"} rows={1} ref={textarea} placeholder="Type a note" value={newNote} onChange={(e) => setnewNote(e.target.value)}></textarea>
+        <textarea className={isNote ? "textarea" : "notextarea"} rows={1} ref={textarea} placeholder="Type a note" value={newNote}
+        onKeyPress={(e) => (EnterSend) ? checkEnter(e) : null}
+        onChange={(e) => setnewNote(e.target.value)}></textarea>
         <button onClick={saveNote} className={isNote ? "save": "nosave"}><span>save</span></button>
       </div>
 
