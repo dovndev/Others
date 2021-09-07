@@ -80,7 +80,7 @@ const App = () => {
     el.style.overflowY = (el.scrollHeight < 130) ? 'hidden' : 'auto';
   },[newNote])
   
-  const saveNote = () => {
+  const saveNote = useCallback(() => {
     if (isNote) {
       setnotes([...notes, {
         id: new Date().getTime(),
@@ -88,43 +88,38 @@ const App = () => {
       }]);
       setnewNote('');
     }else return;
-  }
+  }, [isNote, newNote])
   
-  const handledelete = (e, id) => {
+  const handledelete = useCallback((e, id) => {
     e.target.parentNode.classList.add('delete-anim');
     
     setTimeout(() => {
       setnotes(notes.filter(note => note.id !== id));
     }, 300);
-  }
+  }, [notes])
 
-  const removeall = () => {
+  const removeall = useCallback(() => {
     if (confirm(`delete all notes from storage`)) {
         setnotes([]);
     } else {
       return;
     }
-  }
+  }, [])
   
-  const handleEnter = () => {
+  const handleEnter = useCallback(() => {
     let text = EnterSend ? 'Enter key will not save note' : 'Enter key will save note';
     if (confirm(text)) {
       setEnterSend(!EnterSend);
     } else {
       return;
     }
-  }
-  
-  
-  let i;
-  let j;
-  let difference;
+  }, [EnterSend])
   
   const handlechange = useCallback((e) => {
     if (EnterSend) {
-      i = 0; 
-      j = 0;
-      difference = "";
+      let i = 0; 
+      let j = 0;
+      let difference = "";
       while (j < e.target.value.length){
         if (newNote[i] !== e.target.value[j] || i === newNote.length) difference += e.target.value[j];
         else i++;
