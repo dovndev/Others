@@ -63,19 +63,9 @@ const App = () => {
     })
   }, [])
   
-  const checkEnter = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      saveNote();
-    }else return;
-  }
-  
   useEffect(() => {
     CheckIsNote();
     updateInputSize();
-    if (newNote.endsWith('\n') && EnterSend) {
-      saveNote();
-    }
   }, [newNote]);
   
   function CheckIsNote() {
@@ -125,6 +115,27 @@ const App = () => {
     }
   }
   
+  
+  let i;
+  let j;
+  let difference;
+  
+  const handlechange = useCallback((e) => {
+    if (EnterSend) {
+      i = 0; 
+      j = 0;
+      difference = "";
+      while (j < e.target.value.length){
+        if (newNote[i] !== e.target.value[j] || i === newNote.length) difference += e.target.value[j];
+        else i++;
+        j++;
+      }
+      if (difference === '\n') saveNote();
+      else setnewNote(e.target.value);
+    }
+    else setnewNote(e.target.value);
+  }, [EnterSend, newNote])
+  
   function handleNav() {
     setnav(!nav);
   }
@@ -137,8 +148,7 @@ const App = () => {
       </div>
       <div className="form" onSubmit={saveNote}>
         <textarea className={isNote ? "textarea" : "notextarea"} rows={1} ref={textarea} placeholder="Type a note" value={newNote}
-        onKeyPress={(e) => (EnterSend) ? checkEnter(e) : null}
-        onChange={(e) => setnewNote(e.target.value)}></textarea>
+        onChange={(e) => handlechange(e)}></textarea>
         <button onClick={saveNote} className={isNote ? "save": "nosave"}><span>save</span></button>
       </div>
 
