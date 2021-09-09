@@ -7,7 +7,7 @@ function GetPreview() {
   load.innerHTML = `<img id="load" src="https://loading.io/mod/spinner/rosary/index.svg" loading="lazy"/>`;
   const value = input.value;
   const url = new URL(
-    `http://api.linkpreview.net/?key=44ab599c49f52aa82bb84040cf5d3748&q=${value}`
+    `https://api.linkpreview.net/?key=44ab599c49f52aa82bb84040cf5d3748&q=${value}`
   );
 
   fetch(url.href)
