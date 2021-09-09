@@ -4,7 +4,7 @@ const load = document.querySelector(".load-cont");
 content.style.border = 'none';
 
 function GetPreview() {
-  content.innerHTML = `<img src="https://loading.io/mod/spinner/rosary/index.svg" loading="lazy"/>`;
+  content.innerHTML = `<img src="loading.io/mod/spinner/rosary/index.svg" />`;
   const value = input.value;
   const url = new URL(
     `https://api.linkpreview.net/?key=44ab599c49f52aa82bb84040cf5d3748&q=${value}`
