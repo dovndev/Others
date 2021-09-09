@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Link-Previewer</title>
+    <style>
+      @font-face {
+        src: url("../Google/Sansation_Light.ttf");
+        format: ("truetype");
+        font-family: "sansationlight";
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: sansationlight;
+      }
+      body {
+        height: 100%;
+        display: block;
+        width: 100%;
+      }
+      .cont {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+      .input {
+        height: 20px;
+        font-size: 15px;
+        padding: 5px;
+        border: 1px solid cornflowerblue;
+      }
+      .button {
+        height: 32px;
+        color: white;
+        background-color: cornflowerblue;
+        border: none;
+        padding: 0px 10px;
+      }
+      .input ::placeholder {
+        font-size: 20px;
+      }
+      #content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        height: auto;
+        width: 80vh;
+        border: 2px solid cornflowerblue;
+        border-radius: 20px;
+        margin: auto;
+      }
+      .img-cont {
+        height: auto;
+        width: 150px;
+        padding: 0px 15px;
+      }
+      .img-cont img {
+        height: auto;
+        width: 150px;
+      }
+      .details {
+        width: 4 0rem;
+        height: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+      h2 {
+        color: cornflowerblue;
+      }
+      h4 {
+        font-family: sans-serif;
+        font-weight: 500;
+      }
+      a {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <form class="cont" id="form">
+      <input
+        class="input"
+        type="text"
+        placeholder="https://www.google.com"
+        value="https://www.w3schools.com/"
+      />
+      <button class="button" id="btn" onclick="GetPreview()">
+        Get Preview
+      </button>
+      <!-- <br><br>
+      https://www.youtube.com/ -->
+    </form>
+    <div id="content"></div>
+    <script src="./index.js"></script>
+  </body>
+</html>
