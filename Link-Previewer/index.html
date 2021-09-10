@@ -1,102 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Link-Previewer</title>
-    <style>
-      @font-face {
-        src: url("../Google/Sansation_Light.ttf");
-        format: ("truetype");
-        font-family: "sansationlight";
-      }
-      * {
-        margin: 0;
-        padding: 0;
-        font-family: sansationlight;
-      }
-      body {
-        height: 100%;
-        display: block;
-        width: 100%;
-      }
-      .cont {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-      }
-      .input {
-        height: 20px;
-        font-size: 15px;
-        padding: 5px;
-        border: 1px solid cornflowerblue;
-      }
-      .button {
-        height: 32px;
-        color: white;
-        background-color: cornflowerblue;
-        border: none;
-        padding: 0px 10px;
-      }
-      .input ::placeholder {
-        font-size: 20px;
-      }
-      #content {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-        height: auto;
-        width: 80vh;
-        border: none;
-        border-radius: 20px;
-        margin: auto;
-      }
-      .img-cont {
-        height: auto;
-        width: 200px;
-        padding: 0px 15px;
-      }
-      .img-cont img {
-        height: 100%;
-        width: 100%;
-      }
-      .details {
-        width: 4 0rem;
-        height: 100%;
-        display: flex;
-        justify-content: flex-start;
-        align-items: flex-start;
-        flex-direction: column;
-      }
-      h2 {
-        color: cornflowerblue;
-      }
-      h4 {
-        font-family: sans-serif;
-        font-weight: 500;
-      }
-      a {
-        text-decoration: none;
-      }
-    </style>
-  </head>
-  <body>
-    <form class="cont" id="form">
-      <input
-        class="input"
-        type="text"
-        placeholder="https://www.google.com"
-        value=""
-      />
-      <button class="button" id="btn" onclick="GetPreview()">
-        Get Preview
-      </button>
-    </form>
-    <div id="content"></div>
-    <script src="./index.js"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Link-Previewer</title>
+  <style>
+    @font-face {
+      src: url("../Google/Sansation_Light.ttf");
+      format: ("truetype");
+      font-family: "sansationlight";
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: sansationlight;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100%;
+      display: block;
+      width: 100%;
+      padding: 20px;
+    }
+
+    .cont {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .input {
+      height: 100%;
+      width: 100%;
+      font-size: 15px;
+      padding: 5px;
+      border: 1px solid cornflowerblue;
+    }
+
+    .button {
+      height: 100%;
+      color: white;
+      background-color: cornflowerblue;
+      font-size: 15px;
+      border: none;
+      white-space: nowrap;
+      padding: 6px;
+    }
+
+    .input ::placeholder {
+      font-size: 20px;
+    }
+
+    #content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 0px;
+      width: 100%;
+      height: 100%;
+      flex-direction: column-reverse;
+    }
+    
+    .linkbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      height: 100px;
+      overflow: hidden;
+    }
+
+    .img-cont {
+      height: 100px;
+      width: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .img-cont img {
+      height: auto;
+      width: auto;
+      max-height: 80%;
+      max-width: 80%;
+    }
+
+    .details {
+      width: calc(100% - 100px);
+      height: 100px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+    }
+    h3, h5, a {
+      margin: 5px 0px;
+      text-overflow: ellipsis;
+      display: block;
+      overflow: visible;
+      white-space: nowrap;
+      width: calc(90%);
+    }
+
+    h3 {
+      color: cornflowerblue;
+      height: 15px;
+      line-height: 15px;
+      font-size: 15px;
+    }
+
+    h5 {
+      font-family: sans-serif;
+      height: 55px;
+      line-height: 12.5px;
+      font-size: 12.5px;
+      margin: 0px;
+      font-weight: 300;
+      white-space: normal;
+      overflow: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      height: 10px;
+      line-height: 10px;
+      font-size: 10px;
+      color: cornflowerblue;
+    }
+  </style>
+</head>
+
+<body>
+  <form class="cont" id="form">
+    <input class="input" type="text" placeholder="https://www.google.com" value="Samsung.com" />
+    <button class="button" id="btn" onclick="GetPreview()">
+      Get Preview
+    </button>
+  </form>
+  <div id="content"></div>
+  <script src="./index.js"></script>
+</body>
+
 </html>
