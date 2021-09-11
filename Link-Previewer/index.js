@@ -22,6 +22,7 @@ function GetPreview() {
     .then(res => res.json())
     .then(json => {
       let url;
+      console.log(json);
       if (!json.error) url = new URL(json.url);
       const html = ` 
        <div class="img-cont">
