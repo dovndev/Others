@@ -29,9 +29,9 @@ function GetPreview() {
         <img src="${json.image}" onerror="addimg(this)">
        </div>
        <div class="details">
-        <h3>${json.title}</h3>
+        ${json.title && `<h3>${json.title}</h3>`}
         ${json.description && `<h5>${json.description}</h5>`}
-        <a href="${json.url}">${url && url.hostname}</a>
+        ${(json.url && url) && `<a href="${json.url}">${url && url.hostname}</a>`}
         </div>`;
       if (json.error && !json.url) {
         alert(json.description);
