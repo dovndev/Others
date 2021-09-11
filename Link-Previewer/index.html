@@ -80,7 +80,9 @@
       max-width: 100%;
       border-radius: 10px;
       margin-bottom: 20px;
-      height: 150px;
+      height: auto;
+      max-height: 150px;
+      min-height: 55px;
       overflow: hidden;
     }
 
@@ -103,11 +105,17 @@
 
     .details {
       width: calc(100% - 150px);
-      height: 150px;
+      height: auto;
+      max-height: 150px;
+      min-height: 55px;
       display: flex;
       justify-content: flex-start;
       align-items: flex-start;
       flex-direction: column;
+    }
+    .full {
+      width: calc(100%);
+      padding: 0px 10px;
     }
     h3, h5, a {
       text-overflow: ellipsis;
@@ -126,7 +134,8 @@
 
     h5 {
       font-family: sans-serif;
-      height: 90px;
+      max-height: 90px;
+      height: auto;
       line-height: 15px;
       font-size: 15px;
       font-weight: 300;
