@@ -23,7 +23,7 @@ function GetPreview() {
     .then(json => {
       let url;
       console.log(json);
-      if (!json.error && json.url) url = new URL(json.url);
+      if (!json.error && json.url !== "") url = new URL(json.url);
       const html = ` 
        <div class="img-cont">
         <img src="${json.image}" onerror="addimg(this)">
@@ -31,9 +31,9 @@ function GetPreview() {
        <div class="details">
         ${json.title && `<h3>${json.title}</h3>`}
         ${json.description && `<h5>${json.description}</h5>`}
-        ${(json.url && url) && `<a href="${json.url}">${url && url.hostname}</a>`}
+        ${(json.url !== "" && url) && `<a href="${json.url}">${url && url.hostname}</a>`}
         </div>`;
-      if (json.error && !json.url) {
+      if (json.error || json.url === "") {
         alert(json.description);
         NewElment.remove();
       }else {
