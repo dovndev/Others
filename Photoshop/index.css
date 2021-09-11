@@ -1,0 +1,51 @@
+@font-face {
+    src: url("../Google/Sansation_Light.ttf");
+    format: ("truetype");
+    font-family: "sansationlight";
+  }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sansationlight;
+}
+body {
+    height: 100vh;
+    width: 100%;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 30px;
+    background-color: rgb(46, 46, 46);
+}
+.title h4 {
+    color: wheat;
+    transition: 0.2s;
+}
+.title h4:hover {
+    color: thistle;
+}
+.main-options {
+    padding-left: 10px;
+}
+.extra-options {
+    padding-right: 10px;
+}
+.main-options ul ,.extra-options ul {
+    display: flex;
+    justify-content: center;
+    color: white;
+}
+.main-options ul li, .extra-options ul li {
+    list-style-type: none;
+    padding: 5px;
+    font-size: 14px;
+    transition: 0.2s;
+}
+.main-options ul li:hover, .extra-options ul li:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
