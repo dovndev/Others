@@ -34,7 +34,7 @@ function GetPreview() {
         ${(json.url !== "" && url) && `<a href="${json.url}">${url && url.hostname}</a>`}
         </div>`;
       if (json.error || json.url === "") {
-        alert(json.description);
+        alert((json.description !== "") ? json.description : "Cannot find any preview for the requested Link");
         NewElment.remove();
       }else {
         NewElment.style.border = '2px solid cornflowerblue';
