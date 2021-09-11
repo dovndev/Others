@@ -1,139 +1,149 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title></title>
-    
-<style type="text/css" media="all">
- 
-  @font-face{
-  src:url('../Google/Sansation_Light.ttf');
-  format:('truetype');
-  font-family: "sansationlight";
- }
-  *{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: sansationlight;
-  color: white;
-  }
-  body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(to bottom right, #0a005f, #2E00FF);
-  }
-  #cont{
-    max-width: 600px;
-    width: 100%;
-    animation: display 1s ease-in;
-  }
-  h2{
-    position: relative;
-    display: block;
-    color: white;
-    text-transform: uppercase;
-    font-weight: lighter;
-  }
-  #time{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 2px solid white;
-    border-radius: 20px;
-    padding: 30px;
-    
-  }
-  @keyframes display {
-    0%{
-opacity: 0;    }
-    50%{
-opacity: 1;    }
-  }
-  #hours, #minutes, #seconds{
-    font-size: 4.5vh;
-    
-    color: white;
-  }
-  #hours{
-    }
-  #minutes {
 
-  }
-  #seconds{
+    <style type="text/css" media="all">
+      @font-face {
+        src: url("../Google/Sansation_Light.ttf");
+        format: ("truetype");
+        font-family: "sansationlight";
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: sansationlight;
+        color: white;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(to bottom right, #03001b, #2e00ff);
+      }
+      #cont {
+        max-width: 700px;
+        width: 100%;
+        animation: display 1s ease-in;
+        padding: 20px;
+      }
+      h3 {
+        position: relative;
+        display: block;
+        color: white;
+        text-transform: uppercase;
+        font-weight: lighter;
+        margin-bottom: 25px;
+        font-size: 22px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      #time {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 2px solid white;
+        border-radius: 20px;
+        padding: 40px;
+        overflow: hidden;
+      }
+      @keyframes display {
+        0% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+      #hours,
+      #minutes,
+      #seconds {
+        font-size: 4.5vh;
+        color: #c6d4f8;
+        line-height: 35px;
+        cursor: pointer;
+      }
+      #hours {
+        margin-left: 70px;
+      }
+      #minutes {
+        margin-left: 40px;
+      }
+      #seconds {
+        margin-left: 10px;
+      }
+      #h_indic,
+      #m_indic,
+      #s_indic {
+        opacity: 0;
+        transition: 0.5s ease-in-out;
+        color: #bebebe;
+      }
+      #ampm {
+        color: white;
+        border: 2px solid white;
+        padding: 10px;
+        border-radius: 10px;
+        line-height: 45px;
+        margin-bottom: -20px;
+        margin-left: 30px;
+        cursor: pointer;
+      }
+      #hours:hover + span {
+        opacity: 1;
+      }
+      #minutes:hover + span {
+        opacity: 1;
+      }
+      #seconds:hover + span {
+        opacity: 1;
+      }
+    </style>
+  </head>
 
-  }
-  #h_indic, #m_indic, #s_indic{
-    opacity: 0;
-    transition: 0.5s ease-in-out;
-    color: #bebebe;
-  }
-  #ampm{
- 
-    color: white;
-    border: 1px solid white;
-    padding: 5px;
-    border-radius: 10px;
-  }
-  #hours:hover + span{
-    opacity: 1;
-  }
-  #minutes:hover + span{
-    opacity: 1;
-  }
-  #seconds:hover + span{
-    opacity: 1;
-  }
-</style>
-    
-</head>
+  <body>
+    <section id="cont">
+      <div id="time">
+        <h3>your time is good !</h3>
+        <div><span id="hours"></span><span id="h_indic">Hours</span></div>
+        <div><span id="minutes"></span><span id="m_indic">Minutes</span></div>
+        <div><span id="seconds"></span><span id="s_indic">Seconds</span></div>
+        <div><span id="ampm"></span></div>
+      </div>
+    </section>
 
-<body>
-<section id="cont">
-  
-  <div id="time">
-    <h2>your time is good !</h2>
-    <div><span id="hours"></span><span id="h_indic">Hours</span></div>
-    <div><span id="minutes" ></span><span id="m_indic">Minutes</span></div>
-    <div><span id="seconds"></span><span id="s_indic">Seconds</span>
-    </div>
-    <div><span id="ampm"></span></div>
-  </div>
-</section>
+    <script type="text/javascript" charset="utf-8">
+      function clock() {
+        var hours = document.getElementById("hours");
+        var minutes = document.getElementById("minutes");
+        var seconds = document.getElementById("seconds");
+        var am = document.getElementById("ampm");
+        var d = new Date();
 
-<script type="text/javascript" charset="utf-8">
-function clock(){
-  var hours = document.getElementById('hours');
-  var minutes = document.getElementById('minutes');
-  var seconds = document.getElementById('seconds');
-  var am = document.getElementById('ampm');
-  var d = new Date();
-  
-  var h = d.getHours();
-  var m = d.getMinutes();
-  var s = d.getSeconds();
-  var ampm = "AM";
-  
-  if(h > 12){
-    h = h - 12;
-    var ampm = "PM"
-  }
-  
-  h = (h < 10) ? "0" + h : h
-  m = (m < 10) ? "0" + m : m
-  s = (s < 10) ? "0" + s : s
-  
-  hours.innerHTML = h;
-  minutes.innerHTML = m;
-  seconds.innerHTML = s;
-  am.innerHTML = ampm;
-  }
-  setInterval(clock,10);
-</script>
-</body>
+        var h = d.getHours();
+        var m = d.getMinutes();
+        var s = d.getSeconds();
+        var ampm = "AM";
 
+        if (h > 12) {
+          h = h - 12;
+          var ampm = "PM";
+        }
+
+        h = h < 10 ? "0" + h : h;
+        m = m < 10 ? "0" + m : m;
+        s = s < 10 ? "0" + s : s;
+
+        hours.innerHTML = h;
+        minutes.innerHTML = m;
+        seconds.innerHTML = s;
+        am.innerHTML = ampm;
+      }
+      setInterval(clock, 10);
+    </script>
+  </body>
 </html>
