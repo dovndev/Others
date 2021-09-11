@@ -21,6 +21,7 @@ function GetPreview() {
   fetch(`https://api.linkpreview.net/?key=44ab599c49f52aa82bb84040cf5d3748&q=${input.value}`)
     .then(res => res.json())
     .then(json => {
+      let notok = (!json.description && !json.image && !json.title);
       let url;
       console.log(json);
       if (!json.error && json.url !== "") url = new URL(json.url);
@@ -33,7 +34,7 @@ function GetPreview() {
         ${json.description && `<h5>${json.description}</h5>`}
         ${(json.url !== "" && url) && `<a href="${json.url}">${url && url.hostname}</a>`}
         </div>`;
-      if (json.error || json.url === "") {
+      if (json.error || json.url === "" || notok) {
         alert((json.description !== "") ? json.description : "Cannot find any preview for the requested Link");
         NewElment.remove();
       }else {
