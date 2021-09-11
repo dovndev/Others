@@ -40,6 +40,15 @@
     border: 2px solid white;
     border-radius: 20px;
     padding: 30px;
+    animation: display 1s ease-in;
+  }
+  @keyframes display {
+    0%{
+      display: none;
+    }
+    50%{
+      display: flex;
+    }
   }
   #hours, #minutes, #seconds{
     font-size: 4.5vh;
