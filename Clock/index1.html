@@ -20,6 +20,11 @@
     box-sizing: border-box;
     font-family: sansationlight;
   }
+section {
+    display: flex;
+    flex-direction: column;
+}
+
   body{
     display: flex;
     justify-content: center;
@@ -79,12 +84,13 @@
     background: #ec0062;
   }
   #ampm{
-    position: absolute;
-    top: 74%;
-    right: 6%;
-    width: 60px;
-    height: 40px;
-    font-size: 1.5em;
+    align-self: flex-end;
+    margin: 10px;
+    text-align: center;
+    width: 50px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 1.2em;
     background: #fff;
     color: #000;
     -webkit-box-reflect: below 1px linear-gradient(transparent,#0004);
@@ -102,7 +108,7 @@
     <div><span id="Minutes">00</span><span>Minutes</span></div>
     <div><span id="Seconds">00</span><span>Seconds</span></div>
   </div>
-  <div><span id="ampm">AM</span></div>
+  <span id="ampm">AM</span>
   </section>
 
 
