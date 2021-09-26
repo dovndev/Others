@@ -4,16 +4,16 @@ const useCallback = React.useCallback;
 const useRef = React.useRef
 
 const useLocalStorage1 = (key, initialvalue) => {
-  const [value, setvalue] = useState(initialvalue);
+  const [value1, setvalue] = useState(initialvalue);
   useEffect(() => {
     const savedvalue = JSON.parse(localStorage.getItem(key));
     if (savedvalue != null) setvalue(savedvalue);
   }, [])
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(value));
-  }, [value]);
+    localStorage.setItem(key, JSON.stringify(value1));
+  }, [value1]);
   
-  return [value, setvalue];
+  return [value1, setvalue];
 }
 
 
