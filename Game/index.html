@@ -15,65 +15,74 @@
           <span class="circle-2">
             <span class="circle-3">
               <span class="circle-4">
-                <span class="circle-5">
-                </span>
+                <span class="circle-5"> </span>
               </span>
             </span>
           </span>
         </span>
-        <img src="./img/board-stand.png" alt="">
+        <img src="./img/board-stand.png" alt="stand" />
+        <span class="ground"></span>
       </div>
+      <!-- <span class="arrow">↥</span> -->
     </section>
 
     <script type="text/javascript" charset="utf-8">
-      // bullet add
-      document.addEventListener("click", function (e) {
-        let section = document.querySelector("section");
-        let bullet = document.createElement("span");
-        let x = e.offsetX;
-        let y = e.offsetY;
-        bullet.classList.add("bullet");
-        bullet.style.left = x + "px";
-        bullet.style.top = y + "px";
-        section.appendChild(bullet);
+        // arrow add
+        const section = document.querySelector("section");
+        let NewArrow;
+        function AddArrow() {
+          NewArrow = document.createElement('span');
+          NewArrow.classList.add("arrow")
+          NewArrow.innerText = "↥";
+          NewArrow.style.top = "400px";
+          NewArrow.style.left = "45%";            
+          section.appendChild(NewArrow);
+        } 
+        AddArrow();
+        document.addEventListener("click", function (e) {
+          const top = e.clientY >= 400 ? 400 : e.clientY;
+          NewArrow.style.top = top + "px";
+          NewArrow.style.left = e.clientX + "px";
+          console.log(e.clientY, e.clientX)
+          AddArrow();
+          // let arrow = document.getElementsByClassName("arrow");
+          // arrow.style.top = "40px";
+          // // arrow sound
+        //  let sound = document.querySelector("audio");
+        //  sound.play();
+          // setTimeout(function () {
+          //   arrow.remove();
+          // }, 1000);
+        });
+          // show blood
+          // let blood = document.createElement("span");
+          // blood.classList.add("blood");
+          // let random_num = Math.floor(Math.random() * 4);
+          // let raktham = `url(./img/blood${random_num}.png)`;
+          // blood.style.backgroundImage = raktham;
+          // let pos1 = Math.floor(Math.random() * 500);
+          // let pos2 = Math.floor(Math.random() * 500);
+          // blood.style.position = "absolute";
+          // blood.style.top = pos1 + "px";
+          // blood.style.left = pos2 + "px";
+          // section.appendChild(blood);
 
-        // bullet sound
-        let sound = document.querySelector("audio");
-        sound.play();
+          // arrow and blood delete
 
-        // show blood
-        let blood = document.createElement("span");
-        blood.classList.add("blood");
-        let random_num = Math.floor(Math.random() * 4);
-        let raktham = `url(./img/blood${random_num}.png)`;
-        blood.style.backgroundImage = raktham;
-        let pos1 = Math.floor(Math.random() * 500);
-        let pos2 = Math.floor(Math.random() * 500);
-        blood.style.position = "absolute";
-        blood.style.top = pos1 + "px";
-        blood.style.left = pos2 + "px";
-        section.appendChild(blood);
 
-        // bullet and blood delete
-        setTimeout(function () {
-          bullet.remove();
-          blood.remove();
-        }, 4000);
-      });
-
-      //kunnunnichettayeede idea
-      /* let blood = document.createElement('span');
-    blood.classList.add('blood');
-    let random_num = Math.floor(Math.random() * 4 + 1);
-    let raktham = `url(./img/blood${random_num}.png)`;
-    blood.style.backgroundImage = raktham;
-    console.log(x+','+y);
-    x += Math.floor(Math.random() * 200 + 50);
-    y += Math.floor(Math.random() * 400 + 50);
-    blood.style.left = x + "px";
-    blood.style.top = y + "px";
-    section.appendChild(blood);
-    console.log(x+','+y); */
+        //kunnunnichettayeede idea
+        /* let blood = document.createElement('span');
+      blood.classList.add('blood');
+      let random_num = Math.floor(Math.random() * 4 + 1);
+      let raktham = `url(./img/blood${random_num}.png)`;
+      blood.style.backgroundImage = raktham;
+      console.log(x+','+y);
+      x += Math.floor(Math.random() * 200 + 50);
+      y += Math.floor(Math.random() * 400 + 50);
+      blood.style.left = x + "px";
+      blood.style.top = y + "px";
+      section.appendChild(blood);
+      console.log(x+','+y); */
     </script>
   </body>
 </html>
