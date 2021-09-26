@@ -3,7 +3,7 @@ const useState = React.useState;
 const useCallback = React.useCallback;
 const useRef = React.useRef
 
-const useLocalStorage = (key, initialvalue) => {
+const useLocalStorage1 = (key, initialvalue) => {
   const [value, setvalue] = useState(initialvalue);
   useEffect(() => {
     const savedvalue = JSON.parse(localStorage.getItem(key));
@@ -38,10 +38,10 @@ const Mapper = ({ notes, Addednote, handledelete }) => {
 }
 
 const App = () => {
-  const [notes, setnotes] = useLocalStorage('notes', []);
-  const [theme, settheme] = useLocalStorage('theme', true);
+  const [notes, setnotes] = useLocalStorage1('notes', []);
+  const [theme, settheme] = useLocalStorage1('theme', true);
   const [newNote, setnewNote] = useState('');
-  const [EnterSend, setEnterSend] = useLocalStorage('EnterSend', false);
+  const [EnterSend, setEnterSend] = useLocalStorage1('EnterSend', false);
   const [isNote, setisNote] = useState(true);
   const [nav, setnav] = useState(false);
   const textarea = useRef();
