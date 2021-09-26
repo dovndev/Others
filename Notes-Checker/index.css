@@ -208,6 +208,19 @@ textarea::placeholder {
   border-radius: 10px;
   transition: all 0.3s;
 }
+.check {
+  height: 100%;
+  width: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #B6B7B7;
+  border-left: none;
+}
+.check input {
+  height: 20px;
+  width: 20px;
+}
 .show {
   background-color: rgba(255, 255, 255, 0.3);
 }

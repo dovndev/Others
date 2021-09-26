@@ -25,6 +25,9 @@ const Mapper = ({ notes, Addednote, handledelete }) => {
         <p>{item.body.map((line) => (
           <div class="line">{line}</div>
         ))}</p>
+        <form className="check">
+          <input type="checkbox" unchecked />
+        </form>
         <button onClick={e => handledelete(e, item.id)} className="delete">&times;</button>
       </div>
       )
