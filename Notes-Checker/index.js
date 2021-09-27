@@ -3,21 +3,22 @@ const useState = React.useState;
 const useCallback = React.useCallback;
 const useRef = React.useRef
 
-const useLocalStorage1 = (key, initialvalue) => {
-  const [value1, setvalue] = useState(initialvalue);
+const useLocalStorage = (key, initialvalue) => {
+  const [value, setvalue] = useState(initialvalue);
   useEffect(() => {
     const savedvalue = JSON.parse(localStorage.getItem(key));
     if (savedvalue != null) setvalue(savedvalue);
   }, [])
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(value1));
-  }, [value1]);
+    localStorage.setItem(key, JSON.stringify(value));
+    console.log('ran')
+  }, [value]);
   
-  return [value1, setvalue];
+  return [value, setvalue];
 }
 
 
-const Mapper = ({ notes, Addednote, handledelete }) => {
+const Mapper = ({ notes, Addednote, handledelete/* , handleEdit*/ }) => {
   if (notes.length !== 0) {
     return notes.map((item, index) => {
       return (<div ref={(notes.length - 1 === index) ? Addednote : null } className="notes" key={item.id}>
@@ -26,7 +27,7 @@ const Mapper = ({ notes, Addednote, handledelete }) => {
           <div class="line">{line}</div>
         ))}</p>
         <form className="check">
-          <input type="checkbox" unchecked />
+          <input type="checkbox" /*checked={item.checked} onChange={(e) => handleEdit(item.id)}*//>
         </form>
         <button onClick={e => handledelete(e, item.id)} className="delete">&times;</button>
       </div>
@@ -38,10 +39,10 @@ const Mapper = ({ notes, Addednote, handledelete }) => {
 }
 
 const App = () => {
-  const [notes, setnotes] = useLocalStorage1('notes', []);
-  const [theme, settheme] = useLocalStorage1('theme', true);
+  const [notes, setnotes] = useLocalStorage('notes-checker', []);
+  const [theme, settheme] = useLocalStorage('theme-checker', true);
   const [newNote, setnewNote] = useState('');
-  const [EnterSend, setEnterSend] = useLocalStorage1('EnterSend', false);
+  const [EnterSend, setEnterSend] = useLocalStorage('EnterSend-checker', false);
   const [isNote, setisNote] = useState(true);
   const [nav, setnav] = useState(false);
   const textarea = useRef();
@@ -58,13 +59,7 @@ const App = () => {
   useEffect(() => {
     textarea.current.focus();
   }, []);
-  
-  useEffect(() => {
-    const array = ['diaryTable', 'diaryNotes', 'diaryTheme', 'diaryPage']
-    array.forEach((i) => {
-      localStorage.removeItem(i);
-    })
-  }, [])
+
   
   useEffect(() => {
     CheckIsNote();
@@ -87,27 +82,36 @@ const App = () => {
     if (isNote) {
       setnotes([...notes, {
         id: new Date().getTime(),
-        body: newNote.trim().split(/\n/g)
+        body: newNote.trim().split(/\n/g),
+        checked: false
       }]);
       setnewNote('');
     }else return;
   }, [isNote, newNote])
   
-  const handledelete = useCallback((e, id) => {
-    e.target.parentNode.classList.add('delete-anim');
-    
-    setTimeout(() => {
-      setnotes(notes.filter(note => note.id !== id));
-    }, 300);
-  }, [notes])
+    const handledelete = useCallback((e, id) => {
+      e.target.parentNode.classList.add('delete-anim');
+      
+      setTimeout(() => {
+        setnotes(notes.filter(note => note.id !== id));
+      }, 300);
+    }, [notes])
 
-  const removeall = useCallback(() => {
-    if (confirm(`delete all notes from storage`)) {
-        setnotes([]);
-    } else {
+    const removeall = useCallback(() => {
+      if (confirm(`delete all notes from storage`)) {
+          setnotes([]);
+      } else {
       return;
     }
   }, [])
+
+  // const handleEdit = useCallback((id) => {
+  //   const index = notes.indexOf(notes.find((i) => i.id === id));
+  //   let newNotes = notes;
+  //   newNotes[index].checked = true;
+  //   console.log(newNotes)
+  //   setnotes(newNotes);
+  // }, [notes])
   
   const handleEnter = useCallback(() => {
     let text = EnterSend ? 'Enter key will not save note' : 'Enter key will save note';
@@ -152,7 +156,7 @@ const App = () => {
 
       <div className="container">
        {notes &&
-        <Mapper notes={notes} Addednote={Addednote} handledelete={handledelete} />
+        <Mapper notes={notes} Addednote={Addednote} handledelete={handledelete} /*handleEdit={handleEdit}*/ />
        }
       </div>
       {nav && 

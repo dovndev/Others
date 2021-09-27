@@ -57,13 +57,6 @@ const App = () => {
   }, []);
   
   useEffect(() => {
-    const array = ['diaryTable', 'diaryNotes', 'diaryTheme', 'diaryPage']
-    array.forEach((i) => {
-      localStorage.removeItem(i);
-    })
-  }, [])
-  
-  useEffect(() => {
     CheckIsNote();
     updateInputSize();
   }, [newNote]);
