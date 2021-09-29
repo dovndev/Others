@@ -16,12 +16,12 @@ function ChangeSrc() {
 
 function loadImages() {
   let i;
-  for (i = 0; i < 10; i++) {
+  for (i = 0; i < 11; i++) {
     fetch(`./Images/Img${i}.jpg`)
   }
 }
 
-loadImages();
+window.onload = loadImages;
 
 function Start() {
   setInterval(ChangeSrc , 4000);
