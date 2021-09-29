@@ -26,9 +26,12 @@ body p {
   text-align: center;
 }
 body img {
-  height: 80%;
+  max-height: 80%;
+  width: auto;
+  min-width: 80%;
+  max-width: 80%;
+  height: auto;
   object-fit: cover;
-  width: 80%;
   border-radius: 20px;
   box-shadow: 15px 15px 15px #929292;
   opacity: 1;
