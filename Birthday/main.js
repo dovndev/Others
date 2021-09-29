@@ -14,6 +14,15 @@ function ChangeSrc() {
   }, 1000)
 }
 
+function loadImages() {
+  let i;
+  for (i = 0; i < 10; i++) {
+    fetch(`./Images/Img${i}.jpg`)
+  }
+}
+
+loadImages();
+
 function Start() {
   setInterval(ChangeSrc , 4000);
   cover.style.display = 'none';
