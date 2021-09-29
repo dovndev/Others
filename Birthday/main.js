@@ -13,6 +13,7 @@ function ChangeSrc() {
     index++;
   }, 1000)
 }
+
 function Start() {
   setInterval(ChangeSrc , 4000);
   cover.style.display = 'none';
