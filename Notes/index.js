@@ -108,6 +108,16 @@ Start();
 
 let NavDisplay = 'none';
 
+function CheckEmpty() {
+  if (Notes.length === 0) {
+    container.innerHTML = '<div class="nonotes">No Saved Notes</div>';
+  }else{
+    let elmnt = document.querySelector('.nonotes');
+    if (elmnt) elmnt.remove();
+  }
+}
+CheckEmpty();
+
 function ValidateInput() {
   if (textarea.value.match(RegPattern))
   {
@@ -167,6 +177,7 @@ function HandleTheme() {
   Theme = !Theme;
   UpdateTheme();
   SetLocal(THEME_KEY,Theme);
+  HandleNav();
 }
 
 function RemoveAll() {
@@ -175,6 +186,8 @@ function RemoveAll() {
     SetLocal(NOTES_KEY, Notes);
     UpdateHtml();
   }
+  HandleNav();
+  CheckEmpty();
 }
 
 function HandleEnterSend() {
@@ -182,16 +195,17 @@ function HandleEnterSend() {
     EnterSend = !EnterSend;
     SetLocal(ENTERSEND_KEY, EnterSend);
   }
+  HandleNav();
 }
 
 function HandleDelete(e, id) {
   const item = e.target.parentNode;
   HandleClass(ADD,item,'delete-anim');
-  setTimeout(() => {
-    item.remove();
-  },300)
+  item.style.height = getComputedStyle(item).height;
+  setTimeout(() => item.remove(),500);
   Notes = Notes.filter(i => i.id !== id);
   SetLocal(NOTES_KEY, Notes);
+  CheckEmpty();
 }
 
 function HandleEdit(e, id) {
@@ -213,4 +227,5 @@ function AddNote() {
   textarea.value = '';
   HandleNewNote();
   SetLocal(NOTES_KEY, Notes);
+  CheckEmpty();
 }
