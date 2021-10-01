@@ -9,25 +9,40 @@
   <link rel="stylesheet" href="index.css"/>
 </head>
 <body>
-  <div id="root" class="root">
-    <span class="preloader">Loading</span>
+<div class="root">
+  <div class="preloader">
+    <span>Loading</span>
   </div>
-  <script>
-    let theme = JSON.parse(localStorage.getItem('theme'));
-    if (theme !== null) {
-     let background = theme ? 'white' : 'black';
-     let color = theme == false ? 'white' : 'black'
-     const elmnt = document.querySelector('.root');
-     elmnt.style.background = background;
-     elmnt.style.color = color;
-    }
-  </script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
- 
-  <script type="text/babel" src="index.js"></script>
- 
+  
+  <div class="header">
+    <p>Notebook</p>
+    <i onclick="HandleNav()" class="fa fa-bars"></i>
+  </div>
+    
+  <div class="form">
+    <textarea class="textarea" rows="1" placeholder="Type a note" oninput="HandleNewNote()">
+    </textarea>
+    <button onclick="AddNote()" class="save">
+      <span>save</span>
+    </button>
+  </div>
+
+  <div class="container">
+   
+  </div>
+  
+  <div class="nav-cont" onclick="HandleNav()"></div>
+  
+  <div class="nav">
+    <div onclick="HandleEnterSend()">Enter is save</div>
+    <div onclick="HandleTheme()" id="themebtn">Theme</div>
+    <div onclick="RemoveAll()">Clear storage</div>
+  </div>
+  
+</div>
+
+<script src="index.js"></script>
+
 </body>
 
 </html>
