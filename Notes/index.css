@@ -178,7 +178,7 @@ textarea::placeholder {
   margin-left: 2px;
 }
 .save {
-  width: auto;
+  width: 70px;
 }
 .nosave {
   width: 0px;
@@ -233,6 +233,9 @@ textarea::placeholder {
     transform: translateX(-100%);
   }
 }
+.completed + p {
+  text-decoration: line-through;
+}
 .notes p {
   color: inherit;
   user-select: all;
@@ -273,6 +276,13 @@ textarea::placeholder {
   font-weight: bold;
   text-align: center;
   cursor: pointer;
+}
+.edit {
+  border-radius: 5px 0px 0px 5px;
+  background-color: rgb(43, 248, 53);
+}
+.completed {
+  background-color: crimson;
 }
 .nonotes {
   font-size: 20px;

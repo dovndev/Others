@@ -49,9 +49,9 @@ function GetData() {
 function NoteHtml(item, num) {
   return `
     <div class="notes">
-      <span class="num">
-        ${ num }
-      </span>
+      <button onclick="HandleEdit(event, ${item.id})" class="delete edit ${item.completed ? 'completed':''}">
+      ${item.completed ? '&times;':'&check;'}
+      </button>
       <p>
       ${item.body.map((line) => {
         return `
@@ -75,7 +75,9 @@ function UpdateHtml() {
 function HandleClass(method, elmnt, className) {
   switch (method) {
     case REMOVE : elmnt.classList.remove(className);
+         break; 
     case ADD : elmnt.classList.add(className);
+         break;
   }
 }
 
@@ -111,17 +113,18 @@ function ValidateInput() {
   {
     if (IsNote) {
       IsNote = false;
-      HandleClass(REMOVE, savebtn, 'nosave');
-      HandleClass(REMOVE, textarea, 'notextarea');
+      HandleClass(ADD, savebtn, 'nosave');
+      HandleClass(ADD, textarea, 'notextarea');
     }else return;
   } else {
     if (!IsNote) {
       IsNote = true;
-      HandleClass(ADD, savebtn, 'nosave');
-      HandleClass(ADD, textarea, 'notextarea');
+      HandleClass(REMOVE, savebtn, 'nosave');
+      HandleClass(REMOVE, textarea, 'notextarea');
     }else return;
   }
 }
+ValidateInput();
 
 function CheckEnterKey() {
   let i = 0;
@@ -183,7 +186,7 @@ function HandleEnterSend() {
 
 function HandleDelete(e, id) {
   const item = e.target.parentNode;
-  item.classList.add('delete-anim');
+  HandleClass(ADD,item,'delete-anim');
   setTimeout(() => {
     item.remove();
   },300)
@@ -191,11 +194,20 @@ function HandleDelete(e, id) {
   SetLocal(NOTES_KEY, Notes);
 }
 
+function HandleEdit(e, id) {
+  const item = Notes.find(i => i.id === id);
+  HandleClass(item.completed ? REMOVE : ADD,e.target,'completed');
+  e.target.innerHTML = item.completed ? '&check;' : '&times;';
+  item.completed = !item.completed;
+  SetLocal(NOTES_KEY,Notes);
+}
+
 function AddNote() {
   if (!IsNote) return;
   Notes = [{
       id: new Date().getTime(),
-      body: NewNote.trim().split(/\n/g)
+      body: NewNote.trim().split(/\n/g),
+      completed: false
     } , ...Notes]
   container.insertAdjacentHTML('afterbegin', NoteHtml(Notes[0], 1));
   textarea.value = '';
