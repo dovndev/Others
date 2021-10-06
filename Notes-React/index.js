@@ -23,7 +23,8 @@ const Mapper = ({ notes, handledelete, HandleEdit }) => {
         <div className="notes" key={item.id}>
           <button
             onClick={e => HandleEdit(item.id)}
-            class={`delete edit ${item.completed ? 'completed':''}`}
+            class={`delete edit${item.completed ? ' completed':''}`}
+            style={{fontSize: "24px"}}
           >
             {item.completed ? '\u2715' : '\u2713'}
           </button>
