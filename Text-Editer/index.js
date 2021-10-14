@@ -64,12 +64,15 @@ const Header = ({ openNav, run, setEditing, editing, live, layout }) => {
   return (
     <div className="systemheader">
       <div className="inputcontrols">
+        {layout == 5 && <h2>Text-Editer</h2>}
         {data.map((item) => (
           <HeaderButton
             className={`swiftbtn${editing === item.id ? " swiftbtn2" : ""}`}
             func={item.func}
             text={item.text}
-            Display={item.id === 4 ? !live : item.id === 3 ? layout == 0 : true}
+            Display={
+              item.id === 4 ? !live : item.id === 3 ? layout == 0 : layout != 5
+            }
           />
         ))}
       </div>
@@ -395,8 +398,9 @@ const App = () => {
 
   function copyCode(type) {
     const allCodes = [html, css, js, code];
-    navigator.clipboard.writeText(allCodes[type]);
-    alert(`copied \n ${allCodes[type]}`);
+    navigator.clipboard
+      .writeText(allCodes[type])
+      .then(() => alert(`copied \n ${allCodes[type]}`));
   }
 
   const createCode = useCallback(() => {
@@ -416,14 +420,15 @@ const App = () => {
   //   useEffects
 
   useEffect(() => {
-    if (isFullScreen) {
+    if (document.fullscreenElement === null && isFullScreen)
       document.documentElement.requestFullscreen();
-    } else {
+    if (document.fullscreenElement !== null && !isFullScreen)
       document.exitFullscreen();
-    }
   }, [isFullScreen]);
 
   useEffect(() => {
+    setCode(createCode());
+
     document.addEventListener("click", (e) => {
       if (e.target.id !== "nav-btn") {
         setNavOpen(false);
