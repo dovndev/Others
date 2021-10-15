@@ -67,7 +67,7 @@
   border: 2px solid white;
 }
 .no-scroll-bar::-webkit-scrollbar {
-  width: 5px;
+  width: 0px;
 }
 .loading-page {
   position: fixed;
