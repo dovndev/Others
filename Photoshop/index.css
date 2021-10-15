@@ -44,8 +44,53 @@ body {
     padding: 5px;
     font-size: 14px;
     transition: 0.2s;
-}
+} 
 .main-options ul li:hover, .extra-options ul li:hover {
     background: rgba(255, 255, 255, 0.3);
     border-radius: 3px;
+}
+.container{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 70%;
+    background: linear-gradient(to left bottom ,rgb(85, 0, 0), rgb(0, 0, 112));
+}
+.cont{
+    height: auto;
+    width: 60%;
+    border: 5px solid rgb(0, 0, 0);
+    border-radius: 10px;
+    margin: 20px;
+    transition: 0.3s;
+}
+.cont:hover{
+    border: 5px solid rgb(31, 31, 31);
+}
+.left-cont , .right-cont{
+    height: auto;
+    width: 30%;
+    border: 5px solid rgb(0, 0, 0);
+    border-radius: 10px;
+    margin: 20px;
+    transition: 0.3s;
+    background-color: rgb(32, 32, 32);
+}
+.bottom-options{
+    position: absolute;
+    bottom: 0;
+    height: 27%;
+    width: 100%;
+    background-color: black;
+    border-top: 5px solid rgb(66, 0, 0);
+    display: flex;
+    justify-content: space-around;
+}
+.bottuptions{
+    background-color: rgb(19, 0, 0);
+    height: auto;
+    width: 100%;
+    margin: 20px;
+    border: 2px solid rgb(70, 70, 70);
 }
