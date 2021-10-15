@@ -2,73 +2,73 @@
     src: url("../Google/Sansation_Light.ttf");
     format: ("truetype");
     font-family: "sansationlight";
-  }
-* {
+    }
+    * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: sansationlight;
-}
-body {
+    }
+    body {
     height: 100vh;
     width: 100%;
-}
-.header {
+    }
+    .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 30px;
     background-color: rgb(46, 46, 46);
-}
-.title h4 {
+    }
+    .title h4 {
     color: wheat;
     transition: 0.2s;
-}
-.title h4:hover {
+    }
+    .title h4:hover {
     color: thistle;
-}
-.main-options {
+    }
+    .main-options {
     padding-left: 10px;
-}
-.extra-options {
+    }
+    .extra-options {
     padding-right: 10px;
-}
-.main-options ul ,.extra-options ul {
+    }
+    .main-options ul ,.extra-options ul {
     display: flex;
     justify-content: center;
     color: white;
-}
-.main-options ul li, .extra-options ul li {
+    }
+    .main-options ul li, .extra-options ul li {
     list-style-type: none;
     padding: 5px;
     font-size: 14px;
     transition: 0.2s;
-} 
-.main-options ul li:hover, .extra-options ul li:hover {
+    }
+    .main-options ul li:hover, .extra-options ul li:hover {
     background: rgba(255, 255, 255, 0.3);
     border-radius: 3px;
-}
-.container{
+    }
+    .container{
     position: absolute;
     display: flex;
     justify-content: center;
     width: 100%;
     height: 70%;
     background: linear-gradient(to left bottom ,rgb(85, 0, 0), rgb(0, 0, 112));
-}
-.cont{
+    }
+    .cont{
     height: auto;
     width: 60%;
     border: 5px solid rgb(0, 0, 0);
     border-radius: 10px;
     margin: 20px;
     transition: 0.3s;
-}
-.cont:hover{
+    }
+    .cont:hover{
     border: 5px solid rgb(31, 31, 31);
-}
-.left-cont , .right-cont{
+    }
+    .left-cont , .right-cont{
     height: auto;
     width: 30%;
     border: 5px solid rgb(0, 0, 0);
@@ -76,8 +76,8 @@ body {
     margin: 20px;
     transition: 0.3s;
     background-color: rgb(32, 32, 32);
-}
-.bottom-options{
+    }
+    .bottom-options{
     position: absolute;
     bottom: 0;
     height: 27%;
@@ -86,11 +86,11 @@ body {
     border-top: 5px solid rgb(66, 0, 0);
     display: flex;
     justify-content: space-around;
-}
-.bottuptions{
+    }
+    .bottuptions{
     background-color: rgb(19, 0, 0);
     height: auto;
     width: 100%;
     margin: 20px;
     border: 2px solid rgb(70, 70, 70);
-}
+    }
