@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Others</title>
     <style type="text/css" media="all">
       * {
@@ -29,7 +28,8 @@
         overflow-y: auto;
         padding: 20px;
       }
-      div a,p {
+      div a,
+      p {
         box-sizing: border-box;
         display: block;
         text-decoration: none;
@@ -41,27 +41,50 @@
         border-radius: 10px;
         margin-bottom: 20px;
       }
-    
+
       p {
-       color: white;
-       background-color: black;
+        color: white;
+        background-color: black;
       }
     </style>
-</head>
+  </head>
 
-<body>
- <div id="cont">
- </div>
- <script type="text/javascript" charset="utf-8">
-   const folders = ['Birthday','Chennamkulath','Clock','Count-down','Notes','Firstbell','Freahmeat','Get-Free-Sub','Google','Link-Previewer','Photoshop','Joke','Kite-victers','Text-Editer','Load','Matrimonial','Game','IP-tracker','Music','Random-image','Rock-paper-scissors','Tools','Whatsapp'];
-   const container = document.getElementById('cont');
-   let text = '';
-   text += `<p>` + folders.length + '  projects' + `</p>`;
-   folders.forEach((folder) => {
-    text += `<a target="_blank" href="./` + folder + `">` + folder + `</a>`;
-   })
-   container.innerHTML = text;
- </script>
-</body>
-
+  <body>
+    <div id="cont"></div>
+    <script type="text/javascript" charset="utf-8">
+      const folders = [
+        "Birthday",
+        "Chennamkulath",
+        "Clock",
+        "Count-down",
+        "Notes",
+        "Firstbell",
+        "Freahmeat",
+        "Get-Free-Sub",
+        "Google",
+        "Link-Previewer",
+        "Photoshop",
+        "Joke",
+        "Kite-victers",
+        "Text-Editer",
+        "Load",
+        "Matrimonial",
+        "Game",
+        "IP-tracker",
+        "Music",
+        "Random-image",
+        "React",
+        "Rock-paper-scissors",
+        "Tools",
+        "Whatsapp",
+      ];
+      const container = document.getElementById("cont");
+      let text = "";
+      text += `<p>` + folders.length + "  projects" + `</p>`;
+      folders.forEach((folder) => {
+        text += `<a target="_blank" href="./` + folder + `">` + folder + `</a>`;
+      });
+      container.innerHTML = text;
+    </script>
+  </body>
 </html>
