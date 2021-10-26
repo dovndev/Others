@@ -7,7 +7,7 @@ const assets = [
   "/Notes/index.css",
   "https://unpkg.com/@babel/standalone/babel.min.js",
   "https://unpkg.com/react@17/umd/react.production.min.js",
-  "https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"
+  "https://unpkg.com/react-dom@17/umd/react-dom.production.min.js",
 ];
 
 // cache size limit function
@@ -55,10 +55,8 @@ self.addEventListener("fetch", (evt) => {
         cacheRes ||
         fetch(evt.request).then((fetchRes) => {
           return caches.open(dynamicCacheName).then((cache) => {
-              if (!avoiAssets.includes(evt.request.url)) {
-                  console.log(evt.request.url)
-                cache.put(evt.request.url, fetchRes.clone());
-              }
+            cache.put(evt.request.url, fetchRes.clone());
+
             // check cached items size
             limitCacheSize(dynamicCacheName, 15);
             return fetchRes;
