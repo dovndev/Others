@@ -4,6 +4,7 @@
   box-sizing: border-box;
 }
 html, body, .root, .html {
+  animation: start 0.4s ease-in-out;
   height: 100%;
   width: 100%;
   font-family: monospace;
@@ -15,6 +16,15 @@ html, body, .root, .html {
   justify-content: center;
   color: black;
   background-color: white;
+}
+
+.html {
+  animation: start 0.7s ease-in-out;
+}
+
+@keyframes start {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 .dark {
   color: white;
