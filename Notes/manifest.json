@@ -1,24 +1,24 @@
 {
     "name": "React NoteBook",
     "short_name": "NoteBook",
-    "start_url": "/Notes/",
+    "start_url": "/Others/Notes/",
     "display": "standalone",
     "background_color": "#000000",
     "theme_color": "#0A99FF",
     "orientation": "portrait-primary",
     "icons": [
       {
-        "src": "/Notes/icons/icon-72x72.png",
+        "src": "/Others/Notes/icons/icon-72x72.png",
         "type": "image/png",
         "sizes": "72x72"
       },
       {
-        "src": "/Notes/icons/icon-96x96.png",
+        "src": "/Others/Notes/icons/icon-96x96.png",
         "type": "image/png",
         "sizes": "96x96"
       },
       {
-        "src": "/Notes/icons/icon-128x128.png",
+        "src": "/Others/Notes/icons/icon-128x128.png",
         "type": "image/png",
         "sizes": "128x128"
       },
@@ -28,23 +28,23 @@
         "sizes": "144x144"
       },
       {
-        "src": "/Notes/icons/icon-152x152.png",
+        "src": "/Others/Notes/icons/icon-152x152.png",
         "type": "image/png",
         "sizes": "152x152"
       },
       {
-        "src": "/Notes/icons/icon-192x192.png",
+        "src": "/Others/Notes/icons/icon-192x192.png",
         "type": "image/png",
         "sizes": "192x192",
         "purpose": "any maskable"
       },
       {
-        "src": "/Notes/icons/icon-384x384.png",
+        "src": "/Others/Notes/icons/icon-384x384.png",
         "type": "image/png",
         "sizes": "384x384"
       },
       {
-        "src": "/Notes/icons/icon-512x512.png",
+        "src": "/Others/Notes/icons/icon-512x512.png",
         "type": "image/png",
         "sizes": "512x512"
       }
