@@ -151,7 +151,7 @@ const App = () => {
     <div className={theme ? "html" : "html dark"}>
       <div className="header">
         <p>Notebook</p>
-        <i onClick={handleNav} className="fa fa-bars"></i>
+        <span onClick={handleNav}>&#9776;</span>
       </div>
       <div className="form" onSubmit={saveNote}>
         <textarea

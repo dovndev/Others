@@ -1,43 +1,46 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Notes</title>
-  <script type="text/javascript" charset="utf-8" src="https://kit.fontawesome.com/399461c2e9.js" crossorigin="anonymous">
-  </script>
-  <link rel="stylesheet" href="index.css"/>
-  <link rel="manifest" href="/manifest.json">
-  <!-- ios support -->
-  <link rel="apple-touch-icon" href="/img/icons/icon-96x96.png">
-  <meta name="apple-mobile-web-app-status-bar" content=" #0A99FF">
-  <meta name="theme-color" content="#0A99FF">
-</head>
-<body>
-  <div id="root" class="root">
-    <span class="preloader">Loading</span>
-  </div>
-  <script>
-    let theme = JSON.parse(localStorage.getItem('Theme-React'));
-    if (theme !== null) {
-     let background = theme ? 'white' : 'black';
-     let color = theme == false ? 'white' : 'black'
-     const elmnt = document.querySelector('.root');
-     elmnt.style.background = background;
-     elmnt.style.color = color;
-     if('serviceWorker' in navigator){
-     navigator.serviceWorker.register('/sw.js')
-     .then(reg => console.log('service worker registered'))
-     .catch(err => console.log('service worker not registered', err));
-     }
-    }
-  </script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
- 
-  <script type="text/babel" src="index.js"></script>
- 
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Notes</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="manifest" href="manifest.json" />
+    <!-- ios support -->
+    <link rel="apple-touch-icon" href="icons/icon-96x96.png" />
+    <meta name="apple-mobile-web-app-status-bar" content=" #0A99FF" />
+    <meta name="theme-color" content="#0A99FF" />
+  </head>
+  <body>
+    <div id="root" class="root">
+      <span class="preloader">Loading</span>
+    </div>
+    <script>
+      let theme = JSON.parse(localStorage.getItem("Theme-React"));
+      if (theme !== null) {
+        let background = theme ? "white" : "black";
+        let color = theme == false ? "white" : "black";
+        const elmnt = document.querySelector(".root");
+        elmnt.style.background = background;
+        elmnt.style.color = color;
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker
+            .register("./sw.js")
+            .then((reg) => console.log("service worker registered"))
+            .catch((err) => console.log("service worker not registered", err));
+        }
+      }
+    </script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@17/umd/react.production.min.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"
+    ></script>
 
+    <script type="text/babel" src="react-ui.js"></script>
+  </body>
 </html>

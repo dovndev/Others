@@ -3,6 +3,10 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+:root {
+  --theme: #0A99FF; 
+}
 html, body, .root, .html {
   animation: start 0.4s ease-in-out;
   height: 100%;
@@ -72,14 +76,14 @@ html, body, .root, .html {
   margin: 0px 20px;
   margin-right: auto;
 }
-.header i {
+.header span {
   height: 100%;
   min-width: 50px;
   line-height: 50px;
   font-size: 30px;
   color: white;
   text-align: center;
-  background-color: #0A99FF;
+  background-color: var(--theme);
   border-left: 1px solid #B6B7B7;
   cursor: pointer;
   padding: 0px 5px;
@@ -102,7 +106,7 @@ html, body, .root, .html {
   height: auto;
   display: none;
   width: 250px;
-  background-color: #0A99FF;
+  background-color: var(--theme);
 }
 .nav div {
   width: 100%;
@@ -157,7 +161,7 @@ textarea::-webkit-scrollbar-track {
   border-radius: 20px;
 }
 textarea::-webkit-scrollbar-thumb {
-  background-color: #0A99FF;
+  background-color: var(--theme);
 }
 textarea::placeholder {
   color: inherit;
@@ -169,7 +173,7 @@ textarea::placeholder {
   font-size: 20px;
   border: none;
   border-radius: 0px 10px 10px 0px;
-  background-color: #0A99FF;
+  background-color: var(--theme);
   height: 100%;
   display: flex;
   justify-content: center;
@@ -207,7 +211,7 @@ textarea::placeholder {
   border-radius: 20px;
 }
 .container::-webkit-scrollbar-thumb {
-  background-color: #0A99FF;
+  background-color: var(--theme);
   border-radius: 5px;
 }
 .notes {
@@ -292,7 +296,7 @@ textarea::placeholder {
   border-radius: 0px 10px 10px 0px;
   color: white;
   border: none;
-  background-color: #0A99FF;
+  background-color: var(--theme);
   padding: 0;
   margin: 0;
   font-size: 30px;
