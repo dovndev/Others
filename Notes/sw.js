@@ -1,7 +1,10 @@
-const staticCacheName = "site-static-v2";
-const dynamicCacheName = "site-dynamic-v2";
-
-const assets = [
+const version = 1;
+const staticCacheName = `site-shell-assets-v${version}`;
+const dynamicCacheName = `site-dynamic-assets-v${version}`;
+const dynamicCacheLimit = 15;
+const skipWaiting = true;
+const clientsClaim = true;
+const shellAssets = [
   "/Others/Notes/",
   "/Others/Notes/index.html",
   "/Others/Notes/react-ui.js",
@@ -23,23 +26,22 @@ const limitCacheSize = (name, size) => {
 };
 
 // install event
-self.addEventListener("install", (evt) => {
-  //console.log('service worker installed');
-  evt.waitUntil(
+self.addEventListener("install", (event) => {
+  event.waitUntil(
     caches.open(staticCacheName).then((cache) => {
       console.log("caching shell assets");
-      cache.addAll(assets);
+      cache.addAll(shellAssets);
     })
   );
-  self.skipWaiting();
+  if (skipWaiting) self.skipWaiting();
+  console.log('update found and update installed')
 });
 
 // activate event
-self.addEventListener("activate", (evt) => {
-  //console.log('service worker activated');
-  evt.waitUntil(
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
     caches.keys().then((keys) => {
-      clients.claim();
+      if (clientsClaim) clients.claim();
       return Promise.all(
         keys
           .filter((key) => key !== staticCacheName && key !== dynamicCacheName)
@@ -50,16 +52,18 @@ self.addEventListener("activate", (evt) => {
 });
 
 // fetch events
-self.addEventListener("fetch", (evt) => {
-  evt.respondWith(
-    caches.match(evt.request).then((cacheRes) => {
+self.addEventListener("fetch", (event) => {
+  if (event.request.method != "GET") return;
+
+  event.respondWith(
+    caches.match(event.request).then((cacheRes) => {
       return (
         cacheRes ||
-        fetch(evt.request).then((fetchRes) => {
+        fetch(event.request).then((fetchRes) => {
           return caches.open(dynamicCacheName).then((cache) => {
-            cache.put(evt.request.url, fetchRes.clone());
+            cache.put(event.request.url, fetchRes.clone());
             // check cached items size
-            limitCacheSize(dynamicCacheName, 15);
+            limitCacheSize(dynamicCacheName, dynamicCacheLimit);
             return fetchRes;
           });
         })

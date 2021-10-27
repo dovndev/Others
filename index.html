@@ -52,7 +52,7 @@
   <body>
     <div id="cont"></div>
     <script type="text/javascript" charset="utf-8">
-      const folders = [
+      let folders = [
         "Birthday",
         "Chennamkulath",
         "Clock",
@@ -78,10 +78,11 @@
         "Tools",
         "Whatsapp",
       ];
+      let edited = folders.sort();
       const container = document.getElementById("cont");
       let text = "";
-      text += `<p>` + folders.length + "  projects" + `</p>`;
-      folders.forEach((folder) => {
+      text += `<p>` + edited.length + "  projects" + `</p>`;
+      edited.forEach((folder) => {
         text += `<a target="_blank" href="./` + folder + `">` + folder + `</a>`;
       });
       container.innerHTML = text;
