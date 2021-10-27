@@ -1,5 +1,5 @@
-const staticCacheName = "site-static-v1";
-const dynamicCacheName = "site-dynamic-v1";
+const staticCacheName = "site-static-v2";
+const dynamicCacheName = "site-dynamic-v2";
 const assets = [
   "/Others/Notes/",
   "/Others/Notes/index.html",
@@ -9,8 +9,6 @@ const assets = [
   "https://unpkg.com/react@17/umd/react.production.min.js",
   "https://unpkg.com/react-dom@17/umd/react-dom.production.min.js",
 ];
-
-const avoidFiles = ["/Others/Notes/manifest.json", "/Others/Notes/sw.js"];
 
 // cache size limit function
 const limitCacheSize = (name, size) => {
@@ -57,10 +55,7 @@ self.addEventListener("fetch", (evt) => {
         cacheRes ||
         fetch(evt.request).then((fetchRes) => {
           return caches.open(dynamicCacheName).then((cache) => {
-            if (!avoidFiles.includes(evt.request.url)) {
-              cache.put(evt.request.url, fetchRes.clone());
-            }
-
+            cache.put(evt.request.url, fetchRes.clone());
             // check cached items size
             limitCacheSize(dynamicCacheName, 15);
             return fetchRes;
