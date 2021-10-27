@@ -1,52 +1,62 @@
 {
-    "name": "React NoteBook",
-    "short_name": "NoteBook",
-    "start_url": "/Others/Notes/",
-    "display": "standalone",
-    "background_color": "#000000",
-    "theme_color": "#0A99FF",
-    "orientation": "portrait-primary",
-    "icons": [
-      {
-        "src": "/Others/Notes/icons/icon-72x72.png",
-        "type": "image/png",
-        "sizes": "72x72"
-      },
-      {
-        "src": "/Others/Notes/icons/icon-96x96.png",
-        "type": "image/png",
-        "sizes": "96x96"
-      },
-      {
-        "src": "/Others/Notes/icons/icon-128x128.png",
-        "type": "image/png",
-        "sizes": "128x128"
-      },
-      {
-        "src": "/Others/Notes/icons/icon-144x144.png",
-        "type": "image/png",
-        "sizes": "144x144"
-      },
-      {
-        "src": "/Others/Notes/icons/icon-152x152.png",
-        "type": "image/png",
-        "sizes": "152x152"
-      },
-      {
-        "src": "/Others/Notes/icons/icon-192x192.png",
-        "type": "image/png",
-        "sizes": "192x192",
-        "purpose": "any maskable"
-      },
-      {
-        "src": "/Others/Notes/icons/icon-384x384.png",
-        "type": "image/png",
-        "sizes": "384x384"
-      },
-      {
-        "src": "/Others/Notes/icons/icon-512x512.png",
-        "type": "image/png",
-        "sizes": "512x512"
-      }
-    ]
-  }
+  "name": "React NoteBook",
+  "short_name": "NoteBook",
+  "description": "Awesome application that will help you take notes.",
+  "categories": ["note", "books", "education", "notebook"],
+  "start_url": "/Others/Notes/",
+  "scope": "https://noelpaul.github.io/Others/Notes/",
+  "display": "standalone",
+  "orientation": "landscape-primary",
+  "background_color": "#000000",
+  "theme_color": "#0A99FF",
+  "shortcuts": [
+    {
+      "name": "Home Page",
+      "url": "/Others/Notes/",
+      "description": "Home Page Shortcut"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/Others/Notes/icons/icon-72x72.png",
+      "type": "image/png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "/Others/Notes/icons/icon-96x96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "/Others/Notes/icons/icon-128x128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "/Others/Notes/icons/icon-144x144.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "/Others/Notes/icons/icon-152x152.png",
+      "type": "image/png",
+      "sizes": "152x152"
+    },
+    {
+      "src": "/Others/Notes/icons/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/Others/Notes/icons/icon-384x384.png",
+      "type": "image/png",
+      "sizes": "384x384"
+    },
+    {
+      "src": "/Others/Notes/icons/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
