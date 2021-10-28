@@ -1,7 +1,5 @@
-const useEffect = React.useEffect;
-const useState = React.useState;
-const useCallback = React.useCallback;
-const useRef = React.useRef;
+const { useEffect, useState, useCallback, useRef } = React;
+
 
 const useLocalStorage = (key, initialvalue) => {
   const [value, setvalue] = useState(initialvalue);

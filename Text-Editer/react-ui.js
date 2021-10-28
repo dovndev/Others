@@ -1,4 +1,6 @@
 const { useEffect, useState, useCallback, useRef } = React;
+const Ace = ace;
+console.log(Ace);
 
 const useLocalStorage = (key, initialvalue) => {
   const [value, setvalue] = useState(initialvalue);
@@ -547,4 +549,4 @@ const App = () => {
   );
 };
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<Ace.Editor />, document.getElementById("root"));
