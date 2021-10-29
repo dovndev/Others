@@ -1,176 +1,210 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>WhatsApp,Telegram Check</title>
     <style type="text/css" media="all">
-    * {
-      font-family: monospace;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      background-color: #FFFFFF;
-    }
-    body {
-      width: 100%;
-      height: 90vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-    }
-    h1 {
-      text-align: center;
-      font-size: 34px;
-      color: #3D3D3D;
-      margin: 30px;
-    }
-     input {
-       border: none;
-       width: 100%;
-       height: 100%;
-       outline: none;
-       background-color: transparent;
-       font-size: 25px;
-     }
-     legend {
-       font-size: 20px;
-     }
-     fieldset {
-       display: flex;
-       justify-content: center;
-       align-items: center;
-       flex-direction: row;
-       border-color: black;
-       margin: 5px;
-       padding: 5px;
-       border-radius: 5px;
-     }
-     .fieldset1 {
-       width: 10%;
-     }
-     label {
-       font-size: 20px;
-     }
-     .fieldset2 {
-       width: 90%;
-     }
-     .bod {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      width: 100%;
-      flex-direction: column;
-      margin: 30px;
-     }
-     .cont {
-       width: 100%;
-       display: flex;
-       justify-content: space-around;
-       align-items: center;
-       margin: 30px;
-       padding-left: 20px;
-       padding-right: 20px;
-     }
-     button {
-       border-style: solid;
-       border-width: 0px 0px 0px 0px;
-       border-color: black;
-       background-color: #4EE4F4;
-       padding: 8px;
-       width: 45%;
-       font-size: 20px;
-       font-weight: normal;
-       font-family: sans-serif;
-     }
-     #cont2 {
-       display: none;
-     }
-     #btn1 {
-       border-width: 0px 0px 4px 0px;
-     }
+      * {
+        font-family: monospace;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background-color: #ffffff;
+      }
+      body {
+        width: 100%;
+        height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      h1 {
+        text-align: center;
+        font-size: 34px;
+        color: #3d3d3d;
+        margin: 30px;
+      }
+      input {
+        border: none;
+        width: 100%;
+        height: 100%;
+        outline: none;
+        background-color: transparent;
+        font-size: 25px;
+      }
+      legend {
+        font-size: 20px;
+      }
+      fieldset {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        border-color: black;
+        margin: 5px;
+        padding: 5px;
+        border-radius: 5px;
+      }
+      .fieldset1 {
+        width: 10%;
+      }
+      label {
+        font-size: 20px;
+      }
+      .fieldset2, .fieldset3 {
+        width: 90%;
+      }
+      .bod {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        flex-direction: column;
+        margin: 30px;
+      }
+      .cont {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin: 30px;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      button {
+        border-style: solid;
+        border-width: 0px 0px 0px 0px;
+        border-color: black;
+        background-color: #4ee4f4;
+        padding: 8px;
+        width: 25%;
+        font-size: 20px;
+        font-weight: normal;
+        font-family: sans-serif;
+      }
+      #cont2, #cont3 {
+        display: none;
+      }
+      #btn1 {
+        border-width: 0px 0px 4px 0px;
+      }
     </style>
-</head>
+  </head>
 
-<body>
- <h1>Account checking<br />Whatsapp,Telegram</h1>
- <div class="cont">
-   <button id="btn1" onclick="change()">Whatsapp</button>
-   <button id="btn2" onclick="changet()">Telegram</button>
- </div>
- <div id="bod" class="bod">
- <div id="cont" class="cont">
- <fieldset class="fieldset1"><legend>country</legend>
- <label for="country">+</label>
-  <input type="number" name="country" id="country" value="'+' + this.value" placeholder="1"/>
- </fieldset>
- <fieldset class="fieldset2"><legend>Number</legend>
-  <input type="number" name="Number" id="Number"/>
- </fieldset>
- </div>
- <div id="cont2" class="cont">
-  <fieldset class="fieldset2"><legend>Username</legend>
-  <input type="text" name="username" id="username"/>
- </fieldset>
- </div>
- <div id="go" class="cont">
-   <button onclick="whatsapp(`+`)">Go check</button>
- </div>
- </div>
- <script type="text/javascript" charset="utf-8">
- const cont = document.getElementById('cont');
- const cont2 = document.getElementById('cont2');
- const btn1 = document.getElementById('btn1');
- const btn2 = document.getElementById('btn2');
- const gocheck = document.getElementById('go');
- function change() {
-  btn1.style['border-width'] = '0px 0px 4px 0px';
-  btn2.style['border-width'] = '0px 0px 0px 0px';
-  cont2.style.display = 'none';
-  cont.style.display = 'flex';
-  gocheck.innerHTML = '<button onclick="whatsapp(`+`)">Go check</button>';
- }
- function changet() {
-  cont.style.display = 'none';
-  cont2.style.display = 'flex';
-  btn1.style['border-width'] = '0px 0px 0px 0px';
-  btn2.style['border-width'] = '0px 0px 4px 0px';
-  gocheck.innerHTML = '<button onclick="checkt()">Go check</button>';
- }
- function whatsapp(pl) {
-   let linkstart = "https://wa.me/"
-   let number = document.getElementById('Number').value;
-   let country = document.getElementById('country').value;
-   let link = linkstart + pl + country + number;
-   if (country == "") {
-   alert('enter your country code');
-   }else if (number == "") {
-    alert('enter your phone number');
-   }else {
-    if (number.length < 4) {
-     alert('phone number is too small');
-    }else if (number.length > 15) {
-     alert('phone number is too large');
-    }else if (country.length > 5) {
-     alert('country code is too large');
-    }else {
-     window.open(link , '_blank');
-    }
-   }
- }
- function checkt() {
-  let username = document.getElementById('username').value;
-  let linkstart = 'https://t.me/';
-  let link = linkstart + username;
-  if (username == "") {
-    alert('please enter a telegram username');
-  }else {
-    window.open(link , '_blank');
-  }
- }
- </script>
-</body>
+  <body>
+    <h1>Account checking<br />Whatsapp,Telegram</h1>
+    <div class="cont">
+      <button id="btn1" onclick="change()">Whatsapp</button>
+      <button id="btn2" onclick="changet()">Telegram</button>
+      <button id="btn3" onclick="changeI()">Instagram</button>
 
+    </div>
+    <div id="bod" class="bod">
+      <div id="cont" class="cont">
+        <fieldset class="fieldset1">
+          <legend>country</legend>
+          <label for="country">+</label>
+          <input
+            type="number"
+            name="country"
+            id="country"
+            value="'+' + this.value"
+            placeholder="1"
+          />
+        </fieldset>
+        <fieldset class="fieldset2">
+          <legend>Number</legend>
+          <input type="number" name="Number" id="Number" />
+        </fieldset>
+      </div>
+      <div id="cont2" class="cont">
+        <fieldset class="fieldset2">
+          <legend>Username</legend>
+          <input type="text" name="username" id="username" />
+        </fieldset>
+      </div>
+      <div id="cont3" class="cont">
+        <fieldset class="fieldset3">
+          <legend>Username</legend>
+          <input type="text" name="username" id="username" />
+        </fieldset>
+      </div>
+      <div id="go" class="cont">
+        <button onclick="whatsapp(`+`)">Go check</button>
+      </div>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+      const cont = document.getElementById("cont");
+      const cont2 = document.getElementById("cont2");
+      const btn1 = document.getElementById("btn1");
+      const btn2 = document.getElementById("btn2");
+      const gocheck = document.getElementById("go");
+      function change() {
+        btn1.style["border-width"] = "0px 0px 4px 0px";
+        btn2.style["border-width"] = "0px 0px 0px 0px";
+        cont2.style.display = "none";
+        cont.style.display = "flex";
+        gocheck.innerHTML = '<button onclick="whatsapp(`+`)">Go check</button>';
+      }
+      function changet() {
+        cont.style.display = "none";
+        cont2.style.display = "flex";
+        btn1.style["border-width"] = "0px 0px 0px 0px";
+        btn2.style["border-width"] = "0px 0px 4px 0px";
+        gocheck.innerHTML = '<button onclick="checkt()">Go check</button>';
+      }
+      function changeI() {
+        cont.style.display = "none";
+        cont2.style.display = "none";
+        cont2.style.display = "flex";
+        btn1.style["border-width"] = "0px 0px 0px 0px";
+        btn2.style["border-width"] = "0px 0px 0px 0px";
+        btn3.style["border-width"] = "0px 0px 4px 0px";
+        gocheck.innerHTML = '<button onclick="checkI()">Go check</button>';
+      }
+      function whatsapp(pl) {
+        let linkstart = "https://wa.me/";
+        let number = document.getElementById("Number").value;
+        let country = document.getElementById("country").value;
+        let link = linkstart + pl + country + number;
+        if (country == "") {
+          alert("enter your country code");
+        } else if (number == "") {
+          alert("enter your phone number");
+        } else {
+          if (number.length < 4) {
+            alert("phone number is too small");
+          } else if (number.length > 15) {
+            alert("phone number is too large");
+          } else if (country.length > 5) {
+            alert("country code is too large");
+          } else {
+            window.open(link, "_blank");
+          }
+        }
+      }
+      function checkt() {
+        let username = document.getElementById("username").value;
+        let linkstart = "https://t.me/";
+        let link = linkstart + username;
+        if (username == "") {
+          alert("please enter a telegram username");
+        } else {
+          window.open(link, "_blank");
+        }
+      }
+      function checkI() {
+        let username = document.getElementById("username").value;
+        let linkstart = "https://instagram.com/";
+        let link = linkstart + username;
+        if (username == "") {
+          alert("please enter a telegram username");
+        } else {
+          window.open(link, "_blank");
+        }
+      }
+    </script>
+  </body>
 </html>
