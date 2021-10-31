@@ -1,17 +1,37 @@
 const { useState } = React;
 
 const App = () => {
-  const [hello, sethello] = useState("RED");
-  const h1style = {
-    background: "linear-gradient(315deg, #90d5ec 0%,#6588ff 25%, #fc575e 74%",
-    padding: "10px",
-    margin: "30%",
-    textAlign: "center",
-    borderRadius: "5px",
-    fontSize: '20px'
-  };
+  const Name = "M4tech";
 
-  return <p style={h1style}>{hello}</p>;
+  return (
+    <div className="page">
+      <Header />
+    </div>
+  );
 };
 
+const Header = () => {
+  const icon =
+    "https://yt3.ggpht.com/ytc/AKedOLS-Asy0HhW7tk9pJ-q4ZJo1sKPRaKdMkKH6490GxA=s176-c-k-c0x00ffffff-no-rj-mo";
+  const Name = "M4tech";
+
+  return (
+    <div className="header">
+      <div className="left">
+        <img src={icon}></img>
+        <p>{Name}</p>
+      </div>
+
+      <div className="right">
+        <ul>
+          <li>Home</li>
+          <li>Home</li>
+          <li>Home</li>
+          <li>Home</li>
+          <li>Home</li>
+        </ul>
+      </div>
+    </div>
+  );
+};
 ReactDOM.render(<App />, document.getElementById("app"));
