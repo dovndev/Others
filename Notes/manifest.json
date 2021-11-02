@@ -1,17 +1,17 @@
 {
-  "name": "React NoteBook",
+  "name": "NoteBook",
   "short_name": "NoteBook",
   "description": "Awesome application that will help you take notes.",
   "categories": ["note", "books", "education", "notebook"],
   "start_url": "/Others/Notes/",
-  "scope": "https://noelpaul.github.io/Others/Notes/",
+  "scope": "/Others/Notes/",
   "display": "standalone",
   "orientation": "landscape-primary",
-  "background_color": "#000000",
-  "theme_color": "#0A99FF",
+  "background_color": "#161b22",
+  "theme_color": "#161b22",
   "shortcuts": [
     {
-      "name": "Home Page",
+      "name": "Take a note",
       "url": "/Others/Notes/",
       "description": "Home Page Shortcut"
     }
@@ -57,6 +57,18 @@
       "src": "/Others/Notes/icons/icon-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/Others/Notes/icons/screenshot-1.png",
+      "sizes": "800x1318",
+      "type": "image/png"
+    },
+    {
+      "src": "/Others/Notes/icons/screenshot-2.png",
+      "sizes": "800x1318",
+      "type": "image/png"
     }
   ]
 }
