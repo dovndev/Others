@@ -6,7 +6,7 @@
   "start_url": "/Others/Notes/",
   "scope": "/Others/Notes/",
   "display": "standalone",
-  "orientation": "landscape-primary",
+  "orientation": "any",
   "background_color": "#161b22",
   "theme_color": "#161b22",
   "shortcuts": [
