@@ -374,6 +374,7 @@ textarea:focus ~ .placeholder,
   font-size: 20px;
 }
 .nonotes {
+  user-select: none;
   font-size: 20px;
   color: inherit;
   height: 100%;

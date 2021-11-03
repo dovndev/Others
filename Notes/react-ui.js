@@ -1,4 +1,12 @@
 const { useEffect, useState, useCallback, useRef } = React;
+const rootElement = document.getElementById("root");
+const metaElements = document.getElementsByTagName("meta");
+
+const metaList = [
+  "theme-color",
+  "msapplication-TileColor",
+  "apple-mobile-web-app-status-bar",
+];
 
 const useLocalStorage = (key, initialvalue) => {
   const [value, setvalue] = useState(initialvalue);
@@ -59,18 +67,13 @@ const App = () => {
   }, [newNote]);
 
   useEffect(() => {
-    const elmnt = document.querySelector(".root");
-    const themeColor = theme ? "#ffffff" : "#161b22";
-    if (theme) elmnt.classList.remove("dark");
-    else elmnt.classList.add("dark");
-    const meta = document.getElementsByTagName("meta");
-    const list = [
-      "theme-color",
-      "msapplication-TileColor",
-      "apple-mobile-web-app-status-bar"
-    ]
-    for (let i = 0; i < meta.length; i++) {
-      if (list.includes(meta[i].name)) meta[i].content = themeColor;
+    const themeColor = theme ? "#1976d2" : "#161b22";
+    if (theme) rootElement.classList.remove("dark");
+    else rootElement.classList.add("dark");
+    for (let i = 0; i < metaElements.length; i++) {
+      if (metaList.includes(metaElements[i].name)) {
+        metaElements[i].content = themeColor;
+      }
     }
   }, [theme]);
 
@@ -215,4 +218,4 @@ const App = () => {
   );
 };
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, rootElement);
