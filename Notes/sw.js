@@ -1,4 +1,4 @@
-const version = 0.2;
+const version = 0.6;
 const staticCacheName = `site-shell-assets-v${version}`;
 const dynamicCacheName = `site-dynamic-assets-v${version}`;
 const dynamicCacheLimit = 15;
@@ -29,12 +29,12 @@ const limitCacheSize = (name, size) => {
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(staticCacheName).then((cache) => {
-      console.log("caching shell assets");
+      console.log("Caching Shell Assets");
       cache.addAll(shellAssets);
     })
   );
   if (skipWaiting) self.skipWaiting();
-  console.log("update found and update installed");
+  console.log("Service-Worker Installed");
 });
 
 // activate event
@@ -42,7 +42,7 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
       if (clientsClaim) clients.claim();
-      console.log("new serviceWorker activated");
+      console.log("Started Using New Service-Worker");
       return Promise.all(
         keys
           .filter((key) => key !== staticCacheName && key !== dynamicCacheName)
@@ -63,6 +63,7 @@ self.addEventListener("fetch", (event) => {
         fetch(event.request).then((fetchRes) => {
           return caches.open(dynamicCacheName).then((cache) => {
             cache.put(event.request.url, fetchRes.clone());
+
             // check cached items size
             limitCacheSize(dynamicCacheName, dynamicCacheLimit);
             return fetchRes;

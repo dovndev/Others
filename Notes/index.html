@@ -33,16 +33,28 @@
     </div>
     <script>
       let theme = JSON.parse(localStorage.getItem("Theme-React"));
+      let FirstInstall = JSON.parse(localStorage.getItem("FirstInstall"));
+      const reloadConfirm =
+        "New update have been installed. let's Activate the update by reloading the page";
       if (theme !== null) {
         const elmnt = document.querySelector(".root");
         if (!theme) elmnt.classList.add("dark");
         else elmnt.classList.remove("dark");
-        if ("serviceWorker" in navigator) {
-          navigator.serviceWorker
-            .register("./sw.js")
-            .then((reg) => console.log("service worker registered"))
-            .catch((err) => console.log("service worker not registered", err));
-        }
+      }
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("./sw.js")
+          .then((reg) => console.log("service worker registered"))
+          .catch((err) => console.log("service worker not registered", err));
+
+        navigator.serviceWorker.addEventListener("controllerchange", () => {
+          if (FirstInstall === null) {
+            localStorage.setItem("FirstInstall", false);
+          }
+          if (FirstInstall === false) {
+            if (confirm(reloadConfirm)) window.location.reload();
+          }
+        });
       }
     </script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
