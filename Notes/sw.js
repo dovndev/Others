@@ -8,6 +8,7 @@ const shellAssets = [
   "/Others/Notes/",
   "/Others/Notes/index.html",
   "/Others/Notes/react-ui.js",
+  "/Others/Notes/app.js",
   "/Others/Notes/index.css",
   "https://unpkg.com/@babel/standalone/babel.min.js",
   "https://unpkg.com/react@17/umd/react.production.min.js",

@@ -6,6 +6,8 @@ const metaList = [
   "theme-color",
   "msapplication-TileColor",
   "apple-mobile-web-app-status-bar",
+  "msapplication-navbutton-color",
+  "mask-icon"
 ];
 
 const useLocalStorage = (key, initialvalue) => {

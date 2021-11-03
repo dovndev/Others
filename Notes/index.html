@@ -1,62 +1,175 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Notes</title>
-    <link rel="stylesheet" href="index.css" />
-    <link rel="manifest" href="manifest.json" />
-
-    <!-- web app meta data -->
-
-    <meta name="theme-color" content="#161b22" />
-    <meta name="msapplication-TileColor" content="#161b22" />
-    <meta name="msapplication-starturl" content="/Others/Notes/" />
-
-    <meta name="application-name" content="NoteBook" />
+    <!-- Must -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>NoteBook</title>
     <meta
       name="description"
       content="Awesome application that will help you take notes."
     />
+    <meta name="keywords" content="note, books, education, notebook" />
+
+    <!-- Android  -->
+    <meta name="theme-color" content="#161b22" />
     <meta name="mobile-web-app-capable" content="yes" />
 
-    <!-- ios support -->
-    <meta name="apple-mobile-web-app-status-bar" content="#161b22" />
+    <!-- iOS -->
+    <meta name="apple-mobile-web-app-title" content="NoteBook" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="apple-mobile-web-app-title" content="NoteBook" />
+    <meta name="apple-mobile-web-app-status-bar" content="#161b22" />
+    <link rel="author" href="https://github.com/noelpaul" />
+    <link rel="canonical" href="https://noelpaul.github.io/Others/Notes/" />
     <link rel="apple-touch-icon" href="icons/icon-96x96.png" />
+
+    <!-- Windows  -->
+    <meta name="msapplication-navbutton-color" content="#161b22" />
+    <meta name="msapplication-TileColor" content="#161b22" />
+    <meta name="msapplication-TileImage" content="icons/icon-144x144.png" />
+    <meta name="msapplication-config" content="none" />
+    <meta name="msapplication-starturl" content="/Others/Notes/" />
+
+    <!-- Pinned Sites  -->
+    <meta name="application-name" content="NoteBook" />
+    <meta name="msapplication-tooltip" content="NoteBook" />
+    <meta name="msapplication-starturl" content="/Others/Notes" />
+
+    <!-- Tap highlighting  -->
+    <meta name="msapplication-tap-highlight" content="no" />
+
+    <!-- UC Mobile Browser  -->
+    <meta name="full-screen" content="yes" />
+    <meta name="browsermode" content="application" />
+
+    <!-- Disable night mode for this page  -->
+    <meta name="nightmode" content="enable/disable" />
+
+    <!-- Fitscreen  -->
+    <meta name="viewport" content="uc-fitscreen=yes" />
+
+    <!-- Layout mode -->
+    <meta name="layoutmode" content="fitscreen/standard" />
+
+    <!-- imagemode - show image even in text only mode  -->
+    <meta name="imagemode" content="force" />
+
+    <!-- Orientation  -->
+    <meta name="screen-orientation" content="portrait" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:url"
+      content="https://noelpaul.github.io/Others/Notes/"
+    />
+    <meta name="twitter:title" content="NoteBook" />
+    <meta
+      name="twitter:description"
+      content="Awesome application that will help you take notes."
+    />
+    <meta
+      name="twitter:image"
+      content="https://noelpaul.github.io/Others/Notes/icons/icon-384x384.png"
+    />
+
+    <!-- Google  -->
+    <meta itemprop="name" content="NoteBook" />
+    <meta
+      itemprop="description"
+      content="Awesome application that will help you take notes."
+    />
+    <meta
+      itemprop="image"
+      content="https://noelpaul.github.io/Others/Notes/icons/icon-384x384.png"
+    />
+
+    <!-- FaceBook -->
+
+    <meta
+      property="og:url"
+      content="https://noelpaul.github.io/Others/Notes/"
+    />
+    <meta
+      property="og:image"
+      content="https://noelpaul.github.io/Others/Notes/icons/icon-384x384.png"
+    />
+    <meta
+      property="og:description"
+      content="Awesome application that will help you take notes."
+    />
+    <meta property="og:title" content="NoteBook" />
+    <meta property="og:site_name" content="NoteBook App" />
+    <meta
+      property="og:see_also"
+      content="https://noelpaul.github.io/Others/Notes/"
+    />
+
+    <!-- Main Link Tags  -->
+    <link
+      href="icons/icon-72x72.png"
+      rel="icon"
+      type="image/png"
+      sizes="72x72"
+    />
+
+    <!-- iOS  -->
+    <link href="icons/icon-72x72.png" rel="apple-touch-icon" />
+    <link href="icons/icon-72x72.png" rel="apple-touch-icon" sizes="72x72" />
+    <link
+      href="icons/icon-128x128.png"
+      rel="apple-touch-icon"
+      sizes="128x128"
+    />
+    <link
+      href="icons/icon-152x152.png"
+      rel="apple-touch-icon"
+      sizes="152x152"
+    />
+
+    <!-- Startup Image  -->
+    <link href="icons/icon-384x384.png" rel="apple-touch-startup-image" />
+
+    <!-- Pinned Tab  -->
+    <link
+      href="icons/icon-72x72.png"
+      name="mask-icon"
+      rel="mask-icon"
+      size="any"
+      color="#161b22"
+    />
+
+    <!-- Android  -->
+    <link href="icons/icon-192x192.png" rel="icon" sizes="192x192" />
+    <link href="icons/icon-128x128.png" rel="icon" sizes="128x128" />
+
+    <!-- Others -->
+    <link href="icons/icon-72x72.png" rel="shortcut icon" type="image/png" />
+
+    <!-- UC Browser  -->
+    <link
+      href="icons/icon-72x72.png"
+      rel="apple-touch-icon-precomposed"
+      sizes="72x72"
+    />
+    <link href="icons/icon-72x72.png" rel="apple-touch-icon" sizes="72x72" />
+
+    <!-- Manifest.json  -->
+    <link rel="manifest" href="manifest.json" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="index.css" />
   </head>
   <body>
     <div id="root" class="root">
       <span class="preloader">Loading</span>
     </div>
-    <script>
-      let theme = JSON.parse(localStorage.getItem("Theme-React"));
-      let FirstInstall = JSON.parse(localStorage.getItem("FirstInstall"));
-      const reloadConfirm =
-        "New update have been installed. let's Activate the update by reloading the page";
-      if (theme !== null) {
-        const elmnt = document.querySelector(".root");
-        if (!theme) elmnt.classList.add("dark");
-        else elmnt.classList.remove("dark");
-      }
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker
-          .register("./sw.js")
-          .then((reg) => console.log("service worker registered"))
-          .catch((err) => console.log("service worker not registered", err));
-
-        navigator.serviceWorker.addEventListener("controllerchange", () => {
-          if (FirstInstall === null) {
-            localStorage.setItem("FirstInstall", false);
-          }
-          if (FirstInstall === false) {
-            if (confirm(reloadConfirm)) window.location.reload();
-          }
-        });
-      }
-    </script>
+    <script src="app.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script
       crossorigin
