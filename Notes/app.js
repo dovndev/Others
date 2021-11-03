@@ -8,10 +8,15 @@ const APP = {
 
   init: () => {
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.addEventListener(
-        "controllerchange",
-        handleControllerChange
-      );
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        if (firstInstall === null) {
+          localStorage.setItem("FirstInstall", false);
+        }
+
+        if (firstInstall === false) {
+          if (confirm(reloadConfirm)) window.location.reload();
+        }
+      });
 
       navigator.serviceWorker
         .register("./sw.js")
@@ -23,16 +28,6 @@ const APP = {
       const elmnt = document.querySelector(".root");
       if (!theme) elmnt.classList.add("dark");
       else elmnt.classList.remove("dark");
-    }
-  },
-
-  handleControllerChange: () => {
-    if (firstInstall === null) {
-      localStorage.setItem("FirstInstall", false);
-    }
-
-    if (firstInstall === false) {
-      if (confirm(reloadConfirm)) window.location.reload();
     }
   },
 };
