@@ -42,7 +42,7 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
       if (clientsClaim) clients.claim();
-      console.log('new serviceWorker activated');
+      console.log("new serviceWorker activated");
       return Promise.all(
         keys
           .filter((key) => key !== staticCacheName && key !== dynamicCacheName)
