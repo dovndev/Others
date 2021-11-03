@@ -1,3 +1,4 @@
+const swAwailable = "serviceWorker" in navigator;
 const APP = {
   theme: JSON.parse(localStorage.getItem("Theme-React")),
 
@@ -5,8 +6,6 @@ const APP = {
 
   reloadConfirm:
     "New update have been installed. let's Activate the update by reloading the page",
-
-  swAwailable: "serviceWorker" in navigator,
 
   init: () => {
     if (swAwailable) {
