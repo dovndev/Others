@@ -1,4 +1,3 @@
-const swAwailable = "serviceWorker" in navigator;
 const APP = {
   theme: JSON.parse(localStorage.getItem("Theme-React")),
 
@@ -8,7 +7,7 @@ const APP = {
     "New update have been installed. let's Activate the update by reloading the page",
 
   init: () => {
-    if (swAwailable) {
+    if ("serviceWorker" in navigator) {
       navigator.serviceWorker.addEventListener(
         "controllerchange",
         handleControllerChange
