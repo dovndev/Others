@@ -34,7 +34,7 @@ self.addEventListener("install", (event) => {
     })
   );
   if (skipWaiting) self.skipWaiting();
-  console.log('update found and update installed')
+  console.log("update found and update installed");
 });
 
 // activate event
@@ -42,6 +42,7 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
       if (clientsClaim) clients.claim();
+      console.log('new serviceWorker activated');
       return Promise.all(
         keys
           .filter((key) => key !== staticCacheName && key !== dynamicCacheName)
