@@ -85,9 +85,10 @@ const App = () => {
 
   const updateInputSize = useCallback(() => {
     const el = textarea.current;
-    el.style.height = "30px";
+    if (el.style.height.slice(0,-2) == el.scrollHeight || el.scrollHeight > 170) return;
+    el.style.height = "50px";
     el.style.height = el.scrollHeight + "px";
-    el.style.overflowY = el.scrollHeight < 130 ? "hidden" : "auto";
+    el.style.overflowY = el.scrollHeight < 170 ? "hidden" : "auto";
   }, [newNote]);
 
   const saveNote = useCallback(() => {
@@ -101,6 +102,7 @@ const App = () => {
         ...notes,
       ]);
       setnewNote("");
+      textarea.current.focus();
     } else return;
   }, [isNote, newNote]);
 
@@ -110,7 +112,7 @@ const App = () => {
 
       setTimeout(() => {
         setnotes(notes.filter((note) => note.id !== id));
-      }, 300);
+      }, 500);
     },
     [notes]
   );
