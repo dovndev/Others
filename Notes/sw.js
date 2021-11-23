@@ -1,4 +1,4 @@
-const version = 0.2;
+const version = 0.3;
 const staticCacheName = `site-shell-assets-v${version}`;
 const dynamicCacheName = `site-dynamic-assets-v${version}`;
 const dynamicCacheLimit = 15;
@@ -30,12 +30,10 @@ const limitCacheSize = (name, size) => {
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(staticCacheName).then((cache) => {
-      console.log("Caching Shell Assets");
       cache.addAll(shellAssets);
     })
   );
   if (skipWaiting) self.skipWaiting();
-  console.log("Service-Worker Installed");
 });
 
 // activate event
@@ -43,7 +41,6 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
       if (clientsClaim) clients.claim();
-      console.log("Started Using New Service-Worker");
       return Promise.all(
         keys
           .filter((key) => key !== staticCacheName && key !== dynamicCacheName)
