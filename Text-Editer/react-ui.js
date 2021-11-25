@@ -127,7 +127,7 @@ const NavBar = ({
   theme,
   setNav2Open,
   isFullScreen,
-  setIsFullScreen,
+  toggleFullScreen,
 }) => {
   const data = [
     {
@@ -138,7 +138,7 @@ const NavBar = ({
     },
     {
       type: 0,
-      func: () => setIsFullScreen(!isFullScreen),
+      func: toggleFullScreen,
       icon: isFullScreen ? "fas fa-compress icon" : "fas fa-expand icon",
       text: isFullScreen ? "Exit fullscreen" : "Fullscreen",
     },
@@ -347,6 +347,30 @@ const Textarea = ({
   );
 };
 
+const useFullScreen = () => {
+  const [isFullScreen, setIsFullScreen] = useState(false);
+
+  const toggleFullScreen = useCallback((elm = document.documentElement) => {
+    if (document.fullscreenElement === null) {
+      elm.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  });
+
+  document.addEventListener("fullscreenchange", () =>
+    setIsFullScreen(document.fullscreenElement !== null)
+  );
+
+  document.addEventListener("keydown", (e) => {
+    if (!e.key == "F11") return;
+    e.preventDefault();
+    toggleFullScreen();
+  });
+
+  return { isFullScreen, toggleFullScreen };
+};
+
 const App = () => {
   //   All State
   const [html, setHtml] = useLocalStorage(
@@ -392,7 +416,7 @@ const App = () => {
   const [editing, setEditing] = useState(0);
   const [nav2Open, setNav2Open] = useState(0);
   const [code, setCode] = useState("");
-  const [isFullScreen, setIsFullScreen] = useState(false);
+  const { isFullScreen, toggleFullScreen } = useFullScreen();
 
   //   Functions
 
@@ -418,13 +442,6 @@ const App = () => {
   }, [html, css, js]);
 
   //   useEffects
-
-  useEffect(() => {
-    if (document.fullscreenElement === null && isFullScreen)
-      document.documentElement.requestFullscreen();
-    if (document.fullscreenElement !== null && !isFullScreen)
-      document.exitFullscreen();
-  }, [isFullScreen]);
 
   useEffect(() => {
     setCode(createCode());
@@ -525,7 +542,7 @@ const App = () => {
             theme,
             setNav2Open,
             isFullScreen,
-            setIsFullScreen,
+            toggleFullScreen,
           }}
         />
       )}

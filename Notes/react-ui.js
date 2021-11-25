@@ -17,10 +17,7 @@ const useLocalStorage = (key, initialvalue) => {
   });
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      localStorage.setItem(key, JSON.stringify(value));
-    }, 1000);
-    return clearTimeout(timeout);
+    localStorage.setItem(key, JSON.stringify(value));
   }, [value]);
 
   return [value, setvalue];
