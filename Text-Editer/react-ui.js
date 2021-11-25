@@ -18,6 +18,32 @@ const useLocalStorage = (key, initialvalue) => {
   return [value, setvalue];
 };
 
+const useFullScreen = () => {
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const timeout = useRef();
+
+  const toggleFullScreen = useCallback(() => {
+    if (document.fullscreenElement === null) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  });
+
+  document.addEventListener("fullscreenchange", () =>
+    setIsFullScreen(document.fullscreenElement !== null)
+  );
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key != "F11") return;
+    e.preventDefault();
+    if (timeout.current) clearTimeout(timeout.current);
+    timeout.current = setTimeout(toggleFullScreen, 100);
+  });
+
+  return { isFullScreen, toggleFullScreen };
+};
+
 const HeaderButton = ({ className, func, text, Display }) => {
   return (
     <div
@@ -333,8 +359,9 @@ const Textarea = ({
       <iframe className="systemiframe"></iframe>
       <textarea
         placeholder={placeholder}
-        autocomplete={true}
-        spellcheck={false}
+        autocomplete="true"
+        spellcheck="false"
+        autocorrect="off"
         value={value}
         onChange={(e) => updateFunc(e.target.value)}
         style={{
@@ -345,30 +372,6 @@ const Textarea = ({
       ></textarea>
     </div>
   );
-};
-
-const useFullScreen = () => {
-  const [isFullScreen, setIsFullScreen] = useState(false);
-
-  const toggleFullScreen = useCallback((elm = document.documentElement) => {
-    if (document.fullscreenElement === null) {
-      elm.requestFullscreen();
-    } else {
-      document.exitFullscreen();
-    }
-  });
-
-  document.addEventListener("fullscreenchange", () =>
-    setIsFullScreen(document.fullscreenElement !== null)
-  );
-
-  document.addEventListener("keydown", (e) => {
-    if (!e.key == "F11") return;
-    e.preventDefault();
-    toggleFullScreen();
-  });
-
-  return { isFullScreen, toggleFullScreen };
 };
 
 const App = () => {
