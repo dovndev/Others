@@ -20,7 +20,6 @@ const useLocalStorage = (key, initialvalue) => {
 
 const useFullScreen = () => {
   const [isFullScreen, setIsFullScreen] = useState(false);
-  const timeout = useRef();
 
   const toggleFullScreen = useCallback(() => {
     if (document.fullscreenElement === null) {
@@ -34,11 +33,10 @@ const useFullScreen = () => {
     setIsFullScreen(document.fullscreenElement !== null)
   );
 
-  document.addEventListener("keydown", (e) => {
+  document.addEventListener("keyup", (e) => {
     if (e.key != "F11") return;
     e.preventDefault();
-    if (timeout.current) clearTimeout(timeout.current);
-    timeout.current = setTimeout(toggleFullScreen, 100);
+    toggleFullScreen();
   });
 
   return { isFullScreen, toggleFullScreen };
