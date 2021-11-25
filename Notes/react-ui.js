@@ -13,7 +13,8 @@ const metaList = [
 const useLocalStorage = (key, initialvalue) => {
   const [value, setvalue] = useState(() => {
     const savedvalue = JSON.parse(localStorage.getItem(key));
-    return savedvalue || initialvalue;
+    if (savedvalue !== null) return savedvalue;
+    return initialvalue;
   });
 
   useEffect(() => {
