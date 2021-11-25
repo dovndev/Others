@@ -7,17 +7,20 @@ const metaList = [
   "msapplication-TileColor",
   "apple-mobile-web-app-status-bar",
   "msapplication-navbutton-color",
-  "mask-icon"
+  "mask-icon",
 ];
 
 const useLocalStorage = (key, initialvalue) => {
-  const [value, setvalue] = useState(initialvalue);
-  useEffect(() => {
+  const [value, setvalue] = useState(() => {
     const savedvalue = JSON.parse(localStorage.getItem(key));
-    if (savedvalue != null) setvalue(savedvalue);
-  }, []);
+    return savedvalue || initialvalue;
+  });
+
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(value));
+    const timeout = setTimeout(() => {
+      localStorage.setItem(key, JSON.stringify(value));
+    }, 1000);
+    return clearTimeout(timeout);
   }, [value]);
 
   return [value, setvalue];
@@ -85,7 +88,11 @@ const App = () => {
 
   const updateInputSize = useCallback(() => {
     const el = textarea.current;
-    if (el.style.height.slice(0,-2) == el.scrollHeight || el.scrollHeight > 170) return;
+    if (
+      el.style.height.slice(0, -2) == el.scrollHeight ||
+      el.scrollHeight > 170
+    )
+      return;
     el.style.height = "50px";
     el.style.height = el.scrollHeight + "px";
     el.style.overflowY = el.scrollHeight < 170 ? "hidden" : "auto";
@@ -131,19 +138,14 @@ const App = () => {
   );
 
   const removeall = useCallback(() => {
-    if (confirm(`Delete All Notes`)) {
-      setnotes([]);
-    } else {
-      return;
-    }
+    if (!confirm(`Delete All Notes`)) return;
+    setnotes([]);
   }, []);
 
   const handleEnter = useCallback(() => {
-    if (confirm(`Enter Key Will${EnterSend ? " Not" : ""} Save Your Note`)) {
-      setEnterSend(!EnterSend);
-    } else {
+    if (confirm(`Enter Key Will${EnterSend ? " Not" : ""} Save Your Note`))
       return;
-    }
+    setEnterSend(!EnterSend);
   }, [EnterSend]);
 
   const handlechange = useCallback(
