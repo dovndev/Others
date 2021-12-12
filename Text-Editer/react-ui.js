@@ -21,11 +21,11 @@ const useLocalStorage = (key, initialvalue) => {
 const useFullScreen = () => {
   const [isFullScreen, setIsFullScreen] = useState(false);
 
-  const toggleFullScreen = useCallback(() => {
+  const toggleFullScreen = useCallback(async () => {
     if (document.fullscreenElement === null) {
-      document.documentElement.requestFullscreen();
+      await document.documentElement.requestFullscreen();
     } else {
-      document.exitFullscreen();
+      await document.exitFullscreen();
     }
   });
 
