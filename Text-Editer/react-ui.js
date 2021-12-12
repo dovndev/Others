@@ -39,6 +39,9 @@ const useFullScreen = () => {
       toggleFullScreen();
     }
   });
+  document.addEventListener("keydown", (e) => {
+    if (e.code === "F11") e.preventDefault();
+  });
 
   return { isFullScreen, toggleFullScreen };
 };
