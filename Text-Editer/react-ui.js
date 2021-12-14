@@ -22,18 +22,20 @@ const useFullScreen = () => {
   const [isFullScreen, setIsFullScreen] = useState(false);
 
   const toggleFullScreen = useCallback(async () => {
-    if (document.fullscreenElement === null) {
-      await document.documentElement.requestFullscreen();
-    } else {
-      await document.exitFullscreen();
-    }
+    try {
+      if (document.fullscreenElement === null) {
+        await document.documentElement.requestFullscreen();
+      } else {
+        await document.exitFullscreen();
+      }
+    } catch (err) {}
   });
 
   document.addEventListener("fullscreenchange", () =>
     setIsFullScreen(document.fullscreenElement !== null)
   );
 
-  document.addEventListener("keyup", (e) => {
+  document.addEventListener("keyup", async (e) => {
     if (e.code === "F11") {
       e.preventDefault();
       toggleFullScreen();
