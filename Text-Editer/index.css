@@ -87,41 +87,27 @@
   font-size: 25px;
   user-select: none;
 }
-.loading {
-  height: 100px;
-  width: 100px;
-  border-radius: 50%;
-  border: 10px solid #333333;
-  margin-bottom: 50px;
-  padding: 10px;
-  animation: outer 2s linear infinite;
-  border: 10px solid #8c8c8c;
-  border-bottom: 10px solid #333333;
-  border-top: 10px solid #333333;
-}
-.loading1 {
-  height: 100%;
-  width: 100%;
-  border-radius: 20px;
-  border: 5px solid #333333;
-  animation: inner 2s linear infinite;
-}
-@keyframes outer {
+
+@keyframes load {
   0% {
-    transform: rotate(0deg);
+    content: "";
+  }
+  25% {
+    content: ".";
+  }
+  50% {
+    content: "..";
   }
   100% {
-    transform: rotate(720deg);
+    content: "...";
   }
 }
-@keyframes inner {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(-720deg);
-  }
+
+.loading-page p::after {
+  content: "";
+  animation: load 1s infinite normal;
 }
+
 .systeminputcont {
   height: 100%;
   width: 100%;
