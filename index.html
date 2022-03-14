@@ -19,23 +19,25 @@
         background-color: transparent;
       }
       body {
-        height: 100%;
+        height: 100vh;
         width: 100%;
         display: flex;
         background-color: #002c3f;
       }
       #cont {
         box-sizing: border-box;
-        height: 95%;
+        height: 100vh;
         width: 100%;
         display: flex;
         flex-direction: column;
         overflow-y: auto;
+        border-top: 1px solid #bebebe;
       }
       .grid {
+        height: 100%;
         display: flex;
-        flex-direction: column;
         align-items: center;
+        flex-wrap: wrap;
         justify-content: center;
       }
       a:hover {
@@ -49,6 +51,7 @@
         text-decoration: none;
         text-align: center;
         width: 50%;
+        min-width: 300px;
         color: black;
         font-size: 18px;
         background-color: #97979780;
