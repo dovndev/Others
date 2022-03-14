@@ -29,6 +29,7 @@
         height: 95%;
         width: 100%;
         display: flex;
+        flex-direction: column;
         overflow-y: auto;
       }
       .grid {
@@ -52,7 +53,7 @@
         font-size: 18px;
         background-color: #97979780;
         border-radius: 10px;
-        margin: 20px auto;
+        margin: 10px auto;
         padding: 20px;
       }
 
@@ -60,9 +61,10 @@
         color: rgb(230, 230, 230);
         background-color: #97979780;
         padding: 30px;
-        margin-bottom: 30px;
+        margin: 20px auto;
         font-weight: bolder;
         font-size: 20px;
+        border-bottom: 5px solid #b2b2b2;
       }
       .rect {
         background-color: rgba(125, 160, 255, 0.623);
@@ -72,6 +74,7 @@
         padding: 0px;
         border: 1px solid rgba(107, 250, 255, 0.5);
         pointer-events: none;
+        transition: none !important;
       }
     </style>
   </head>
