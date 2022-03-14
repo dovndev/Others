@@ -29,13 +29,13 @@
         height: 95%;
         width: 100%;
         display: block;
-        background-color: #1a1a1a;
+        background-color: #002c3f;
         border-radius: 0px;
         font-family: Tahoma;
         overflow-y: auto;
       }
       div a:hover {
-        background-color: rgba(230, 230, 230, 0.9);
+        background-color: #d1c5c580;
       }
       div a,
       p {
@@ -50,7 +50,7 @@
         font-size: 18px;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
           Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-        background-color: rgba(255, 255, 255, 0.5);
+        background-color: #97979780;
         border-radius: 10px;
         margin: 20px auto;
         padding: 20px;
@@ -58,7 +58,7 @@
 
       p {
         color: rgb(230, 230, 230);
-        background-color: #ffffff41;
+        background-color: #97979780;
         padding: 30px;
         margin-bottom: 30px;
         font-weight: bolder;
@@ -79,24 +79,25 @@
   </head>
 
   <body>
-    <div id="cont"></div>
+    <div id="cont">
+    </div>
     <script type="text/javascript" charset="utf-8">
       let folders = [
         "Birthday",
         "Link-Previewer",
         "Notes",
-        "Open",
         "React",
         "Text-Editer",
         "Whatsapp",
       ];
       let edited = folders.sort();
-      const container = document.getElementById("cont");
+      const container = document.querySelector("#cont");
       let text = "";
-      text += `<p>` + edited.length + " " + " PROJECTS" + `</p>`;
+      text += `<p>` + edited.length + " " + " PROJECTS" + `</p><div class="grid">`;
       edited.forEach((folder) => {
         text += `<a target="_blank" href="./` + folder + `">` + folder + `</a>`;
       });
+      text += "</div>"
       container.innerHTML = text;
       // rect code
 
