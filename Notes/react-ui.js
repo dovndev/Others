@@ -37,7 +37,9 @@ const Mapper = ({ notes, handleDelete, HandleEdit }) => {
           </button>
           <p>
             {item.body.map((line) => (
-              <div class="line">{line}</div>
+              <div class="line" style={line === "" ? { height: "20px" } : {}}>
+                {line}
+              </div>
             ))}
           </p>
           <button onClick={(e) => handleDelete(e, item.id)} className="delete">

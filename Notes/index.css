@@ -340,7 +340,7 @@ textarea:focus ~ .placeholder,
 }
 .notes p {
   color: inherit;
-  user-select: all;
+  user-select: auto;
   font-size: 18px;
   padding: 10px;
   width: 100%;
