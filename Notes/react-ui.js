@@ -42,7 +42,7 @@ const Mapper = ({ notes, handleDelete, HandleEdit }) => {
               </div>
             ))}
           </p>
-          <button onClick={() => handleDelete(item.id)} className="delete">
+          <button onClick={(e) => handleDelete(e, item.id)} className="delete">
             ✕
           </button>
         </div>
@@ -117,6 +117,17 @@ const App = () => {
     } else return;
   }, [isNote, newNote]);
 
+  const handleDelete = useCallback(
+    (e, id) => {
+      e.target.parentNode.classList.add("delete-anim");
+
+      setTimeout(() => {
+        setnotes(notes.filter((note) => note.id !== id));
+      }, 500);
+    },
+    [notes]
+  );
+
   const HandleEdit = useCallback(
     (id) => {
       const Newnotes = notes.map((item) => {
@@ -181,9 +192,7 @@ const App = () => {
         {notes && (
           <Mapper
             notes={notes}
-            handleDelete={(id) => {
-              setnotes(notes.filter((note) => note.id !== id));
-            }}
+            handleDelete={handleDelete}
             HandleEdit={HandleEdit}
           />
         )}
