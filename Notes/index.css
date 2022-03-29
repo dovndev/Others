@@ -182,6 +182,7 @@ body,
 
 .dark .nav button:focus {
   background-color: var(--theme);
+  color: white;
 }
 
 .form {
