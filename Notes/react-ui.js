@@ -146,7 +146,7 @@ const App = () => {
         saveNote();
       }
     },
-    [EnterSend]
+    [EnterSend, saveNote]
   );
 
   const removeall = useCallback(() => {
