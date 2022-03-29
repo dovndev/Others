@@ -112,6 +112,10 @@ body,
   border-radius: 10px;
 }
 
+.dark .header button:focus {
+  outline: 2px solid white;
+}
+
 .header button svg {
   height: 100%;
   width: 100%;
@@ -173,6 +177,11 @@ body,
 
 .nav button:focus {
   background-color: var(--theme);
+}
+
+.dark .nav button:focus {
+  background-color: white;
+  color: black;
 }
 
 .form {
