@@ -347,7 +347,7 @@ textarea:focus ~ .placeholder,
 }
 .notes p {
   color: inherit;
-  user-select: auto;
+  user-select: text;
   font-size: 18px;
   padding: 10px;
   width: 100%;
@@ -357,7 +357,7 @@ textarea:focus ~ .placeholder,
   word-break: break-all;
 }
 .line {
-  user-select: auto;
+  user-select: text;
   word-break: break-all;
   width: 100%;
   display: block;
