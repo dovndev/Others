@@ -144,12 +144,6 @@ const App = () => {
     setnotes([]);
   }, []);
 
-  const handleEnter = useCallback(() => {
-    if (confirm(`Enter Key Will${EnterSend ? " Not" : ""} Save Your Note`))
-      return;
-    setEnterSend(!EnterSend);
-  }, [EnterSend]);
-
   const handleKeyUp = useCallback(
     (e) => {
       if (EnterSend) {
@@ -209,7 +203,7 @@ const App = () => {
       ></div>
 
       <div className={nav ? "nav nav-show" : "nav"}>
-        <div onClick={handleEnter}>Enter is save</div>
+        <div onClick={() => setEnterSend(!EnterSend)}>'Enter' is{EnterSend ? "" : " not"} save</div>
         <div onClick={() => settheme(!theme)}>Theme</div>
         <div onClick={removeall}>Delete All Notes</div>
       </div>
