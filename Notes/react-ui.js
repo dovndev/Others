@@ -139,14 +139,17 @@ const App = () => {
     [notes]
   );
 
-  const handleKeyDown = useCallback(
+  const handleChange = useCallback(
     (e) => {
-      if (EnterSend && e.key === "Enter") {
-        e.preventDefault();
+      if (
+        EnterSend &&
+        e.target.value.slice(0, textarea.current.selectionStart).slice(-1) ===
+          "\n"
+      ) {
         saveNote();
-      }
+      } else setnewNote(e.target.value);
     },
-    [EnterSend, saveNote]
+    [EnterSend, textarea.current]
   );
 
   const removeall = useCallback(() => {
@@ -169,14 +172,13 @@ const App = () => {
           </span>
         </div>
       </div>
-      <div className="form" onSubmit={saveNote}>
+      <div className="form">
         <textarea
           className={isNote ? "textarea" : "notextarea"}
           rows={1}
           ref={textarea}
           value={newNote}
-          onChange={(e) => setnewNote(e.target.value)}
-          onKeyDown={handleKeyDown}
+          onChange={handleChange}
         ></textarea>
         <span className="placeholder">Type a note</span>
         <button onClick={saveNote} className={isNote ? "save" : "nosave"}>
