@@ -139,6 +139,16 @@ const App = () => {
     [notes]
   );
 
+  const handleKeyDown = useCallback(
+    (e) => {
+      if (EnterSend && e.key === "Enter") {
+        e.preventDefault();
+        saveNote();
+      }
+    },
+    [EnterSend]
+  );
+
   const removeall = useCallback(() => {
     if (!confirm(`Delete All Notes`)) return;
     setnotes([]);
@@ -166,9 +176,7 @@ const App = () => {
           ref={textarea}
           value={newNote}
           onChange={(e) => setnewNote(e.target.value)}
-          onKeyUp={(e) => {
-            if (EnterSend && e.key === "Enter") saveNote();
-          }}
+          onKeyDown={handleKeyDown}
         ></textarea>
         <span className="placeholder">Type a note</span>
         <button onClick={saveNote} className={isNote ? "save" : "nosave"}>
