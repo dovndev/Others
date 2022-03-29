@@ -144,25 +144,12 @@ const App = () => {
     setnotes([]);
   }, []);
 
-  const handleKeyUp = useCallback(
-    (e) => {
-      if (EnterSend) {
-        if (e.key === "Enter") saveNote();
-      }
-    },
-    [EnterSend]
-  );
-
-  function handleNav() {
-    setnav(!nav);
-  }
-
   return (
     <div className={theme ? "html" : "html dark"}>
       <div className="header-cont">
         <div className="header">
           <p>Notebook</p>
-          <span onClick={handleNav}>
+          <span onClick={() => setnav(!nav)}>
             <svg viewBox="0 0 24 24">
               <path
                 fill="white"
@@ -179,7 +166,9 @@ const App = () => {
           ref={textarea}
           value={newNote}
           onChange={(e) => setnewNote(e.target.value)}
-          onKeyUp={handleKeyUp}
+          onKeyUp={(e) => {
+            if (EnterSend && e.key === "Enter") saveNote();
+          }}
         ></textarea>
         <span className="placeholder">Type a note</span>
         <button onClick={saveNote} className={isNote ? "save" : "nosave"}>
@@ -199,11 +188,13 @@ const App = () => {
 
       <div
         className={nav ? "nav-cont nav-cont-show" : "nav-cont"}
-        onClick={handleNav}
+        onClick={() => setnav(!nav)}
       ></div>
 
       <div className={nav ? "nav nav-show" : "nav"}>
-        <div onClick={() => setEnterSend(!EnterSend)}>'Enter' is{EnterSend ? "" : " not"} save</div>
+        <div onClick={() => setEnterSend(!EnterSend)}>
+          'Enter' is{EnterSend ? "" : " not"} save
+        </div>
         <div onClick={() => settheme(!theme)}>Theme</div>
         <div onClick={removeall}>Delete All Notes</div>
       </div>
