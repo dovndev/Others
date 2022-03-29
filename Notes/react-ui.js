@@ -179,18 +179,7 @@ const App = () => {
           </button>
         </div>
       </div>
-      <div
-        className={nav ? "nav-cont nav-cont-show" : "nav-cont"}
-        onClick={() => setnav(!nav)}
-      ></div>
 
-      <div className={nav ? "nav nav-show" : "nav"}>
-        <button onClick={() => setEnterSend(!EnterSend)}>
-          'Enter' is{EnterSend ? "" : " not"} save
-        </button>
-        <button onClick={() => settheme(!theme)}>Theme</button>
-        <button onClick={removeall}>Delete All Notes</button>
-      </div>
       <div className="form">
         <textarea
           title="Type a note"
@@ -205,6 +194,7 @@ const App = () => {
           title="Save Note"
           onClick={saveNote}
           className={isNote ? "save" : "nosave"}
+          tabIndex={isNote ? 0 : -1}
         >
           <span>save</span>
         </button>
@@ -218,6 +208,18 @@ const App = () => {
             HandleEdit={HandleEdit}
           />
         )}
+      </div>
+      <div
+        className={nav ? "nav-cont nav-cont-show" : "nav-cont"}
+        onClick={() => setnav(!nav)}
+      ></div>
+
+      <div className={nav ? "nav nav-show" : "nav"}>
+        <button onClick={() => setEnterSend(!EnterSend)}>
+          'Enter' is{EnterSend ? "" : " not"} save
+        </button>
+        <button onClick={() => settheme(!theme)}>Theme</button>
+        <button onClick={removeall}>Delete All Notes</button>
       </div>
     </div>
   );

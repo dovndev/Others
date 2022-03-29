@@ -4,6 +4,7 @@
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  user-select: none;
 }
 
 :root {
@@ -95,7 +96,6 @@ body,
   border-radius: 5px;
 }
 .header p {
-  user-select: none;
   color: white;
   font-size: 20px;
   height: 100%;
@@ -109,6 +109,11 @@ body,
   padding: 0px 10px;
   background-color: transparent;
   border: none;
+  outline: none;
+  border-radius: 10px;
+}
+.header button:focus {
+  border: 2px solid var(--theme);
 }
 .header button svg {
   height: 100%;
@@ -125,8 +130,10 @@ body,
   width: 100%;
   background-color: rgba(0, 0, 0, 0.4);
   transition: 0.2s;
+  z-index: 2;
 }
-.nav-cont-show {
+.nav-cont-show,
+.nav-cont:focus-within {
   opacity: 1;
   pointer-events: all;
 }
@@ -142,15 +149,16 @@ body,
   background-color: var(--theme);
   transition: 0.2s;
   box-shadow: var(--boxShadow);
+  z-index: 3;
 }
 .dark .nav {
   background-color: var(--background);
 }
-.nav-show {
+.nav-show,
+.nav:focus-within {
   transform: translateX(0px);
 }
 .nav button {
-  user-select: none;
   width: 100%;
   text-align: left;
   padding: 10px 15px;
@@ -160,6 +168,7 @@ body,
   color: white;
   background-color: transparent;
   border: none;
+  outline: none;
 }
 .nav button:hover {
   background-color: var(--lightBorder);
@@ -167,15 +176,6 @@ body,
 
 .nav button:focus {
   background-color: var(--theme);
-}
-
-.nav button:focus ~ .nav {
-  transform: translateX(0px);
-}
-
-.nav button:focus ~ .nav-cont {
-  opacity: 1;
-  pointer-events: all;
 }
 
 .form {
@@ -233,7 +233,6 @@ textarea::-webkit-scrollbar-thumb {
 }
 .placeholder {
   pointer-events: none;
-  user-select: none;
   position: absolute;
   color: var(--placeholder);
   font-size: 16px;
@@ -264,7 +263,6 @@ textarea:focus ~ .placeholder,
   align-items: center;
   transition: width 0.1s linear;
   overflow-x: hidden;
-  user-select: none;
   margin-left: 2px;
 }
 .save {
@@ -362,13 +360,13 @@ textarea:focus ~ .placeholder,
   word-break: break-all;
 }
 .line {
+  user-select: auto;
   word-break: break-all;
   width: 100%;
   display: block;
   width: 100%;
 }
 .delete {
-  user-select: none;
   width: 50px;
   height: auto;
   border-radius: 0px 10px 10px 0px;
@@ -392,7 +390,6 @@ textarea:focus ~ .placeholder,
   font-size: 20px;
 }
 .nonotes {
-  user-select: none;
   font-size: 20px;
   color: inherit;
   height: 100%;
