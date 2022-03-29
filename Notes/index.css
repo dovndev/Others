@@ -149,7 +149,7 @@ body,
 .nav-show {
   transform: translateX(0px);
 }
-.nav div {
+.nav button {
   user-select: none;
   width: 100%;
   text-align: left;
@@ -159,13 +159,25 @@ body,
   font-size: 20px;
   color: white;
   background-color: transparent;
+  border: none;
 }
-.nav div:hover {
+.nav button:hover {
   background-color: var(--lightBorder);
 }
-.nav div:active {
+
+.nav button:focus {
   background-color: var(--theme);
 }
+
+.nav button:focus ~ .nav {
+  transform: translateX(0px);
+}
+
+.nav button:focus ~ .nav-cont {
+  opacity: 1;
+  pointer-events: all;
+}
+
 .form {
   display: flex;
   justify-content: center;

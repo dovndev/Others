@@ -30,6 +30,7 @@ const Mapper = ({ notes, handleDelete, HandleEdit }) => {
       return (
         <div className="notes" key={item.id}>
           <button
+            title={item.completed ? "Unmark" : "Mark as done"}
             onClick={(e) => HandleEdit(item.id)}
             class={`delete edit${item.completed ? " completed" : ""}`}
           >
@@ -42,7 +43,11 @@ const Mapper = ({ notes, handleDelete, HandleEdit }) => {
               </div>
             ))}
           </p>
-          <button onClick={(e) => handleDelete(e, item.id)} className="delete">
+          <button
+            onClick={(e) => handleDelete(e, item.id)}
+            className="delete"
+            title="Delete"
+          >
             ✕
           </button>
         </div>
@@ -164,7 +169,7 @@ const App = () => {
       <div className="header-cont">
         <div className="header">
           <p>Notebook</p>
-          <button onClick={() => setnav(!nav)}>
+          <button onClick={() => setnav(!nav)} title="Menu">
             <svg viewBox="0 0 24 24">
               <path
                 fill="white"
@@ -174,8 +179,21 @@ const App = () => {
           </button>
         </div>
       </div>
+      <div
+        className={nav ? "nav-cont nav-cont-show" : "nav-cont"}
+        onClick={() => setnav(!nav)}
+      ></div>
+
+      <div className={nav ? "nav nav-show" : "nav"}>
+        <button onClick={() => setEnterSend(!EnterSend)}>
+          'Enter' is{EnterSend ? "" : " not"} save
+        </button>
+        <button onClick={() => settheme(!theme)}>Theme</button>
+        <button onClick={removeall}>Delete All Notes</button>
+      </div>
       <div className="form">
         <textarea
+          title="Type a note"
           className={isNote ? "textarea" : "notextarea"}
           rows={1}
           ref={textarea}
@@ -183,7 +201,11 @@ const App = () => {
           onChange={handleChange}
         ></textarea>
         <span className="placeholder">Type a note</span>
-        <button onClick={saveNote} className={isNote ? "save" : "nosave"}>
+        <button
+          title="Save Note"
+          onClick={saveNote}
+          className={isNote ? "save" : "nosave"}
+        >
           <span>save</span>
         </button>
       </div>
@@ -196,19 +218,6 @@ const App = () => {
             HandleEdit={HandleEdit}
           />
         )}
-      </div>
-
-      <div
-        className={nav ? "nav-cont nav-cont-show" : "nav-cont"}
-        onClick={() => setnav(!nav)}
-      ></div>
-
-      <div className={nav ? "nav nav-show" : "nav"}>
-        <div onClick={() => setEnterSend(!EnterSend)}>
-          'Enter' is{EnterSend ? "" : " not"} save
-        </div>
-        <div onClick={() => settheme(!theme)}>Theme</div>
-        <div onClick={removeall}>Delete All Notes</div>
       </div>
     </div>
   );
