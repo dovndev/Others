@@ -112,7 +112,7 @@ body,
   border-radius: 10px;
 }
 
-.dark .header button:focus {
+.header button:focus {
   outline: 2px solid white;
 }
 
@@ -176,12 +176,12 @@ body,
 }
 
 .nav button:focus {
-  background-color: var(--theme);
+  background-color: white;
+  color: black;
 }
 
 .dark .nav button:focus {
-  background-color: white;
-  color: black;
+  background-color: var(--theme);
 }
 
 .form {
