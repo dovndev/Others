@@ -102,13 +102,15 @@ body,
   margin: 0px 20px;
   margin-right: auto;
 }
-.header span {
+.header button {
   height: 100%;
   cursor: pointer;
   width: 50px;
   padding: 0px 10px;
+  background-color: transparent;
+  border: none;
 }
-.header span svg {
+.header button svg {
   height: 100%;
   width: 100%;
 }
@@ -300,7 +302,7 @@ textarea:focus ~ .placeholder,
   transform-origin: top center;
 }
 .delete-anim {
-  animation: remove 0.510s ease-out;
+  animation: remove 0.51s ease-out;
 }
 
 @keyframes set {
