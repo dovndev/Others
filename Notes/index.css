@@ -109,12 +109,9 @@ body,
   padding: 0px 10px;
   background-color: transparent;
   border: none;
-  outline: none;
   border-radius: 10px;
 }
-.header button:focus {
-  border: 2px solid var(--theme);
-}
+
 .header button svg {
   height: 100%;
   width: 100%;
@@ -133,7 +130,7 @@ body,
   z-index: 2;
 }
 .nav-cont-show,
-.nav-cont:focus-within {
+.nav:focus-within .nav-cont {
   opacity: 1;
   pointer-events: all;
 }
