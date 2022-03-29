@@ -149,7 +149,7 @@ const App = () => {
         saveNote();
       } else setnewNote(e.target.value);
     },
-    [EnterSend, textarea.current, saveNote]
+    [EnterSend, textarea.current]
   );
 
   const removeall = useCallback(() => {
