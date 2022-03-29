@@ -24,7 +24,7 @@ const useLocalStorage = (key, initialvalue) => {
   return [value, setvalue];
 };
 
-const Mapper = ({ notes, handledelete, HandleEdit }) => {
+const Mapper = ({ notes, handleDelete, HandleEdit }) => {
   if (notes.length !== 0) {
     return notes.map((item) => {
       return (
@@ -40,7 +40,7 @@ const Mapper = ({ notes, handledelete, HandleEdit }) => {
               <div class="line">{line}</div>
             ))}
           </p>
-          <button onClick={(e) => handledelete(e, item.id)} className="delete">
+          <button onClick={(e) => handleDelete(e, item.id)} className="delete">
             ✕
           </button>
         </div>
@@ -88,13 +88,17 @@ const App = () => {
     const el = textarea.current;
     if (
       el.style.height.slice(0, -2) == el.scrollHeight ||
-      el.scrollHeight > 170
+      (el.scrollHeight > 170
+        ? el.style.height.slice(0, -2) === 170
+          ? true
+          : false
+        : false)
     )
       return;
     el.style.height = "50px";
     el.style.height = el.scrollHeight + "px";
     el.style.overflowY = el.scrollHeight < 170 ? "hidden" : "auto";
-  }, [newNote]);
+  }, [textarea.current]);
 
   const saveNote = useCallback(() => {
     if (!/^\s*$/g.test(newNote)) {
@@ -111,7 +115,7 @@ const App = () => {
     } else return;
   }, [isNote, newNote]);
 
-  const handledelete = useCallback(
+  const handleDelete = useCallback(
     (e, id) => {
       e.target.parentNode.classList.add("delete-anim");
 
@@ -146,23 +150,13 @@ const App = () => {
     setEnterSend(!EnterSend);
   }, [EnterSend]);
 
-  const handlechange = useCallback(
+  const handleKeyUp = useCallback(
     (e) => {
       if (EnterSend) {
-        let i = 0;
-        let j = 0;
-        let difference = "";
-        while (j < e.target.value.length) {
-          if (newNote[i] !== e.target.value[j] || i === newNote.length)
-            difference += e.target.value[j];
-          else i++;
-          j++;
-        }
-        if (difference === "\n") saveNote();
-        else setnewNote(e.target.value);
-      } else setnewNote(e.target.value);
+        if (e.key === "Enter") saveNote();
+      }
     },
-    [EnterSend, newNote]
+    [EnterSend]
   );
 
   function handleNav() {
@@ -190,7 +184,8 @@ const App = () => {
           rows={1}
           ref={textarea}
           value={newNote}
-          onChange={(e) => handlechange(e)}
+          onChange={(e) => setnewNote(e.target.value)}
+          onKeyUp={handleKeyUp}
         ></textarea>
         <span className="placeholder">Type a note</span>
         <button onClick={saveNote} className={isNote ? "save" : "nosave"}>
@@ -202,7 +197,7 @@ const App = () => {
         {notes && (
           <Mapper
             notes={notes}
-            handledelete={handledelete}
+            handleDelete={handleDelete}
             HandleEdit={HandleEdit}
           />
         )}
