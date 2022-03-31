@@ -24,38 +24,32 @@ const useLocalStorage = (key, initialvalue) => {
   return [value, setvalue];
 };
 
-const Mapper = ({ notes, handleDelete, HandleEdit }) => {
-  if (notes.length !== 0) {
-    return notes.map((item) => {
-      return (
-        <div className="notes" key={item.id}>
-          <button
-            title={item.completed ? "Unmark" : "Mark as done"}
-            onClick={(e) => HandleEdit(item.id)}
-            class={`delete edit${item.completed ? " completed" : ""}`}
-          >
-            {item.completed ? "✕" : "✓"}
-          </button>
-          <p>
-            {item.body.map((line) => (
-              <div class="line" style={line === "" ? { height: "20px" } : {}}>
-                {line}
-              </div>
-            ))}
-          </p>
-          <button
-            onClick={(e) => handleDelete(e, item.id)}
-            className="delete"
-            title="Delete"
-          >
-            ✕
-          </button>
-        </div>
-      );
-    });
-  } else {
-    return <div className="nonotes">No Saved Notes</div>;
-  }
+const Note = ({ note: { id, completed, body }, handleEdit, handleDelete }) => {
+  return (
+    <div className="note" key={id}>
+      <button
+        title={completed ? "Mark as not done" : "Mark as done"}
+        onClick={() => handleEdit(id)}
+        class={`delete edit${completed ? " completed" : ""}`}
+      >
+        {completed ? "✕" : "✓"}
+      </button>
+      <p>
+        {body.map((line) => (
+          <div class="line" style={line === "" ? { height: "20px" } : {}}>
+            {line}
+          </div>
+        ))}
+      </p>
+      <button
+        onClick={(e) => handleDelete(e, id)}
+        className="delete"
+        title="Delete"
+      >
+        ✕
+      </button>
+    </div>
+  );
 };
 
 const App = () => {
@@ -72,7 +66,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    CheckIsNote();
+    setisNote(!/^\s*$/g.test(newNote));
     updateInputSize();
   }, [newNote]);
 
@@ -86,10 +80,6 @@ const App = () => {
       }
     }
   }, [theme]);
-
-  function CheckIsNote() {
-    setisNote(!/^\s*$/g.test(newNote));
-  }
 
   const updateInputSize = useCallback(() => {
     const el = textarea.current;
@@ -133,7 +123,7 @@ const App = () => {
     [notes]
   );
 
-  const HandleEdit = useCallback(
+  const handleEdit = useCallback(
     (id) => {
       const Newnotes = notes.map((item) => {
         if (item.id === id) {
@@ -196,30 +186,37 @@ const App = () => {
           className={isNote ? "save" : "nosave"}
           tabIndex={isNote ? 0 : -1}
         >
-          <span>save</span>
+          save
         </button>
       </div>
 
       <div className="container">
-        {notes && (
-          <Mapper
-            notes={notes}
-            handleDelete={handleDelete}
-            HandleEdit={HandleEdit}
-          />
+        {notes && notes.length !== 0 ? (
+          notes.map((item) => (
+            <Note
+              note={item}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
+          ))
+        ) : (
+          <div className="nonotes">No Saved Notes ☹️</div>
         )}
       </div>
       <div
         className={nav ? "nav-cont nav-cont-show" : "nav-cont"}
-        onClick={() => setnav(!nav)}
-      ></div>
-
-      <div className={nav ? "nav nav-show" : "nav"}>
-        <button onClick={() => setEnterSend(!EnterSend)}>
-          'Enter' is{EnterSend ? "" : " not"} save
-        </button>
-        <button onClick={() => settheme(!theme)}>Theme</button>
-        <button onClick={removeall}>Delete All Notes</button>
+        onClick={(e) => {
+          if (e.target.id === "nav-cont") setnav(false);
+        }}
+        id="nav-cont"
+      >
+        <div className={nav ? "nav nav-show" : "nav"}>
+          <button onClick={() => setEnterSend(!EnterSend)}>
+            'Enter' is{EnterSend ? "" : " not"} save
+          </button>
+          <button onClick={() => settheme(!theme)}>Theme</button>
+          <button onClick={removeall}>Delete All Notes</button>
+        </div>
       </div>
     </div>
   );

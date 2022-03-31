@@ -134,7 +134,7 @@ body,
   z-index: 2;
 }
 .nav-cont-show,
-.nav:focus-within .nav-cont {
+.nav-cont:focus-within {
   opacity: 1;
   pointer-events: all;
 }
@@ -271,6 +271,9 @@ textarea:focus ~ .placeholder,
   transition: width 0.1s linear;
   overflow-x: hidden;
   margin-left: 2px;
+  font-size: 20px;
+  word-break: keep-all;
+  cursor: pointer;
 }
 .save {
   width: 70px;
@@ -306,7 +309,7 @@ textarea:focus ~ .placeholder,
   background-color: var(--theme);
   border-radius: 5px;
 }
-.notes {
+.note {
   color: inherit;
   margin: 10px 0px;
   width: 85%;
@@ -355,7 +358,7 @@ textarea:focus ~ .placeholder,
 .completed + p {
   text-decoration: line-through;
 }
-.notes p {
+.note p {
   color: inherit;
   user-select: text;
   font-size: 18px;
