@@ -36,7 +36,9 @@ const Note = ({ note: { id, completed, body }, handleEdit, handleDelete }) => {
       </button>
       <p>
         {body.map((line) => (
-          <>{line}</>
+          <div class="line" style={line === "" ? { height: "20px" } : {}}>
+            {line}
+          </div>
         ))}
       </p>
       <button
