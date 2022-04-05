@@ -24,9 +24,10 @@ const useLocalStorage = (key, initialvalue) => {
   return [value, setvalue];
 };
 
-const Note = ({ note: { id, completed, body }, handleEdit, handleDelete }) => {
+const Note = ({ note, handleEdit, handleDelete }) => {
+  const { id, completed } = note;
   return (
-    <div className={item.new ? "note enter-anim" : "note"} key={id}>
+    <div className={note.new ? "note enter-anim" : "note"} key={id}>
       <button
         title={completed ? "Mark as not done" : "Mark as done"}
         onClick={() => handleEdit(id)}
@@ -35,7 +36,7 @@ const Note = ({ note: { id, completed, body }, handleEdit, handleDelete }) => {
         {completed ? "✕" : "✓"}
       </button>
       <p>
-        {body.map((line) => (
+        {note.body.map((line) => (
           <div class="line" style={line === "" ? { height: "20px" } : {}}>
             {line}
           </div>
