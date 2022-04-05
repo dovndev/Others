@@ -34,13 +34,7 @@ const Note = ({ note: { id, completed, body }, handleEdit, handleDelete }) => {
       >
         {completed ? "✕" : "✓"}
       </button>
-      <p>
-        {body.map((line) => (
-          <div class="line" style={line === "" ? { height: "20px" } : {}}>
-            {line}
-          </div>
-        ))}
-      </p>
+      <p>{body.map((line) => ({ line }))}</p>
       <button
         onClick={(e) => handleDelete(e, id)}
         className="delete"

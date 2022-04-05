@@ -368,14 +368,9 @@ textarea:focus ~ .placeholder,
   border-top: 2px solid var(--lightBorder);
   border-bottom: 2px solid var(--lightBorder);
   width: 100%;
-  word-break: break-all;
-}
-.line {
-  user-select: text;
-  word-break: break-all;
-  width: 100%;
-  display: block;
-  width: 100%;
+  word-break: normal;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 .delete {
   width: 50px;
