@@ -109,6 +109,7 @@ const App = () => {
       ]);
       setnewNote("");
       textarea.current.focus();
+      document.querySelector(".container").scrollTop = 0;
     } else return;
   }, [isNote, newNote]);
 
