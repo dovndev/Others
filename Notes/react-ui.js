@@ -100,12 +100,12 @@ const App = () => {
   const saveNote = useCallback(() => {
     if (!/^\s*$/g.test(newNote)) {
       setnotes([
+        ...notes,
         {
           id: new Date().getTime(),
           body: newNote.trim().split(/\n/g),
           completed: false,
         },
-        ...notes,
       ]);
       setnewNote("");
       textarea.current.focus();
