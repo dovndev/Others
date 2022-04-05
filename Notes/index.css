@@ -319,14 +319,16 @@ textarea:focus ~ .placeholder,
   justify-content: space-between;
   border-radius: 10px;
   transition: scale ease 0.4s;
-  animation: set 0.4s ease;
   transform-origin: top center;
+}
+.enter-anim {
+  animation: enter 0.4s ease;
 }
 .delete-anim {
   animation: remove 0.51s ease-out;
 }
 
-@keyframes set {
+@keyframes enter {
   0% {
     transform: scale(0.4);
   }

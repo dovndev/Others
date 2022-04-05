@@ -26,7 +26,7 @@ const useLocalStorage = (key, initialvalue) => {
 
 const Note = ({ note: { id, completed, body }, handleEdit, handleDelete }) => {
   return (
-    <div className="note" key={id}>
+    <div className={item.new ? "note enter-anim" : "note"} key={id}>
       <button
         title={completed ? "Mark as not done" : "Mark as done"}
         onClick={() => handleEdit(id)}
@@ -81,6 +81,19 @@ const App = () => {
     }
   }, [theme]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (notes.some((i) => i.new === true)) {
+        setnotes(
+          notes.map((i) => {
+            if (i.new) return { ...i, new: undefined };
+            return i;
+          })
+        );
+      }
+    }, 400);
+  }, [notes]);
+
   const updateInputSize = useCallback(() => {
     const el = textarea.current;
     if (
@@ -100,16 +113,16 @@ const App = () => {
   const saveNote = useCallback(() => {
     if (!/^\s*$/g.test(newNote)) {
       setnotes([
-        ...notes,
         {
           id: new Date().getTime(),
           body: newNote.trim().split(/\n/g),
           completed: false,
+          new: true,
         },
+        ...notes,
       ]);
       setnewNote("");
       textarea.current.focus();
-      document.querySelector(".container").scrollTop = 0;
     } else return;
   }, [isNote, newNote]);
 
