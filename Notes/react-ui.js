@@ -267,7 +267,7 @@ const App = () => {
             Show Url's as Links {showLinks && "✓"}
           </button>
           <button onClick={() => settheme(!theme)}>
-            {theme ? "Dark" : "Light"} theme
+            Dark theme {!theme && "✓"}
           </button>
           <button onClick={removeall}>Delete All Notes</button>
         </div>
