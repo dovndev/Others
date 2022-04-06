@@ -95,8 +95,8 @@ button {
   color: var(--text);
   box-shadow: var(--boxShadow);
   background-image: linear-gradient(
-    rgba(255, 255, 255, 0.09),
-    rgba(255, 255, 255, 0.09)
+    rgb(207 207 207 / 9%),
+    rgb(224 224 224 / 9%)
   );
   background-color: var(--box);
   border-radius: 5px;
