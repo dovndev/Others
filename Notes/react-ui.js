@@ -125,7 +125,7 @@ const App = () => {
       let body = [];
       let text = newNote.trim();
       const matches = text.match(
-        /(https?\:\/\/)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gm
+        /(https?\:\/\/)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gm
       );
       if (matches) {
         matches.forEach((match) => {
