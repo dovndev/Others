@@ -24,7 +24,7 @@ const useLocalStorage = (key, initialvalue) => {
   return [value, setvalue];
 };
 
-const Note = ({ note, handleEdit, handleDelete }) => {
+const Note = ({ showLinks, note, handleEdit, handleDelete }) => {
   const { id, completed } = note;
   return (
     <div className={note.new ? "note enter-anim" : "note"} key={id}>
@@ -36,20 +36,23 @@ const Note = ({ note, handleEdit, handleDelete }) => {
         {completed ? "✕" : "✓"}
       </button>
       <p>
-        {note.body.map((content) =>
-          content.type === "text" ? (
-            <>{content.body}</>
-          ) : (
-            <a
-              href={content.link}
-              title={content.link}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {content.body}
-            </a>
-          )
-        )}
+        {note.body.map((content) => {
+          if (showLinks) {
+            if (content.type === "text") return <>{content.body}</>;
+            else {
+              return (
+                <a
+                  href={content.link}
+                  title={content.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {content.body}
+                </a>
+              );
+            }
+          } else return <>{content.body}</>;
+        })}
       </p>
       <button
         onClick={(e) => handleDelete(e, id)}
@@ -68,6 +71,7 @@ const App = () => {
   const [newNote, setnewNote] = useLocalStorage("NewNote-React", "");
   const [EnterSend, setEnterSend] = useLocalStorage("EnterSend-React", false);
   const [isNote, setisNote] = useState(true);
+  const [showLinks, setshowLinks] = useState(true);
   const [nav, setnav] = useState(false);
   const textarea = useRef();
 
@@ -238,6 +242,7 @@ const App = () => {
         {notes && notes.length !== 0 ? (
           notes.map((item) => (
             <Note
+              showLinks={showLinks}
               note={item}
               handleEdit={handleEdit}
               handleDelete={handleDelete}
@@ -256,9 +261,14 @@ const App = () => {
       >
         <div className={nav ? "nav nav-show" : "nav"}>
           <button onClick={() => setEnterSend(!EnterSend)}>
-            'Enter' is{EnterSend ? "" : " not"} save
+            'Enter' key is save {EnterSend && "✓"}
           </button>
-          <button onClick={() => settheme(!theme)}>Theme</button>
+          <button onClick={() => setshowLinks(!showLinks)}>
+            Show Url's as Links {showLinks && "✓"}
+          </button>
+          <button onClick={() => settheme(!theme)}>
+            {theme ? "Dark" : "Light"} theme
+          </button>
           <button onClick={removeall}>Delete All Notes</button>
         </div>
       </div>
