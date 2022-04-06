@@ -378,6 +378,11 @@ textarea:focus ~ .placeholder,
 .note p a {
   user-select: text;
   color: var(--theme);
+  text-decoration: none;
+}
+.note p a:focus,
+.note p a:hover {
+  text-decoration: underline;
 }
 .delete {
   width: 50px;
