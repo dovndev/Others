@@ -36,11 +36,20 @@ const Note = ({ note, handleEdit, handleDelete }) => {
         {completed ? "✕" : "✓"}
       </button>
       <p>
-        {note.body.map((line) => (
-          <div class="line" style={line === "" ? { height: "20px" } : {}}>
-            {line}
-          </div>
-        ))}
+        {note.body.map((content) =>
+          content.type === "text" ? (
+            <>{content.body}</>
+          ) : (
+            <a
+              href={content.link}
+              title={content.link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {content.body}
+            </a>
+          )
+        )}
       </p>
       <button
         onClick={(e) => handleDelete(e, id)}
@@ -113,10 +122,30 @@ const App = () => {
 
   const saveNote = useCallback(() => {
     if (!/^\s*$/g.test(newNote)) {
+      let body = [];
+      let text = newNote.trim();
+      const matches = text.match(
+        /(https?\:\/\/)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gm
+      );
+      if (matches) {
+        matches.forEach((match) => {
+          const pos = text.indexOf(match);
+          if (pos !== 0) body.push({ type: "text", body: text.slice(0, pos) });
+          body.push({
+            type: "link",
+            link: match.includes("http") ? match : `http://${match}`,
+            body: match,
+          });
+          text = text.slice(pos + match.length);
+        });
+        if (text.length !== 0) body.push({ type: "text", body: text });
+      } else {
+        body.push({ type: "text", body: text });
+      }
       setnotes([
         {
           id: new Date().getTime(),
-          body: newNote.trim().split(/\n/g),
+          body,
           completed: false,
           new: true,
         },
