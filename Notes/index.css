@@ -117,7 +117,8 @@ button {
 }
 
 .header button:focus {
-  outline: 2px solid white;
+  outline: none;
+  transform: scale(1.2);
 }
 
 .header button svg {

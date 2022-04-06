@@ -218,6 +218,27 @@ const App = () => {
         </div>
       </div>
 
+      <div
+        className={nav ? "nav-cont nav-cont-show" : "nav-cont"}
+        onClick={(e) => {
+          if (e.target.id === "nav-cont") setnav(false);
+        }}
+        id="nav-cont"
+      >
+        <div className={nav ? "nav nav-show" : "nav"}>
+          <button onClick={() => setEnterSend(!EnterSend)}>
+            'Enter' key is save {EnterSend && "✓"}
+          </button>
+          <button onClick={() => setshowLinks(!showLinks)}>
+            Show Url's as Links {showLinks && "✓"}
+          </button>
+          <button onClick={() => settheme(!theme)}>
+            Dark theme {!theme && "✓"}
+          </button>
+          <button onClick={removeall}>Delete All Notes</button>
+        </div>
+      </div>
+
       <div className="form">
         <textarea
           title="Type a note"
@@ -251,26 +272,6 @@ const App = () => {
         ) : (
           <div className="nonotes">No Saved Notes ☹️</div>
         )}
-      </div>
-      <div
-        className={nav ? "nav-cont nav-cont-show" : "nav-cont"}
-        onClick={(e) => {
-          if (e.target.id === "nav-cont") setnav(false);
-        }}
-        id="nav-cont"
-      >
-        <div className={nav ? "nav nav-show" : "nav"}>
-          <button onClick={() => setEnterSend(!EnterSend)}>
-            'Enter' key is save {EnterSend && "✓"}
-          </button>
-          <button onClick={() => setshowLinks(!showLinks)}>
-            Show Url's as Links {showLinks && "✓"}
-          </button>
-          <button onClick={() => settheme(!theme)}>
-            Dark theme {!theme && "✓"}
-          </button>
-          <button onClick={removeall}>Delete All Notes</button>
-        </div>
       </div>
     </div>
   );
