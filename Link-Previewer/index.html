@@ -43,6 +43,7 @@
         width: 800px;
         height: auto;
         margin-bottom: 20px;
+        position: relative;
       }
 
       .input {
@@ -50,9 +51,22 @@
         width: 100%;
         font-size: 20px;
         padding: 10px;
+        padding-right: 40px;
         border: 1px solid #2982e7;
         color: white;
         background-color: transparent;
+      }
+      .clear {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        font-size: 20px;
+        background-color: transparent;
+        color: white;
+        border: none;
+        height: 50%;
+        width: 40px;
+        cursor: pointer;
       }
 
       .button {
@@ -136,6 +150,7 @@
         color: white;
         white-space: normal;
       }
+      
 
       a {
         text-decoration: none;
@@ -149,6 +164,7 @@
   <body>
     <form class="cont" id="form">
       <input class="input" type="text" placeholder="https://www.google.com" />
+      <button class="clear">✕</button>
       <button class="button" id="btn" onclick="GetPreview()">
         Get Preview
       </button>

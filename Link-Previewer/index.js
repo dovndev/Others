@@ -23,7 +23,6 @@ function GetPreview() {
     .then((json) => {
       let notok = !json.description && !json.image && !json.title;
       let url;
-      console.log(json);
       if (!json.error && json.url !== "") url = new URL(json.url);
       const html = ` 
        <div class="img-cont">
@@ -52,9 +51,13 @@ function GetPreview() {
     });
 }
 
-document.getElementById("form").addEventListener("submit", function (event) {
+document.querySelector(".clear").onclick = (e) => {
+  input.value = "";
+};
+
+document.getElementById("form").onsubmit = (event) => {
   event.preventDefault();
-});
+};
 
 //     fetch(`https://proclink.p.rapidapi.com/oembed?url=${value}`, {
 // 	"method": "GET",
