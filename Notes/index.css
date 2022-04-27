@@ -385,10 +385,9 @@ textarea:focus ~ .placeholder,
 .note p a:hover {
   text-decoration: underline;
 }
-.delete {
+.button {
   width: 50px;
   height: auto;
-  border-radius: 0px 10px 10px 0px;
   color: white;
   background-color: var(--theme);
   padding: 0;
@@ -397,14 +396,32 @@ textarea:focus ~ .placeholder,
   font-weight: bold;
   text-align: center;
 }
+
+.delete {
+  border-radius: 0px 5px 5px 0px;
+}
+
 .edit {
+  border-radius: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid darkblue;
+}
+.edit .editing {
+  background-color: crimson;
+}
+.edit svg {
+  height: 20px;
+  width: auto;
+}
+.mark {
   border-radius: 5px 0px 0px 5px;
   background-color: rgb(43, 248, 53);
   font-size: 25px;
 }
 .completed {
   background-color: crimson;
-  font-size: 20px;
 }
 .nonotes {
   font-size: 20px;
