@@ -408,9 +408,11 @@ textarea:focus ~ .placeholder,
   align-items: center;
   border-right: 1px solid darkblue;
 }
-.edit .editing {
+
+.editing {
   background-color: crimson;
 }
+
 .edit svg {
   height: 20px;
   width: auto;
