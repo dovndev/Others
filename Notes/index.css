@@ -301,6 +301,10 @@ textarea:focus ~ .placeholder,
   border-radius: 5px;
 }
 
+.undo span {
+  color: white;
+}
+
 .undo button {
   background-color: transparent;
   font-size: 17px;
