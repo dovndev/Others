@@ -111,6 +111,7 @@ const App = () => {
   const [showLinks, setshowLinks] = useState(true);
   const [nav, setnav] = useState(false);
   const textarea = useRef();
+  const undoTimeoutRef = useRef();
 
   useEffect(() => {
     textarea.current.focus();
@@ -123,7 +124,7 @@ const App = () => {
 
   useEffect(() => {
     if (undo !== false) {
-      setTimeout(() => setUndo(false), 5000);
+      undoTimeoutRef.current = setTimeout(() => setUndo(false), 5000);
     }
   }, [undo]);
 
@@ -243,6 +244,8 @@ const App = () => {
       e.target.parentNode.classList.add("delete-anim");
 
       setTimeout(() => {
+        if (undoTimeoutRef.current) clearTimeout(undoTimeoutRef.current);
+        undoTimeoutRef.current = false;
         setUndo(notes);
         setnotes(notes.filter((note) => note.id !== id));
       }, 500);
