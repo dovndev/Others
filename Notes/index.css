@@ -429,7 +429,7 @@ textarea:focus ~ .placeholder,
   display: flex;
   justify-content: center;
   align-items: center;
-  border-right: 1px solid darkblue;
+  border-right: 1px solid var(--background);
 }
 
 .editing {
