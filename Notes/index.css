@@ -296,7 +296,8 @@ textarea:focus ~ .placeholder,
   position: absolute;
   bottom: 10px;
   right: 10px;
-  background-color: #474747;
+  background-color: black;
+  border: 1px solid white;
   padding: 10px;
   border-radius: 5px;
 }
