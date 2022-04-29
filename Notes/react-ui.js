@@ -68,7 +68,11 @@ const Note = ({
         className={`button edit${editing === id ? " editing" : ""}`}
         title={editing === id ? "Stop editing" : "Edit"}
       >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490.273 490.273" fill="white">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 490.273 490.273"
+          fill="white"
+        >
           <g>
             <path
               d="M313.548,152.387l-230.8,230.9c-6.7,6.7-6.7,17.6,0,24.3c3.3,3.3,7.7,5,12.1,5s8.8-1.7,12.1-5l230.8-230.8
@@ -247,6 +251,7 @@ const App = () => {
         if (undoTimeoutRef.current) clearTimeout(undoTimeoutRef.current);
         undoTimeoutRef.current = false;
         setUndo(notes);
+        if (editing === id) setEditing(false);
         setnotes(notes.filter((note) => note.id !== id));
       }, 500);
     },
