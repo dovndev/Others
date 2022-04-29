@@ -225,7 +225,7 @@ const App = () => {
       setEditing(false);
       textarea.current.focus();
     } else return;
-  }, [isNote, newNote]);
+  }, [isNote, newNote, textarea.current, notes]);
 
   const saveNewNote = useCallback(() => {
     if (isNote) {
@@ -241,21 +241,20 @@ const App = () => {
       setnewNote("");
       textarea.current.focus();
     } else return;
-  }, [isNote, newNote]);
+  }, [isNote, newNote, textarea.current, notes]);
 
   const handleDelete = useCallback(
     (e, id) => {
       e.target.parentNode.classList.add("delete-anim");
-
+      if (editing === id) setEditing(false);
       setTimeout(() => {
         if (undoTimeoutRef.current) clearTimeout(undoTimeoutRef.current);
         undoTimeoutRef.current = false;
         setUndo(notes);
-        if (editing === id) setEditing(false);
         setnotes(notes.filter((note) => note.id !== id));
       }, 500);
     },
-    [notes]
+    [notes, editing, undoTimeoutRef.current]
   );
 
   const handleEdit = useCallback(
@@ -282,7 +281,7 @@ const App = () => {
         else saveNewNote();
       } else setnewNote(e.target.value);
     },
-    [EnterSend, textarea.current, saveNewNote, saveEditedNote]
+    [EnterSend, textarea.current, saveNewNote, saveEditedNote, editing]
   );
 
   const removeall = useCallback(() => {
