@@ -1,12 +1,11 @@
-const version = 1.1234;
-const staticCacheName = `site-shell-assets-v${version}`;
-const dynamicCacheName = `site-dynamic-assets-v${version}`;
+const version = 1.11;
+const staticCacheName = `site-shell-assets-v-${version}`;
+const dynamicCacheName = `site-dynamic-assets-v-${version}`;
 const dynamicCacheLimit = 15;
 const skipWaiting = true;
 const clientsClaim = true;
 const shellAssets = [
   "/Others/Notes/",
-  "/Others/Notes/index.html",
   "/Others/Notes/react-ui.js",
   "/Others/Notes/app.js",
   "/Others/Notes/index.css",
