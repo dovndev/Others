@@ -1,0 +1,80 @@
+:root {
+  --ballColour: #4b5154;
+}
+.start-btn {
+  display: flex;
+  justify-content: space-between;
+  background-color: #1f2223;
+  margin: 0px 11px;
+  padding: 13px 12px;
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  position: relative;
+}
+
+.start-btn span {
+  font-family: Roboto, Arial, sans-serif;
+  letter-spacing: 0.025em;
+  font-size: 0.75rem;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+.start-btn button {
+  padding: 0px;
+  width: 36px;
+  height: 14px;
+  margin-right: 1px;
+  border-radius: 20px;
+  background-color: #2b2f31;
+  border: none;
+  transition: 0.1s;
+  cursor: pointer;
+}
+
+.start-btn button .ball {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: 19px;
+  background-color: var(--ballColour);
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  transition: 0.1s;
+  padding: 1px;
+  box-sizing: border-box;
+}
+.start-btn button:hover {
+  --ballColour: #1a1c1d;
+}
+.on button:hover .ball {
+  --ballColour: #133e85;
+}
+
+.start-btn button .ball .tick {
+  display: none;
+  transition: 0.1s;
+}
+
+.start-btn button .ball .minus {
+  display: block;
+  transition: 0.1s;
+}
+.on button {
+  background-color: #063276;
+}
+
+.on button .ball {
+  right: 3px;
+  --ballColour: #135ab8;
+}
+
+.on button .ball .tick {
+  display: block;
+}
+
+.on button .ball .minus {
+  display: none;
+}
