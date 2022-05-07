@@ -24,6 +24,43 @@ const useLocalStorage = (key, initialvalue) => {
   return [value, setvalue];
 };
 
+const stringToArray = (text) => {
+  let body = [];
+  const matches = text.match(
+    /(https?\:\/\/)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gm
+  );
+  if (matches) {
+    matches.forEach((match) => {
+      const pos = text.indexOf(match);
+      if (pos !== 0) body.push({ type: "text", body: text.slice(0, pos) });
+      body.push({
+        type: "link",
+        link: match.includes("http") ? match : `http://${match}`,
+        body: match,
+      });
+      text = text.slice(pos + match.length);
+    });
+    if (text.length !== 0) body.push({ type: "text", body: text });
+  } else {
+    body.push({ type: "text", body: text });
+  }
+  return body;
+};
+
+const arrayToString = (arr) => {
+  let text = "";
+  arr.forEach((i) => (text += i.body));
+  return text;
+};
+
+const copyToClipBoard = (text) => {
+  if (text && text !== "") {
+    navigator.clipboard
+      .writeText(text)
+      .catch((err) => console.log("clip board error : ", err));
+  }
+};
+
 const Note = ({
   showLinks,
   note,
@@ -42,7 +79,10 @@ const Note = ({
       >
         {completed ? "✕" : "✓"}
       </button>
-      <p>
+      <p
+        title="Double click to copy note"
+        onDoubleClick={() => copyToClipBoard(arrayToString(note))}
+      >
         {note.body.map((content) => {
           if (showLinks) {
             if (content.type === "text") return <>{content.body}</>;
@@ -105,15 +145,15 @@ const Note = ({
 };
 
 const App = () => {
-  const [notes, setnotes] = useLocalStorage("Notes-React", []);
-  const [theme, settheme] = useLocalStorage("Theme-React", true);
-  const [newNote, setnewNote] = useLocalStorage("NewNote-React", "");
-  const [EnterSend, setEnterSend] = useLocalStorage("EnterSend-React", false);
-  const [isNote, setisNote] = useState(true);
+  const [notes, setNotes] = useLocalStorage("Notes-React", []);
+  const [theme, setTheme] = useLocalStorage("Theme-React", true);
+  const [newNote, setNewNote] = useLocalStorage("NewNote-React", "");
+  const [enterSend, setEnterSend] = useLocalStorage("EnterSend-React", false);
+  const [isNote, setIsNote] = useState(true);
   const [undo, setUndo] = useState(false);
   const [editing, setEditing] = useState(false);
-  const [showLinks, setshowLinks] = useState(true);
-  const [nav, setnav] = useState(false);
+  const [showLinks, setShowLinks] = useState(true);
+  const [nav, setNav] = useState(false);
   const textarea = useRef();
   const undoTimeoutRef = useRef();
 
@@ -122,7 +162,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    setisNote(!/^\s*$/g.test(newNote));
+    setIsNote(!/^\s*$/g.test(newNote));
     updateInputSize();
   }, [newNote]);
 
@@ -146,7 +186,7 @@ const App = () => {
   useEffect(() => {
     setTimeout(() => {
       if (notes.some((i) => i.new === true)) {
-        setnotes(
+        setNotes(
           notes.map((i) => {
             if (i.new) return { ...i, new: undefined };
             return i;
@@ -172,46 +212,17 @@ const App = () => {
     el.style.overflowY = el.scrollHeight < 170 ? "hidden" : "auto";
   }, [textarea.current]);
 
-  const stringToArray = useCallback((text) => {
-    let body = [];
-    const matches = text.match(
-      /(https?\:\/\/)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gm
-    );
-    if (matches) {
-      matches.forEach((match) => {
-        const pos = text.indexOf(match);
-        if (pos !== 0) body.push({ type: "text", body: text.slice(0, pos) });
-        body.push({
-          type: "link",
-          link: match.includes("http") ? match : `http://${match}`,
-          body: match,
-        });
-        text = text.slice(pos + match.length);
-      });
-      if (text.length !== 0) body.push({ type: "text", body: text });
-    } else {
-      body.push({ type: "text", body: text });
-    }
-    return body;
-  }, []);
-
-  const arrayToString = useCallback((arr) => {
-    let text = "";
-    arr.forEach((i) => (text += i.body));
-    return text;
-  }, []);
-
   useEffect(() => {
     if (editing) {
-      setnewNote(arrayToString(notes.find((i) => i.id === editing).body));
+      setNewNote(arrayToString(notes.find((i) => i.id === editing).body));
     } else {
-      setnewNote("");
+      setNewNote("");
     }
   }, [editing]);
 
   const saveEditedNote = useCallback(() => {
     if (isNote) {
-      setnotes(
+      setNotes(
         notes.map((i) => {
           if (i.id === editing) {
             return {
@@ -229,7 +240,7 @@ const App = () => {
 
   const saveNewNote = useCallback(() => {
     if (isNote) {
-      setnotes([
+      setNotes([
         {
           id: new Date().getTime(),
           body: stringToArray(newNote.trim()),
@@ -238,7 +249,7 @@ const App = () => {
         },
         ...notes,
       ]);
-      setnewNote("");
+      setNewNote("");
       textarea.current.focus();
     } else return;
   }, [isNote, newNote, textarea.current, notes]);
@@ -251,7 +262,7 @@ const App = () => {
         if (undoTimeoutRef.current) clearTimeout(undoTimeoutRef.current);
         undoTimeoutRef.current = false;
         setUndo(notes);
-        setnotes(notes.filter((note) => note.id !== id));
+        setNotes(notes.filter((note) => note.id !== id));
       }, 500);
     },
     [notes, editing, undoTimeoutRef.current]
@@ -265,7 +276,7 @@ const App = () => {
           return item;
         } else return item;
       });
-      setnotes(Newnotes);
+      setNotes(Newnotes);
     },
     [notes]
   );
@@ -273,20 +284,20 @@ const App = () => {
   const handleChange = useCallback(
     (e) => {
       if (
-        EnterSend &&
+        enterSend &&
         e.target.value.slice(0, textarea.current.selectionStart).slice(-1) ===
           "\n"
       ) {
         if (editing) saveEditedNote();
         else saveNewNote();
-      } else setnewNote(e.target.value);
+      } else setNewNote(e.target.value);
     },
-    [EnterSend, textarea.current, saveNewNote, saveEditedNote, editing]
+    [enterSend, textarea.current, saveNewNote, saveEditedNote, editing]
   );
 
   const removeall = useCallback(() => {
     if (!confirm(`Delete All Notes`)) return;
-    setnotes([]);
+    setNotes([]);
   }, []);
 
   return (
@@ -294,7 +305,7 @@ const App = () => {
       <div className="header-cont">
         <div className="header">
           <p>Notebook</p>
-          <button onClick={() => setnav(!nav)} title="Menu">
+          <button onClick={() => setNav(!nav)} title="Menu">
             <svg viewBox="0 0 24 24">
               <path
                 fill="white"
@@ -308,18 +319,18 @@ const App = () => {
       <div
         className={nav ? "nav-cont nav-cont-show" : "nav-cont"}
         onClick={(e) => {
-          if (e.target.id === "nav-cont") setnav(false);
+          if (e.target.id === "nav-cont") setNav(false);
         }}
         id="nav-cont"
       >
         <div className={nav ? "nav nav-show" : "nav"}>
-          <button onClick={() => setEnterSend(!EnterSend)}>
-            'Enter' key is save {EnterSend && "✓"}
+          <button onClick={() => setEnterSend(!enterSend)}>
+            'Enter' key is save {enterSend && "✓"}
           </button>
-          <button onClick={() => setshowLinks(!showLinks)}>
+          <button onClick={() => setShowLinks(!showLinks)}>
             Show Url's as Links {showLinks && "✓"}
           </button>
-          <button onClick={() => settheme(!theme)}>
+          <button onClick={() => setTheme(!theme)}>
             Dark theme {!theme && "✓"}
           </button>
           <button onClick={removeall}>Delete All Notes</button>
@@ -331,7 +342,7 @@ const App = () => {
           <span>Note deleted</span>
           <button
             onClick={() => {
-              setnotes(undo);
+              setNotes(undo);
               setUndo(false);
             }}
           >
