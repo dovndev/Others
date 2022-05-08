@@ -1,4 +1,9 @@
-[hider="hide-element"] {
+[hider="hide-element"],
+#hider,
+.hider {
   opacity: 0 !important;
   z-index: -100000 !important;
+  pointer-events: none !important;
+  color: transparent !important;
+  background-color: transparent !important;
 }

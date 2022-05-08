@@ -53,10 +53,11 @@ const arrayToString = (arr) => {
   return text;
 };
 
-const copyToClipBoard = (text) => {
+const copyToClipBoard = async (text) => {
   if (text && text !== "") {
-    navigator.clipboard
+    return navigator.clipboard
       .writeText(text)
+      .then(() => console.log("copied" + text))
       .catch((err) => console.log("clip board error : ", err));
   }
 };
@@ -68,6 +69,7 @@ const Note = ({
   handleDelete,
   setEditing,
   editing,
+  setAlert,
 }) => {
   const { id, completed } = note;
   return (
@@ -81,7 +83,10 @@ const Note = ({
       </button>
       <p
         title="Double click to copy note"
-        onDoubleClick={() => copyToClipBoard(arrayToString(note))}
+        onDoubleClick={() => {
+          await copyToClipBoard(arrayToString(note));
+          setAlert("Copied note ✓");
+        }}
       >
         {note.body.map((content) => {
           if (showLinks) {
@@ -150,6 +155,7 @@ const App = () => {
   const [newNote, setNewNote] = useLocalStorage("NewNote-React", "");
   const [enterSend, setEnterSend] = useLocalStorage("EnterSend-React", false);
   const [isNote, setIsNote] = useState(true);
+  const [alert, setAlert] = useState("");
   const [undo, setUndo] = useState(false);
   const [editing, setEditing] = useState(false);
   const [showLinks, setShowLinks] = useState(true);
@@ -171,6 +177,12 @@ const App = () => {
       undoTimeoutRef.current = setTimeout(() => setUndo(false), 5000);
     }
   }, [undo]);
+
+  useEffect(() => {
+    if (alert !== "") {
+      setTimeout(() => setAlert(""), 3000);
+    }
+  }, [alert]);
 
   useEffect(() => {
     const themeColor = theme ? "#1976d2" : "#161b22";
@@ -351,6 +363,12 @@ const App = () => {
         </div>
       )}
 
+      {alert !== "" && (
+        <div className="undo">
+          <span>{alert}</span>
+        </div>
+      )}
+
       <div className="form">
         <textarea
           title="Type a note"
@@ -381,6 +399,7 @@ const App = () => {
               handleDelete={handleDelete}
               setEditing={setEditing}
               editing={editing}
+              setAlert={setAlert}
             />
           ))
         ) : (
