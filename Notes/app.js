@@ -1,7 +1,7 @@
 const theme = JSON.parse(localStorage.getItem("Theme-React"));
 const notFirst = JSON.parse(localStorage.getItem("notFirst"));
 
-const App = {
+const APP = {
   newServiceWorker: null,
   controller: null,
   sendMessage: (msg) => {
@@ -23,14 +23,14 @@ const App = {
         .register("./sw.js")
         .then((reg) => {
           reg.addEventListener("updatefound", () => {
-            App.newServiceWorker = reg.installing;
+            APP.newServiceWorker = reg.installing;
 
-            App.newServiceWorker.addEventListener("statechange", (event) => {
+            APP.newServiceWorker.addEventListener("statechange", (event) => {
               if (
                 event.target.state === "installed" &&
                 navigator.serviceWorker.controller
               ) {
-                window.newServiceWorker = App.newServiceWorker;
+                window.newServiceWorker = APP.newServiceWorker;
                 sendMessage({
                   action: "update-available",
                 });
@@ -38,9 +38,9 @@ const App = {
             });
           });
 
-          if (reg.waiting && !App.newServiceWorker) {
-            App.newServiceWorker = reg.waiting;
-            window.newServiceWorker = App.newServiceWorker;
+          if (reg.waiting && !APP.newServiceWorker) {
+            APP.newServiceWorker = reg.waiting;
+            window.newServiceWorker = APP.newServiceWorker;
             sendMessage({
               action: "update-available",
             });
@@ -50,7 +50,7 @@ const App = {
             "message",
             (event) => {
               if (event.data.action === "update") {
-                App.newServiceWorker.skipWaiting();
+                APP.newServiceWorker.skipWaiting();
               }
             }
           );
@@ -66,4 +66,4 @@ const App = {
   },
 };
 
-window.App = App;
+window.APP = APP;

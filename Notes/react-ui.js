@@ -75,7 +75,7 @@ const useLocalStorage = (key, initialvalue, stale) => {
   useEffect(() => {
     if (staled === "") {
       localStorage.setItem(key, JSON.stringify(value));
-      window.App.sendMessage({ action: CONSTANTS.RELOAD_DATA, key });
+      window.APP.sendMessage({ action: CONSTANTS.RELOAD_DATA, key });
     } else setStaled("");
   }, [value]);
 
@@ -192,7 +192,7 @@ const App = () => {
   useEffect(async () => {
     textarea.current.focus();
 
-    await window.App.init();
+    await window.APP.init();
     if (navigator.serviceWorker.controller) {
       navigator.serviceWorker.controller.addEventListener(
         "message",
@@ -409,7 +409,7 @@ const App = () => {
       {updateAvailable && (
         <div className="popup">
           <span>Update available for Notebook</span>
-          <button onClick={() => window.App.sendMessage({ action: "update" })}>
+          <button onClick={() => window.APP.sendMessage({ action: "update" })}>
             update
           </button>
         </div>
