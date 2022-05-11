@@ -2,8 +2,6 @@ const version = 1.12;
 const staticCacheName = `site-shell-assets-v-${version}`;
 const dynamicCacheName = `site-dynamic-assets-v-${version}`;
 const dynamicCacheLimit = 15;
-const skipWaiting = true;
-const clientsClaim = true;
 const shellAssets = [
   "/Others/Notes/",
   "/Others/Notes/react-ui.js",
@@ -25,27 +23,35 @@ const limitCacheSize = (name, size) => {
   });
 };
 
-// install event
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(staticCacheName).then((cache) => {
-      cache.addAll(shellAssets);
-    })
-  );
-  if (skipWaiting) self.skipWaiting();
+self.addEventListener("message", (event) => {
+  if (event.data.action === "skipWaiting") {
+    self.skipWaiting();
+  }
 });
+
+// install event
+// self.addEventListener("install", (event) => {
+//   event.waitUntil();
+// });
 
 // activate event
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => {
-      if (clientsClaim) clients.claim();
-      return Promise.all(
-        keys
-          .filter((key) => key !== staticCacheName && key !== dynamicCacheName)
-          .map((key) => caches.delete(key))
-      );
-    })
+    (async () => {
+      await caches.open(staticCacheName).then((cache) => {
+        cache.addAll(shellAssets);
+      });
+      await caches.keys().then((keys) => {
+        return Promise.all(
+          keys
+            .filter(
+              (key) => key !== staticCacheName && key !== dynamicCacheName
+            )
+            .map((key) => caches.delete(key))
+        );
+      });
+      clients.claim();
+    })()
   );
 });
 

@@ -292,7 +292,7 @@ textarea:focus ~ .placeholder,
   padding: 0px 10px;
 }
 
-.undo {
+.popup {
   position: absolute;
   bottom: 10px;
   right: 10px;
@@ -302,11 +302,11 @@ textarea:focus ~ .placeholder,
   border-radius: 5px;
 }
 
-.undo span {
+.popup span {
   color: white;
 }
 
-.undo button {
+.popup button {
   background-color: transparent;
   font-size: 17px;
   color: var(--theme);

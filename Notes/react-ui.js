@@ -57,8 +57,7 @@ const copyToClipBoard = async (text) => {
   if (text && text !== "") {
     return navigator.clipboard
       .writeText(text)
-      .then(() => console.log("copied" + text))
-      .catch((err) => console.log("clip board error : ", err));
+      .catch((err) => console.log("clip board error : \n", err));
   }
 };
 
@@ -160,11 +159,13 @@ const App = () => {
   const [editing, setEditing] = useState(false);
   const [showLinks, setShowLinks] = useState(true);
   const [nav, setNav] = useState(false);
+  const [updateAvailable, setUpdateAvailable] = useState(false);
   const textarea = useRef();
   const undoTimeoutRef = useRef();
 
   useEffect(() => {
     textarea.current.focus();
+    window.setUpdateAvailable = () => setUpdateAvailable(true);
   }, []);
 
   useEffect(() => {
@@ -350,7 +351,7 @@ const App = () => {
       </div>
 
       {undo && (
-        <div className="undo">
+        <div className="popup">
           <span>Note deleted</span>
           <button
             onClick={() => {
@@ -363,8 +364,21 @@ const App = () => {
         </div>
       )}
 
+      {updateAvailable && (
+        <div className="popup">
+          <span>Update available for Notebook</span>
+          <button
+            onClick={() => {
+              window.newWorker.postMessage({ action: "skipWaiting" });
+            }}
+          >
+            update
+          </button>
+        </div>
+      )}
+
       {alert !== "" && (
-        <div className="undo">
+        <div className="popup">
           <span>{alert}</span>
         </div>
       )}
