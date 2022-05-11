@@ -84,7 +84,7 @@ const Note = ({
       <p
         title="Double click to copy note"
         onDoubleClick={async () => {
-          await copyToClipBoard(arrayToString(note));
+          await copyToClipBoard(arrayToString(note.body));
           setAlert("Copied note ✓");
         }}
       >
