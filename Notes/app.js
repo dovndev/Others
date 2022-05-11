@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     navigator.serviceWorker.addEventListener("controllerchange", () => {
       console.log("controllerchange");
       if (notFirst) {
-        window.location.reload();
+        if (navigator.serviceWorker.controller) window.location.reload();
       } else localStorage.setItem("notFirst", true);
     });
 
