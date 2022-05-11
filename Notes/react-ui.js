@@ -63,16 +63,19 @@ const copyToClipBoard = async (text) => {
 
 const useLocalStorage = (key, initialvalue, stale) => {
   const [staled, setStaled] = stale;
-  const [value, setvalue] = useState();
 
   const load = () => {
     const savedvalue = JSON.parse(localStorage.getItem(key));
-    if (savedvalue !== null) setvalue(savedvalue);
-    else setvalue(initialvalue);
+    if (savedvalue !== null) return savedvalue;
+    return initialvalue;
   };
 
+  const [value, setvalue] = useState(load());
+
+  const refresh = () => setvalue(load());
+
   useEffect(() => {
-    if (staled === key) load();
+    if (staled === key) refresh();
   }, [staled]);
 
   useEffect(() => {
@@ -82,7 +85,7 @@ const useLocalStorage = (key, initialvalue, stale) => {
     } else setStaled("");
   }, [value]);
 
-  return [value, setvalue];
+  return [value, setvalue, refresh];
 };
 
 const Note = ({
