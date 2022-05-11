@@ -61,7 +61,8 @@ const copyToClipBoard = async (text) => {
   }
 };
 
-const useLocalStorage = (key, initialvalue, [staled, setStaled]) => {
+const useLocalStorage = (key, initialvalue, stale) => {
+  const [staled, setStaled] = stale;
   const [value, setvalue] = useState();
 
   const load = () => {
