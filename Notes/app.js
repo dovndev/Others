@@ -1,15 +1,12 @@
 const theme = JSON.parse(localStorage.getItem("Theme-React"));
 const notFirst = JSON.parse(localStorage.getItem("notFirst"));
 localStorage.removeItem("FirstInstall");
-let refreshing = false;
 let newWorker;
 
 document.addEventListener("DOMContentLoaded", () => {
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.addEventListener("controllerchange", function () {
-      if (refreshing) return;
       if (notFirst) {
-        refreshing = true;
         window.location.reload();
       } else localStorage.setItem("notFirst", true);
     });
