@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
             ) {
               navigator.serviceWorker.controller.postMessage({
                 action: "update-available",
-                newServiceWorker,
               });
             }
           });

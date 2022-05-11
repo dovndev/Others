@@ -415,7 +415,7 @@ const App = () => {
           <span>Update available for Notebook</span>
           <button
             onClick={() => {
-              window.newWorker.postMessage({ action: "update" });
+              sendMessage({ action: "update" });
             }}
           >
             update
