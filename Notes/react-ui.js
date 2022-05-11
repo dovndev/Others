@@ -172,7 +172,7 @@ const Note = ({
 };
 
 const App = () => {
-  const stale = ([staled, setStaled] = useState(""));
+  const stale = useState("");
   const [notes, setNotes] = useLocalStorage(CONSTANTS.NOTES, [], stale);
   const [theme, setTheme] = useLocalStorage(CONSTANTS.THEME, true, stale);
   const [newNote, setNewNote] = useLocalStorage(CONSTANTS.NEWNOTE, "", stale);
@@ -199,7 +199,7 @@ const App = () => {
         (event) => {
           switch (event.data.action) {
             case CONSTANTS.RELOAD_DATA: {
-              setStaled(event.data.key);
+              stale[1](event.data.key);
             }
             case "update-available": {
               setUpdateAvailable(true);
