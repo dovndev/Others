@@ -14,8 +14,9 @@ const APP = {
 
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.addEventListener("controllerchange", () => {
+        APP.controller = navigator.serviceWorker.controller;
         if (notFirst) {
-          window.location.reload();
+          if (APP.controller) window.location.reload();
         } else localStorage.setItem("notFirst", true);
       });
 
