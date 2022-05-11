@@ -1,13 +1,9 @@
 const theme = JSON.parse(localStorage.getItem("Theme-React"));
 const notFirst = JSON.parse(localStorage.getItem("notFirst"));
+let newServiceWorker;
 localStorage.removeItem("FirstInstall");
-let newWorker;
 
 document.addEventListener("DOMContentLoaded", () => {
-  const messageChannel = new MessageChannel();
-  messageChannel.port1.addEventListener("message", (event) => {
-    console.log(event);
-  });
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.addEventListener("controllerchange", () => {
       console.log("controllerchange");
@@ -20,15 +16,17 @@ document.addEventListener("DOMContentLoaded", () => {
       .register("./sw.js")
       .then((reg) => {
         reg.addEventListener("updatefound", () => {
-          newWorker = reg.installing;
+          newServiceWorker = reg.installing;
 
-          newWorker.addEventListener("statechange", () => {
+          newServiceWorker.addEventListener("statechange", (event) => {
             if (
-              newWorker.state === "installed" &&
+              event.target.state === "installed" &&
               navigator.serviceWorker.controller
             ) {
-              window.newWorker = newWorker;
-              window.setUpdateAvailable();
+              navigator.serviceWorker.controller.postMessage({
+                action: "update-available",
+                newServiceWorker,
+              });
             }
           });
         });

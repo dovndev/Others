@@ -2,6 +2,14 @@ const { useEffect, useState, useCallback, useRef } = React;
 const rootElement = document.getElementById("root");
 const metaElements = document.getElementsByTagName("meta");
 
+const CONSTANTS = {
+  NOTES: "Notes-React",
+  THEME: "Theme-React",
+  NEWNOTE: "NewNote-React",
+  ENTERSEND: "EnterSend-React",
+  RELOAD_DATA: "reload-data",
+};
+
 const metaList = [
   "theme-color",
   "msapplication-TileColor",
@@ -10,21 +18,10 @@ const metaList = [
   "mask-icon",
 ];
 
-const useLocalStorage = (key, initialvalue) => {
-  const [value, setvalue] = useState(() => {
-    const savedvalue = JSON.parse(localStorage.getItem(key));
-    if (savedvalue !== null) return savedvalue;
-    return initialvalue;
-  });
-
-  useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(value));
-    if (navigator.serviceWorker.controller) {
-      navigator.serviceWorker.controller.postMessage({ action: "reloadData" });
-    }
-  }, [value]);
-
-  return [value, setvalue];
+const sendMessage = (msg) => {
+  if (navigator.serviceWorker.controller) {
+    navigator.serviceWorker.controller.postMessage(msg);
+  }
 };
 
 const stringToArray = (text) => {
@@ -62,6 +59,29 @@ const copyToClipBoard = async (text) => {
       .writeText(text)
       .catch((err) => console.log("clip board error : \n", err));
   }
+};
+
+const useLocalStorage = (key, initialvalue, [staled, setStaled]) => {
+  const [value, setvalue] = useState();
+
+  const load = () => {
+    const savedvalue = JSON.parse(localStorage.getItem(key));
+    if (savedvalue !== null) setvalue(savedvalue);
+    else setvalue(initialvalue);
+  };
+
+  useEffect(() => {
+    if (staled === key) load();
+  }, [staled]);
+
+  useEffect(() => {
+    if (!staled) {
+      localStorage.setItem(key, JSON.stringify(value));
+      sendMessage({ action: CONSTANTS.RELOAD_DATA, key });
+    } else setStaled("");
+  }, [value]);
+
+  return [value, setvalue];
 };
 
 const Note = ({
@@ -152,10 +172,15 @@ const Note = ({
 };
 
 const App = () => {
-  const [notes, setNotes] = useLocalStorage("Notes-React", []);
-  const [theme, setTheme] = useLocalStorage("Theme-React", true);
-  const [newNote, setNewNote] = useLocalStorage("NewNote-React", "");
-  const [enterSend, setEnterSend] = useLocalStorage("EnterSend-React", false);
+  const stale = useState("");
+  const [notes, setNotes] = useLocalStorage(CONSTANTS.NOTES, [], stale);
+  const [theme, setTheme] = useLocalStorage(CONSTANTS.THEME, true, stale);
+  const [newNote, setNewNote] = useLocalStorage(CONSTANTS.NEWNOTE, "", stale);
+  const [enterSend, setEnterSend] = useLocalStorage(
+    CONSTANTS.ENTERSEND,
+    false,
+    stale
+  );
   const [isNote, setIsNote] = useState(true);
   const [alert, setAlert] = useState("");
   const [undo, setUndo] = useState(false);
@@ -168,7 +193,21 @@ const App = () => {
 
   useEffect(() => {
     textarea.current.focus();
-    window.setUpdateAvailable = () => setUpdateAvailable(true);
+    if (navigator.serviceWorker.controller) {
+      navigator.serviceWorker.controller.addEventListener(
+        "message",
+        (event) => {
+          switch (event.data.action) {
+            case CONSTANTS.RELOAD_DATA: {
+              stale[1](event.data.key);
+            }
+            case "update-available": {
+              setUpdateAvailable(true);
+            }
+          }
+        }
+      );
+    }
   }, []);
 
   useEffect(() => {
@@ -372,7 +411,7 @@ const App = () => {
           <span>Update available for Notebook</span>
           <button
             onClick={() => {
-              window.newWorker.postMessage({ action: "skipWaiting" });
+              window.newWorker.postMessage({ action: "update" });
             }}
           >
             update

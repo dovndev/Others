@@ -23,12 +23,18 @@ const limitCacheSize = (name, size) => {
   });
 };
 
-self.addEventListener("message", (event) => {
-  if (event.data.action === "skipWaiting") {
-    self.skipWaiting();
-  } else if (event.data.action === "reloadData") {
-    self.clients.matchAll().then((clients) => {
-      clients.forEach((client) => client.postMessage({ action: "reloadData" }));
+self.addEventListener("message", async (event) => {
+  const myClients = await self.clients.matchAll();
+  if (event.data.action === "update") {
+    event.data.newServiceWorker.skipWaiting();
+  } else if (event.data.action === "update-available") {
+    myClients.forEach((client) => {
+      client.postMessage(event.data);
+    });
+  } else if (event.data.action === "reload-data") {
+    myClients.forEach((client) => {
+      if (event.source.id === client.id) return;
+      client.postMessage(event.data);
     });
   }
 });
@@ -54,7 +60,7 @@ self.addEventListener("activate", (event) => {
             .map((key) => caches.delete(key))
         );
       }),
-      clients.claim(),
+      self.clients.claim(),
     ])
   );
 });
