@@ -1,4 +1,4 @@
-const version = 1.123;
+const version = 1.111;
 const staticCacheName = `site-shell-assets-v-${version}`;
 const dynamicCacheName = `site-dynamic-assets-v-${version}`;
 const dynamicCacheLimit = 15;
@@ -25,9 +25,7 @@ const limitCacheSize = (name, size) => {
 
 self.addEventListener("message", async (event) => {
   const myClients = await self.clients.matchAll();
-  if (event.data.action === "update") {
-    self.skipWaiting();
-  } else if (event.data.action === "update-available") {
+  if (event.data.action === "update-available") {
     myClients.forEach((client) => {
       client.postMessage(event.data);
     });

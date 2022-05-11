@@ -415,7 +415,7 @@ const App = () => {
           <span>Update available for Notebook</span>
           <button
             onClick={() => {
-              sendMessage({ action: "update" });
+              window.newServiceWorker.skipWaiting();
             }}
           >
             update

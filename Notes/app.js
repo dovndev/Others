@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     navigator.serviceWorker.addEventListener("controllerchange", () => {
       console.log("controllerchange");
       if (notFirst) {
-        if (navigator.serviceWorker.controller) window.location.reload();
+        window.location.reload();
       } else localStorage.setItem("notFirst", true);
     });
 
@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .register("./sw.js")
       .then((reg) => {
         reg.addEventListener("updatefound", () => {
+          console.log();
           newServiceWorker = reg.installing;
 
           newServiceWorker.addEventListener("statechange", (event) => {
@@ -23,12 +24,20 @@ document.addEventListener("DOMContentLoaded", () => {
               event.target.state === "installed" &&
               navigator.serviceWorker.controller
             ) {
+              window.newServiceWorker = newServiceWorker;
               navigator.serviceWorker.controller.postMessage({
                 action: "update-available",
               });
             }
           });
         });
+        if (reg.waiting) {
+          newServiceWorker = reg.waiting;
+          window.newServiceWorker = newServiceWorker;
+          navigator.serviceWorker.controller.postMessage({
+            action: "update-available",
+          });
+        }
       })
       .catch((err) => {
         console.log("Service-Worker Not Registered, error : ", err);
