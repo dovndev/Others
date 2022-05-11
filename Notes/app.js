@@ -6,6 +6,7 @@ let newWorker;
 document.addEventListener("DOMContentLoaded", () => {
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.addEventListener("controllerchange", () => {
+      console.log("controllerchange");
       if (notFirst) {
         window.location.reload();
       } else localStorage.setItem("notFirst", true);
