@@ -2,6 +2,7 @@ const storeName = "hider-12222312313123";
 let clickedEl = null;
 let savedHider = JSON.parse(localStorage.getItem(storeName)) || [];
 let hidedEl = [];
+let nohider = [];
 
 const addTohidedEl = (element) => {
   const { opacity, zIndex, pointerEvents } = element.style;
@@ -46,26 +47,34 @@ function undo() {
     hidedEl.pop();
   }
 }
-const init = () => {
-  for (let i = 0; i < savedHider.length; i++) {
-    const { id, tagName, innerText } = savedHider[i];
-    let element;
-    if (id) element = document.getElementById(id);
-    else {
-      [...document.querySelectorAll(tagName)]
-        .filter((elm) => elm.innerText === innerText)
-        .forEach((elm) => (element = elm));
-    }
-    if (element) {
-      addTohidedEl(element);
-      hide(element);
+
+const init = (hider) => {
+  const { id, tagName, innerText } = hider;
+  let element;
+  if (id) element = document.getElementById(id);
+  else {
+    [...document.querySelectorAll(tagName)]
+      .filter((elm) => elm.innerText === innerText)
+      .forEach((elm) => (element = elm));
+  }
+  if (element) {
+    addTohidedEl(element);
+    hide(element);
+  } else {
+    hider.count = hider.count ? hider.count + 1 : 1;
+    if (hider.count > 10) {
+      savedHider = savedHider.filter(({ id, innerText }) => {
+        if (id) return hider.id !== id;
+        else return hider.innerText !== innerText;
+      });
+      saveHider();
     } else {
-      setTimeout(init, 500);
-      break;
+      setTimeout(() => init(hider), 500 * hider.count);
     }
   }
 };
-init();
+
+savedHider.forEach(init);
 
 document.addEventListener("contextmenu", (e) => (clickedEl = e.target), true);
 
