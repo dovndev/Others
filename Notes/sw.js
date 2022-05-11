@@ -1,4 +1,4 @@
-const version = 1.12345;
+const version = 1.1;
 const staticCacheName = `site-shell-assets-v-${version}`;
 const dynamicCacheName = `site-dynamic-assets-v-${version}`;
 const dynamicCacheLimit = 15;
@@ -37,11 +37,11 @@ self.addEventListener("message", (event) => {
 // activate event
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    (async () => {
-      await caches.open(staticCacheName).then((cache) => {
+    Promise.all([
+      caches.open(staticCacheName).then((cache) => {
         cache.addAll(shellAssets);
-      });
-      await caches.keys().then((keys) => {
+      }),
+      caches.keys().then((keys) => {
         return Promise.all(
           keys
             .filter(
@@ -49,9 +49,9 @@ self.addEventListener("activate", (event) => {
             )
             .map((key) => caches.delete(key))
         );
-      });
-      clients.claim();
-    })()
+      }),
+      clients.claim(),
+    ])
   );
 });
 
