@@ -4,6 +4,10 @@ localStorage.removeItem("FirstInstall");
 let newWorker;
 
 document.addEventListener("DOMContentLoaded", () => {
+  const messageChannel = new MessageChannel();
+  messageChannel.port1.addEventListener("message", (event) => {
+    console.log(event);
+  });
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.addEventListener("controllerchange", () => {
       console.log("controllerchange");

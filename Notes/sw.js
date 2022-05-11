@@ -1,4 +1,4 @@
-const version = 1;
+const version = 1121231;
 const staticCacheName = `site-shell-assets-v-${version}`;
 const dynamicCacheName = `site-dynamic-assets-v-${version}`;
 const dynamicCacheLimit = 15;
@@ -26,12 +26,16 @@ const limitCacheSize = (name, size) => {
 self.addEventListener("message", (event) => {
   if (event.data.action === "skipWaiting") {
     self.skipWaiting();
+  } else if (event.data.action === "reloadData") {
+    self.clients.matchAll().then((clients) => {
+      clients.forEach((client) => client.postMessage({ action: "reloadData" }));
+    });
   }
 });
 
 //install event
 self.addEventListener("install", (event) => {
-  event.waitUntil(Promise(console.log("installing")));
+  console.log("install");
 });
 
 // activate event

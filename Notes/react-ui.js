@@ -19,6 +19,9 @@ const useLocalStorage = (key, initialvalue) => {
 
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(value));
+    if (navigator.serviceWorker.controller) {
+      navigator.serviceWorker.controller.postMessage({ action: "reloadData" });
+    }
   }, [value]);
 
   return [value, setvalue];
