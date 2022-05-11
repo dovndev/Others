@@ -75,7 +75,7 @@ const useLocalStorage = (key, initialvalue, [staled, setStaled]) => {
   }, [staled]);
 
   useEffect(() => {
-    if (!staled) {
+    if (staled === "") {
       localStorage.setItem(key, JSON.stringify(value));
       sendMessage({ action: CONSTANTS.RELOAD_DATA, key });
     } else setStaled("");
@@ -172,7 +172,7 @@ const Note = ({
 };
 
 const App = () => {
-  const stale = useState("");
+  const stale = ([staled, setStaled] = useState(""));
   const [notes, setNotes] = useLocalStorage(CONSTANTS.NOTES, [], stale);
   const [theme, setTheme] = useLocalStorage(CONSTANTS.THEME, true, stale);
   const [newNote, setNewNote] = useLocalStorage(CONSTANTS.NEWNOTE, "", stale);
@@ -199,7 +199,7 @@ const App = () => {
         (event) => {
           switch (event.data.action) {
             case CONSTANTS.RELOAD_DATA: {
-              stale[1](event.data.key);
+              setStaled(event.data.key);
             }
             case "update-available": {
               setUpdateAvailable(true);
