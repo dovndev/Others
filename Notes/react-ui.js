@@ -18,12 +18,6 @@ const metaList = [
   "mask-icon",
 ];
 
-const sendMessage = (msg) => {
-  if (navigator.serviceWorker.controller) {
-    navigator.serviceWorker.controller.postMessage(msg);
-  }
-};
-
 const stringToArray = (text) => {
   let body = [];
   const matches = text.match(
@@ -81,7 +75,7 @@ const useLocalStorage = (key, initialvalue, stale) => {
   useEffect(() => {
     if (staled === "") {
       localStorage.setItem(key, JSON.stringify(value));
-      sendMessage({ action: CONSTANTS.RELOAD_DATA, key });
+      window.App.sendMessage({ action: CONSTANTS.RELOAD_DATA, key });
     } else setStaled("");
   }, [value]);
 
@@ -195,8 +189,10 @@ const App = () => {
   const textarea = useRef();
   const undoTimeoutRef = useRef();
 
-  useEffect(() => {
+  useEffect(async () => {
     textarea.current.focus();
+
+    await window.App.init();
     if (navigator.serviceWorker.controller) {
       navigator.serviceWorker.controller.addEventListener(
         "message",
@@ -413,11 +409,7 @@ const App = () => {
       {updateAvailable && (
         <div className="popup">
           <span>Update available for Notebook</span>
-          <button
-            onClick={() => {
-              window.newServiceWorker.skipWaiting();
-            }}
-          >
+          <button onClick={() => window.App.sendMessage({ action: "update" })}>
             update
           </button>
         </div>

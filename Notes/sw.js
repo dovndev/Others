@@ -1,4 +1,4 @@
-const version = 1.111;
+const version = 1.122211;
 const staticCacheName = `site-shell-assets-v-${version}`;
 const dynamicCacheName = `site-dynamic-assets-v-${version}`;
 const dynamicCacheLimit = 15;
@@ -29,6 +29,10 @@ self.addEventListener("message", async (event) => {
     myClients.forEach((client) => {
       client.postMessage(event.data);
     });
+  } else if (event.data.action === "update") {
+    myClients
+      .find((client) => event.source.id === client.id)
+      .postMessage(event.data);
   } else if (event.data.action === "reload-data") {
     myClients.forEach((client) => {
       if (event.source.id === client.id) return;
