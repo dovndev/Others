@@ -19,46 +19,32 @@ const APP = {
           if (APP.controller) window.location.reload();
         } else localStorage.setItem("notFirst", true);
       });
+      const reg = await navigator.serviceWorker.register("./sw.js");
+      try {
+        reg.addEventListener("updatefound", () => {
+          APP.newServiceWorker = reg.installing;
 
-      await navigator.serviceWorker
-        .register("./sw.js")
-        .then((reg) => {
-          reg.addEventListener("updatefound", () => {
-            APP.newServiceWorker = reg.installing;
-
-            APP.newServiceWorker.addEventListener("statechange", (event) => {
-              if (
-                event.target.state === "installed" &&
-                navigator.serviceWorker.controller
-              ) {
-                window.newServiceWorker = APP.newServiceWorker;
-                sendMessage({
-                  action: "update-available",
-                });
-              }
-            });
+          APP.newServiceWorker.addEventListener("statechange", (event) => {
+            if (event.target.state === "installed" && APP.controller) {
+              window.newServiceWorker = APP.newServiceWorker;
+              APP.sendMessage({
+                action: "update-available",
+              });
+            }
           });
-
-          if (reg.waiting && !APP.newServiceWorker) {
-            APP.newServiceWorker = reg.waiting;
-            window.newServiceWorker = APP.newServiceWorker;
-            sendMessage({
-              action: "update-available",
-            });
-          }
-        })
-        .catch((err) => {
-          console.log("Service-Worker Not Registered, error : ", err);
         });
 
-      return navigator.serviceWorker.controller.addEventListener(
-        "message",
-        (event) => {
-          if (event.data.action === "update") {
-            APP.newServiceWorker.skipWaiting();
-          }
+        if (reg.waiting && !APP.newServiceWorker) {
+          APP.newServiceWorker = reg.waiting;
+          window.newServiceWorker = APP.newServiceWorker;
+          APP.sendMessage({
+            action: "update-available",
+          });
         }
-      );
+        return reg.active;
+      } catch (err) {
+        console.log("Service-Worker Not Registered, error : ", err);
+      }
     }
 
     if (theme !== null && theme === false) {
