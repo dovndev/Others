@@ -19,7 +19,7 @@ const APP = {
         } else localStorage.setItem("notFirst", true);
       });
 
-      return navigator.serviceWorker
+      await navigator.serviceWorker
         .register("./sw.js")
         .then((reg) => {
           reg.addEventListener("updatefound", () => {
@@ -45,19 +45,19 @@ const APP = {
               action: "update-available",
             });
           }
-
-          navigator.serviceWorker.controller.addEventListener(
-            "message",
-            (event) => {
-              if (event.data.action === "update") {
-                APP.newServiceWorker.skipWaiting();
-              }
-            }
-          );
         })
         .catch((err) => {
           console.log("Service-Worker Not Registered, error : ", err);
         });
+
+      return navigator.serviceWorker.controller.addEventListener(
+        "message",
+        (event) => {
+          if (event.data.action === "update") {
+            APP.newServiceWorker.skipWaiting();
+          }
+        }
+      );
     }
 
     if (theme !== null && theme === false) {
