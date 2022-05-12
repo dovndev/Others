@@ -56,15 +56,17 @@ window.APP = {
       } catch (err) {
         console.error("Service-Worker Not Registered, error : ", err);
       }
+      window.APP.controller = await reg.active;
 
       console.log(await reg);
 
       if (reg.waiting) {
         window.APP.newServiceWorker = await reg.waiting;
-        window.APP.sendMessage({
-          action: window.APP.ACTIONS.UPDATE_AVAILABLE,
-        });
         console.log("from waiting");
+        window.APP.sendMessage(
+          { action: window.APP.ACTIONS.UPDATE_AVAILABLE },
+          await reg.active
+        );
       }
 
       await reg.addEventListener("updatefound", () => {
@@ -78,8 +80,6 @@ window.APP = {
           }
         });
       });
-
-      window.APP.controller = await reg.active;
       return await reg.active;
     }
   },
