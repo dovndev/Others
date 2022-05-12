@@ -27,13 +27,8 @@ window.APP = {
   ],
   newServiceWorker: null,
   controller: null,
-  sendMessage: (msg, controller) => {
+  sendMessage: (msg, controller = window.APP.controller) => {
     if (controller) controller.postMessage(msg);
-    else {
-      if (window.APP.controller) {
-        window.APP.controller.postMessage(msg);
-      }
-    }
   },
   copyToClipBoard: async (text) => {
     if (text && text !== "") {
