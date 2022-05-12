@@ -54,7 +54,7 @@ window.APP = {
       }
 
       await reg.addEventListener("updatefound", () => {
-        APP.newServiceWorker = await reg.installing;
+        APP.newServiceWorker = reg.installing;
 
         APP.newServiceWorker.addEventListener("statechange", (event) => {
           if (event.target.state === "installed" && APP.controller) {
