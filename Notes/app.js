@@ -15,8 +15,8 @@ window.APP = {
   },
   ACTIONS: {
     RELOAD_DATA: "reload-data",
-    UPDATE: 'update',
-    UPDATE_AVAILABLE: 'update-available'
+    UPDATE: "update",
+    UPDATE_AVAILABLE: "update-available",
   },
   META_LIST: [
     "theme-color",
@@ -47,8 +47,9 @@ window.APP = {
           if (APP.controller) window.location.reload();
         } else localStorage.setItem("notFirst", true);
       });
+      const reg = null;
       try {
-        const reg = await navigator.serviceWorker.register("./sw.js");
+        reg = await navigator.serviceWorker.register("./sw.js");
       } catch (err) {
         console.error("Service-Worker Not Registered, error : ", err);
       }
