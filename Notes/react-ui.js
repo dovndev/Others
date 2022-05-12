@@ -158,11 +158,6 @@ const App = () => {
           case ACTIONS.UPDATE_AVAILABLE: {
             setUpdateAvailable(true);
           }
-          case ACTIONS.UPDATE: {
-            if (window.APP.newServiceWorker) {
-              window.APP.newServiceWorker.skipWaiting();
-            }
-          }
         }
       });
     }
@@ -368,7 +363,11 @@ const App = () => {
         <div className="popup">
           <span>Update available for Notebook</span>
           <button
-            onClick={() => window.APP.sendMessage({ action: ACTIONS.UPDATE })}
+            onClick={() => {
+              window.APP.newServiceWorker.postMessage({
+                action: ACTIONS.UPDATE,
+              });
+            }}
           >
             update
           </button>
