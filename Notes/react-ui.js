@@ -126,6 +126,7 @@ const Note = ({
 
 const App = () => {
   const stale = useState("");
+  const [staled, setStaled] = stale;
   const [notes, setNotes] = useLocalStorage(STORE_KEYS.NOTES, [], stale);
   const [theme, setTheme] = useLocalStorage(STORE_KEYS.THEME, true, stale);
   const [newNote, setNewNote] = useLocalStorage(STORE_KEYS.NEWNOTE, "", stale);
@@ -146,14 +147,14 @@ const App = () => {
 
   useEffect(async () => {
     textarea.current.focus();
+    window.APP.init();
 
-    await window.APP.init();
     if (navigator.serviceWorker) {
       navigator.serviceWorker.addEventListener("message", (event) => {
         console.log(event);
         switch (event.data.action) {
           case ACTIONS.RELOAD_DATA: {
-            stale[1](event.data.key);
+            setStaled(event.data.key);
           }
           case ACTIONS.UPDATE_AVAILABLE: {
             setUpdateAvailable(true);

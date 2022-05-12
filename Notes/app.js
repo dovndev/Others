@@ -28,8 +28,8 @@ window.APP = {
   newServiceWorker: null,
   controller: null,
   sendMessage: (msg) => {
-    if (window.APP.controller) {
-      window.APP.controller.postMessage(msg);
+    if (controller) {
+      controller.postMessage(msg);
     }
   },
   copyToClipBoard: async (text) => {
@@ -43,10 +43,10 @@ window.APP = {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.addEventListener("controllerchange", () => {
         window.APP.controller = navigator.serviceWorker.controller;
-        if (notFirst) {
-          if (window.APP.controller) window.location.reload();
-        } else localStorage.setItem("notFirst", true);
+        if (notFirst) window.location.reload();
+        else localStorage.setItem("notFirst", true);
       });
+
       let reg;
       try {
         reg = await navigator.serviceWorker.register("./sw.js");
@@ -72,6 +72,7 @@ window.APP = {
           action: window.APP.ACTIONS.UPDATE_AVAILABLE,
         });
       }
+      window.APP.controller = await reg.active;
       return await reg.active;
     }
   },
