@@ -437,7 +437,7 @@ textarea:focus ~ .placeholder,
   background-color: crimson;
 }
 
-.edit svg {
+.edit img {
   height: 20px;
   width: auto;
 }
