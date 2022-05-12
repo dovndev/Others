@@ -152,6 +152,7 @@ const App = () => {
       navigator.serviceWorker.controller.addEventListener(
         "message",
         (event) => {
+          console.log(event);
           switch (event.data.action) {
             case ACTIONS.RELOAD_DATA: {
               stale[1](event.data.key);
