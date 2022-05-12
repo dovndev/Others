@@ -28,8 +28,8 @@ window.APP = {
   newServiceWorker: null,
   controller: null,
   sendMessage: (msg) => {
-    if (controller) {
-      controller.postMessage(msg);
+    if (window.APP.controller) {
+      window.APP.controller.postMessage(msg);
     }
   },
   copyToClipBoard: async (text) => {

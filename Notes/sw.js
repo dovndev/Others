@@ -1,4 +1,4 @@
-const version = 2.212343432343;
+const version = 2022;
 const staticCacheName = `site-shell-assets-v-${version}`;
 const dynamicCacheName = `site-dynamic-assets-v-${version}`;
 const dynamicCacheLimit = 15;
