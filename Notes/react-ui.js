@@ -151,13 +151,17 @@ const App = () => {
 
     if (navigator.serviceWorker) {
       navigator.serviceWorker.addEventListener("message", (event) => {
-        console.log(event);
         switch (event.data.action) {
           case ACTIONS.RELOAD_DATA: {
             setStaled(event.data.key);
           }
           case ACTIONS.UPDATE_AVAILABLE: {
             setUpdateAvailable(true);
+          }
+          case ACTIONS.UPDATE: {
+            if (window.APP.newServiceWorker) {
+              window.APP.newServiceWorker.skipWaiting();
+            }
           }
         }
       });
@@ -363,7 +367,9 @@ const App = () => {
       {updateAvailable && (
         <div className="popup">
           <span>Update available for Notebook</span>
-          <button onClick={() => window.APP.newServiceWorker.skipWaiting()}>
+          <button
+            onClick={() => window.APP.sendMessage({ action: ACTIONS.UPDATE })}
+          >
             update
           </button>
         </div>
