@@ -156,7 +156,8 @@ const App = () => {
             setStaled(event.data.key);
           }
           case ACTIONS.UPDATE_AVAILABLE: {
-            setUpdateAvailable(true);
+            console.log(event.data);
+            if (window.APP.newServiceWorker) setUpdateAvailable(true);
           }
         }
       });
