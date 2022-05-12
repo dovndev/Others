@@ -1,4 +1,4 @@
-const version = 1.12;
+const version = 0.11;
 const staticCacheName = `site-shell-assets-v-${version}`;
 const dynamicCacheName = `site-dynamic-assets-v-${version}`;
 const dynamicCacheLimit = 15;
@@ -41,7 +41,7 @@ self.addEventListener("message", async (event) => {
 
 //install event
 self.addEventListener("install", (event) => {
-  console.log("install");
+  //console.log("install");
 });
 
 // activate event

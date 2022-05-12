@@ -41,8 +41,10 @@ window.APP = {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.addEventListener("controllerchange", () => {
         window.APP.controller = navigator.serviceWorker.controller;
-        if (notFirst) window.location.reload();
-        else localStorage.setItem("notFirst", true);
+        if (window.APP.controller) {
+          if (notFirst) window.location.reload();
+          else localStorage.setItem("notFirst", true);
+        }
       });
 
       let reg;
@@ -53,11 +55,8 @@ window.APP = {
       }
       window.APP.controller = await reg.active;
 
-      console.log(await reg);
-
       if (reg.waiting) {
         window.APP.newServiceWorker = await reg.waiting;
-        console.log("from waiting");
         window.APP.sendMessage(
           { action: window.APP.ACTIONS.UPDATE_AVAILABLE },
           await reg.active
