@@ -68,12 +68,14 @@ window.APP = {
           }
         });
       });
+      console.log(reg);
 
       if (reg && reg.waiting && !window.APP.newServiceWorker) {
         window.APP.newServiceWorker = await reg.waiting;
         window.APP.sendMessage({
           action: window.APP.ACTIONS.UPDATE_AVAILABLE,
         });
+        console.log("from waiting");
       }
       window.APP.controller = await reg.active;
       return await reg.active;
