@@ -28,8 +28,8 @@ window.APP = {
   newServiceWorker: null,
   controller: null,
   sendMessage: (msg) => {
-    if (APP.controller) {
-      APP.controller.postMessage(msg);
+    if (window.APP.controller) {
+      window.APP.controller.postMessage(msg);
     }
   },
   copyToClipBoard: async (text) => {
@@ -42,12 +42,12 @@ window.APP = {
   init: async () => {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.addEventListener("controllerchange", () => {
-        APP.controller = navigator.serviceWorker.controller;
+        window.APP.controller = navigator.serviceWorker.controller;
         if (notFirst) {
-          if (APP.controller) window.location.reload();
+          if (window.APP.controller) window.location.reload();
         } else localStorage.setItem("notFirst", true);
       });
-      const reg = null;
+      let reg;
       try {
         reg = await navigator.serviceWorker.register("./sw.js");
       } catch (err) {
@@ -55,21 +55,21 @@ window.APP = {
       }
 
       await reg.addEventListener("updatefound", () => {
-        APP.newServiceWorker = reg.installing;
+        window.APP.newServiceWorker = reg.installing;
 
-        APP.newServiceWorker.addEventListener("statechange", (event) => {
-          if (event.target.state === "installed" && APP.controller) {
-            APP.sendMessage({
-              action: APP.ACTIONS.UPDATE_AVAILABLE,
+        window.APP.newServiceWorker.addEventListener("statechange", (event) => {
+          if (event.target.state === "installed" && window.APP.controller) {
+            window.APP.sendMessage({
+              action: window.APP.ACTIONS.UPDATE_AVAILABLE,
             });
           }
         });
       });
 
-      if (reg && reg.waiting && !APP.newServiceWorker) {
-        APP.newServiceWorker = await reg.waiting;
-        APP.sendMessage({
-          action: APP.ACTIONS.UPDATE_AVAILABLE,
+      if (reg && reg.waiting && !window.APP.newServiceWorker) {
+        window.APP.newServiceWorker = await reg.waiting;
+        window.APP.sendMessage({
+          action: window.APP.ACTIONS.UPDATE_AVAILABLE,
         });
       }
       return await reg.active;
