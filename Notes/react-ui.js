@@ -2,7 +2,7 @@ const { useEffect, useState, useCallback, useRef } = React;
 const rootElement = document.getElementById("root");
 const metaElements = document.getElementsByTagName("meta");
 
-const { STORE_KEYS, ACTIONS, META_LIST } = APP;
+const { STORE_KEYS, ACTIONS, META_LIST } = window.APP;
 
 const stringToArray = (text) => {
   let body = [];
@@ -82,7 +82,7 @@ const Note = ({
       <p
         title="Double click to copy note"
         onDoubleClick={async () => {
-          await APP.copyToClipBoard(arrayToString(note.body));
+          await window.APP.copyToClipBoard(arrayToString(note.body));
           setAlert("Copied note ✓");
         }}
       >
