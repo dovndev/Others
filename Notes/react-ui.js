@@ -128,7 +128,7 @@ const App = () => {
   const stale = useState("");
   const [staled, setStaled] = stale;
   const [notes, setNotes] = useLocalStorage(STORE_KEYS.NOTES, [], stale);
-  const [theme, setTheme] = useLocalStorage(STORE_KEYS.THEME, true, stale);
+  const [theme, setTheme] = useLocalStorage(STORE_KEYS.THEME, false, stale);
   const [newNote, setNewNote] = useLocalStorage(STORE_KEYS.NEWNOTE, "", stale);
   const [enterSend, setEnterSend] = useLocalStorage(
     STORE_KEYS.ENTERSEND,
