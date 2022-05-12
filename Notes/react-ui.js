@@ -364,9 +364,10 @@ const App = () => {
           <span>Update available for Notebook</span>
           <button
             onClick={() => {
-              window.APP.newServiceWorker.postMessage({
-                action: ACTIONS.UPDATE,
-              });
+              window.APP.sendMessage(
+                { action: ACTIONS.UPDATE },
+                window.APP.newServiceWorker
+              );
             }}
           >
             update
