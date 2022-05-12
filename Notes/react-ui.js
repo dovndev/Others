@@ -244,6 +244,7 @@ const App = () => {
         })
       );
       setEditing(false);
+      setAlert("Note edited");
       textarea.current.focus();
     } else return;
   }, [isNote, newNote, textarea.current, notes]);
@@ -308,6 +309,7 @@ const App = () => {
   const removeall = useCallback(() => {
     if (!confirm(`Delete All Notes`)) return;
     setNotes([]);
+    setAlert("Deleted all Notes");
   }, []);
 
   return (
