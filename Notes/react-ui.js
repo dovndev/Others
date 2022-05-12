@@ -148,21 +148,18 @@ const App = () => {
     textarea.current.focus();
 
     await window.APP.init();
-    if (navigator.serviceWorker.controller) {
-      navigator.serviceWorker.controller.addEventListener(
-        "message",
-        (event) => {
-          console.log(event);
-          switch (event.data.action) {
-            case ACTIONS.RELOAD_DATA: {
-              stale[1](event.data.key);
-            }
-            case ACTIONS.UPDATE_AVAILABLE: {
-              setUpdateAvailable(true);
-            }
+    if (navigator.serviceWorker) {
+      navigator.serviceWorker.addEventListener("message", (event) => {
+        console.log(event);
+        switch (event.data.action) {
+          case ACTIONS.RELOAD_DATA: {
+            stale[1](event.data.key);
+          }
+          case ACTIONS.UPDATE_AVAILABLE: {
+            setUpdateAvailable(true);
           }
         }
-      );
+      });
     }
   }, []);
 
@@ -365,7 +362,7 @@ const App = () => {
       {updateAvailable && (
         <div className="popup">
           <span>Update available for Notebook</span>
-          <button onClick={() => window.APP.sendMessage({ action: "update" })}>
+          <button onClick={() => window.APP.newServiceWorker.skipWaiting()}>
             update
           </button>
         </div>
