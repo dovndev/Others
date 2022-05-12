@@ -154,10 +154,11 @@ const App = () => {
         switch (event.data.action) {
           case ACTIONS.RELOAD_DATA: {
             setStaled(event.data.key);
+            break;
           }
           case ACTIONS.UPDATE_AVAILABLE: {
-            console.log(event.data);
             if (window.APP.newServiceWorker) setUpdateAvailable(true);
+            break;
           }
         }
       });
