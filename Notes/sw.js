@@ -2,6 +2,7 @@ const version = 00131301;
 const staticCacheKey = `site-shell-assets-v-${version}`;
 const dynamicCacheKey = `site-dynamic-assets-v-${version}`;
 const dynamicCacheLimit = 15;
+let selfUpdateTimeout;
 const shellAssets = [
   "/Others/Notes/",
   "/Others/Notes/react-ui.js",
@@ -78,6 +79,10 @@ self.addEventListener("message", async (event) => {
       });
       break;
     }
+    case "update-found": {
+      clearTimeout(selfUpdateTimeout);
+      break;
+    }
   }
 });
 
@@ -86,6 +91,7 @@ self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(staticCacheKey).then((cache) => cache.addAll(shellAssets))
   );
+  selfUpdateTimeout = setTimeout(() => self.skipWaiting(), 5000);
 });
 
 //activate event

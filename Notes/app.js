@@ -61,6 +61,10 @@ window.APP = {
           { action: window.APP.ACTIONS.UPDATE_AVAILABLE },
           await reg.active
         );
+        window.APP.sendMessage(
+          { action: window.APP.ACTIONS.UPDATE_FOUND },
+          await reg.waiting
+        );
       }
 
       await reg.addEventListener("updatefound", () => {
@@ -71,6 +75,10 @@ window.APP = {
             window.APP.sendMessage({
               action: window.APP.ACTIONS.UPDATE_AVAILABLE,
             });
+            window.APP.sendMessage(
+              { action: window.APP.ACTIONS.UPDATE_FOUND },
+              await reg.waiting
+            );
           }
         });
       });
