@@ -1,4 +1,4 @@
-const version = 101;
+const version = 007;
 const staticCacheKey = `site-shell-assets-v-${version}`;
 const dynamicCacheKey = `site-dynamic-assets-v-${version}`;
 const dynamicCacheLimit = 15;
@@ -56,7 +56,6 @@ self.addEventListener("message", async (event) => {
             })
             .finally(() => {
               self.skipWaiting();
-              self.clients.claim();
             });
         });
       break;
@@ -76,11 +75,10 @@ self.addEventListener("message", async (event) => {
 //    console.log("install event");
 // });
 
-// activate event
-// self.addEventListener("activate", (event) => {
-//   event.waitUntil(
-//   );
-// });
+//activate event
+self.addEventListener("activate", (event) => {
+  event.waitUntil(self.clients.claim());
+});
 
 // fetch events
 self.addEventListener("fetch", (event) => {
