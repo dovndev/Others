@@ -1,6 +1,6 @@
-const version = 0.123;
-const staticCacheName = `site-shell-assets-v-${version}`;
-const dynamicCacheName = `site-dynamic-assets-v-${version}`;
+const version = 01;
+const staticCacheKey = `site-shell-assets-v-${version}`;
+const dynamicCacheKey = `site-dynamic-assets-v-${version}`;
 const dynamicCacheLimit = 15;
 const shellAssets = [
   "/Others/Notes/",
@@ -13,29 +13,39 @@ const shellAssets = [
 ];
 
 // cache size limit function
-const limitCacheSize = (name, size) => {
-  caches.open(name).then((cache) => {
+const limitCacheSize = (key, size) => {
+  caches.open(key).then((cache) => {
     cache.keys().then((keys) => {
       if (keys.length > size) {
-        cache.delete(keys[0]).then(limitCacheSize(name, size));
+        keys
+          .filter((key, index) => index >= size)
+          .map((key) => cache.delete(key));
       }
     });
   });
 };
 
+// listening for messages
 self.addEventListener("message", async (event) => {
-  const myClients = await self.clients.matchAll();
-  if (event.data.action === "update-available") {
-    myClients.forEach((client) => {
-      client.postMessage(event.data);
-    });
-  } else if (event.data.action === "update") {
-    self.skipWaiting();
-  } else if (event.data.action === "reload-data") {
-    myClients.forEach((client) => {
-      if (event.source.id === client.id) return;
-      client.postMessage(event.data);
-    });
+  const allClients = await self.clients.matchAll();
+  switch (event.data.action) {
+    case "update-available": {
+      allClients.forEach((client) => {
+        client.postMessage(event.data);
+      });
+      break;
+    }
+    case "update": {
+      self.skipWaiting();
+      break;
+    }
+    case "reload-data": {
+      allClients.forEach((client) => {
+        if (event.source.id === client.id) return;
+        client.postMessage(event.data);
+      });
+      break;
+    }
   }
 });
 
@@ -48,17 +58,11 @@ self.addEventListener("install", (event) => {
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     Promise.all([
-      caches.open(staticCacheName).then((cache) => {
-        cache.addAll(shellAssets);
-      }),
       caches.keys().then((keys) => {
-        return Promise.all(
-          keys
-            .filter(
-              (key) => key !== staticCacheName && key !== dynamicCacheName
-            )
-            .map((key) => caches.delete(key))
-        );
+        return Promise.all(keys.map((key) => caches.delete(key)));
+      }),
+      caches.open(staticCacheKey).then((cache) => {
+        return cache.addAll(shellAssets);
       }),
       self.clients.claim(),
     ])
@@ -74,11 +78,11 @@ self.addEventListener("fetch", (event) => {
       return (
         cacheRes ||
         fetch(event.request).then((fetchRes) => {
-          return caches.open(dynamicCacheName).then((cache) => {
+          return caches.open(dynamicCacheKey).then((cache) => {
             cache.put(event.request.url, fetchRes.clone());
 
             // check cached items size
-            limitCacheSize(dynamicCacheName, dynamicCacheLimit);
+            limitCacheSize(dynamicCacheKey, dynamicCacheLimit);
             return fetchRes;
           });
         })
