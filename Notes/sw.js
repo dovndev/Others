@@ -1,4 +1,4 @@
-const version = 007;
+const version = 101;
 const staticCacheKey = `site-shell-assets-v-${version}`;
 const dynamicCacheKey = `site-dynamic-assets-v-${version}`;
 const dynamicCacheLimit = 15;
@@ -36,7 +36,29 @@ self.addEventListener("message", async (event) => {
       break;
     }
     case "update": {
-      self.skipWaiting();
+      caches
+        .keys()
+        .then((keys) => {
+          return Promise.all(keys.map(async (key) => await caches.delete(key)));
+        })
+        .then(() => {
+          caches
+            .open(staticCacheKey)
+            .then((cache) => {
+              return shellAssets.map(async (url) => {
+                return await fetch(new Request(url, { cache: "reload" })).then(
+                  async (fetchRes) => await cache.put(url, fetchRes.clone())
+                );
+              });
+            })
+            .catch((error) => {
+              console.error(error);
+            })
+            .finally(() => {
+              self.skipWaiting();
+              self.clients.claim();
+            });
+        });
       break;
     }
     case "reload-data": {
@@ -55,34 +77,10 @@ self.addEventListener("message", async (event) => {
 // });
 
 // activate event
-self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    new Promise((resolve) => {
-      caches
-        .keys()
-        .then((keys) => {
-          return Promise.all(keys.map(async (key) => await caches.delete(key)));
-        })
-        .then(() => {
-          caches
-            .open(staticCacheKey)
-            .then((cache) => {
-              return shellAssets.map(async (url) => {
-                return await fetch(new Request(url, { cache: "reload" })).then(
-                  async (fetchRes) => await cache.put(url, fetchRes.clone())
-                );
-              });
-            })
-            .then(() => self.clients.claim())
-            .then(resolve)
-            .catch((error) => {
-              console.error(error);
-              resolve();
-            });
-        });
-    })
-  );
-});
+// self.addEventListener("activate", (event) => {
+//   event.waitUntil(
+//   );
+// });
 
 // fetch events
 self.addEventListener("fetch", (event) => {

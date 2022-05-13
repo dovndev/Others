@@ -142,6 +142,7 @@ const App = () => {
   const [showLinks, setShowLinks] = useState(true);
   const [nav, setNav] = useState(false);
   const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [updating, setUpdating] = useState(false);
   const textarea = useRef();
   const undoTimeoutRef = useRef();
 
@@ -323,120 +324,124 @@ const App = () => {
     setNav(false);
   }, [SetNotes]);
 
-  return (
-    <div className={theme ? "html" : "html dark"}>
-      <div className="header-cont">
-        <div className="header">
-          <p>Notebook</p>
-          <button onClick={() => setNav(!nav)} title="Menu">
-            <svg viewBox="0 0 24 24">
-              <path
-                fill="white"
-                d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
-              ></path>
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      <div
-        className={nav ? "nav-cont nav-cont-show" : "nav-cont"}
-        onClick={(e) => {
-          if (e.target.id === "nav-cont") setNav(false);
-        }}
-        id="nav-cont"
-      >
-        <div className={nav ? "nav nav-show" : "nav"}>
-          <button onClick={() => setEnterSend(!enterSend)}>
-            'Enter' key is save {enterSend && "✓"}
-          </button>
-          <button onClick={() => setShowLinks(!showLinks)}>
-            Show Url's as Links {showLinks && "✓"}
-          </button>
-          <button onClick={() => setTheme(!theme)}>
-            Dark theme {!theme && "✓"}
-          </button>
-          <button onClick={removeall}>Delete All Notes</button>
-        </div>
-      </div>
-
-      <div className="popup-cont">
-        {alert !== "" && (
-          <div className="popup">
-            <span>{alert}</span>
-          </div>
-        )}
-
-        {undo.func && (
-          <div className="popup">
-            <span>{undo.text}</span>
-            <button
-              onClick={() => {
-                undo.func();
-                setUndo(false);
-              }}
-            >
-              undo
+  if (updating) return <span class="preloader">Updating</span>;
+  else {
+    return (
+      <div className={theme ? "html" : "html dark"}>
+        <div className="header-cont">
+          <div className="header">
+            <p>Notebook</p>
+            <button onClick={() => setNav(!nav)} title="Menu">
+              <svg viewBox="0 0 24 24">
+                <path
+                  fill="white"
+                  d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+                ></path>
+              </svg>
             </button>
           </div>
-        )}
+        </div>
 
-        {updateAvailable && (
-          <div className="popup">
-            <span>Update available for Notebook</span>
-            <button
-              onClick={() => {
-                window.APP.sendMessage(
-                  { action: ACTIONS.UPDATE },
-                  window.APP.newServiceWorker
-                );
-              }}
-            >
-              update
-            </button>
-          </div>
-        )}
-      </div>
-
-      <div className="form">
-        <textarea
-          title="Type a note"
-          className={isNote ? "textarea" : "notextarea"}
-          rows={1}
-          ref={textarea}
-          value={newNote}
-          onChange={handleChange}
-        ></textarea>
-        <span className="placeholder">Type a note</span>
-        <button
-          title="Save Note"
-          onClick={editing ? saveEditedNote : saveNewNote}
-          className={isNote ? "save" : "nosave"}
-          tabIndex={isNote ? 0 : -1}
+        <div
+          className={nav ? "nav-cont nav-cont-show" : "nav-cont"}
+          onClick={(e) => {
+            if (e.target.id === "nav-cont") setNav(false);
+          }}
+          id="nav-cont"
         >
-          save
-        </button>
-      </div>
+          <div className={nav ? "nav nav-show" : "nav"}>
+            <button onClick={() => setEnterSend(!enterSend)}>
+              'Enter' key is save {enterSend && "✓"}
+            </button>
+            <button onClick={() => setShowLinks(!showLinks)}>
+              Show Url's as Links {showLinks && "✓"}
+            </button>
+            <button onClick={() => setTheme(!theme)}>
+              Dark theme {!theme && "✓"}
+            </button>
+            <button onClick={removeall}>Delete All Notes</button>
+          </div>
+        </div>
 
-      <div className="container">
-        {notes && notes.length !== 0 ? (
-          notes.map((item) => (
-            <Note
-              showLinks={showLinks}
-              note={item}
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
-              setEditing={setEditing}
-              editing={editing}
-              setAlert={setAlert}
-            />
-          ))
-        ) : (
-          <div className="nonotes">No Saved Notes ☹️</div>
-        )}
+        <div className="popup-cont">
+          {alert !== "" && (
+            <div className="popup">
+              <span>{alert}</span>
+            </div>
+          )}
+
+          {undo.func && (
+            <div className="popup">
+              <span>{undo.text}</span>
+              <button
+                onClick={() => {
+                  undo.func();
+                  setUndo(false);
+                }}
+              >
+                undo
+              </button>
+            </div>
+          )}
+
+          {updateAvailable && (
+            <div className="popup">
+              <span>Update available for Notebook</span>
+              <button
+                onClick={() => {
+                  setUpdating(true);
+                  window.APP.sendMessage(
+                    { action: ACTIONS.UPDATE },
+                    window.APP.newServiceWorker
+                  );
+                }}
+              >
+                update
+              </button>
+            </div>
+          )}
+        </div>
+
+        <div className="form">
+          <textarea
+            title="Type a note"
+            className={isNote ? "textarea" : "notextarea"}
+            rows={1}
+            ref={textarea}
+            value={newNote}
+            onChange={handleChange}
+          ></textarea>
+          <span className="placeholder">Type a note</span>
+          <button
+            title="Save Note"
+            onClick={editing ? saveEditedNote : saveNewNote}
+            className={isNote ? "save" : "nosave"}
+            tabIndex={isNote ? 0 : -1}
+          >
+            save
+          </button>
+        </div>
+
+        <div className="container">
+          {notes && notes.length !== 0 ? (
+            notes.map((item) => (
+              <Note
+                showLinks={showLinks}
+                note={item}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+                setEditing={setEditing}
+                editing={editing}
+                setAlert={setAlert}
+              />
+            ))
+          ) : (
+            <div className="nonotes">No Saved Notes ☹️</div>
+          )}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 ReactDOM.render(<App />, rootElement);
