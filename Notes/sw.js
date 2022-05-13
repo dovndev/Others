@@ -1,4 +1,4 @@
-const version = 911.007;
+const version = 1007.911;
 const staticCacheKey = `site-shell-assets-v-${version}`;
 const dynamicCacheKey = `site-dynamic-assets-v-${version}`;
 const dynamicCacheLimit = 15;
@@ -70,10 +70,12 @@ self.addEventListener("message", async (event) => {
   }
 });
 
-//install event
-// self.addEventListener("install", (event) => {
-//    console.log("install event");
-// });
+// install event
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open(staticCacheKey).then((cache) => cache.addAll(shellAssets))
+  );
+});
 
 //activate event
 self.addEventListener("activate", (event) => {
