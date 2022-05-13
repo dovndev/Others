@@ -316,6 +316,7 @@ const App = () => {
   const removeall = useCallback(() => {
     if (!confirm(`Delete All Notes`)) return;
     SetNotes([], "Deleted all Notes");
+    setNav(false);
   }, []);
 
   return (
