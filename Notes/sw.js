@@ -1,4 +1,4 @@
-const version = 911.007;
+const version = 1.001;
 const staticCacheKey = `site-shell-assets-v-${version}`;
 const dynamicCacheKey = `site-dynamic-assets-v-${version}`;
 const dynamicCacheLimit = 15;
@@ -8,6 +8,7 @@ const shellAssets = [
   "/Others/Notes/react-ui.js",
   "/Others/Notes/app.js",
   "/Others/Notes/index.css",
+  "/Others/Notes/icons/pen.svg",
   "https://unpkg.com/@babel/standalone/babel.min.js",
   "https://unpkg.com/react@17/umd/react.production.min.js",
   "https://unpkg.com/react-dom@17/umd/react-dom.production.min.js",

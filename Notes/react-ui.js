@@ -180,7 +180,7 @@ const App = () => {
   }, [alert]);
 
   useEffect(() => {
-    if (!nav) textarea.current.focus();
+    if (!nav) document.activeElement.blur();
   }, [nav]);
 
   useEffect(() => {
