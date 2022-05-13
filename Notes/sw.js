@@ -1,4 +1,4 @@
-const version = 0.911;
+const version = 0.91123;
 const staticCacheKey = `site-shell-assets-v-${version}`;
 const dynamicCacheKey = `site-dynamic-assets-v-${version}`;
 const dynamicCacheLimit = 15;
@@ -89,7 +89,7 @@ self.addEventListener("fetch", (event) => {
   if (event.request.method != "GET") return;
   let request = event.request;
   if (request.url === "/Others/Notes/index.html") {
-    request = new Request({ ...request, url: "/Others/Notes/" });
+    request = new Request("/Others/Notes/");
   }
 
   event.respondWith(
