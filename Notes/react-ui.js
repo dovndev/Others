@@ -204,11 +204,14 @@ const App = () => {
     }, 400);
   }, [notes]);
 
-  const SetNotes = useCallback((newNotes, undoText) => {
-    const oldNotes = notes;
-    setUndo({ text: undoText, func: () => setNotes(oldNotes) });
-    setNotes(newNotes);
-  }, []);
+  const SetNotes = useCallback(
+    (newNotes, undoText) => {
+      const oldNotes = notes;
+      setUndo({ text: undoText, func: () => setNotes(oldNotes) });
+      setNotes(newNotes);
+    },
+    [notes]
+  );
 
   const updateInputSize = useCallback(() => {
     const el = textarea.current;
