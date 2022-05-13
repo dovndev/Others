@@ -292,15 +292,24 @@ textarea:focus ~ .placeholder,
   padding: 0px 10px;
 }
 
-.popup {
+.popup-cont {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   bottom: 10px;
   right: 10px;
   margin-left: 10px;
+  width: 100%;
+}
+
+.popup {
   background-color: black;
   border: 1px solid white;
   padding: 10px;
   border-radius: 5px;
+  width: fit-content;
+  margin-top: 5px;
+  align-self: flex-end;
 }
 
 .popup span {

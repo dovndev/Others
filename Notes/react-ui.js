@@ -312,7 +312,7 @@ const App = () => {
 
   const removeall = useCallback(() => {
     if (!confirm(`Delete All Notes`)) return;
-    setNotes([], "Deleted all Notes");
+    SetNotes([], "Deleted all Notes");
   }, []);
 
   return (
@@ -352,41 +352,43 @@ const App = () => {
         </div>
       </div>
 
-      {undo.func && (
-        <div className="popup">
-          <span>{undo.text}</span>
-          <button
-            onClick={() => {
-              undo.func();
-              setUndo(false);
-            }}
-          >
-            undo
-          </button>
-        </div>
-      )}
+      <div className="popup-cont">
+        {alert !== "" && (
+          <div className="popup">
+            <span>{alert}</span>
+          </div>
+        )}
 
-      {updateAvailable && (
-        <div className="popup">
-          <span>Update available for Notebook</span>
-          <button
-            onClick={() => {
-              window.APP.sendMessage(
-                { action: ACTIONS.UPDATE },
-                window.APP.newServiceWorker
-              );
-            }}
-          >
-            update
-          </button>
-        </div>
-      )}
+        {undo.func && (
+          <div className="popup">
+            <span>{undo.text}</span>
+            <button
+              onClick={() => {
+                undo.func();
+                setUndo(false);
+              }}
+            >
+              undo
+            </button>
+          </div>
+        )}
 
-      {alert !== "" && (
-        <div className="popup">
-          <span>{alert}</span>
-        </div>
-      )}
+        {updateAvailable && (
+          <div className="popup">
+            <span>Update available for Notebook</span>
+            <button
+              onClick={() => {
+                window.APP.sendMessage(
+                  { action: ACTIONS.UPDATE },
+                  window.APP.newServiceWorker
+                );
+              }}
+            >
+              update
+            </button>
+          </div>
+        )}
+      </div>
 
       <div className="form">
         <textarea
