@@ -181,6 +181,10 @@ const App = () => {
   }, [alert]);
 
   useEffect(() => {
+    if (!nav) textarea.current.focus();
+  }, [nav]);
+
+  useEffect(() => {
     const themeColor = theme ? "#1976d2" : "#161b22";
     if (theme) rootElement.classList.remove("dark");
     else rootElement.classList.add("dark");
@@ -283,7 +287,7 @@ const App = () => {
         );
       }, 500);
     },
-    [notes, editing, undoTimeoutRef.current]
+    [notes, editing, undoTimeoutRef.current, SetNotes]
   );
 
   const handleEdit = useCallback(
@@ -317,7 +321,7 @@ const App = () => {
     if (!confirm(`Delete All Notes`)) return;
     SetNotes([], "Deleted all Notes");
     setNav(false);
-  }, []);
+  }, [SetNotes]);
 
   return (
     <div className={theme ? "html" : "html dark"}>
