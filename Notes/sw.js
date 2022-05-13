@@ -1,4 +1,4 @@
-const version = 0001;
+const version = 00131301;
 const staticCacheKey = `site-shell-assets-v-${version}`;
 const dynamicCacheKey = `site-dynamic-assets-v-${version}`;
 const dynamicCacheLimit = 15;
@@ -96,18 +96,14 @@ self.addEventListener("activate", (event) => {
 // fetch events
 self.addEventListener("fetch", (event) => {
   if (event.request.method != "GET") return;
-  let request = event.request;
-  if (request.url === "/Others/Notes/index.html") {
-    request = new Request("/Others/Notes/");
-  }
 
   event.respondWith(
-    caches.match(request).then((cacheRes) => {
+    caches.match(event.request).then((cacheRes) => {
       return (
         cacheRes ||
-        fetch(request).then((fetchRes) => {
+        fetch(event.request).then((fetchRes) => {
           return caches.open(dynamicCacheKey).then((cache) => {
-            cache.put(request.url, fetchRes.clone());
+            cache.put(event.request.url, fetchRes.clone());
 
             // check cached items size
             limitCacheSize(dynamicCacheKey, dynamicCacheLimit);
