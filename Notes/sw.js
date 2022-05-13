@@ -1,4 +1,4 @@
-const version = 0.5;
+const version = 0.91;
 const staticCacheKey = `site-shell-assets-v-${version}`;
 const dynamicCacheKey = `site-dynamic-assets-v-${version}`;
 const dynamicCacheLimit = 15;
@@ -50,9 +50,9 @@ self.addEventListener("message", async (event) => {
 });
 
 //install event
-self.addEventListener("install", (event) => {
-  //console.log("install");
-});
+// self.addEventListener("install", (event) => {
+//    console.log("install event");
+// });
 
 // activate event
 self.addEventListener("activate", (event) => {
@@ -67,10 +67,18 @@ self.addEventListener("activate", (event) => {
           caches
             .open(staticCacheKey)
             .then((cache) => {
-              return cache.addAll(shellAssets);
+              return shellAssets.map(async (url) => {
+                return await fetch(new Request(url, { cache: "reload" })).then(
+                  async (fetchRes) => await cache.put(url, fetchRes.clone())
+                );
+              });
             })
             .then(() => self.clients.claim())
-            .then(resolve);
+            .then(resolve)
+            .catch((error) => {
+              console.error(error);
+              resolve();
+            });
         });
     })
   );
@@ -79,14 +87,18 @@ self.addEventListener("activate", (event) => {
 // fetch events
 self.addEventListener("fetch", (event) => {
   if (event.request.method != "GET") return;
+  let request = event.request;
+  if (request.url === "/Others/Notes/index.html") {
+    request = new Request({ ...request, url: "/Others/Notes/" });
+  }
 
   event.respondWith(
-    caches.match(event.request).then((cacheRes) => {
+    caches.match(request).then((cacheRes) => {
       return (
         cacheRes ||
-        fetch(event.request).then((fetchRes) => {
+        fetch(request).then((fetchRes) => {
           return caches.open(dynamicCacheKey).then((cache) => {
-            cache.put(event.request.url, fetchRes.clone());
+            cache.put(request.url, fetchRes.clone());
 
             // check cached items size
             limitCacheSize(dynamicCacheKey, dynamicCacheLimit);
