@@ -1,4 +1,4 @@
-const version = 2.0;
+const version = 2.012;
 const staticCacheKey = `site-shell-assets-v-${version}`;
 const dynamicCacheKey = `site-dynamic-assets-v-${version}`;
 const dynamicCacheLimit = 15;
@@ -57,15 +57,22 @@ self.addEventListener("install", (event) => {
 // activate event
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    Promise.all([
-      caches.keys().then((keys) => {
-        return Promise.all(keys.map((key) => caches.delete(key)));
-      }),
-      caches.open(staticCacheKey).then((cache) => {
-        return cache.addAll(shellAssets);
-      }),
-      self.clients.claim(),
-    ])
+    new Promise((resolve) => {
+      caches
+        .keys()
+        .then((keys) => {
+          return Promise.all(keys.map(async (key) => await caches.delete(key)));
+        })
+        .then(() => {
+          caches
+            .open(staticCacheKey)
+            .then((cache) => {
+              return cache.addAll(shellAssets);
+            })
+            .then(() => self.clients.claim())
+            .then(resolve);
+        });
+    })
   );
 });
 
