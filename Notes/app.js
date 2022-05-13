@@ -77,7 +77,7 @@ window.APP = {
             });
             window.APP.sendMessage(
               { action: window.APP.ACTIONS.UPDATE_FOUND },
-              await APP.newServiceWorker
+              window.APP.newServiceWorker
             );
           }
         });
