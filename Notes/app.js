@@ -67,7 +67,7 @@ window.APP = {
         );
       }
 
-      await reg.addEventListener("updatefound", () => {
+      reg.addEventListener("updatefound", () => {
         window.APP.newServiceWorker = reg.installing;
 
         window.APP.newServiceWorker.addEventListener("statechange", (event) => {
@@ -77,7 +77,7 @@ window.APP = {
             });
             window.APP.sendMessage(
               { action: window.APP.ACTIONS.UPDATE_FOUND },
-              await reg.waiting
+              await APP.newServiceWorker
             );
           }
         });
