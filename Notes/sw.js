@@ -1,4 +1,4 @@
-const version = 1007.911;
+const version = 0001;
 const staticCacheKey = `site-shell-assets-v-${version}`;
 const dynamicCacheKey = `site-dynamic-assets-v-${version}`;
 const dynamicCacheLimit = 15;
@@ -30,6 +30,13 @@ self.addEventListener("message", async (event) => {
   const allClients = await self.clients.matchAll();
   switch (event.data.action) {
     case "update-available": {
+      await caches.keys().then((keys) => {
+        return Promise.all(
+          keys
+            .filter((key) => key !== staticCacheKey && key !== dynamicCacheKey)
+            .map((key) => caches.delete(key))
+        );
+      });
       allClients.forEach((client) => {
         client.postMessage(event.data);
       });
@@ -45,11 +52,15 @@ self.addEventListener("message", async (event) => {
           caches
             .open(staticCacheKey)
             .then((cache) => {
-              return shellAssets.map(async (url) => {
-                return await fetch(new Request(url, { cache: "reload" })).then(
-                  async (fetchRes) => await cache.put(url, fetchRes.clone())
-                );
-              });
+              return Promise.all(
+                shellAssets.map(async (url) => {
+                  return await fetch(
+                    new Request(url, { cache: "reload" })
+                  ).then(
+                    async (fetchRes) => await cache.put(url, fetchRes.clone())
+                  );
+                })
+              );
             })
             .catch((error) => {
               console.error(error);

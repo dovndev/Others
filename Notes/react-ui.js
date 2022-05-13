@@ -148,9 +148,7 @@ const App = () => {
 
   useEffect(async () => {
     textarea.current.focus();
-    window.APP.init();
-
-    if (navigator.serviceWorker) {
+    window.APP.init().then((controller) => {
       navigator.serviceWorker.addEventListener("message", (event) => {
         switch (event.data.action) {
           case ACTIONS.RELOAD_DATA: {
@@ -163,7 +161,7 @@ const App = () => {
           }
         }
       });
-    }
+    });
   }, []);
 
   useEffect(() => {
