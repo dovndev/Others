@@ -171,15 +171,13 @@ const App = () => {
   }, [newNote]);
 
   useEffect(() => {
-    if (undo !== false) {
-      undoTimeoutRef.current = setTimeout(() => setUndo(false), 5000);
-    }
+    if (undoTimeoutRef.current) clearTimeout(undoTimeoutRef.current);
+    if (undo === false) undoTimeoutRef.current = false;
+    else undoTimeoutRef.current = setTimeout(() => setUndo(false), 5000);
   }, [undo]);
 
   useEffect(() => {
-    if (alert !== "") {
-      setTimeout(() => setAlert(""), 3000);
-    }
+    if (alert !== "") setTimeout(() => setAlert(""), 3000);
   }, [alert]);
 
   useEffect(() => {
@@ -205,6 +203,12 @@ const App = () => {
       }
     }, 400);
   }, [notes]);
+
+  const SetNotes = useCallback((newNotes, undoText) => {
+    const oldNotes = notes;
+    setUndo({ text: undoText, func: () => setNotes(oldNotes) });
+    setNotes(newNotes);
+  }, []);
 
   const updateInputSize = useCallback(() => {
     const el = textarea.current;
@@ -270,10 +274,10 @@ const App = () => {
       e.target.parentNode.classList.add("delete-anim");
       if (editing === id) setEditing(false);
       setTimeout(() => {
-        if (undoTimeoutRef.current) clearTimeout(undoTimeoutRef.current);
-        undoTimeoutRef.current = false;
-        setUndo(notes);
-        setNotes(notes.filter((note) => note.id !== id));
+        SetNotes(
+          notes.filter((note) => note.id !== id),
+          "Note deleted"
+        );
       }, 500);
     },
     [notes, editing, undoTimeoutRef.current]
@@ -308,8 +312,7 @@ const App = () => {
 
   const removeall = useCallback(() => {
     if (!confirm(`Delete All Notes`)) return;
-    setNotes([]);
-    setAlert("Deleted all Notes");
+    setNotes([], "Deleted all Notes");
   }, []);
 
   return (
@@ -349,12 +352,12 @@ const App = () => {
         </div>
       </div>
 
-      {undo && (
+      {undo.func && (
         <div className="popup">
-          <span>Note deleted</span>
+          <span>{undo.text}</span>
           <button
             onClick={() => {
-              setNotes(undo);
+              undo.func();
               setUndo(false);
             }}
           >
