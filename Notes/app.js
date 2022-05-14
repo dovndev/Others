@@ -42,7 +42,8 @@ window.APP = {
   },
   init: async () => {
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.addEventListener("controllerchange", () => {
+      navigator.serviceWorker.addEventListener("controllerchange", (e) => {
+        console.log("controllerchange", e);
         window.APP.controller = navigator.serviceWorker.controller;
         window.location.reload();
       });
