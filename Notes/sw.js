@@ -1,4 +1,4 @@
-const version = 12;
+const version = 123;
 const staticCacheKey = `site-shell-assets-v-${version}`;
 const dynamicCacheKey = `site-dynamic-assets-v-${version}`;
 const dynamicCacheLimit = 15;
@@ -96,6 +96,7 @@ self.addEventListener("message", async (event) => {
     }
     case "update-found": {
       if (selfUpdateTimeout) clearTimeout(selfUpdateTimeout);
+      console.log(selfUpdateTimeout);
       selfUpdateTimeout = undefined;
       break;
     }

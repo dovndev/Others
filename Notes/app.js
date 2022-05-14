@@ -30,6 +30,7 @@ window.APP = {
   newServiceWorker: null,
   controller: null,
   sendMessage: (msg, controller = window.APP.controller) => {
+    console.log(controller, msg);
     if (controller) controller.postMessage(msg);
   },
   copyToClipBoard: async (text) => {
@@ -49,7 +50,7 @@ window.APP = {
       const sendUpdate = (worker) => {
         window.APP.sendMessage(
           { action: window.APP.ACTIONS.UPDATE_AVAILABLE },
-          reg.active
+          window.APP.controller
         );
         window.APP.sendMessage(
           { action: window.APP.ACTIONS.UPDATE_FOUND },
