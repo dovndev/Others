@@ -49,39 +49,45 @@ window.APP = {
       navigator.serviceWorker.addEventListener("controllerchange", (e) => {
         console.log("controllerchange", e);
         window.APP.controller = navigator.serviceWorker.controller;
-        if (window.APP.controller && notFirst) window.location.reload();
+        if (notFirst) window.location.reload();
       });
-
-      const sendUpdate = (worker) => {
-        window.APP.sendMessage(
-          { action: window.APP.ACTIONS.UPDATE_AVAILABLE },
-          window.APP.controller
-        );
-        window.APP.sendMessage(
-          { action: window.APP.ACTIONS.UPDATE_FOUND },
-          worker
-        );
-      };
 
       navigator.serviceWorker
         .register("./sw.js")
         .then((reg) => {
           window.APP.controller = reg.active;
 
-          if (reg.waiting) {
-            window.APP.newServiceWorker = reg.waiting;
-            sendUpdate(reg.waiting);
+          if (notFirst) {
+            const sendUpdate = (worker) => {
+              window.APP.sendMessage(
+                { action: window.APP.ACTIONS.UPDATE_AVAILABLE },
+                window.APP.controller
+              );
+              window.APP.sendMessage(
+                { action: window.APP.ACTIONS.UPDATE_FOUND },
+                worker
+              );
+            };
+
+            if (reg.waiting) {
+              window.APP.newServiceWorker = reg.waiting;
+              sendUpdate(reg.waiting);
+            }
+
+            reg.addEventListener("updatefound", () => {
+              window.APP.newServiceWorker = reg.installing;
+
+              window.APP.newServiceWorker.addEventListener(
+                "statechange",
+                () => {
+                  if (window.APP.newServiceWorker.state === "installed") {
+                    sendUpdate(window.APP.newServiceWorker);
+                  }
+                }
+              );
+            });
           }
 
-          reg.addEventListener("updatefound", () => {
-            window.APP.newServiceWorker = reg.installing;
-
-            window.APP.newServiceWorker.addEventListener("statechange", () => {
-              if (window.APP.newServiceWorker.state === "installed") {
-                sendUpdate(window.APP.newServiceWorker);
-              }
-            });
-          });
           return reg;
         })
         .catch((err) =>

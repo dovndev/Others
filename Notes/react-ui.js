@@ -162,8 +162,8 @@ const App = () => {
             break;
           }
           case ACTIONS.REINSTALL: {
-            reg.unregister;
-            window.location.reload();
+            localStorage.removeItem("notFirst");
+            reg.unregister();
             break;
           }
         }
