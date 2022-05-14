@@ -51,10 +51,12 @@ const useLocalStorage = (key, initialvalue, stale) => {
   }, [staled]);
 
   useEffect(() => {
-    if (staled === "") {
-      localStorage.setItem(key, JSON.stringify(value));
-      window.APP.sendMessage({ action: ACTIONS.RELOAD_DATA, key });
-    } else setStaled("");
+    if (JSON.parse(sessionStorage.getItem(key))) {
+      if (staled === "") {
+        localStorage.setItem(key, JSON.stringify(value));
+        window.APP.sendMessage({ action: ACTIONS.RELOAD_DATA, key });
+      } else setStaled("");
+    } else sessionStorage.setItem(key, true);
   }, [value]);
 
   return [value, setvalue, refresh];

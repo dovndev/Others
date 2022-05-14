@@ -1,4 +1,4 @@
-const version = 123;
+const version = 1234;
 const staticCacheKey = `site-shell-assets-v-${version}`;
 const dynamicCacheKey = `site-dynamic-assets-v-${version}`;
 const dynamicCacheLimit = 15;
@@ -39,7 +39,7 @@ const clearAllCache = (escape) => {
   });
 };
 
-const cacheShellAssets = ({ fresh }) => {
+const cacheShellAssets = (fresh) => {
   return caches
     .open(staticCacheKey)
     .then((cache) => {
@@ -60,7 +60,7 @@ const cacheShellAssets = ({ fresh }) => {
 
 const update = () => {
   return clearAllCache().then(() => {
-    cacheShellAssets({ fresh: true }).then(() => {
+    cacheShellAssets(true).then(() => {
       self.skipWaiting();
     });
   });
