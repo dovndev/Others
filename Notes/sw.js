@@ -71,13 +71,6 @@ self.addEventListener("message", async (event) => {
   const allClients = await self.clients.matchAll();
   switch (event.data.action) {
     case "update-available": {
-      await caches.keys().then((keys) => {
-        return Promise.all(
-          keys
-            .filter((key) => key !== staticCacheKey && key !== dynamicCacheKey)
-            .map((key) => caches.delete(key))
-        );
-      });
       allClients.forEach((client) => {
         client.postMessage(event.data);
       });
