@@ -169,7 +169,6 @@ const App = () => {
         }
       });
     });
-    return () => sessionStorage.clear();
   }, []);
 
   useEffect(() => {

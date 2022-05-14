@@ -1,10 +1,14 @@
 const theme = JSON.parse(localStorage.getItem("Theme-React"));
+const notFirst = JSON.parse(localStorage.getItem("notFirst")) || false;
+
+if (!notFirst) localStorage.setItem("notFirst", true);
 
 if (theme !== null && theme === false) {
   document.getElementById("root").classList.add("dark");
 }
+
+sessionStorage.clear();
 localStorage.removeItem("FirstInstall");
-localStorage.removeItem("notFirst");
 
 window.APP = {
   STORE_KEYS: {
@@ -45,7 +49,7 @@ window.APP = {
       navigator.serviceWorker.addEventListener("controllerchange", (e) => {
         console.log("controllerchange", e);
         window.APP.controller = navigator.serviceWorker.controller;
-        window.location.reload();
+        if (window.APP.controller && notFirst) window.location.reload();
       });
 
       const sendUpdate = (worker) => {
