@@ -148,7 +148,7 @@ const App = () => {
 
   useEffect(async () => {
     textarea.current.focus();
-    window.APP.init().then((controller) => {
+    window.APP.init().then((reg) => {
       navigator.serviceWorker.addEventListener("message", (event) => {
         switch (event.data.action) {
           case ACTIONS.RELOAD_DATA: {
@@ -157,6 +157,11 @@ const App = () => {
           }
           case ACTIONS.UPDATE_AVAILABLE: {
             if (window.APP.newServiceWorker) setUpdateAvailable(true);
+            break;
+          }
+          case ACTIONS.REINSTALL: {
+            reg.unregister;
+            window.location.reload();
             break;
           }
         }
@@ -358,6 +363,15 @@ const App = () => {
               Dark theme {!theme && "✓"}
             </button>
             <button onClick={removeall}>Delete All Notes</button>
+            <button
+              onClick={() => {
+                window.APP.sendMessage({
+                  action: window.APP.ACTIONS.REINSTALL,
+                });
+              }}
+            >
+              Reinstall Notebook
+            </button>
           </div>
         </div>
 

@@ -1,4 +1,4 @@
-const version = 1.001;
+const version = 12;
 const staticCacheKey = `site-shell-assets-v-${version}`;
 const dynamicCacheKey = `site-dynamic-assets-v-${version}`;
 const dynamicCacheLimit = 15;
@@ -27,6 +27,45 @@ const limitCacheSize = (key, size) => {
   });
 };
 
+const clearAllCache = (escape) => {
+  return caches.keys().then((keys) => {
+    let keysToClear = keys;
+    if (escape) {
+      keysToClear = keys.filter((key) => !escape.includes(key));
+    }
+    return Promise.all(
+      keysToClear.map(async (key) => await caches.delete(key))
+    );
+  });
+};
+
+const cacheShellAssets = ({ fresh }) => {
+  return caches
+    .open(staticCacheKey)
+    .then((cache) => {
+      if (fresh) {
+        return Promise.all(
+          shellAssets.map(async (url) => {
+            return await fetch(new Request(url, { cache: "reload" })).then(
+              async (fetchRes) => await cache.put(url, fetchRes.clone())
+            );
+          })
+        );
+      } else cache.addAll(shellAssets);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+const update = () => {
+  return clearAllCache().then(() => {
+    cacheShellAssets({ fresh: true }).then(() => {
+      self.skipWaiting();
+    });
+  });
+};
+
 // listening for messages
 self.addEventListener("message", async (event) => {
   const allClients = await self.clients.matchAll();
@@ -45,32 +84,7 @@ self.addEventListener("message", async (event) => {
       break;
     }
     case "update": {
-      caches
-        .keys()
-        .then((keys) => {
-          return Promise.all(keys.map(async (key) => await caches.delete(key)));
-        })
-        .then(() => {
-          caches
-            .open(staticCacheKey)
-            .then((cache) => {
-              return Promise.all(
-                shellAssets.map(async (url) => {
-                  return await fetch(
-                    new Request(url, { cache: "reload" })
-                  ).then(
-                    async (fetchRes) => await cache.put(url, fetchRes.clone())
-                  );
-                })
-              );
-            })
-            .catch((error) => {
-              console.error(error);
-            })
-            .finally(() => {
-              self.skipWaiting();
-            });
-        });
+      update();
       break;
     }
     case "reload-data": {
@@ -81,7 +95,17 @@ self.addEventListener("message", async (event) => {
       break;
     }
     case "update-found": {
-      clearTimeout(selfUpdateTimeout);
+      if (selfUpdateTimeout) clearTimeout(selfUpdateTimeout);
+      selfUpdateTimeout = undefined;
+      break;
+    }
+    case "reinstall": {
+      clearAllCache().then(() => {
+        allClients.forEach((client) => {
+          if (event.source.id === client.id) return;
+          client.postMessage(event.data);
+        });
+      });
       break;
     }
   }
@@ -89,10 +113,12 @@ self.addEventListener("message", async (event) => {
 
 // install event
 self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(staticCacheKey).then((cache) => cache.addAll(shellAssets))
-  );
-  selfUpdateTimeout = setTimeout(() => self.skipWaiting(), 5000);
+  caches.keys().then((keys) => {
+    if (keys.length === 0) {
+      event.waitUntil(cacheShellAssets());
+      self.skipWaiting();
+    } else selfUpdateTimeout = setTimeout(update, 5000);
+  });
 });
 
 //activate event
@@ -103,6 +129,7 @@ self.addEventListener("activate", (event) => {
 // fetch events
 self.addEventListener("fetch", (event) => {
   if (event.request.method != "GET") return;
+  if (event.request.cache === "reload") return;
 
   event.respondWith(
     caches.match(event.request).then((cacheRes) => {

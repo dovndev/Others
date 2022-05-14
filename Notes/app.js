@@ -1,10 +1,10 @@
 const theme = JSON.parse(localStorage.getItem("Theme-React"));
-const notFirst = JSON.parse(localStorage.getItem("notFirst"));
 
 if (theme !== null && theme === false) {
   document.getElementById("root").classList.add("dark");
 }
 localStorage.removeItem("FirstInstall");
+localStorage.removeItem("notFirst");
 
 window.APP = {
   STORE_KEYS: {
@@ -17,6 +17,8 @@ window.APP = {
     RELOAD_DATA: "reload-data",
     UPDATE: "update",
     UPDATE_AVAILABLE: "update-available",
+    UPDATE_FOUND: "update-found",
+    REINSTALL: "reinstall",
   },
   META_LIST: [
     "theme-color",
@@ -41,48 +43,44 @@ window.APP = {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.addEventListener("controllerchange", () => {
         window.APP.controller = navigator.serviceWorker.controller;
-        if (window.APP.controller) {
-          if (notFirst) window.location.reload();
-          else localStorage.setItem("notFirst", true);
-        }
+        window.location.reload();
       });
 
-      let reg;
-      try {
-        reg = await navigator.serviceWorker.register("./sw.js");
-      } catch (err) {
-        console.error("Service-Worker Not Registered, error : ", err);
-      }
-      window.APP.controller = await reg.active;
-
-      if (reg.waiting) {
-        window.APP.newServiceWorker = await reg.waiting;
+      const sendUpdate = (worker) => {
         window.APP.sendMessage(
           { action: window.APP.ACTIONS.UPDATE_AVAILABLE },
-          await reg.active
+          reg.active
         );
         window.APP.sendMessage(
           { action: window.APP.ACTIONS.UPDATE_FOUND },
-          await reg.waiting
+          worker
         );
-      }
+      };
 
-      reg.addEventListener("updatefound", () => {
-        window.APP.newServiceWorker = reg.installing;
+      navigator.serviceWorker
+        .register("./sw.js")
+        .then((reg) => {
+          window.APP.controller = reg.active;
 
-        window.APP.newServiceWorker.addEventListener("statechange", (event) => {
-          if (event.target.state === "installed" && window.APP.controller) {
-            window.APP.sendMessage({
-              action: window.APP.ACTIONS.UPDATE_AVAILABLE,
-            });
-            window.APP.sendMessage(
-              { action: window.APP.ACTIONS.UPDATE_FOUND },
-              window.APP.newServiceWorker
-            );
+          if (reg.waiting) {
+            window.APP.newServiceWorker = reg.waiting;
+            sendUpdate(reg.waiting);
           }
-        });
-      });
-      return await reg.active;
+
+          reg.addEventListener("updatefound", () => {
+            window.APP.newServiceWorker = reg.installing;
+
+            window.APP.newServiceWorker.addEventListener("statechange", () => {
+              if (window.APP.newServiceWorker.state === "installed") {
+                sendUpdate(window.APP.newServiceWorker);
+              }
+            });
+          });
+          return reg;
+        })
+        .catch((err) =>
+          console.error("Service-Worker Not Registered, error : ", err)
+        );
     }
   },
 };
