@@ -150,8 +150,7 @@ const App = () => {
 
   useEffect(async () => {
     textarea.current.focus();
-    window.APP.init().then((reg) => {
-      console.log(reg);
+    window.APP.init().then(() => {
       navigator.serviceWorker.addEventListener("message", (event) => {
         switch (event.data.action) {
           case ACTIONS.RELOAD_DATA: {
@@ -164,7 +163,11 @@ const App = () => {
           }
           case ACTIONS.REINSTALL: {
             localStorage.removeItem("notFirst");
-            window.APP.registration.unregister();
+            navigator.serviceWorker.getRegistrations().then((registrations) => {
+              registrations.map((registration) => {
+                registration.unregister();
+              });
+            });
             break;
           }
         }
