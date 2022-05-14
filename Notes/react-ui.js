@@ -161,6 +161,13 @@ const App = () => {
             if (window.APP.newServiceWorker) setUpdateAvailable(true);
             break;
           }
+          case ACTIONS.REINSTALL: {
+            localStorage.removeItem("notFirst");
+            window.APP.registration
+              .unregister()
+              .then(() => window.location.reload());
+            break;
+          }
         }
       });
     });
@@ -327,7 +334,6 @@ const App = () => {
 
   const reInstall = useCallback(() => {
     if (confirm("Reinstall Notebook")) {
-      localStorage.removeItem("notFirst");
       window.APP.sendMessage({
         action: window.APP.ACTIONS.REINSTALL,
       });
