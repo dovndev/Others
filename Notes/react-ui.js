@@ -151,6 +151,7 @@ const App = () => {
   useEffect(async () => {
     textarea.current.focus();
     window.APP.init().then((reg) => {
+      console.log(reg);
       navigator.serviceWorker.addEventListener("message", (event) => {
         switch (event.data.action) {
           case ACTIONS.RELOAD_DATA: {
@@ -162,9 +163,8 @@ const App = () => {
             break;
           }
           case ACTIONS.REINSTALL: {
-            console.log(reg)
             localStorage.removeItem("notFirst");
-            reg.unregister();
+            window.APP.registration.unregister();
             break;
           }
         }
@@ -325,10 +325,19 @@ const App = () => {
   );
 
   const removeall = useCallback(() => {
-    if (!confirm(`Delete All Notes`)) return;
-    SetNotes([], "Deleted all Notes");
-    setNav(false);
+    if (confirm("Delete All Notes")) {
+      SetNotes([], "Deleted all Notes");
+      setNav(false);
+    }
   }, [SetNotes]);
+
+  const reInstall = useCallback(() => {
+    if (confirm("Reinstall Notebook")) {
+      window.APP.sendMessage({
+        action: window.APP.ACTIONS.REINSTALL,
+      });
+    }
+  }, []);
 
   if (updating) return <span class="preloader">Updating</span>;
   else {
@@ -366,15 +375,7 @@ const App = () => {
               Dark theme {!theme && "✓"}
             </button>
             <button onClick={removeall}>Delete All Notes</button>
-            <button
-              onClick={() => {
-                window.APP.sendMessage({
-                  action: window.APP.ACTIONS.REINSTALL,
-                });
-              }}
-            >
-              Reinstall Notebook
-            </button>
+            <button onClick={reInstall}>Reinstall Notebook</button>
           </div>
         </div>
 

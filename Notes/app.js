@@ -33,6 +33,7 @@ window.APP = {
   ],
   newServiceWorker: null,
   controller: null,
+  registration: null,
   sendMessage: (msg, controller = window.APP.controller) => {
     if (controller) controller.postMessage(msg);
   },
@@ -54,6 +55,7 @@ window.APP = {
         .register("./sw.js")
         .then((reg) => {
           window.APP.controller = reg.active;
+          window.APP.registration = reg;
 
           if (notFirst) {
             const sendUpdate = (worker) => {
