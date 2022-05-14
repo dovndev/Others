@@ -162,6 +162,7 @@ const App = () => {
             break;
           }
           case ACTIONS.REINSTALL: {
+            console.log(reg)
             localStorage.removeItem("notFirst");
             reg.unregister();
             break;

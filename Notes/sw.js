@@ -1,4 +1,4 @@
-const version = 1.234;
+const version = 1.2345;
 const staticCacheKey = `site-shell-assets-v-${version}`;
 const dynamicCacheKey = `site-dynamic-assets-v-${version}`;
 const dynamicCacheLimit = 15;
@@ -96,15 +96,15 @@ self.addEventListener("message", async (event) => {
     }
     case "update-found": {
       if (selfUpdateTimeout) clearTimeout(selfUpdateTimeout);
-      console.log(selfUpdateTimeout);
       selfUpdateTimeout = undefined;
       break;
     }
     case "reinstall": {
       clearAllCache().then(() => {
         allClients.forEach((client) => {
-          if (event.source.id === client.id) return;
-          client.postMessage(event.data);
+          if (event.source.id === client.id) {
+            client.postMessage(event.data);
+          }
         });
       });
       break;

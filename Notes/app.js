@@ -34,7 +34,6 @@ window.APP = {
   newServiceWorker: null,
   controller: null,
   sendMessage: (msg, controller = window.APP.controller) => {
-    console.log(controller, msg);
     if (controller) controller.postMessage(msg);
   },
   copyToClipBoard: async (text) => {
@@ -47,7 +46,6 @@ window.APP = {
   init: async () => {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.addEventListener("controllerchange", (e) => {
-        console.log("controllerchange", e);
         window.APP.controller = navigator.serviceWorker.controller;
         if (notFirst) window.location.reload();
       });
