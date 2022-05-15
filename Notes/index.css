@@ -409,6 +409,9 @@ textarea:focus ~ .placeholder,
   word-break: break-all;
   white-space: pre-wrap;
 }
+.note p ::selection {
+  color: white;
+}
 .note p a {
   user-select: text;
   color: var(--theme);
