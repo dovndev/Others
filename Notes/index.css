@@ -410,7 +410,8 @@ textarea:focus ~ .placeholder,
   white-space: pre-wrap;
 }
 .note p::selection {
-  color: red;
+  color: white;
+  background-color: var(--theme);
 }
 .note p a {
   user-select: text;

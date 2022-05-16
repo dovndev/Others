@@ -4,7 +4,7 @@
   opacity: 0 !important;
   z-index: -100000 !important;
   pointer-events: none !important;
-  height: 0px !important;
+  position: absolute !important;
   color: transparent !important;
   background-color: transparent !important;
 }
