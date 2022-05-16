@@ -1,15 +1,15 @@
-const storeName = "hider-12222312313123";
+const storeName = "hider-007";
 let clickedEl = null;
 let savedHider = JSON.parse(localStorage.getItem(storeName)) || [];
 let hidedEl = [];
 let nohider = [];
 
 const addTohidedEl = (element) => {
-  const { opacity, zIndex, pointerEvents } = element.style;
+  const { opacity, zIndex, pointerEvents, height } = element.style;
   const newElement = {
     element: element,
     id: element.id,
-    style: { opacity, zIndex, pointerEvents },
+    style: { opacity, zIndex, pointerEvents, height },
   };
   hidedEl = [...hidedEl, newElement];
 };
@@ -19,12 +19,13 @@ const saveHider = () => {
   else localStorage.setItem(storeName, JSON.stringify(savedHider));
 };
 
-function show({ element, id, style: { opacity, zIndex, pointerEvents } }) {
+function show({ element, id, style: { opacity, zIndex, pointerEvents, height } }) {
   element.removeAttribute("hider");
   element.id = id;
   element.style.opacity = opacity;
   element.style.zIndex = zIndex;
   element.style.pointerEvents = pointerEvents;
+  element.style.height = height;
 }
 
 function hide(element) {
@@ -33,6 +34,7 @@ function hide(element) {
   element.style.opacity = "0";
   element.style.zIndex = "-100000";
   element.style.pointerEvents = "none";
+  element.style.height = "0px";
 }
 
 function undo() {
