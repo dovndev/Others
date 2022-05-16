@@ -16,10 +16,10 @@ const shellAssets = [
 
 // cache size limit function
 const limitCacheSize = (key, size) => {
-  caches.open(key).then((cache) => {
-    cache.keys().then((keys) => {
+  return caches.open(key).then((cache) => {
+    return cache.keys().then((keys) => {
       if (keys.length > size) {
-        keys
+        return keys
           .filter((key, index) => index >= size)
           .map((key) => cache.delete(key));
       }
@@ -60,9 +60,7 @@ const cacheShellAssets = (fresh) => {
 
 const update = () => {
   return clearAllCache().then(() => {
-    cacheShellAssets(true).then(() => {
-      self.skipWaiting();
-    });
+    return cacheShellAssets(true).then(() => self.skipWaiting());
   });
 };
 
