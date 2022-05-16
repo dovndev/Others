@@ -50,12 +50,9 @@ window.APP = {
       navigator.serviceWorker.addEventListener("controllerchange", (e) => {
         window.APP.controller = navigator.serviceWorker.controller;
         if (notFirst) window.location.reload();
-        if (window.APP.controller) {
-          window.APP.sendMessage({ action: ACTIONS.VERSION });
-        }
       });
 
-      navigator.serviceWorker
+      return navigator.serviceWorker
         .register("./sw.js")
         .then((reg) => {
           window.APP.controller = reg.active;

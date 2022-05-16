@@ -152,7 +152,7 @@ const App = () => {
   useEffect(async () => {
     textarea.current.focus();
     window.APP.init().then(() => {
-      navigator.serviceWorker.addEventListener("message", (event) => {
+      await navigator.serviceWorker.addEventListener("message", (event) => {
         switch (event.data.action) {
           case ACTIONS.RELOAD_DATA: {
             setStaled(event.data.key);
@@ -170,11 +170,13 @@ const App = () => {
             break;
           }
           case ACTIONS.VERSION: {
+            console.log(event.data)
             setVersion(event.data.version);
             break;
           }
         }
       });
+      window.APP.sendMessage({ action: ACTIONS.VERSION });
     });
   }, []);
 
