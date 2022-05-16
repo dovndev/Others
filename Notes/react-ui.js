@@ -387,7 +387,8 @@ const App = () => {
             </button>
             <button onClick={removeall}>Delete All Notes</button>
             <button onClick={reInstall}>Reinstall Notebook</button>
-            <p className="version">version : {version}</p>
+            <p className="about">version : {version}</p>
+            <p className="about">dev : JP</p>
           </div>
         </div>
 

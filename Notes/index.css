@@ -176,7 +176,7 @@ button {
   outline: none;
 }
 
-.version {
+.about {
   user-select: text;
   padding: 16px;
   overflow: hidden;
