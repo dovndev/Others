@@ -144,6 +144,7 @@ const App = () => {
   const [showLinks, setShowLinks] = useState(true);
   const [nav, setNav] = useState(false);
   const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [version, setVersion] = useState(0);
   const [updating, setUpdating] = useState(false);
   const textarea = useRef();
   const undoTimeoutRef = useRef();
@@ -168,8 +169,13 @@ const App = () => {
               .then(() => window.location.reload());
             break;
           }
+          case ACTIONS.VERSION: {
+            setVersion(event.data.version);
+            break;
+          }
         }
       });
+      window.APP.sendMessage({ action: ACTIONS.VERSION });
     });
   }, []);
 
@@ -377,6 +383,7 @@ const App = () => {
             </button>
             <button onClick={removeall}>Delete All Notes</button>
             <button onClick={reInstall}>Reinstall Notebook</button>
+            <p className="version">version : {version}</p>
           </div>
         </div>
 

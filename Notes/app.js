@@ -23,6 +23,7 @@ window.APP = {
     UPDATE_AVAILABLE: "update-available",
     UPDATE_FOUND: "update-found",
     REINSTALL: "reinstall",
+    VERSION: "version",
   },
   META_LIST: [
     "theme-color",

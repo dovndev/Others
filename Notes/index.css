@@ -175,6 +175,12 @@ button {
   background-color: transparent;
   outline: none;
 }
+
+.version {
+  user-select: text;
+  padding: 16px;
+}
+
 .nav button:hover {
   background-color: var(--lightBorder);
 }

@@ -1,4 +1,4 @@
-const version = 911.007;
+const version = 111;
 const staticCacheKey = `site-shell-assets-v-${version}`;
 const dynamicCacheKey = `site-dynamic-assets-v-${version}`;
 const dynamicCacheLimit = 15;
@@ -97,6 +97,14 @@ self.addEventListener("message", async (event) => {
         allClients.forEach((client) => {
           client.postMessage(event.data);
         });
+      });
+      break;
+    }
+    case "version": {
+      allClients.forEach((client) => {
+        if (event.source.id === client.id) {
+          client.postMessage({ ...event.data, version });
+        }
       });
       break;
     }
