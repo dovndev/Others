@@ -178,10 +178,14 @@ button {
 
 .about {
   user-select: text;
-  padding: 16px;
+  padding-left: 16px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.about:first-of-type {
+  margin-top: 20px;
 }
 
 .nav button:hover {
