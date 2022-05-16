@@ -151,33 +151,37 @@ const App = () => {
 
   useEffect(async () => {
     textarea.current.focus();
-    window.APP.init().then(() => {
-      await navigator.serviceWorker.addEventListener("message", (event) => {
-        switch (event.data.action) {
-          case ACTIONS.RELOAD_DATA: {
-            setStaled(event.data.key);
-            break;
+    window.APP.init()
+      .then((reg) => {
+        navigator.serviceWorker.addEventListener("message", (event) => {
+          switch (event.data.action) {
+            case ACTIONS.RELOAD_DATA: {
+              setStaled(event.data.key);
+              break;
+            }
+            case ACTIONS.UPDATE_AVAILABLE: {
+              if (window.APP.newServiceWorker) setUpdateAvailable(true);
+              break;
+            }
+            case ACTIONS.REINSTALL: {
+              localStorage.removeItem("notFirst");
+              window.APP.registration
+                .unregister()
+                .then(() => window.location.reload());
+              break;
+            }
+            case ACTIONS.VERSION: {
+              console.log(event.data);
+              setVersion(event.data.version);
+              break;
+            }
           }
-          case ACTIONS.UPDATE_AVAILABLE: {
-            if (window.APP.newServiceWorker) setUpdateAvailable(true);
-            break;
-          }
-          case ACTIONS.REINSTALL: {
-            localStorage.removeItem("notFirst");
-            window.APP.registration
-              .unregister()
-              .then(() => window.location.reload());
-            break;
-          }
-          case ACTIONS.VERSION: {
-            console.log(event.data)
-            setVersion(event.data.version);
-            break;
-          }
-        }
+        });
+        return reg;
+      })
+      .then((reg) => {
+        window.APP.sendMessage({ action: ACTIONS.VERSION });
       });
-      window.APP.sendMessage({ action: ACTIONS.VERSION });
-    });
   }, []);
 
   useEffect(() => {
