@@ -175,7 +175,6 @@ const App = () => {
           }
         }
       });
-      window.APP.sendMessage({ action: ACTIONS.VERSION });
     });
   }, []);
 
