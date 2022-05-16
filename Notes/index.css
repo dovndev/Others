@@ -179,6 +179,9 @@ button {
 .version {
   user-select: text;
   padding: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .nav button:hover {

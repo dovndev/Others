@@ -171,7 +171,6 @@ const App = () => {
               break;
             }
             case ACTIONS.VERSION: {
-              console.log(event.data);
               setVersion(event.data.version);
               break;
             }
