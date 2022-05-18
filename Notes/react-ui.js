@@ -137,7 +137,7 @@ const App = () => {
     false,
     stale
   );
-  const [isNote, setIsNote] = useState(true);
+  const [isNote, setIsNote] = useState(false);
   const [alert, setAlert] = useState("");
   const [undo, setUndo] = useState(false);
   const [editing, setEditing] = useState(false);
