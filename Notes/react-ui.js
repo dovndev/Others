@@ -185,7 +185,6 @@ const App = () => {
   useEffect(() => {
     setIsNote(!/^\s*$/g.test(newNote));
     updateInputSize();
-    console.log(newNote);
     textarea.current.focus();
   }, [newNote]);
 
