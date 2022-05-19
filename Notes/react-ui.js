@@ -439,7 +439,7 @@ const App = () => {
             ref={textarea}
             value={newNote}
             onChange={handleChange}
-            autoFocus={true}
+            autofocus="true"
           ></textarea>
           <span className="placeholder">Type a note</span>
           <button
