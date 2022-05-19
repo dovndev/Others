@@ -180,6 +180,7 @@ const App = () => {
       .then((reg) => {
         window.APP.sendMessage({ action: ACTIONS.VERSION });
       });
+    textarea.current.focus();
   }, []);
 
   useEffect(() => {
@@ -187,6 +188,10 @@ const App = () => {
     updateInputSize();
     textarea.current.focus();
   }, [newNote]);
+
+  useEffect(() => {
+    textarea.current.focus();
+  }, [textarea.current]);
 
   useEffect(() => {
     if (undoTimeoutRef.current) clearTimeout(undoTimeoutRef.current);
@@ -274,7 +279,6 @@ const App = () => {
       );
       setEditing(false);
       setAlert("Note edited");
-      textarea.current.focus();
     } else return;
   }, [isNote, newNote, textarea.current, notes]);
 
@@ -290,7 +294,6 @@ const App = () => {
         ...notes,
       ]);
       setNewNote("");
-      textarea.current.focus();
     } else return;
   }, [isNote, newNote, textarea.current, notes]);
 
@@ -439,7 +442,6 @@ const App = () => {
             ref={textarea}
             value={newNote}
             onChange={handleChange}
-            autofocus="true"
           ></textarea>
           <span className="placeholder">Type a note</span>
           <button
