@@ -150,7 +150,6 @@ const App = () => {
   const undoTimeoutRef = useRef();
 
   useEffect(async () => {
-    textarea.current.focus();
     window.APP.init()
       .then((reg) => {
         navigator.serviceWorker.addEventListener("message", (event) => {
@@ -184,8 +183,10 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+    textarea.current.focus();
     setIsNote(!/^\s*$/g.test(newNote));
     updateInputSize();
+    console.log(newNote);
   }, [newNote]);
 
   useEffect(() => {
