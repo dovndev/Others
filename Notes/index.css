@@ -348,7 +348,7 @@ textarea:focus ~ .placeholder,
   overflow-y: auto;
 }
 .container::-webkit-scrollbar {
-  width: 8px;
+  width: 4px;
 }
 .container::-webkit-scrollbar-track {
   background-color: transparent;
