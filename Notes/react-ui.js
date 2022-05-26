@@ -98,7 +98,7 @@ const Note = ({
           } else return <>{content.body}</>;
         })}
       </p>
-      <div className="actions">
+      <div className={`actions${editing === id ? " open" : ""}`}>
         <button
           title="Copy"
           onClick={async () => {
