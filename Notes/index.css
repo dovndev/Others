@@ -470,7 +470,7 @@ textarea:focus ~ .placeholder,
   white-space: pre-wrap;
 }
 
-.note .completed p {
+.note.completed p {
   text-decoration: line-through;
 }
 
@@ -513,7 +513,7 @@ textarea:focus ~ .placeholder,
   background-color: crimson;
 }
 
-.editing {
+.edit.editing {
   background-color: crimson;
 }
 
@@ -521,7 +521,7 @@ textarea:focus ~ .placeholder,
   background-color: rgb(43, 248, 53);
 }
 
-.button .completed {
+.mark.completed {
   background-color: crimson;
 }
 
