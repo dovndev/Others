@@ -436,7 +436,7 @@ textarea:focus ~ .placeholder,
   max-width: 95%;
   display: flex;
   justify-content: space-between;
-  border-radius: 10px;
+  border-radius: 5px;
   transition: scale ease 0.4s;
   transform-origin: top center;
   position: relative;
