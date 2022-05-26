@@ -98,37 +98,39 @@ const Note = ({
           } else return <>{content.body}</>;
         })}
       </p>
-      <div className={`actions${editing === id ? " open" : ""}`}>
-        <button title="Copy" onClick={() => copyNote(id)} class="button">
-          <img src="/Others/Notes/icons/copy.svg" />
-        </button>
-        <button
-          title={completed ? "Mark as not done" : "Mark as done"}
-          onClick={() => handleEdit(id)}
-          class={`button mark${completed ? " completed" : ""}`}
-        >
-          {completed ? (
-            <img src="/Others/Notes/icons/close.svg" />
-          ) : (
-            <img src="/Others/Notes/icons/check.svg" />
-          )}
-        </button>
-        <button
-          onClick={
-            editing === id ? () => setEditing(false) : () => setEditing(id)
-          }
-          className={`button edit${editing === id ? " editing" : ""}`}
-          title={editing === id ? "Stop editing" : "Edit"}
-        >
-          <img src="/Others/Notes/icons/pen.svg" />
-        </button>
-        <button
-          onClick={(e) => handleDelete(e, id)}
-          className="button delete"
-          title="Delete"
-        >
-          <img src="/Others/Notes/icons/bin.svg" />
-        </button>
+      <div className="cont">
+        <div className={`actions${editing === id ? " open" : ""}`}>
+          <button title="Copy" onClick={() => copyNote(id)} class="button">
+            <img src="/Others/Notes/icons/copy.svg" />
+          </button>
+          <button
+            title={completed ? "Mark as not done" : "Mark as done"}
+            onClick={() => handleEdit(id)}
+            class={`button mark${completed ? " completed" : ""}`}
+          >
+            {completed ? (
+              <img src="/Others/Notes/icons/close.svg" />
+            ) : (
+              <img src="/Others/Notes/icons/check.svg" />
+            )}
+          </button>
+          <button
+            onClick={
+              editing === id ? () => setEditing(false) : () => setEditing(id)
+            }
+            className={`button edit${editing === id ? " editing" : ""}`}
+            title={editing === id ? "Stop editing" : "Edit"}
+          >
+            <img src="/Others/Notes/icons/pen.svg" />
+          </button>
+          <button
+            onClick={(e) => handleDelete(e, id)}
+            className="button delete"
+            title="Delete"
+          >
+            <img src="/Others/Notes/icons/bin.svg" />
+          </button>
+        </div>
       </div>
     </div>
   );

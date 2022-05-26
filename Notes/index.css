@@ -453,7 +453,16 @@ textarea:focus ~ .placeholder,
   transition: 0.1s;
 }
 
-.note:hover .actions, .note .actions.open {
+.note .cont {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  border-radius: 5px;
+}
+
+.note:hover .actions,
+.note .actions.open {
   height: 40px;
 }
 
