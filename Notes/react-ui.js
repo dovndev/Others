@@ -102,14 +102,18 @@ const Note = ({
           }}
           class="button"
         >
-          {completed ? "✕" : "✓"}
+          <img src="/Others/Notes/icons/copy.svg" />
         </button>
         <button
           title={completed ? "Mark as not done" : "Mark as done"}
           onClick={() => handleEdit(id)}
           class={`button mark${completed ? " completed" : ""}`}
         >
-          {completed ? "✕" : "✓"}
+          {completed ? (
+            <img src="/Others/Notes/icons/close.svg" />
+          ) : (
+            <img src="/Others/Notes/icons/check.svg" />
+          )}
         </button>
         <button
           onClick={
@@ -125,7 +129,7 @@ const Note = ({
           className="button delete"
           title="Delete"
         >
-          ✕
+          <img src="/Others/Notes/icons/close.svg" />
         </button>
       </div>
     </div>

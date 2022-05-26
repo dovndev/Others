@@ -1,4 +1,4 @@
-const version = 1.018;
+const version = 1.019;
 const staticCacheKey = `shell-assets-version-${version}`;
 const dynamicCacheKey = `extra-assets-version-${version}`;
 const dynamicCacheLimit = 15;
@@ -13,6 +13,7 @@ const shellAssets = [
   "/Others/Notes/icons/close.svg",
   "/Others/Notes/icons/copy.svg",
   "/Others/Notes/icons/pen.svg",
+  "/Others/Notes/icons/bin.svg",
   "https://unpkg.com/@babel/standalone/babel.min.js",
   "https://unpkg.com/react@17/umd/react.production.min.js",
   "https://unpkg.com/react-dom@17/umd/react-dom.production.min.js",
