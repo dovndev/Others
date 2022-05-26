@@ -312,7 +312,7 @@ const App = () => {
       if (editing === id) setEditing(false);
       setNotes(
         notes.map((i) => {
-          if (i.id === editing) {
+          if (i.id === id) {
             return {
               ...i,
               deleted: true,
