@@ -69,7 +69,7 @@ const Note = ({
   handleDelete,
   setEditing,
   editing,
-  setAlert,
+  copyNote,
 }) => {
   const { id, completed } = note;
   return (
@@ -99,14 +99,7 @@ const Note = ({
         })}
       </p>
       <div className={`actions${editing === id ? " open" : ""}`}>
-        <button
-          title="Copy"
-          onClick={async () => {
-            await window.APP.copyToClipBoard(arrayToString(note.body));
-            setAlert("Copied note ✓");
-          }}
-          class="button"
-        >
+        <button title="Copy" onClick={() => copyNote(id)} class="button">
           <img src="/Others/Notes/icons/copy.svg" />
         </button>
         <button
@@ -370,6 +363,16 @@ const App = () => {
     }
   }, [SetNotes]);
 
+  const copyNote = useCallback(
+    async (id) => {
+      await window.APP.copyToClipBoard(
+        arrayToString(notes.find((i) => i.id === id).body)
+      );
+      setAlert("Copied note ✓");
+    },
+    [notes]
+  );
+
   const reInstall = useCallback(() => {
     if (confirm("Reinstall Notebook")) {
       window.APP.sendMessage({
@@ -484,7 +487,7 @@ const App = () => {
                 handleDelete={handleDelete}
                 setEditing={setEditing}
                 editing={editing}
-                setAlert={setAlert}
+                copyNote={copyNote}
               />
             ))
           ) : (
