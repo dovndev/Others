@@ -73,7 +73,12 @@ const Note = ({
 }) => {
   const { id, completed } = note;
   return (
-    <div className={note.new ? "note enter-anim" : "note"} key={id}>
+    <div
+      className={`note${note.new ? " enter-anim" : ""}${
+        completed ? " completed" : ""
+      }`}
+      key={id}
+    >
       <p>
         {note.body.map((content) => {
           if (showLinks) {
@@ -129,7 +134,7 @@ const Note = ({
           className="button delete"
           title="Delete"
         >
-          <img src="/Others/Notes/icons/close.svg" />
+          <img src="/Others/Notes/icons/bin.svg" />
         </button>
       </div>
     </div>

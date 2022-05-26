@@ -55,14 +55,17 @@ button {
     opacity: 1;
   }
 }
+
 .preloader {
   font-size: 20px;
   color: inherit;
 }
+
 .preloader::after {
   content: "";
   animation: load 2s infinite normal;
 }
+
 @keyframes load {
   0% {
     content: "";
@@ -77,15 +80,18 @@ button {
     content: "...";
   }
 }
+
 .html {
   justify-content: flex-start;
   animation: start 0.7s ease-in-out;
   max-width: 800px;
 }
+
 .header-cont {
   padding: 10px;
   width: 100%;
 }
+
 .header {
   display: flex;
   justify-content: center;
@@ -101,6 +107,7 @@ button {
   background-color: var(--box);
   border-radius: 5px;
 }
+
 .header p {
   color: white;
   font-size: 20px;
@@ -108,6 +115,7 @@ button {
   margin: 0px 20px;
   margin-right: auto;
 }
+
 .header button {
   height: 100%;
   width: 50px;
@@ -138,6 +146,7 @@ button {
   transition: 0.2s;
   z-index: 2;
 }
+
 .nav-cont-show,
 .nav-cont:focus-within {
   opacity: 1;
@@ -157,13 +166,16 @@ button {
   box-shadow: var(--boxShadow);
   z-index: 3;
 }
+
 .dark .nav {
   background-color: var(--background);
 }
+
 .nav-show,
 .nav:focus-within {
   transform: translateX(0px);
 }
+
 .nav button {
   width: 100%;
   text-align: left;
@@ -212,6 +224,7 @@ button {
   margin: 20px 0px;
   position: relative;
 }
+
 textarea {
   border: 2px groove var(--lightBorder);
   outline: none;
@@ -228,34 +241,43 @@ textarea {
   background-color: var(--background);
   color: var(--text);
 }
+
 .notextarea:hover {
   border: 2px solid rgba(0, 0, 0, 0.4);
 }
+
 .dark .notextarea:hover {
   border: 2px solid #9d9d9d;
 }
+
 .notextarea:focus:hover,
 textarea:focus {
   border: 2px solid var(--theme);
 }
+
 .textarea {
   border-radius: 5px 0px 0px 5px;
   border-right: 0px solid transparent !important;
 }
+
 .notextarea {
   border-radius: 5px;
 }
+
 textarea::-webkit-scrollbar,
 textarea::-webkit-scrollbar-track {
   width: 2px;
 }
+
 textarea::-webkit-scrollbar-track {
   background-color: transparent;
   border-radius: 20px;
 }
+
 textarea::-webkit-scrollbar-thumb {
   background-color: var(--theme);
 }
+
 .placeholder {
   pointer-events: none;
   position: absolute;
@@ -268,6 +290,7 @@ textarea::-webkit-scrollbar-thumb {
   top: 50%;
   left: 10px;
 }
+
 textarea:focus ~ .placeholder,
 .textarea ~ .placeholder {
   font-size: 14px;
@@ -277,6 +300,7 @@ textarea:focus ~ .placeholder,
   background-color: var(--background);
   color: var(--theme);
 }
+
 .form button {
   color: white;
   border: 2px solid var(--theme);
@@ -292,13 +316,16 @@ textarea:focus ~ .placeholder,
   font-size: 20px;
   word-break: keep-all;
 }
+
 .save {
   width: 70px;
 }
+
 .nosave {
   width: 0px;
   border: none !important;
 }
+
 .form button span {
   font-size: 20px;
   color: white;
@@ -348,20 +375,25 @@ textarea:focus ~ .placeholder,
   height: 100%;
   overflow-y: auto;
 }
+
 .container::-webkit-scrollbar {
   width: 4px;
 }
+
 .container::-webkit-scrollbar-track {
   background-color: transparent;
   border-radius: 20px;
 }
+
 .container::-webkit-scrollbar-thumb {
   background-color: var(--theme);
   border-radius: 5px;
 }
+
 .enter-anim {
   animation: enter 0.4s ease;
 }
+
 .delete-anim {
   animation: remove 0.51s ease-out;
 }
@@ -396,6 +428,7 @@ textarea:focus ~ .placeholder,
     opacity: 0;
   }
 }
+
 .note {
   color: inherit;
   margin: 10px 0px;
@@ -420,6 +453,7 @@ textarea:focus ~ .placeholder,
   transform: translateY(-100%);
   transition: 0.1s;
 }
+
 .note:hover .actions {
   transform: translateY(0px);
 }
@@ -435,22 +469,27 @@ textarea:focus ~ .placeholder,
   word-break: break-all;
   white-space: pre-wrap;
 }
-.completed + p {
+
+.note .completed p {
   text-decoration: line-through;
 }
+
 .note p::selection {
   color: white;
   background-color: var(--theme);
 }
+
 .note p a {
   user-select: text;
   color: var(--theme);
   text-decoration: none;
 }
+
 .note p a:focus,
 .note p a:hover {
   text-decoration: underline;
 }
+
 .button {
   width: 40px;
   height: 40px;
@@ -458,38 +497,34 @@ textarea:focus ~ .placeholder,
   background-color: var(--theme);
   padding: 0;
   margin: 0;
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-right: 1px solid var(--background);
+}
+
+.button img {
+  width: 24px;
+  height: 24px;
 }
 
 .delete {
   border-right: none;
-}
-
-.edit {
-  border-radius: 0px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: crimson;
 }
 
 .editing {
   background-color: crimson;
 }
 
-.edit img {
-  height: 20px;
-  width: auto;
-}
 .mark {
   background-color: rgb(43, 248, 53);
-  font-size: 25px;
 }
-.completed {
+
+.button .completed {
   background-color: crimson;
 }
+
 .nonotes {
   font-size: 20px;
   color: inherit;
