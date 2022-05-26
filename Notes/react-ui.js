@@ -75,8 +75,8 @@ const Note = ({
   return (
     <div
       className={`note${note.new ? " enter-anim" : ""}${
-        completed ? " completed" : ""
-      }`}
+        note.deleted ? " delete-anim" : ""
+      }${completed ? " completed" : ""}`}
       key={id}
     >
       <p>
@@ -314,8 +314,18 @@ const App = () => {
 
   const handleDelete = useCallback(
     (e, id) => {
-      e.target.parentNode.classList.add("delete-anim");
       if (editing === id) setEditing(false);
+      setNotes(
+        notes.map((i) => {
+          if (i.id === editing) {
+            return {
+              ...i,
+              deleted: true,
+            };
+          }
+          return i;
+        })
+      );
       setTimeout(() => {
         SetNotes(
           notes.filter((note) => note.id !== id),
