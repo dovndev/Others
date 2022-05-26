@@ -47,6 +47,10 @@ button {
   cursor: pointer;
 }
 
+img {
+  -webkit-user-drag: none;
+}
+
 @keyframes start {
   0% {
     opacity: 0;
