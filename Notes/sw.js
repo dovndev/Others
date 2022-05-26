@@ -1,6 +1,6 @@
-const version = 1.017;
-const staticCacheKey = `site-shell-assets-v-${version}`;
-const dynamicCacheKey = `site-dynamic-assets-v-${version}`;
+const version = 1.018;
+const staticCacheKey = `shell-assets-version-${version}`;
+const dynamicCacheKey = `extra-assets-version-${version}`;
 const dynamicCacheLimit = 15;
 let selfUpdateTimeout;
 const shellAssets = [
@@ -8,6 +8,10 @@ const shellAssets = [
   "/Others/Notes/react-ui.js",
   "/Others/Notes/app.js",
   "/Others/Notes/index.css",
+  "/Others/Notes/icons/menu.svg",
+  "/Others/Notes/icons/check.svg",
+  "/Others/Notes/icons/close.svg",
+  "/Others/Notes/icons/copy.svg",
   "/Others/Notes/icons/pen.svg",
   "https://unpkg.com/@babel/standalone/babel.min.js",
   "https://unpkg.com/react@17/umd/react.production.min.js",

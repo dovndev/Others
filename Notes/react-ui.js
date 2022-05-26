@@ -74,20 +74,7 @@ const Note = ({
   const { id, completed } = note;
   return (
     <div className={note.new ? "note enter-anim" : "note"} key={id}>
-      <button
-        title={completed ? "Mark as not done" : "Mark as done"}
-        onClick={() => handleEdit(id)}
-        class={`button mark${completed ? " completed" : ""}`}
-      >
-        {completed ? "✕" : "✓"}
-      </button>
-      <p
-        title="Double click to copy note"
-        onDoubleClick={async () => {
-          await window.APP.copyToClipBoard(arrayToString(note.body));
-          setAlert("Copied note ✓");
-        }}
-      >
+      <p>
         {note.body.map((content) => {
           if (showLinks) {
             if (content.type === "text") return <>{content.body}</>;
@@ -106,22 +93,41 @@ const Note = ({
           } else return <>{content.body}</>;
         })}
       </p>
-      <button
-        onClick={
-          editing === id ? () => setEditing(false) : () => setEditing(id)
-        }
-        className={`button edit${editing === id ? " editing" : ""}`}
-        title={editing === id ? "Stop editing" : "Edit"}
-      >
-        <img src="/Others/Notes/icons/pen.svg" />
-      </button>
-      <button
-        onClick={(e) => handleDelete(e, id)}
-        className="button delete"
-        title="Delete"
-      >
-        ✕
-      </button>
+      <div className="actions">
+        <button
+          title="Copy"
+          onClick={async () => {
+            await window.APP.copyToClipBoard(arrayToString(note.body));
+            setAlert("Copied note ✓");
+          }}
+          class="button"
+        >
+          {completed ? "✕" : "✓"}
+        </button>
+        <button
+          title={completed ? "Mark as not done" : "Mark as done"}
+          onClick={() => handleEdit(id)}
+          class={`button mark${completed ? " completed" : ""}`}
+        >
+          {completed ? "✕" : "✓"}
+        </button>
+        <button
+          onClick={
+            editing === id ? () => setEditing(false) : () => setEditing(id)
+          }
+          className={`button edit${editing === id ? " editing" : ""}`}
+          title={editing === id ? "Stop editing" : "Edit"}
+        >
+          <img src="/Others/Notes/icons/pen.svg" />
+        </button>
+        <button
+          onClick={(e) => handleDelete(e, id)}
+          className="button delete"
+          title="Delete"
+        >
+          ✕
+        </button>
+      </div>
     </div>
   );
 };
@@ -361,12 +367,7 @@ const App = () => {
           <div className="header">
             <p>Notebook</p>
             <button onClick={() => setNav(!nav)} title="Menu">
-              <svg viewBox="0 0 24 24">
-                <path
-                  fill="white"
-                  d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
-                ></path>
-              </svg>
+              <img src="/Others/Notes/icons/menu.svg" />
             </button>
           </div>
         </div>
