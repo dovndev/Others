@@ -75,8 +75,8 @@ const Note = ({
   return (
     <div
       className={`note${note.new ? " enter-anim" : ""}${
-        note.deleted ? " delete-anim" : ""
-      }${completed ? " completed" : ""}`}
+        completed ? " completed" : ""
+      }`}
       key={id}
     >
       <p>
@@ -136,6 +136,15 @@ const Note = ({
   );
 };
 
+const CheckBox = ({ checked }) => {
+  return (
+    <img
+      src="/Others/Notes/icons/check.svg"
+      className={`checkbox ${checked ? "checked" : ""}`}
+    />
+  );
+};``
+
 const App = () => {
   const stale = useState("");
   const [staled, setStaled] = stale;
@@ -187,7 +196,7 @@ const App = () => {
         });
         return reg;
       })
-      .then((reg) => {
+      .then(() => {
         window.APP.sendMessage({ action: ACTIONS.VERSION });
       });
     textarea.current.focus();
@@ -309,24 +318,16 @@ const App = () => {
 
   const handleDelete = useCallback(
     (e, id) => {
+      const elm = e.target.parentElement.parentElement.parentElement;
+      elm.style.height = window.getComputedStyle(elm).height;
+      elm.classList.add("delete-anim");
       if (editing === id) setEditing(false);
-      setNotes(
-        notes.map((i) => {
-          if (i.id === id) {
-            return {
-              ...i,
-              deleted: true,
-            };
-          }
-          return i;
-        })
-      );
       setTimeout(() => {
         SetNotes(
           notes.filter((note) => note.id !== id),
           "Note deleted"
         );
-      }, 500);
+      }, 400);
     },
     [notes, editing, undoTimeoutRef.current, SetNotes]
   );
@@ -405,13 +406,16 @@ const App = () => {
         >
           <div className={nav ? "nav nav-show" : "nav"}>
             <button onClick={() => setEnterSend(!enterSend)}>
-              'Enter' key is save {enterSend && "✓"}
+              <CheckBox checked={enterSend} />
+              'Enter' key is save
             </button>
             <button onClick={() => setShowLinks(!showLinks)}>
-              Show Url's as Links {showLinks && "✓"}
+              <CheckBox checked={showLinks} />
+              Show Url's as Links
             </button>
             <button onClick={() => setTheme(!theme)}>
-              Dark theme {!theme && "✓"}
+              <CheckBox checked={!theme} />
+              Dark theme
             </button>
             <button onClick={removeall}>Delete All Notes</button>
             <button onClick={reInstall}>Reinstall Notebook</button>
