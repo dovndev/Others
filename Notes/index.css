@@ -432,18 +432,10 @@ textarea:focus ~ .placeholder,
   position: absolute;
   display: flex;
   right: 0px;
-  border-radius: 0px 5px 0px 5px;
+  border-radius: 5px;
   overflow: hidden;
   height: 0px;
   transition: 0.1s;
-}
-
-.note .cont {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  position: absolute;
-  border-radius: 5px;
 }
 
 .note:hover .actions,
@@ -484,19 +476,27 @@ textarea:focus ~ .placeholder,
 }
 
 .checkbox {
-
+  border: 2px solid var(--lightBorder);
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
 }
 
 .checkbox.checked {
-  
+  border: 2px solid var(--theme);
+  background-color: var(--theme);
 }
 
 .checkbox img {
-
+  width: 20px;
+  height: 20px;
+  opacity: 0;
 }
 
 .checkbox.checked img {
-
+  opacity: 1;
 }
 
 .button {
