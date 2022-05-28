@@ -399,12 +399,12 @@ textarea:focus ~ .placeholder,
 }
 
 .delete-anim {
-  transform: scaleX(0);
+  transform: scaleY(0);
   margin: 0px !important;
 }
 
 .delete-anim p {
-  padding: 0px;
+  padding: 0px !important;
 }
 
 @keyframes enter {
