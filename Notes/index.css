@@ -165,7 +165,7 @@ img {
   width: 75%;
   max-width: 250px;
   transform: translateX(250px);
-  background-color: var(--theme);
+  background-color: #00366c;
   transition: 0.2s;
   box-shadow: var(--boxShadow);
   z-index: 3;
@@ -185,7 +185,7 @@ img {
   text-align: left;
   padding: 10px 15px;
   margin: 10px 0px;
-  display: block;
+  display: flex;
   font-size: 20px;
   color: white;
   background-color: transparent;
@@ -210,13 +210,11 @@ img {
 }
 
 .nav button:focus {
-  background-color: white;
-  color: black;
+  background-color: #506e93;
 }
 
 .dark .nav button:focus {
-  background-color: var(--theme);
-  color: white;
+  background-color: #1a3b69;
 }
 
 .form {
@@ -476,7 +474,7 @@ textarea:focus ~ .placeholder,
 }
 
 .checkbox {
-  border: 2px solid var(--lightBorder);
+  border: 2px solid #bdbdbd3b;
   border-radius: 3px;
   display: flex;
   justify-content: center;
