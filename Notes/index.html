@@ -115,7 +115,6 @@
       sizes="72x72"
     />
 
-
     <!-- iOS  -->
     <link href="icons/icon-72x72.png" rel="apple-touch-icon" />
     <link href="icons/icon-72x72.png" rel="apple-touch-icon" sizes="72x72" />
@@ -167,6 +166,12 @@
     <div id="root" class="root">
       <span class="preloader">Loading</span>
     </div>
+    <script>
+      const theme = JSON.parse(localStorage.getItem("Theme-React"));
+      if (!theme) {
+        document.getElementById("root").classList.add("dark");
+      }
+    </script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script
       crossorigin

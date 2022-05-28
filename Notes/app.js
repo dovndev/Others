@@ -1,11 +1,6 @@
-const theme = JSON.parse(localStorage.getItem("Theme-React"));
 const notFirst = JSON.parse(localStorage.getItem("notFirst")) || false;
 
 if (!notFirst) localStorage.setItem("notFirst", true);
-
-if (theme !== null && theme === false) {
-  document.getElementById("root").classList.add("dark");
-}
 
 sessionStorage.clear();
 localStorage.removeItem("FirstInstall");
