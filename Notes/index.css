@@ -6,6 +6,7 @@
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   user-select: none;
   transition: 0.1s;
+  -webkit-tap-highlight-color: transparent;
 }
 
 :root {
