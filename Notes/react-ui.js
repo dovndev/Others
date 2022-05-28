@@ -62,6 +62,14 @@ const useLocalStorage = (key, initialvalue, stale) => {
   return [value, setvalue, refresh];
 };
 
+const Check = () => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+      <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+    </svg>
+  );
+};
+
 const Note = ({
   showLinks,
   note,
@@ -76,7 +84,7 @@ const Note = ({
     <div
       className={`note${note.new ? " enter-anim" : ""}${
         completed ? " completed" : ""
-      }${note.deleted ? " delete-anim" : ""}`}
+      }`}
       key={id}
     >
       <p>
@@ -100,7 +108,13 @@ const Note = ({
       </p>
       <div className={`actions${editing === id ? " open" : ""}`}>
         <button title="Copy" onClick={() => copyNote(id)} class="button">
-          <img src="/Others/Notes/icons/copy.svg" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="white"
+          >
+            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+          </svg>
         </button>
         <button
           title={completed ? "Mark as not done" : "Mark as done"}
@@ -108,9 +122,15 @@ const Note = ({
           class={`button mark${completed ? " completed" : ""}`}
         >
           {completed ? (
-            <img src="/Others/Notes/icons/close.svg" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="white"
+            >
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+            </svg>
           ) : (
-            <img src="/Others/Notes/icons/check.svg" />
+            <Check />
           )}
         </button>
         <button
@@ -120,14 +140,26 @@ const Note = ({
           className={`button edit${editing === id ? " editing" : ""}`}
           title={editing === id ? "Stop editing" : "Edit"}
         >
-          <img src="/Others/Notes/icons/pen.svg" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="white"
+          >
+            <path d="M3.95 16.7v3.4h3.4l9.8-9.9-3.4-3.4-9.8 9.9zm15.8-9.1c.4-.4.4-.9 0-1.3l-2.1-2.1c-.4-.4-.9-.4-1.3 0l-1.6 1.6 3.4 3.4 1.6-1.6z" />
+          </svg>
         </button>
         <button
           onClick={(e) => handleDelete(e, id)}
           className="button delete"
           title="Delete"
         >
-          <img src="/Others/Notes/icons/bin.svg" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="white"
+          >
+            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+          </svg>
         </button>
       </div>
     </div>
@@ -137,7 +169,7 @@ const Note = ({
 const CheckBox = ({ checked }) => {
   return (
     <span className={checked ? "checkbox checked" : "checkbox"}>
-      <img src="/Others/Notes/icons/check.svg" />
+      <Check />
     </span>
   );
 };
@@ -318,13 +350,9 @@ const App = () => {
     (e, id) => {
       const elm = e.target.parentElement.parentElement;
       elm.style.height = window.getComputedStyle(elm).height;
+      elm.style.overflow = "hidden";
+      elm.style.height = "0px";
       if (editing === id) setEditing(false);
-      setNotes(
-        notes.map((i) => {
-          if (i.id === id) return { ...i, deleted: true };
-          return i;
-        })
-      );
       setTimeout(() => {
         SetNotes(
           notes.filter((note) => note.id !== id),
@@ -395,7 +423,13 @@ const App = () => {
           <div className="header">
             <p>Notebook</p>
             <button onClick={() => setNav(!nav)} title="Menu">
-              <img src="/Others/Notes/icons/menu.svg" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="white"
+              >
+                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+              </svg>
             </button>
           </div>
         </div>
