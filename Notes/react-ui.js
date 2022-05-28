@@ -316,6 +316,8 @@ const App = () => {
 
   const handleDelete = useCallback(
     (e, id) => {
+      const elm = e.target.parentElement.parentElement;
+      elm.style.height = window.getComputedStyle(elm).height;
       if (editing === id) setEditing(false);
       setNotes(
         notes.map((i) => {

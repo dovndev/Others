@@ -398,7 +398,11 @@ textarea:focus ~ .placeholder,
 }
 
 .delete-anim {
-  transform: scale(0.4);
+  padding: 0px;
+  height: 0px;
+  margin: 0px;
+  border-width: 0px;
+  overflow: hidden;
 }
 
 @keyframes enter {
@@ -435,7 +439,8 @@ textarea:focus ~ .placeholder,
 }
 
 .note:hover .actions,
-.note .actions.open {
+.note .actions.open,
+.note .actions:focus-within {
   height: 40px;
 }
 
