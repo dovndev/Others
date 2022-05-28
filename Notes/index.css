@@ -483,6 +483,22 @@ textarea:focus ~ .placeholder,
   text-decoration: underline;
 }
 
+.checkbox {
+
+}
+
+.checkbox.checked {
+  
+}
+
+.checkbox img {
+
+}
+
+.checkbox.checked img {
+
+}
+
 .button {
   width: 40px;
   height: 40px;

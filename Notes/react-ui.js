@@ -138,12 +138,12 @@ const Note = ({
 
 const CheckBox = ({ checked }) => {
   return (
-    <img
-      src="/Others/Notes/icons/check.svg"
-      className={`checkbox ${checked ? "checked" : ""}`}
-    />
+    <span className={checked ? "checkbox" : "checkbox checked"}>
+      <img src="/Others/Notes/icons/check.svg" />
+    </span>
   );
-};``
+};
+``;
 
 const App = () => {
   const stale = useState("");
@@ -406,16 +406,16 @@ const App = () => {
         >
           <div className={nav ? "nav nav-show" : "nav"}>
             <button onClick={() => setEnterSend(!enterSend)}>
-              <CheckBox checked={enterSend} />
               'Enter' key is save
+              <CheckBox checked={enterSend} />
             </button>
             <button onClick={() => setShowLinks(!showLinks)}>
-              <CheckBox checked={showLinks} />
               Show Url's as Links
+              <CheckBox checked={showLinks} />
             </button>
             <button onClick={() => setTheme(!theme)}>
-              <CheckBox checked={!theme} />
               Dark theme
+              <CheckBox checked={!theme} />
             </button>
             <button onClick={removeall}>Delete All Notes</button>
             <button onClick={reInstall}>Reinstall Notebook</button>
