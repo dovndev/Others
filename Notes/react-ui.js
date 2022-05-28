@@ -83,8 +83,8 @@ const Note = ({
   return (
     <div
       className={`note${note.new ? " enter-anim" : ""}${
-        completed ? " completed" : ""
-      }`}
+        note.deleted ? " delete-anim" : ""
+      }${completed ? " completed" : ""}`}
       key={id}
     >
       <p>
@@ -348,11 +348,13 @@ const App = () => {
 
   const handleDelete = useCallback(
     (e, id) => {
-      const elm = e.target.parentElement.parentElement;
-      elm.style.height = window.getComputedStyle(elm).height;
-      elm.style.overflow = "hidden";
-      elm.style.height = "0px";
       if (editing === id) setEditing(false);
+      setNotes(
+        notes.map((i) => {
+          if (i.id === id) return { ...i, deleted: true };
+          return i;
+        })
+      );
       setTimeout(() => {
         SetNotes(
           notes.filter((note) => note.id !== id),
