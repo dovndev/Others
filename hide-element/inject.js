@@ -1,56 +1,33 @@
 const storeName = "hider-12222312313123";
+const hiderClass = "__web-inspector-hide-shortcut__"
 let clickedEl = null;
 let savedHider = JSON.parse(localStorage.getItem(storeName)) || [];
 let hidedEl = [];
 let nohider = [];
-
-const addTohidedEl = (element) => {
-  const { opacity, zIndex, pointerEvents, position } = element.style;
-  const newElement = {
-    element: element,
-    id: element.id,
-    style: { opacity, zIndex, pointerEvents, position },
-  };
-  hidedEl = [...hidedEl, newElement];
-};
 
 const saveHider = () => {
   if (savedHider.length === 0) localStorage.removeItem(storeName);
   else localStorage.setItem(storeName, JSON.stringify(savedHider));
 };
 
-function show({ element, id, style: { opacity, zIndex, pointerEvents, position } }) {
-  element.removeAttribute("hider");
-  element.id = id;
-  element.style.opacity = opacity;
-  element.style.zIndex = zIndex;
-  element.style.pointerEvents = pointerEvents;
-  element.style.position = position;
+function show(element) {
+  element.classList.remove(hiderClass)
 }
 
 function hide(element) {
-  element.setAttribute("hider", "hide-element");
-  element.id = "hider";
-  element.style.opacity = "0";
-  element.style.zIndex = "-100000";
-  element.style.pointerEvents = "none";
-  element.style.position = "absolute";
+  element.classList.add(hiderClass)
 }
 
 function undo() {
   if (hidedEl.length !== 0) {
-    const lastItem = hidedEl[hidedEl.length - 1];
-    show(lastItem);
-    savedHider = savedHider.filter(({ id, innerText }) => {
-      if (id) return lastItem.id !== id;
-      else return lastItem.element.innerText !== innerText;
-    });
+    show(hidedEl[hidedEl.length - 1]);
+    savedHider.pop();
     saveHider();
     hidedEl.pop();
   }
 }
 
-const init = (hider) => {
+const init = (hider, index) => {
   const { id, tagName, innerText } = hider;
   let element;
   if (id) element = document.getElementById(id);
@@ -60,15 +37,12 @@ const init = (hider) => {
       .forEach((elm) => (element = elm));
   }
   if (element) {
-    addTohidedEl(element);
+    hidedEl.push(element)
     hide(element);
   } else {
     hider.count = hider.count ? hider.count + 1 : 1;
     if (hider.count > 10) {
-      savedHider = savedHider.filter(({ id, innerText }) => {
-        if (id) return hider.id !== id;
-        else return hider.innerText !== innerText;
-      });
+      savedHider = savedHider.filter((e,i) => i !== index);
       saveHider();
     } else {
       setTimeout(() => init(hider), 500 * hider.count);
@@ -94,7 +68,7 @@ document.addEventListener("keydown", (e) => {
 
 chrome.runtime.onMessage.addListener((req) => {
   if (req === "hide-element") {
-    addTohidedEl(clickedEl);
+    hidedEl.push(element)
     if (clickedEl.id && clickedEl.id !== "") {
       savedHider.push({ id: clickedEl.id });
       saveHider();
@@ -102,6 +76,11 @@ chrome.runtime.onMessage.addListener((req) => {
       savedHider.push({
         tagName: clickedEl.tagName,
         innerText: clickedEl.innerText,
+      });
+      saveHider();
+    } else {
+      savedHider.push({
+        no_data: true
       });
       saveHider();
     }

@@ -1,5 +1,3 @@
-const ATTEND_MSG = "Joel Joseph Tomy S1 12";
-let attended = true;
 let botON = false;
 let chatOpen;
 let chatInput;
@@ -64,6 +62,7 @@ const init3 = async () => {
     setTimeout(init3, 500);
     return;
   }
+  console.log("chat-bot loading complete");
 
   function updateUsers() {
     participants = Array.from(participantsList.children).map((i) => {
@@ -137,7 +136,6 @@ const init2 = async () => {
   Startbtn.addEventListener("click", () => {
     if (botON == false) {
       if (!confirm("Are you sure you want to Enable Chat Bot")) return;
-      attended = true;
       botON = true;
       sendMessage("Initialised Chat Bot");
       sendMessage(welcomeMsg);
@@ -151,14 +149,10 @@ const init2 = async () => {
 
   mutationObserver = new MutationObserver((entries) => {
     entries.forEach((entry) => {
-      const { children } = entry.addedNodes[0];
-      const sender = children[0].children[0].textContent;
-      if (sender === "You") return;
-      if (!botON) {
-        if (attended) return;
-        attended = true;
-        sendMessage(ATTEND_MSG);
-      } else {
+      if (botON) {
+        const { children } = entry.addedNodes[0];
+        const sender = children[0].children[0].textContent;
+        if (sender === "You") return;
         const message = children[1].children[0].textContent.trim();
         if (message.toLowerCase() === "time") {
           const now = document.querySelector(
