@@ -11,6 +11,7 @@
         padding: 0;
         box-sizing: border-box;
         color: white;
+        transition: all 0.1s;
       }
       html,
       body {
@@ -25,7 +26,7 @@
       h1 {
         text-align: center;
         font-size: 34px;
-        margin: 30px;
+        margin: 10px;
       }
       input {
         border: none;
@@ -35,10 +36,13 @@
         background-color: transparent;
         font-size: 25px;
       }
+      .info {
+        text-align: center;
+      }
       legend {
         font-size: 20px;
       }
-      fieldset {
+      .fieldset {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -48,20 +52,12 @@
         padding: 5px;
         border-radius: 5px;
       }
-      .fieldset1 {
-        width: 10%;
-      }
       label {
         font-size: 20px;
-      }
-      .fieldset2,
-      .fieldset3 {
-        width: 90%;
       }
       .cont {
         width: 100%;
         max-width: 700px;
-        display: flex;
         justify-content: space-around;
         align-items: center;
         margin: 30px;
@@ -69,7 +65,7 @@
       }
       button {
         border: none;
-        border-radius: 10px;
+        border-radius: 5px;
         background-color: rgb(41, 130, 231);
         padding: 8px;
         width: 25%;
@@ -79,27 +75,17 @@
         font-family: sans-serif;
         cursor: pointer;
       }
-      button :hover {
-        background-color: #64a8f5;
+      button:hover {
+        background-color: #1462a3;
       }
     </style>
   </head>
 
   <body>
-    <h1>Account checking<br />Whatsapp</h1>
+    <h1>Account checking Whatsapp</h1>
     <div class="cont">
-      <fieldset class="fieldset1">
-        <legend>country</legend>
-        <label for="country">+</label>
-        <input
-          type="number"
-          name="country"
-          id="country"
-          value="91"
-          placeholder="1"
-        />
-      </fieldset>
-      <fieldset class="fieldset2">
+      <p class="info">Enter number with country code</p>
+      <fieldset class="fieldset">
         <legend>Number</legend>
         <input type="number" name="Number" id="Number" />
       </fieldset>
@@ -107,21 +93,14 @@
     <button onclick="check()">Go check</button>
     <script type="text/javascript" charset="utf-8">
       function check() {
-        let country = document.getElementById("country").value;
         let number = document.getElementById("Number").value;
-        if (country === "") {
-          alert("enter country code");
-        } else if (number === "") {
+        if (number === "") {
           alert("enter phone number");
         } else {
-          if (number.length < 4) {
-            alert("phone number is too small");
-          } else if (number.length > 15) {
-            alert("phone number is too large");
-          } else if (country.length > 5) {
-            alert("country code is too large");
+          if (!number.includes('+')) {
+            alert("put '+' before country code");
           } else {
-            window.open(`https://wa.me/+${country}${number}`, "_blank");
+            window.open(`https://wa.me/${number}`, "_blank");
           }
         }
       }
