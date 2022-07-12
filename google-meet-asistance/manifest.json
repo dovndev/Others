@@ -1,34 +1,24 @@
 {
-    "manifest_version": 3,
-    "name": "Google Meet Asistance",
-    "description": "Asistance for Google Meets, chat bot, rotate presentation, auto attendence, auto leave",
-    "version": "0.1",
-    "content_scripts": [
-        {
-            "matches": [
-                "*://meet.google.com/**-**-**"
-            ],
-            "js": [
-                "inject.js"
-            ],
-            "css": [
-                "inject.css"
-            ]
-        }
-    ],
-    "icons": {
-        "16": "icon-16x16.png",
-        "48": "icon-48x48.png",
-        "128": "icon-128x128.png"
-    },
-    "web_accessible_resources": [
-        {
-            "resources": [
-                "work.js"
-            ],
-            "matches": [
-                "<all_urls>"
-            ]
-        }
-    ]
+  "manifest_version": 3,
+  "name": "Google Meet Asistance",
+  "description": "Asistance for Google Meets, chat bot, rotate presentation, auto attendence, auto leave",
+  "version": "0.1",
+  "content_scripts": [
+    {
+      "matches": ["*://meet.google.com/**-**-**"],
+      "js": ["inject.js"],
+      "css": ["inject.css"]
+    }
+  ],
+  "icons": {
+    "16": "icon-16x16.png",
+    "48": "icon-48x48.png",
+    "128": "icon-128x128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["work.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }
