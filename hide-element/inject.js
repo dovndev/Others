@@ -1,5 +1,5 @@
 const storeName = "hider-12222312313123";
-const hiderClass = "__web-inspector-hide-shortcut__"
+const hiderClass = "__web-inspector-hide-shortcut__";
 let clickedEl = null;
 let savedHider = JSON.parse(localStorage.getItem(storeName)) || [];
 let hidedEl = [];
@@ -11,11 +11,11 @@ const saveHider = () => {
 };
 
 function show(element) {
-  element.classList.remove(hiderClass)
+  element.classList.remove(hiderClass);
 }
 
 function hide(element) {
-  element.classList.add(hiderClass)
+  element.classList.add(hiderClass);
 }
 
 function undo() {
@@ -28,21 +28,25 @@ function undo() {
 }
 
 const init = (hider, index) => {
-  const { id, tagName, innerText } = hider;
+  const { id, tagName, innerText, no_data } = hider;
   let element;
   if (id) element = document.getElementById(id);
-  else {
+  else if (innerText) {
     [...document.querySelectorAll(tagName)]
       .filter((elm) => elm.innerText === innerText)
       .forEach((elm) => (element = elm));
+  } else if (no_data) {
+    savedHider = savedHider.filter((e, i) => i !== index);
+    saveHider();
+    return;
   }
   if (element) {
-    hidedEl.push(element)
+    hidedEl.push(element);
     hide(element);
   } else {
     hider.count = hider.count ? hider.count + 1 : 1;
     if (hider.count > 10) {
-      savedHider = savedHider.filter((e,i) => i !== index);
+      savedHider = savedHider.filter((e, i) => i !== index);
       saveHider();
     } else {
       setTimeout(() => init(hider), 500 * hider.count);
@@ -68,7 +72,8 @@ document.addEventListener("keydown", (e) => {
 
 chrome.runtime.onMessage.addListener((req) => {
   if (req === "hide-element") {
-    hidedEl.push(element)
+    hide(clickedEl);
+    hidedEl.push(clickedEl);
     if (clickedEl.id && clickedEl.id !== "") {
       savedHider.push({ id: clickedEl.id });
       saveHider();
@@ -80,12 +85,9 @@ chrome.runtime.onMessage.addListener((req) => {
       saveHider();
     } else {
       savedHider.push({
-        no_data: true
+        no_data: true,
       });
       saveHider();
     }
-    hide(clickedEl);
-  } else if (req === "show-last-hided-element") {
-    undo();
-  }
+  } else if (req === "undo") undo();
 });
