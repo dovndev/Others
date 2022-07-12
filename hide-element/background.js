@@ -5,7 +5,7 @@ const contextMenuItem1 = {
 };
 
 const contextMenuItem2 = {
-  id: "show-last-hided-element",
+  id: "undu",
   title: "Show last hided element",
   contexts: ["all"],
 };

@@ -1,8 +1,8 @@
 const storeName = "hider-12222312313123";
 const hiderClass = "__web-inspector-hide-shortcut__";
-let clickedEl = null;
+let clickedElm = null;
 let savedHider = JSON.parse(localStorage.getItem(storeName)) || [];
-let hidedEl = [];
+let hidedElms = [];
 let nohider = [];
 
 const saveHider = () => {
@@ -19,44 +19,46 @@ function hide(element) {
 }
 
 function undo() {
-  if (hidedEl.length !== 0) {
-    show(hidedEl[hidedEl.length - 1]);
+  if (hidedElms.length !== 0) {
+    show(hidedElms[hidedElms.length - 1]);
+    hidedElms.pop();
     savedHider.pop();
     saveHider();
-    hidedEl.pop();
   }
 }
 
 const init = (hider, index) => {
-  const { id, tagName, innerText, no_data } = hider;
-  let element;
-  if (id) element = document.getElementById(id);
+  const { id, tagName, innerText } = hider;
+  let element = undefined;
+  if (id) element = document.getElementById(id) || undefined;
   else if (innerText) {
-    [...document.querySelectorAll(tagName)]
-      .filter((elm) => elm.innerText === innerText)
-      .forEach((elm) => (element = elm));
-  } else if (no_data) {
-    savedHider = savedHider.filter((e, i) => i !== index);
-    saveHider();
-    return;
-  }
+    element =
+      [...document.querySelectorAll(tagName)].filter(
+        (elm) => elm.innerText === innerText
+      )[0] || undefined;
+  } else element = null;
   if (element) {
-    hidedEl.push(element);
+    hidedElms.push(element);
     hide(element);
   } else {
-    hider.count = hider.count ? hider.count + 1 : 1;
-    if (hider.count > 10) {
+    if (element === undefined) {
+      hider.count = hider.count ? hider.count + 1 : 1;
+      if (hider.count > 10) {
+        savedHider = savedHider.filter((e, i) => i !== index);
+        saveHider();
+      } else {
+        setTimeout(() => init(hider, index), 500 * hider.count);
+      }
+    } else if (element === null) {
       savedHider = savedHider.filter((e, i) => i !== index);
       saveHider();
-    } else {
-      setTimeout(() => init(hider), 500 * hider.count);
     }
   }
 };
 
 savedHider.forEach(init);
 
-document.addEventListener("contextmenu", (e) => (clickedEl = e.target), true);
+document.addEventListener("contextmenu", (e) => (clickedElm = e.target), true);
 
 document.addEventListener("keydown", (e) => {
   const { tagName, contentEditable } = document.activeElement;
@@ -72,21 +74,19 @@ document.addEventListener("keydown", (e) => {
 
 chrome.runtime.onMessage.addListener((req) => {
   if (req === "hide-element") {
-    hide(clickedEl);
-    hidedEl.push(clickedEl);
-    if (clickedEl.id && clickedEl.id !== "") {
-      savedHider.push({ id: clickedEl.id });
+    hide(clickedElm);
+    hidedElms.push(clickedElm);
+    if (clickedElm.id && clickedElm.id !== "") {
+      savedHider.push({ id: clickedElm.id });
       saveHider();
-    } else if (clickedEl.innerText && clickedEl.innerText !== "") {
+    } else if (clickedElm.innerText && clickedElm.innerText !== "") {
       savedHider.push({
-        tagName: clickedEl.tagName,
-        innerText: clickedEl.innerText,
+        tagName: clickedElm.tagName,
+        innerText: clickedElm.innerText,
       });
       saveHider();
     } else {
-      savedHider.push({
-        no_data: true,
-      });
+      savedHider.push({});
       saveHider();
     }
   } else if (req === "undo") undo();
