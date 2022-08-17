@@ -382,7 +382,7 @@ textarea:focus ~ .placeholder,
 }
 
 .container::-webkit-scrollbar {
-  width: 4px;
+  width: 8px;
 }
 
 .container::-webkit-scrollbar-track {
