@@ -1,4 +1,4 @@
-const version = 1.046;
+const version = 1.047;
 const staticCacheKey = `shell-assets-version-${version}`;
 const dynamicCacheKey = `extra-assets-version-${version}`;
 const dynamicCacheLimit = 15;
@@ -110,6 +110,7 @@ self.addEventListener("message", async (event) => {
 
 // install event
 self.addEventListener("install", (event) => {
+  console.log('install')
   event.waitUntil(
     caches.keys().then((keys) => {
       if (keys.length === 0) {
@@ -122,6 +123,7 @@ self.addEventListener("install", (event) => {
 
 //activate event
 self.addEventListener("activate", (event) => {
+  console.log('activate') 
   event.waitUntil(self.clients.claim());
 });
 

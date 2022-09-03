@@ -185,23 +185,20 @@ img {
 .nav button {
   width: 100%;
   text-align: left;
-  padding: 10px 15px;
-  margin: 10px 0px;
+  padding: 15px 15px;
   display: flex;
   font-size: 20px;
   color: white;
   background-color: transparent;
   outline: none;
+  border-bottom: 1px solid #bdbdbd3b;
 }
 
 .about {
   user-select: text;
-  padding-left: 16px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  padding: 5px 16px;
   color: white;
-}
+}   
 
 .about:first-of-type {
   margin-top: 20px;
@@ -230,9 +227,9 @@ img {
 }
 
 textarea {
-  border: 2px groove var(--lightBorder);
+  border: 2px groove var(--lightBorder);  
   outline: none;
-  line-height: 30px;
+  line-height: 25px;
   height: 50px;
   padding: 10px;
   font-size: 20px;
@@ -451,7 +448,7 @@ textarea:focus ~ .placeholder,
   color: inherit;
   user-select: text;
   font-size: 18px;
-  line-height: 20px;
+  line-height: 22px;
   padding: 10px;
   width: 100%;
   width: 100%;
@@ -545,4 +542,3 @@ textarea:focus ~ .placeholder,
   width: 100%;
   text-align: center;
 }
-
